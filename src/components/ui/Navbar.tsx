@@ -25,13 +25,6 @@ export function Navbar() {
   };
 
   useEffect(() => {
-    latestModeRef.current = navMode;
-    if (navMode !== "compact") {
-      setCompactMenuOpen(false);
-    }
-  }, [navMode]);
-
-  useEffect(() => {
     const updateNavMode = () => {
       const y = window.scrollY;
       const heroEl = document.getElementById("hero");
@@ -45,6 +38,10 @@ export function Navbar() {
       }
 
       if (latestModeRef.current !== targetMode) {
+        latestModeRef.current = targetMode;
+        if (targetMode !== "compact") {
+          setCompactMenuOpen(false);
+        }
         setNavMode(targetMode);
       }
     };
