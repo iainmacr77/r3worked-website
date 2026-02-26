@@ -2,14 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Logo, BrandMark } from "./Logo";
+import { NavBrandLockup } from "./Logo";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 type NavMode = "top" | "hero" | "compact";
 
 const HERO_PILL_START_PX = 56;
-const HERO_EXIT_OFFSET_PX = 40;
+const HERO_EXIT_OFFSET_PX = 0;
 
 export function Navbar() {
   const [navMode, setNavMode] = useState<NavMode>("top");
@@ -67,12 +67,10 @@ export function Navbar() {
         )}
       >
         <Link href="/" className="flex-shrink-0">
-          <div className="hidden md:block">
-            <Logo theme="light" className="w-32 lg:w-40" />
-          </div>
-          <div className="md:hidden">
-            <BrandMark className="h-10 w-10" />
-          </div>
+          <NavBrandLockup
+            className="text-xl sm:text-[1.45rem] lg:text-[1.58rem]"
+            heyClassName="text-peach/85"
+          />
         </Link>
 
         <div className="hidden items-center space-x-8 text-sm font-medium tracking-wide md:flex">
@@ -106,12 +104,10 @@ export function Navbar() {
         )}
       >
         <Link href="/" className="flex-shrink-0">
-          <div className="hidden md:block">
-            <Logo theme="light" className="w-32 lg:w-40" />
-          </div>
-          <div className="md:hidden">
-            <BrandMark className="h-10 w-10" />
-          </div>
+          <NavBrandLockup
+            className="text-xl sm:text-[1.45rem] lg:text-[1.58rem]"
+            heyClassName="text-peach/80"
+          />
         </Link>
 
         <div className="hidden items-center space-x-8 text-sm font-medium tracking-wide md:flex">
@@ -149,12 +145,7 @@ export function Navbar() {
             href="/"
             className="inline-flex h-12 items-center rounded-full border border-charcoal bg-ink/88 px-4 text-peach shadow-[0_10px_24px_rgba(10,10,18,0.35)] backdrop-blur-md"
           >
-            <div className="hidden md:block">
-              <Logo theme="light" className="w-28 lg:w-32" />
-            </div>
-            <div className="md:hidden">
-              <BrandMark className="h-10 w-10" />
-            </div>
+            <NavBrandLockup className="text-[1.18rem] sm:text-[1.24rem]" heyClassName="text-peach/85" />
           </Link>
 
           <div className="relative flex items-center gap-2 md:gap-3">

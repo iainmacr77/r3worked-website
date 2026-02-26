@@ -7,6 +7,11 @@ interface LogoProps {
     className?: string;
 }
 
+interface NavBrandLockupProps {
+    className?: string;
+    heyClassName?: string;
+}
+
 export function Logo({ theme = "dark", showTagline = false, className }: LogoProps) {
     // We use currentColor for the text paths so Tailwind can control them,
     // but keep the #FF6B6B for the headset mark.
@@ -78,5 +83,22 @@ export function BrandMark({ className }: { className?: string }) {
             <path d="M62.807 14.9922H60.3278C58.0036 14.9922 58.4014 16.8763 58.4014 19.2005V27.6172C58.487 29.8672 57.9828 31.8672 60.307 31.8672H62.807C64.5 31.8672 65.7831 32.3242 65.7831 30V17.5C65.7831 15.1758 65.1312 14.9922 62.807 14.9922Z" fill="#FF6B6B" />
             <path d="M7.51363 30.8783C8.03663 30.1814 9.0255 30.0401 9.72261 30.5628C10.4199 31.0858 10.561 32.0755 10.038 32.7728C8.03106 35.4488 6.95606 37.8339 6.65523 39.9398C6.36079 42.0016 6.79249 43.8911 7.98433 45.679C8.46779 46.4042 8.272 47.384 7.54683 47.8675C6.82164 48.351 5.84181 48.1552 5.35835 47.43C3.74495 45.0099 3.12441 42.34 3.5312 39.4925C3.93182 36.6889 5.31256 33.813 7.51363 30.8783Z" fill="#FF6B6B" />
         </svg>
+    );
+}
+
+export function NavBrandLockup({ className, heyClassName = "text-peach/80" }: NavBrandLockupProps) {
+    return (
+        <div
+            className={cn(
+                "inline-flex items-center whitespace-nowrap font-outfit text-[1.55rem] font-medium leading-none tracking-[-0.02em]",
+                className
+            )}
+            aria-label="Hey Lola"
+        >
+            <span className={cn("mr-[0.02em]", heyClassName)}>Hey</span>
+            <span className="text-white">L</span>
+            <BrandMark className="mx-[0.01em] h-[0.92em] w-auto shrink-0" />
+            <span className="-ml-[0.005em] text-white">la</span>
+        </div>
     );
 }
