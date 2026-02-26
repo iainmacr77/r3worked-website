@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { NavBrandLockup } from "./Logo";
+import { Logo, BrandMark } from "./Logo";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
@@ -67,10 +67,12 @@ export function Navbar() {
         )}
       >
         <Link href="/" className="flex-shrink-0">
-          <NavBrandLockup
-            className="text-xl sm:text-[1.45rem] lg:text-[1.58rem]"
-            heyClassName="text-peach/85"
-          />
+          <div className="hidden md:block">
+            <Logo theme="light" className="w-32 text-white lg:w-40" />
+          </div>
+          <div className="md:hidden">
+            <BrandMark className="h-10 w-10" />
+          </div>
         </Link>
 
         <div className="hidden items-center space-x-8 text-sm font-medium tracking-wide md:flex">
@@ -104,10 +106,12 @@ export function Navbar() {
         )}
       >
         <Link href="/" className="flex-shrink-0">
-          <NavBrandLockup
-            className="text-xl sm:text-[1.45rem] lg:text-[1.58rem]"
-            heyClassName="text-peach/80"
-          />
+          <div className="hidden md:block">
+            <Logo theme="light" className="w-32 text-white lg:w-40" />
+          </div>
+          <div className="md:hidden">
+            <BrandMark className="h-10 w-10" />
+          </div>
         </Link>
 
         <div className="hidden items-center space-x-8 text-sm font-medium tracking-wide md:flex">
@@ -145,7 +149,12 @@ export function Navbar() {
             href="/"
             className="inline-flex h-12 items-center rounded-full border border-charcoal bg-ink/88 px-4 text-peach shadow-[0_10px_24px_rgba(10,10,18,0.35)] backdrop-blur-md"
           >
-            <NavBrandLockup className="text-[1.18rem] sm:text-[1.24rem]" heyClassName="text-peach/85" />
+            <div className="hidden md:block">
+              <Logo theme="light" className="w-28 text-white lg:w-32" />
+            </div>
+            <div className="md:hidden">
+              <BrandMark className="h-10 w-10" />
+            </div>
           </Link>
 
           <div className="relative flex items-center gap-2 md:gap-3">
