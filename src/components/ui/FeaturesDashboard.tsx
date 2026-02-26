@@ -3,20 +3,26 @@
 import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { PhoneMissed, Utensils, AlertCircle, Sparkles, Navigation } from "lucide-react";
+import { Utensils, AlertCircle, Sparkles, Navigation } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const CALL_EVENTS = [
-    { id: 1, text: "Missed Call Captured", icon: PhoneMissed },
-    { id: 2, text: "Table for 4 Confirmed", icon: Utensils },
-    { id: 3, text: "Dietary Note Added", icon: AlertCircle },
+    { id: 1, text: "Table for 4 Confirmed", icon: Utensils },
+    { id: 2, text: "Dietary Note Added: Gluten-Free", icon: AlertCircle },
+    { id: 3, text: "VIP Guest Flagged", icon: Sparkles },
+    { id: 4, text: "Waitlist Converted → Booking Confirmed", icon: Sparkles },
+    { id: 5, text: "Special Occasion Tagged: Anniversary", icon: Sparkles },
+    { id: 6, text: "Late Arrival Noted: +15 mins", icon: AlertCircle },
+    { id: 7, text: "High Chair Requested", icon: Utensils },
 ];
 
 const TRANSCRIPT = [
-    { sender: "Customer", text: "Do you have vegan options?" },
-    { sender: "Lola", text: "Yes, our Chef prepares a seasonal 5-course vegan tasting menu. Would you like me to note that for your reservation?" },
-    { sender: "Customer", text: "That sounds perfect. Book it for 7 PM on Friday." },
-    { sender: "Lola", text: "Confirmed. I've secured a table for you at 7:00 PM on Friday." },
+    { sender: "Customer", text: "Booking for two next Saturday at 8pm?" },
+    { sender: "Lola", text: "Confirmed - I've booked you for 20:00 next Saturday." },
+    { sender: "Customer", text: "Is the restaurant child-friendly?" },
+    { sender: "Lola", text: "Absolutely. We have a kiddies menu and high chairs on request." },
+    { sender: "Customer", text: "Are you open Mondays for lunch?" },
+    { sender: "Lola", text: "Yes - Mondays 12:00 to 16:00 for lunch." },
 ];
 
 export function FeaturesDashboard() {
@@ -49,59 +55,86 @@ export function FeaturesDashboard() {
 
 // ============== CARD 1: RESERVATION SHUFFLER ==============
 function ReservationShuffler() {
-    const [events, setEvents] = useState(CALL_EVENTS);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [visibleEvents, setVisibleEvents] = useState(1);
+    const FEED_TIMESTAMPS = ["NOW", "1m", "2m", "3m", "5m", "7m", "9m"];
 
     useEffect(() => {
-        // Cycle the cards every 3 seconds
-        const interval = setInterval(() => {
-            setEvents((prev) => {
-                const newEvents = [...prev];
-                const last = newEvents.pop();
-                if (last) newEvents.unshift(last);
-                return newEvents;
-            });
-        }, 3000);
-        return () => clearInterval(interval);
-    }, []);
+        let timeout: ReturnType<typeof setTimeout>;
+
+        const showNext = (currentIndex: number) => {
+            if (currentIndex >= CALL_EVENTS.length) {
+                timeout = setTimeout(() => setVisibleEvents(1), 4000);
+                return;
+            }
+
+            timeout = setTimeout(() => {
+                setVisibleEvents(currentIndex + 1);
+            }, 1700);
+        };
+
+        showNext(visibleEvents);
+
+        return () => clearTimeout(timeout);
+    }, [visibleEvents]);
 
     return (
-        <div className="glass-panel bg-white/50 rounded-[2rem] p-8 flex flex-col justify-between h-[400px] lg:h-full relative overflow-hidden group">
-            <div>
-                <h3 className="font-outfit font-semibold text-xl text-ink mb-2">Booking Intelligence</h3>
-                <p className="text-sm text-charcoal">Handling intent asynchronously.</p>
+        <div className="relative flex h-[400px] flex-col overflow-hidden rounded-[2rem] bg-[#0B0E13] p-8 shadow-[0_26px_65px_rgba(2,6,23,0.55)] ring-1 ring-white/10 lg:h-full">
+            <div className="pointer-events-none absolute -left-14 -top-14 h-40 w-40 rounded-full bg-[rgba(16,185,129,0.24)] blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-16 -right-12 h-44 w-44 rounded-full bg-[rgba(139,92,246,0.22)] blur-3xl" />
+            <div className="pointer-events-none absolute inset-0 bg-white/[0.06]" />
+
+            <div className="relative z-10">
+                <div className="mb-3 flex items-start justify-between gap-4">
+                    <h3 className="font-outfit text-xl font-semibold text-white">Booking Intelligence</h3>
+                    <div className="inline-flex items-center space-x-2 rounded-full bg-charcoal/40 px-3 py-1.5">
+                        <div className="h-2 w-2 rounded-full bg-mint animate-pulse" />
+                        <span className="text-[10px] font-jetbrains uppercase tracking-widest text-peach">Live Ops</span>
+                    </div>
+                </div>
+                <p className="max-w-[30ch] text-sm text-white/75">
+                    Capture missed calls, confirm bookings, and store preferences automatically.
+                </p>
             </div>
 
-            <div className="relative w-full h-[200px] flex items-end justify-center perspective-[1000px]">
-                {events.map((ev, index) => {
-                    // We render from bottom to top visually using absolute positioning
-                    // index 0 is the front card, index 1 is behind, index 2 is furthest back.
-                    const isFront = index === 0;
-                    const yOffset = index * -20;
-                    const scale = 1 - index * 0.05;
-                    const opacity = 1 - index * 0.2;
-                    const zIndex = 30 - index;
+            <div
+                className="relative z-10 mt-5 flex-1 rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.09] to-white/[0.03] p-5 shadow-inner shadow-black/30 ring-1 ring-white/10 backdrop-blur-md"
+            >
+                <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-b from-black/35 via-transparent to-black/45" />
+                <div className="relative h-full min-h-[340px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black/10 p-4">
+                    <div className="flex h-full w-full flex-col justify-start gap-3">
+                        {CALL_EVENTS.slice(0, visibleEvents).reverse().map((event, index) => {
+                            const cardOpacity = index === 0 ? 1 : index === 1 ? 0.8 : index === 2 ? 0.65 : 0.5;
+                            const cardBlur = index === 0 ? 0 : index === 1 ? 0.15 : index === 2 ? 0.35 : 0.55;
 
-                    return (
-                        <div
-                            key={ev.id}
-                            className="absolute bottom-0 w-full max-w-[280px] bg-white border border-charcoal/10 rounded-2xl p-4 shadow-xl transition-all duration-[800ms] flex items-center space-x-4"
-                            style={{
-                                transform: `translateY(${yOffset}px) scale(${scale})`,
-                                opacity,
-                                zIndex,
-                                transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)"
-                            }}
-                        >
-                            <div className="p-3 bg-peach rounded-full text-coral flex-shrink-0">
-                                <ev.icon size={20} />
-                            </div>
-                            <span className="font-jetbrains text-sm font-medium text-ink transition-colors">
-                                {ev.text}
-                            </span>
-                        </div>
-                    );
-                })}
+                            return (
+                                <div
+                                    key={event.id}
+                                    className="w-full animate-in slide-in-from-top-2 fade-in rounded-2xl border border-white/10 bg-white/10 p-4 text-white shadow-2xl backdrop-blur-md duration-300"
+                                    style={{ opacity: cardOpacity, filter: `blur(${cardBlur}px)` }}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-white/20 to-white/[0.06] text-emerald-200 ring-1 ring-white/20">
+                                            <event.icon size={18} />
+                                        </div>
+                                        <div className="min-w-0 flex-1">
+                                            <div className="mb-1 flex items-center justify-between gap-2">
+                                                <span className="text-[10px] font-jetbrains uppercase tracking-[0.18em] text-white/65">
+                                                    Lola Ops
+                                                </span>
+                                                <span className="text-[10px] font-jetbrains uppercase tracking-[0.14em] text-white/40">
+                                                    {FEED_TIMESTAMPS[Math.min(index, FEED_TIMESTAMPS.length - 1)]}
+                                                </span>
+                                            </div>
+                                            <p className="truncate font-jetbrains text-sm font-medium text-white/92">
+                                                {event.text}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -109,72 +142,138 @@ function ReservationShuffler() {
 
 // ============== CARD 2: NEURAL CONVERSATIONALIST ==============
 function TranscriptTypewriter() {
-    const [visibleMessages, setVisibleMessages] = useState<number>(1);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [messages, setMessages] = useState<typeof TRANSCRIPT>([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isTyping, setIsTyping] = useState(false);
+    const chatScrollRef = useRef<HTMLDivElement>(null);
+    const timeoutRefs = useRef<Array<ReturnType<typeof setTimeout>>>([]);
 
-    // Simple automated typing sequence simulator
     useEffect(() => {
-        let timeout: NodeJS.Timeout;
+        const chatWindow = chatScrollRef.current;
+        if (!chatWindow) return;
+        chatWindow.scrollTo({
+            top: chatWindow.scrollHeight,
+            behavior: "smooth"
+        });
+    }, [messages, isTyping]);
 
-        // Recursive function to show next message based on delays
-        const showNext = (currentIndex: number) => {
-            if (currentIndex >= TRANSCRIPT.length) {
-                // Reset after a long pause
-                timeout = setTimeout(() => setVisibleMessages(1), 5000);
+    useEffect(() => {
+        let cancelled = false;
+
+        const clearTimers = () => {
+            timeoutRefs.current.forEach((id) => clearTimeout(id));
+            timeoutRefs.current = [];
+        };
+
+        const schedule = (callback: () => void, delay: number) => {
+            const id = setTimeout(() => {
+                if (!cancelled) callback();
+            }, delay);
+            timeoutRefs.current.push(id);
+        };
+
+        const playSequence = (index: number) => {
+            if (cancelled) return;
+
+            if (index >= TRANSCRIPT.length) {
+                schedule(() => {
+                    setMessages([]);
+                    setCurrentIndex(0);
+                    setIsTyping(false);
+                    playSequence(0);
+                }, 3000);
                 return;
             }
 
-            const delay = TRANSCRIPT[currentIndex].sender === "Lola" ? 1200 : 2500;
-            timeout = setTimeout(() => {
-                setVisibleMessages(currentIndex + 1);
-                showNext(currentIndex + 1);
-            }, delay);
+            setCurrentIndex(index);
+            const nextMessage = TRANSCRIPT[index];
+
+            if (nextMessage.sender === "Lola") {
+                setIsTyping(true);
+                schedule(() => {
+                    setMessages((prev) => [...prev, nextMessage]);
+                    setIsTyping(false);
+                    playSequence(index + 1);
+                }, 700);
+                return;
+            }
+
+            schedule(() => {
+                setMessages((prev) => [...prev, nextMessage]);
+                playSequence(index + 1);
+            }, 1200);
         };
 
-        showNext(1);
+        playSequence(0);
 
-        return () => clearTimeout(timeout);
-    }, [visibleMessages]);
+        return () => {
+            cancelled = true;
+            clearTimers();
+        };
+    }, []);
 
     return (
-        <div className="glass-panel bg-ink rounded-[2rem] p-8 flex flex-col h-[400px] lg:h-full relative overflow-hidden">
-            <div className="flex justify-between items-start mb-8">
-                <div>
-                    <h3 className="font-outfit font-semibold text-xl text-peach mb-2">Neural Conversationalist</h3>
-                    <p className="text-sm text-charcoal">Real-time tone matching & intent extraction.</p>
+        <div className="relative flex h-[400px] flex-col overflow-hidden rounded-[2rem] bg-[#0B0E13] p-8 shadow-[0_26px_65px_rgba(2,6,23,0.55)] ring-1 ring-white/10 lg:h-full">
+            <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full bg-[rgba(16,185,129,0.32)] blur-3xl" />
+            <div className="pointer-events-none absolute -left-14 -bottom-16 h-44 w-44 rounded-full bg-[rgba(52,211,153,0.22)] blur-3xl" />
+            <div className="pointer-events-none absolute inset-0 bg-white/[0.06]" />
+
+            <div className="relative z-10">
+                <div className="mb-3 flex items-start justify-between gap-4">
+                    <h3 className="font-outfit text-xl font-semibold text-white">Neural Conversationalist</h3>
+                    <div className="flex items-center space-x-2 rounded-full bg-charcoal/40 px-3 py-1.5">
+                        <div className="h-2 w-2 rounded-full bg-mint animate-pulse" />
+                        <span className="text-[10px] font-jetbrains uppercase tracking-widest text-peach">Live</span>
+                    </div>
                 </div>
-                <div className="flex items-center space-x-2 bg-charcoal/40 px-3 py-1.5 rounded-full">
-                    <div className="w-2 h-2 rounded-full bg-mint animate-pulse" />
-                    <span className="text-[10px] font-jetbrains text-peach uppercase tracking-widest">Live</span>
-                </div>
+                <p className="max-w-[30ch] text-sm text-white/75">Understands guests, answers questions and confirms bookings in one conversation.</p>
             </div>
 
-            <div className="flex-1 overflow-hidden flex flex-col justify-end space-y-4 font-jetbrains text-sm">
-                {TRANSCRIPT.slice(0, visibleMessages).map((msg, i) => {
-                    const isLola = msg.sender === "Lola";
-                    const isLast = i === visibleMessages - 1;
+            <div className="relative z-10 mt-5 flex-1 min-h-0 rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.09] to-white/[0.03] p-4 shadow-inner shadow-black/25 ring-1 ring-white/10 backdrop-blur-md">
+                <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-b from-black/35 via-transparent to-black/45" />
+                <div
+                    ref={chatScrollRef}
+                    className="relative h-full overflow-y-auto pr-1 font-jetbrains text-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                >
+                    <div className="flex min-h-full flex-col justify-start gap-3">
+                        {messages.map((msg, i) => {
+                            const isLola = msg.sender === "Lola";
 
-                    return (
-                        <div
-                            key={i}
-                            className={cn(
-                                "flex flex-col max-w-[85%] animate-in fade-in slide-in-from-bottom-2 duration-300",
-                                isLola ? "self-start" : "self-end items-end"
-                            )}
-                        >
-                            <span className="text-[10px] text-charcoal mb-1 uppercase tracking-widest">{msg.sender}</span>
-                            <div
-                                className={cn(
-                                    "px-4 py-3 rounded-2xl",
-                                    isLola ? "bg-charcoal/30 text-peach rounded-tl-sm" : "bg-coral/20 text-peach rounded-tr-sm border border-coral/30"
-                                )}
-                            >
-                                {msg.text}
-                                {isLast && isLola && <span className="inline-block w-1.5 h-3 ml-1 bg-coral animate-pulse" />}
+                            return (
+                                <div
+                                    key={`${msg.sender}-${i}-${msg.text.slice(0, 14)}`}
+                                    className={cn(
+                                        "flex max-w-[88%] flex-col animate-in fade-in slide-in-from-bottom-2 duration-500 ease-out",
+                                        isLola ? "self-start" : "self-end items-end"
+                                    )}
+                                >
+                                    <span className="mb-1 text-[10px] uppercase tracking-widest text-peach/60">{msg.sender}</span>
+                                    <div
+                                        className={cn(
+                                            "rounded-2xl px-4 py-3 leading-relaxed",
+                                            isLola
+                                                ? "rounded-tl-sm border border-white/10 bg-charcoal/55 text-peach"
+                                                : "rounded-tr-sm border border-coral/25 bg-coral/18 text-peach"
+                                        )}
+                                    >
+                                        {msg.text}
+                                    </div>
+                                </div>
+                            );
+                        })}
+
+                        {isTyping && TRANSCRIPT[currentIndex]?.sender === "Lola" && (
+                            <div className="flex max-w-[88%] flex-col self-start animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                <span className="mb-1 text-[10px] uppercase tracking-widest text-peach/60">Lola</span>
+                                <div className="inline-flex w-fit items-center gap-1 rounded-2xl rounded-tl-sm border border-white/10 bg-charcoal/55 px-4 py-3">
+                                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-peach/80 [animation-delay:0ms]" />
+                                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-peach/80 [animation-delay:120ms]" />
+                                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-peach/80 [animation-delay:240ms]" />
+                                </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -183,78 +282,168 @@ function TranscriptTypewriter() {
 // ============== CARD 3: PROTOCOL SCHEDULER ==============
 function ProtocolScheduler() {
     const cursorRef = useRef<HTMLDivElement>(null);
-    const targetSlotRef = useRef<HTMLDivElement>(null);
+    const planRef = useRef<HTMLDivElement>(null);
+    const tableRefs = useRef<Record<string, HTMLDivElement | null>>({});
+    const TABLES = [
+        { id: "T1", seats: 2, initialStatus: "booked" as const },
+        { id: "T2", seats: 4, initialStatus: "available" as const },
+        { id: "T3", seats: 6, initialStatus: "booked" as const },
+        { id: "T4", seats: 2, initialStatus: "available" as const },
+        { id: "T5", seats: 4, initialStatus: "booked" as const },
+        { id: "T6", seats: 2, initialStatus: "available" as const },
+        { id: "T7", seats: 4, initialStatus: "available" as const },
+        { id: "T8", seats: 6, initialStatus: "booked" as const },
+        { id: "T9", seats: 2, initialStatus: "available" as const },
+        { id: "T10", seats: 4, initialStatus: "booked" as const },
+        { id: "T11", seats: 2, initialStatus: "available" as const },
+        { id: "T12", seats: 6, initialStatus: "booked" as const },
+    ];
+    const BOOKING_SEQUENCE = ["T2", "T11", "T6", "T7", "T9"] as const;
 
     useGSAP(() => {
-        if (!cursorRef.current || !targetSlotRef.current) return;
+        if (!cursorRef.current || !planRef.current) return;
 
-        const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
+        const availableStyles = {
+            backgroundColor: "rgba(255, 228, 181, 0.66)",
+            color: "#1E1E2E",
+            borderColor: "rgba(30, 30, 46, 0.18)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.38)"
+        };
+        const bookedStyles = {
+            backgroundColor: "rgba(255,107,107,0.94)",
+            color: "white",
+            borderColor: "rgba(255,255,255,0.32)",
+            boxShadow: "0 10px 20px rgba(255,107,107,0.28) inset"
+        };
+
+        const setInitialTableStates = () => {
+            TABLES.forEach((table) => {
+                const element = tableRefs.current[table.id];
+                if (!element) return;
+                gsap.set(element, table.initialStatus === "booked" ? bookedStyles : availableStyles);
+            });
+        };
+
+        const getTargetPosition = (tableId: string) => {
+            const planRect = planRef.current!.getBoundingClientRect();
+            const targetEl = tableRefs.current[tableId];
+            if (!targetEl) return { x: startX(), y: startY() };
+            const targetRect = targetEl.getBoundingClientRect();
+            const targetX = targetRect.left - planRect.left + targetRect.width / 2 - 12;
+            const targetY = targetRect.top - planRect.top + targetRect.height / 2 - 12;
+            return { x: targetX, y: targetY };
+        };
+
+        const startX = () => planRef.current!.clientWidth + 26;
+        const startY = () => planRef.current!.clientHeight + 18;
+        const exitX = () => planRef.current!.clientWidth + 40;
+        const exitY = () => -28;
+
+        const tl = gsap.timeline({ repeat: -1, repeatDelay: 1, repeatRefresh: true });
 
         // Initial position outside bounds
-        gsap.set(cursorRef.current, { x: 250, y: 300, opacity: 0 });
-        gsap.set(targetSlotRef.current, { backgroundColor: "rgba(56, 56, 56, 0.1)", color: "#1E1E2E" });
+        gsap.set(cursorRef.current, { x: startX(), y: startY(), opacity: 0 });
+        setInitialTableStates();
 
-        // Move in
-        tl.to(cursorRef.current, {
-            x: 120,
-            y: 140, // rough coords to the Friday peak slot
-            opacity: 1,
-            duration: 1.5,
-            ease: "power2.inOut"
-        })
-            // Simulate click "push"
-            .to(cursorRef.current, { scale: 0.8, duration: 0.1 })
-            // Slot changes to Coral
-            .to(targetSlotRef.current, {
-                backgroundColor: "#FF6B6B",
-                color: "white",
-                duration: 0.2
-            }, "<")
-            // Release click
-            .to(cursorRef.current, { scale: 1, duration: 0.1 })
-            // Move away & fade
-            .to(cursorRef.current, { x: 250, y: 50, opacity: 0, duration: 1, ease: "power2.in" })
-            // Reset slot for next loop
-            .set(targetSlotRef.current, { backgroundColor: "rgba(56, 56, 56, 0.1)", color: "#1E1E2E" }, "+=0.5");
+        BOOKING_SEQUENCE.forEach((tableId) => {
+            tl.to(cursorRef.current, {
+                x: () => getTargetPosition(tableId).x,
+                y: () => getTargetPosition(tableId).y,
+                opacity: 1,
+                duration: 0.95,
+                ease: "power2.inOut"
+            })
+                .to(cursorRef.current, { scale: 0.82, duration: 0.1, ease: "power1.out" })
+                .to(tableRefs.current[tableId], {
+                    ...bookedStyles,
+                    duration: 0.26,
+                    ease: "power1.out"
+                }, "<")
+                .to(cursorRef.current, { scale: 1, duration: 0.1, ease: "power1.in" })
+                .to({}, { duration: 0.24 });
+        });
+
+        tl.to({}, { duration: 1 })
+            .to(cursorRef.current, {
+                x: () => exitX(),
+                y: () => exitY(),
+                opacity: 0,
+                duration: 0.85,
+                ease: "power2.in"
+            })
+            .call(() => {
+                TABLES.forEach((table) => {
+                    const element = tableRefs.current[table.id];
+                    if (!element) return;
+                    gsap.to(element, {
+                        ...(table.initialStatus === "booked" ? bookedStyles : availableStyles),
+                        duration: 0.26,
+                        ease: "power1.inOut"
+                    });
+                });
+            })
+            .to({}, { duration: 0.28 })
+            .set(cursorRef.current, { x: startX(), y: startY(), scale: 1 });
 
     }, []);
 
     return (
-        <div className="glass-panel bg-white/50 rounded-[2rem] p-8 flex flex-col h-[400px] lg:h-full relative overflow-hidden">
-            <div className="mb-8 z-10">
-                <h3 className="font-outfit font-semibold text-xl text-ink mb-2">Capacity Maximizer</h3>
-                <p className="text-sm text-charcoal">Predictive table routing.</p>
+        <div className="relative flex h-[400px] flex-col overflow-hidden rounded-[2rem] bg-[#0B0E13] p-8 shadow-[0_26px_65px_rgba(2,6,23,0.55)] ring-1 ring-white/10 lg:h-full">
+            <div className="pointer-events-none absolute -left-14 -top-12 h-40 w-40 rounded-full bg-[rgba(56,189,248,0.28)] blur-3xl" />
+            <div className="pointer-events-none absolute -right-14 -bottom-16 h-48 w-48 rounded-full bg-[rgba(20,184,166,0.26)] blur-3xl" />
+            <div className="pointer-events-none absolute inset-0 bg-white/[0.06]" />
+
+            <div className="relative z-10">
+                <div className="mb-3 flex items-start justify-between gap-4">
+                    <h3 className="font-outfit text-xl font-semibold text-white">Capacity Maximizer</h3>
+                    <div className="flex items-center space-x-2 rounded-full bg-charcoal/40 px-3 py-1.5">
+                        <div className="h-2 w-2 rounded-full bg-mint animate-pulse" />
+                        <span className="text-[10px] font-jetbrains uppercase tracking-widest text-peach">Live</span>
+                    </div>
+                </div>
+                <p className="max-w-[34ch] text-sm text-white/75 leading-relaxed">
+                    Turns availability into revenue: smarter allocations, fewer conflicts, faster turnarounds.
+                </p>
             </div>
 
-            {/* Mock Calendar Grid */}
-            <div className="relative flex-1 bg-white border border-charcoal/10 rounded-2xl flex flex-col p-4 shadow-sm">
-                <div className="flex justify-between text-xs font-jetbrains text-charcoal mb-4 px-2 border-b border-charcoal/10 pb-2">
-                    <span>THU</span>
-                    <span className="text-ink font-bold">FRI</span>
-                    <span>SAT</span>
-                </div>
+            {/* Table plan */}
+            <div
+                ref={planRef}
+                className="relative mt-5 flex-1 rounded-2xl border border-charcoal/10 bg-white p-4 shadow-sm"
+            >
+                <div className="grid h-full grid-cols-3 gap-2">
+                    {TABLES.map((table) => {
+                        const isBooked = table.initialStatus === "booked";
+                        const chairCount = table.seats === 2 ? 2 : table.seats === 4 ? 4 : 6;
 
-                <div className="flex-1 grid grid-cols-3 gap-2">
-                    {/* Mock column mapping */}
-                    {[1, 2, 3].map((col) => (
-                        <div key={col} className="flex flex-col gap-2">
-                            {[1, 2, 3, 4].map((row) => {
-                                const isTarget = col === 2 && row === 3; // Fri 7PM slot
-                                return (
-                                    <div
-                                        key={row}
-                                        ref={isTarget ? targetSlotRef : null}
-                                        className={cn(
-                                            "flex-1 rounded-lg flex items-center justify-center text-[10px] font-jetbrains transition-colors",
-                                            isTarget ? "bg-charcoal/10 text-ink" : "bg-peach/50 text-charcoal/40"
-                                        )}
-                                    >
-                                        {isTarget ? "19:00" : "---"}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    ))}
+                        return (
+                            <div
+                                key={table.id}
+                                ref={(el) => { tableRefs.current[table.id] = el; }}
+                                className={cn(
+                                    "relative flex flex-col items-center justify-center rounded-xl border text-center font-jetbrains shadow-[inset_0_1px_0_rgba(255,255,255,0.38)] transition-colors duration-300 ease-out",
+                                    isBooked
+                                        ? "border-coral/35 bg-coral/90 text-white"
+                                        : "border-charcoal/15 bg-peach/60 text-ink"
+                                )}
+                            >
+                                <span className="text-[10px] font-medium tracking-[0.08em]">
+                                    {table.id} • {table.seats}p
+                                </span>
+                                <div className="mt-2 flex items-center gap-1">
+                                    {Array.from({ length: chairCount }).map((_, idx) => (
+                                        <span
+                                            key={`${table.id}-chair-${idx}`}
+                                            className={cn(
+                                                "h-1.5 w-1.5 rounded-full",
+                                                isBooked ? "bg-white/85" : "bg-charcoal/35"
+                                            )}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
 
                 {/* Mock Mouse Cursor SVG */}
