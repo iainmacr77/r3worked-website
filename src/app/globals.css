@@ -1,0 +1,135 @@
+@import "@fontsource/outfit/400.css";
+@import "@fontsource/outfit/600.css";
+@import "@fontsource/outfit/700.css";
+
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/400-italic.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/playfair-display/700-italic.css";
+
+@import "@fontsource/jetbrains-mono/400.css";
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Local font stacks (offline-safe) */
+  --font-outfit: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-playfair: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-jetbrains: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+
+  /* Static Brand Colors */
+  --color-ink: #1E1E2E;
+  --color-peach: #FFF5F0;
+  --color-coral: #FF6B6B;
+  --color-charcoal: #383838;
+  --color-mint: #34D399;
+}
+
+/* Base Variables */
+@layer base {
+  :root {
+    --background: hsl(20, 100%, 97%);
+    /* Brand Peach #FFF5F0 */
+    --foreground: hsl(240, 21%, 15%);
+    /* Brand Ink #1E1E2E */
+    --card: hsl(20, 100%, 97%);
+    --card-foreground: hsl(240, 21%, 15%);
+    --popover: hsl(20, 100%, 97%);
+    --popover-foreground: hsl(240, 21%, 15%);
+    --primary: hsl(0, 100%, 71%);
+    /* Brand Coral #FF6B6B */
+    --primary-foreground: hsl(20, 100%, 97%);
+    --secondary: hsl(0, 0%, 22%);
+    /* Brand Charcoal #383838 */
+    --secondary-foreground: hsl(20, 100%, 97%);
+    --muted: hsl(0, 0%, 90%);
+    --muted-foreground: hsl(0, 0%, 40%);
+    --accent: hsl(0, 0%, 90%);
+    --accent-foreground: hsl(240, 21%, 15%);
+    --destructive: hsl(0, 84.2%, 60.2%);
+    --destructive-foreground: hsl(0, 0%, 98%);
+    --border: hsl(0, 0%, 85%);
+    --input: hsl(0, 0%, 85%);
+    --ring: hsl(0, 100%, 71%);
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: hsl(240, 21%, 15%);
+    /* Brand Ink #1E1E2E */
+    --foreground: hsl(20, 100%, 97%);
+    /* Brand Peach #FFF5F0 */
+    --card: hsl(240, 21%, 15%);
+    --card-foreground: hsl(20, 100%, 97%);
+    --popover: hsl(240, 21%, 15%);
+    --popover-foreground: hsl(20, 100%, 97%);
+    --primary: hsl(0, 100%, 71%);
+    /* Brand Coral #FF6B6B */
+    --primary-foreground: hsl(240, 21%, 15%);
+    --secondary: hsl(0, 0%, 22%);
+    /* Brand Charcoal #383838 */
+    --secondary-foreground: hsl(20, 100%, 97%);
+    --muted: hsl(0, 0%, 25%);
+    --muted-foreground: hsl(0, 0%, 70%);
+    --accent: hsl(0, 0%, 25%);
+    --accent-foreground: hsl(20, 100%, 97%);
+    --destructive: hsl(0, 62.8%, 30.6%);
+    --destructive-foreground: hsl(0, 0%, 98%);
+    --border: hsl(0, 0%, 25%);
+    --input: hsl(0, 0%, 25%);
+    --ring: hsl(0, 100%, 71%);
+  }
+
+  * {
+    @apply border-border outline-none;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-coral selection:text-white relative;
+    font-family: var(--font-outfit), sans-serif;
+  }
+
+  /* Global SVG Noise Overlay from Master Prompt */
+  body::before {
+    content: "";
+    @apply pointer-events-none fixed inset-0 z-50 w-full h-full opacity-[0.04];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-background/80 backdrop-blur-md border border-border/30;
+  }
+
+  .magnetic-button {
+    @apply relative overflow-hidden transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98];
+  }
+}
