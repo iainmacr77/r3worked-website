@@ -39,11 +39,11 @@ export function FeaturesDashboard() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-auto lg:h-[600px]">
-                    {/* Card 1: Booking Intelligence */}
-                    <ReservationShuffler />
-
                     {/* Card 2: Neural Conversationalist */}
                     <TranscriptTypewriter />
+
+                    {/* Card 1: Booking Intelligence */}
+                    <ReservationShuffler />
 
                     {/* Card 3: Capacity Maximizer */}
                     <ProtocolScheduler />
@@ -54,7 +54,7 @@ export function FeaturesDashboard() {
 }
 
 // ============== CARD 1: RESERVATION SHUFFLER ==============
-function ReservationShuffler() {
+export function ReservationShuffler() {
     const [visibleEvents, setVisibleEvents] = useState(1);
     const FEED_TIMESTAMPS = ["NOW", "1m", "2m", "3m", "5m", "7m", "9m"];
 
@@ -96,12 +96,10 @@ function ReservationShuffler() {
                 </p>
             </div>
 
-            <div
-                className="relative z-10 mt-5 flex-1 rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.09] to-white/[0.03] p-5 shadow-inner shadow-black/30 ring-1 ring-white/10 backdrop-blur-md"
-            >
+            <div className="relative z-10 mt-5 flex-1 min-h-0 rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.09] to-white/[0.03] p-4 shadow-inner shadow-black/30 ring-1 ring-white/10 backdrop-blur-md">
                 <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-b from-black/35 via-transparent to-black/45" />
-                <div className="relative h-full min-h-[340px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black/10 p-4">
-                    <div className="flex h-full w-full flex-col justify-start gap-3">
+                <div className="relative h-full overflow-y-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    <div className="flex min-h-full flex-col justify-start gap-3">
                         {CALL_EVENTS.slice(0, visibleEvents).reverse().map((event, index) => {
                             const cardOpacity = index === 0 ? 1 : index === 1 ? 0.8 : index === 2 ? 0.65 : 0.5;
                             const cardBlur = index === 0 ? 0 : index === 1 ? 0.15 : index === 2 ? 0.35 : 0.55;
@@ -141,7 +139,7 @@ function ReservationShuffler() {
 }
 
 // ============== CARD 2: NEURAL CONVERSATIONALIST ==============
-function TranscriptTypewriter() {
+export function TranscriptTypewriter() {
     const [messages, setMessages] = useState<typeof TRANSCRIPT>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isTyping, setIsTyping] = useState(false);
@@ -220,7 +218,7 @@ function TranscriptTypewriter() {
 
             <div className="relative z-10">
                 <div className="mb-3 flex items-start justify-between gap-4">
-                    <h3 className="font-outfit text-xl font-semibold text-white">Neural Conversationalist</h3>
+                    <h3 className="font-outfit text-xl font-semibold text-white">Natural Conversation</h3>
                     <div className="flex items-center space-x-2 rounded-full bg-charcoal/40 px-3 py-1.5">
                         <div className="h-2 w-2 rounded-full bg-mint animate-pulse" />
                         <span className="text-[10px] font-jetbrains uppercase tracking-widest text-peach">Live</span>
@@ -280,7 +278,7 @@ function TranscriptTypewriter() {
 }
 
 // ============== CARD 3: PROTOCOL SCHEDULER ==============
-function ProtocolScheduler() {
+export function ProtocolScheduler() {
     const cursorRef = useRef<HTMLDivElement>(null);
     const planRef = useRef<HTMLDivElement>(null);
     const tableRefs = useRef<Record<string, HTMLDivElement | null>>({});
