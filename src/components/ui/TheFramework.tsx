@@ -21,24 +21,26 @@ function BlueprintSchematicOverlay() {
             >
                 <defs>
                     <marker
-                        id="blueprint-arrow"
-                        markerWidth="8"
-                        markerHeight="8"
-                        refX="6"
-                        refY="4"
+                        id="arrow-end"
+                        markerWidth="11"
+                        markerHeight="11"
+                        markerUnits="userSpaceOnUse"
+                        refX="9.5"
+                        refY="5.5"
                         orient="auto"
                     >
-                        <path d="M0,0 L8,4 L0,8 z" fill="rgba(30,30,46,0.48)" />
+                        <path d="M0,0 L11,5.5 L0,11 z" fill="context-stroke" />
                     </marker>
                     <marker
-                        id="blueprint-arrow-coral"
-                        markerWidth="8"
-                        markerHeight="8"
-                        refX="6"
-                        refY="4"
-                        orient="auto"
+                        id="arrow-start"
+                        markerWidth="11"
+                        markerHeight="11"
+                        markerUnits="userSpaceOnUse"
+                        refX="9.5"
+                        refY="5.5"
+                        orient="auto-start-reverse"
                     >
-                        <path d="M0,0 L8,4 L0,8 z" fill="rgba(255,107,107,0.86)" />
+                        <path d="M0,0 L11,5.5 L0,11 z" fill="context-stroke" />
                     </marker>
                 </defs>
 
@@ -86,34 +88,38 @@ function BlueprintSchematicOverlay() {
                 <path
                     d="M134 142 C176 160, 210 178, 224 194"
                     fill="none"
-                    stroke="rgba(30,30,46,0.44)"
+                    className="text-[rgba(30,30,46,0.56)]"
+                    stroke="currentColor"
                     strokeWidth="1.2"
-                    markerStart="url(#blueprint-arrow)"
-                    markerEnd="url(#blueprint-arrow)"
+                    markerStart="url(#arrow-start)"
+                    markerEnd="url(#arrow-end)"
                 />
                 <path
                     d="M292 192 C332 164, 360 148, 390 132"
                     fill="none"
-                    stroke="rgba(255,107,107,0.86)"
+                    className="text-[rgba(255,107,107,0.9)]"
+                    stroke="currentColor"
                     strokeWidth="1.25"
-                    markerStart="url(#blueprint-arrow-coral)"
-                    markerEnd="url(#blueprint-arrow-coral)"
+                    markerStart="url(#arrow-start)"
+                    markerEnd="url(#arrow-end)"
                 />
                 <path
                     d="M292 228 C338 250, 368 270, 394 286"
                     fill="none"
-                    stroke="rgba(30,30,46,0.44)"
+                    className="text-[rgba(30,30,46,0.56)]"
+                    stroke="currentColor"
                     strokeWidth="1.2"
-                    markerStart="url(#blueprint-arrow)"
-                    markerEnd="url(#blueprint-arrow)"
+                    markerStart="url(#arrow-start)"
+                    markerEnd="url(#arrow-end)"
                 />
                 <path
                     d="M138 302 C232 302, 314 302, 392 302"
                     fill="none"
-                    stroke="rgba(30,30,46,0.42)"
+                    className="text-[rgba(30,30,46,0.54)]"
+                    stroke="currentColor"
                     strokeWidth="1.2"
-                    markerStart="url(#blueprint-arrow)"
-                    markerEnd="url(#blueprint-arrow)"
+                    markerStart="url(#arrow-start)"
+                    markerEnd="url(#arrow-end)"
                 />
             </svg>
 
