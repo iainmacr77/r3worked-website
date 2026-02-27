@@ -11,29 +11,85 @@ import { ScanLine, AudioWaveform } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 function BlueprintSchematicOverlay() {
+    type Node = { x: number; y: number; r: number };
+    type Connection = {
+        from: Node;
+        to: Node;
+        color: string;
+        arrowAtFrom?: boolean;
+        arrowAtTo?: boolean;
+    };
+
+    const computeAngle = (x1: number, y1: number, x2: number, y2: number) =>
+        (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
+
+    const trimLineToRadius = (
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        rStart: number,
+        rEnd: number
+    ) => {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        const len = Math.hypot(dx, dy) || 1;
+        const ux = dx / len;
+        const uy = dy / len;
+
+        return {
+            sx: x1 + ux * rStart,
+            sy: y1 + uy * rStart,
+            ex: x2 - ux * rEnd,
+            ey: y2 - uy * rEnd,
+            ux,
+            uy
+        };
+    };
+
+    const renderArrowhead = (x: number, y: number, angle: number, size: number) => {
+        const rad = (angle * Math.PI) / 180;
+        const ux = Math.cos(rad);
+        const uy = Math.sin(rad);
+        const baseX = x - ux * size;
+        const baseY = y - uy * size;
+        const halfWidth = size * 0.5;
+        const px = -uy * halfWidth;
+        const py = ux * halfWidth;
+
+        return `M ${x.toFixed(2)} ${y.toFixed(2)} L ${(baseX + px).toFixed(2)} ${(baseY + py).toFixed(2)} L ${(baseX - px).toFixed(2)} ${(baseY - py).toFixed(2)} Z`;
+    };
+
+    const nodes = {
+        guest: { x: 94, y: 128, r: 43 },
+        lola: { x: 258, y: 210, r: 49 },
+        booking: { x: 429, y: 121, r: 43 },
+        direct: { x: 430, y: 302, r: 39 },
+        suppliers: { x: 100, y: 302, r: 39 }
+    } satisfies Record<string, Node>;
+
+    const connections: Connection[] = [
+        { from: nodes.guest, to: nodes.lola, color: "rgba(30,30,46,0.58)", arrowAtFrom: true, arrowAtTo: true },
+        { from: nodes.lola, to: nodes.booking, color: "rgba(255,107,107,0.92)", arrowAtFrom: true, arrowAtTo: true },
+        { from: nodes.suppliers, to: nodes.direct, color: "rgba(30,30,46,0.56)", arrowAtTo: true },
+        { from: nodes.lola, to: nodes.direct, color: "rgba(30,30,46,0.58)", arrowAtTo: true }
+    ];
+
+    const lineStroke = 2.15;
+    const arrowSize = 10.8;
+    const arrowGap = 2;
+
     return (
-        <div className="pointer-events-none relative aspect-square w-[clamp(340px,40vw,580px)]">
+        <div className="pointer-events-none relative mx-auto aspect-[11/10] w-full max-w-[580px] overflow-visible">
             <svg
                 viewBox="-56 -20 640 520"
                 xmlns="http://www.w3.org/2000/svg"
                 className="absolute inset-0 h-full w-full overflow-visible"
+                preserveAspectRatio="xMidYMid meet"
+                overflow="visible"
+                style={{ overflow: "visible" }}
                 aria-hidden
             >
-                <defs>
-                    <marker
-                        id="arrowEnd"
-                        viewBox="0 0 10 10"
-                        refX="11"
-                        refY="5"
-                        markerWidth="10"
-                        markerHeight="10"
-                        orient="auto"
-                        markerUnits="userSpaceOnUse"
-                    >
-                        <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
-                    </marker>
-                </defs>
-
                 {/* Guest node */}
                 <circle cx="94" cy="128" r="42" fill="none" stroke="rgba(30,30,46,0.46)" strokeWidth="1.2" />
                 <rect x="79" y="112" width="30" height="34" rx="8" fill="none" stroke="rgba(30,30,46,0.48)" strokeWidth="1.2" />
@@ -51,13 +107,13 @@ function BlueprintSchematicOverlay() {
 
                 {/* Lola node */}
                 <g className="blueprint-lola-pulse-soft">
-                    <circle cx="258" cy="210" r="55" fill="none" stroke="rgba(255,107,107,0.30)" strokeWidth="1.1" />
+                    <circle cx="258" cy="210" r="55" fill="none" stroke="rgba(255,107,107,0.38)" strokeWidth="1.25" />
                 </g>
                 <g className="blueprint-lola-pulse">
-                    <circle cx="258" cy="210" r="47" fill="none" stroke="rgba(255,107,107,0.56)" strokeWidth="1.4" />
+                    <circle cx="258" cy="210" r="47" fill="none" stroke="rgba(255,107,107,0.69)" strokeWidth="1.55" />
                 </g>
-                <circle cx="258" cy="210" r="36" fill="rgba(255,107,107,0.20)" stroke="rgba(255,107,107,0.92)" strokeWidth="1.5" />
-                <circle cx="258" cy="210" r="41" fill="none" stroke="rgba(255,107,107,0.42)" strokeWidth="1.1" style={{ filter: "blur(1.4px)" }} />
+                <circle cx="258" cy="210" r="36" fill="rgba(255,107,107,0.22)" stroke="rgba(255,107,107,0.96)" strokeWidth="1.6" />
+                <circle cx="258" cy="210" r="41" fill="none" stroke="rgba(255,107,107,0.56)" strokeWidth="1.25" style={{ filter: "blur(1.8px)" }} />
                 <foreignObject x="224" y="176" width="68" height="68">
                     <div className="flex h-full w-full items-center justify-center">
                         <BrandMark className="h-10 w-10" />
@@ -78,39 +134,47 @@ function BlueprintSchematicOverlay() {
                 <rect x="422" y="301" width="16" height="10" rx="3" fill="none" stroke="rgba(30,30,46,0.48)" strokeWidth="1.1" />
                 <text x="368" y="352" fontSize="11" fill="rgba(30,30,46,0.66)" letterSpacing="0.08em">DIRECT LINE</text>
 
-                {/* Connections */}
-                <path
-                    d="M134 142 C174 159, 206 176, 220 192"
-                    fill="none"
-                    className="text-[rgba(30,30,46,0.56)]"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    markerEnd="url(#arrowEnd)"
-                />
-                <path
-                    d="M292 192 C332 164, 356 146, 382 130"
-                    fill="none"
-                    className="text-[rgba(255,107,107,0.9)]"
-                    stroke="currentColor"
-                    strokeWidth="1.25"
-                    markerEnd="url(#arrowEnd)"
-                />
-                <path
-                    d="M292 228 C336 250, 364 267, 386 282"
-                    fill="none"
-                    className="text-[rgba(30,30,46,0.56)]"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    markerEnd="url(#arrowEnd)"
-                />
-                <path
-                    d="M138 302 C230 302, 306 302, 384 302"
-                    fill="none"
-                    className="text-[rgba(30,30,46,0.54)]"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    markerEnd="url(#arrowEnd)"
-                />
+                {/* Deterministic straight connectors with trimmed ends and standalone arrowheads */}
+                {connections.map((connection, index) => {
+                    const base = trimLineToRadius(
+                        connection.from.x,
+                        connection.from.y,
+                        connection.to.x,
+                        connection.to.y,
+                        connection.from.r,
+                        connection.to.r
+                    );
+
+                    const startInset = connection.arrowAtFrom ? arrowSize + arrowGap : 0;
+                    const endInset = connection.arrowAtTo ? arrowSize + arrowGap : 0;
+
+                    const lineStartX = base.sx + base.ux * startInset;
+                    const lineStartY = base.sy + base.uy * startInset;
+                    const lineEndX = base.ex - base.ux * endInset;
+                    const lineEndY = base.ey - base.uy * endInset;
+
+                    const forwardAngle = computeAngle(base.sx, base.sy, base.ex, base.ey);
+                    const reverseAngle = computeAngle(base.ex, base.ey, base.sx, base.sy);
+
+                    return (
+                        <g key={`connector-${index}`}>
+                            <path
+                                d={`M ${lineStartX.toFixed(2)} ${lineStartY.toFixed(2)} L ${lineEndX.toFixed(2)} ${lineEndY.toFixed(2)}`}
+                                fill="none"
+                                stroke={connection.color}
+                                strokeWidth={lineStroke}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                            {connection.arrowAtFrom ? (
+                                <path d={renderArrowhead(base.sx, base.sy, reverseAngle, arrowSize)} fill={connection.color} />
+                            ) : null}
+                            {connection.arrowAtTo ? (
+                                <path d={renderArrowhead(base.ex, base.ey, forwardAngle, arrowSize)} fill={connection.color} />
+                            ) : null}
+                        </g>
+                    );
+                })}
             </svg>
 
             <style jsx>{`
@@ -185,6 +249,23 @@ const FRAMEWORK_STEPS = [
     },
     {
         id: 3,
+        title: "Lola Learns",
+        description: "Upload PDFs of your menus, floor plans, and wine lists. Lola instantly vectorizes the knowledge.",
+        visual: () => (
+            <div className="w-56 h-64 bg-white border border-charcoal/20 rounded-lg shadow-xl relative overflow-hidden flex flex-col justify-between p-4">
+                <div className="w-full h-2 bg-charcoal/10 rounded-full mb-4" />
+                <div className="w-3/4 h-2 bg-charcoal/10 rounded-full mb-2" />
+                <div className="w-5/6 h-2 bg-charcoal/10 rounded-full mb-auto" />
+
+                {/* Laser Scanner */}
+                <div className="absolute top-0 left-0 w-full h-[2px] bg-coral shadow-[0_0_15px_rgba(255,107,107,0.8)] z-10 animate-[bounce_2s_infinite]" />
+                <div className="absolute inset-0 bg-coral/5 z-0" />
+                <ScanLine className="absolute bottom-4 right-4 text-charcoal/30" />
+            </div>
+        )
+    },
+    {
+        id: 4,
         title: "Service Begins",
         description: "Lola handles 100% of incoming triage, routing VIPs to the Maître d', and booking standard reservations autonomously.",
         visual: () => (
@@ -230,6 +311,14 @@ export function TheFramework() {
             <div ref={container} className="relative w-full">
                 {FRAMEWORK_STEPS.map((step, index) => {
                     const isSetup = step.id === 1;
+                    const cardBackgroundColor =
+                        step.id === 3
+                            ? "var(--color-white)"
+                            : step.id === 4
+                                ? "var(--color-peach)"
+                                : index % 2 === 0
+                                    ? "var(--color-peach)"
+                                    : "var(--color-white)";
                     return (
                     <div
                         key={step.id}
@@ -240,7 +329,7 @@ export function TheFramework() {
                                 : "h-[100dvh] items-center"
                         )}
                         style={{
-                            backgroundColor: index % 2 === 0 ? "var(--color-peach)" : "var(--color-white)",
+                            backgroundColor: cardBackgroundColor,
                             zIndex: index
                         }}
                     >
@@ -258,7 +347,7 @@ export function TheFramework() {
                                     isSetup && "w-full justify-center lg:col-span-5 lg:justify-center lg:pl-6"
                                 )}
                             >
-                                <div className={cn(isSetup && "w-[clamp(340px,40vw,580px)] opacity-90 sm:opacity-85")}>
+                                <div className={cn(isSetup && "w-full max-w-[580px] opacity-90 sm:opacity-85")}>
                                     <step.visual />
                                 </div>
                             </div>

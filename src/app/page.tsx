@@ -89,52 +89,6 @@ function WhyLolaSection() {
   );
 }
 
-function HowLolaWorksSection() {
-  const steps = [
-    {
-      phase: "Phase 01",
-      title: "Connect",
-      body: "Forward your line and set routing rules.",
-    },
-    {
-      phase: "Phase 02",
-      title: "Learn",
-      body: "Upload menus and policies. Lola learns fast.",
-    },
-    {
-      phase: "Phase 03",
-      title: "Operate",
-      body: "24/7 triage, bookings, and escalations.",
-    },
-  ];
-
-  return (
-    <section className="w-full bg-peach px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto w-full max-w-7xl">
-        <h2 className="mb-10 font-playfair text-4xl italic text-ink md:text-5xl">
-          How Lola Works
-        </h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {steps.map((step) => (
-            <article
-              key={step.phase}
-              className="rounded-[2rem] border border-charcoal/10 bg-white/75 p-7 shadow-[0_18px_48px_rgba(30,30,46,0.08)]"
-            >
-              <p className="mb-4 font-jetbrains text-xs uppercase tracking-widest text-coral">
-                {step.phase}
-              </p>
-              <h3 className="mb-3 font-outfit text-3xl font-semibold text-ink">
-                {step.title}
-              </h3>
-              <p className="font-outfit text-charcoal">{step.body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function HearLolaSection({ audioSrc }: { audioSrc: string }) {
   return (
     <section id="hear-lola" className="w-full bg-ink px-6 py-20 md:px-16 md:py-24">
@@ -207,7 +161,6 @@ export default function Home() {
       >
         <ProtocolScheduler />
       </StorySection>
-      <HowLolaWorksSection />
       <HearLolaSection audioSrc="/audio/lola-demo-placeholder.mp3" />
       <Philosophy />
       <TheFramework />
