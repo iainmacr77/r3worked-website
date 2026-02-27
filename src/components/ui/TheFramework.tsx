@@ -21,15 +21,16 @@ function BlueprintSchematicOverlay() {
             >
                 <defs>
                     <marker
-                        id="arrow"
-                        markerWidth="11"
-                        markerHeight="11"
-                        markerUnits="userSpaceOnUse"
-                        refX="10.5"
-                        refY="5.5"
+                        id="arrowEnd"
+                        viewBox="0 0 10 10"
+                        refX="11"
+                        refY="5"
+                        markerWidth="10"
+                        markerHeight="10"
                         orient="auto"
+                        markerUnits="userSpaceOnUse"
                     >
-                        <path d="M0,0 L11,5.5 L0,11 z" fill="currentColor" />
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
                     </marker>
                 </defs>
 
@@ -79,36 +80,36 @@ function BlueprintSchematicOverlay() {
 
                 {/* Connections */}
                 <path
-                    d="M134 142 C176 160, 210 178, 224 194"
+                    d="M134 142 C174 159, 206 176, 220 192"
                     fill="none"
                     className="text-[rgba(30,30,46,0.56)]"
                     stroke="currentColor"
                     strokeWidth="1.2"
-                    markerEnd="url(#arrow)"
+                    markerEnd="url(#arrowEnd)"
                 />
                 <path
-                    d="M292 192 C332 164, 360 148, 390 132"
+                    d="M292 192 C332 164, 356 146, 382 130"
                     fill="none"
                     className="text-[rgba(255,107,107,0.9)]"
                     stroke="currentColor"
                     strokeWidth="1.25"
-                    markerEnd="url(#arrow)"
+                    markerEnd="url(#arrowEnd)"
                 />
                 <path
-                    d="M292 228 C338 250, 368 270, 394 286"
+                    d="M292 228 C336 250, 364 267, 386 282"
                     fill="none"
                     className="text-[rgba(30,30,46,0.56)]"
                     stroke="currentColor"
                     strokeWidth="1.2"
-                    markerEnd="url(#arrow)"
+                    markerEnd="url(#arrowEnd)"
                 />
                 <path
-                    d="M138 302 C232 302, 314 302, 392 302"
+                    d="M138 302 C230 302, 306 302, 384 302"
                     fill="none"
                     className="text-[rgba(30,30,46,0.54)]"
                     stroke="currentColor"
                     strokeWidth="1.2"
-                    markerEnd="url(#arrow)"
+                    markerEnd="url(#arrowEnd)"
                 />
             </svg>
 
