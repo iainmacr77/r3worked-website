@@ -21,26 +21,15 @@ function BlueprintSchematicOverlay() {
             >
                 <defs>
                     <marker
-                        id="arrow-end"
+                        id="arrow"
                         markerWidth="11"
                         markerHeight="11"
                         markerUnits="userSpaceOnUse"
-                        refX="9.5"
+                        refX="10.5"
                         refY="5.5"
                         orient="auto"
                     >
-                        <path d="M0,0 L11,5.5 L0,11 z" fill="context-stroke" />
-                    </marker>
-                    <marker
-                        id="arrow-start"
-                        markerWidth="11"
-                        markerHeight="11"
-                        markerUnits="userSpaceOnUse"
-                        refX="9.5"
-                        refY="5.5"
-                        orient="auto-start-reverse"
-                    >
-                        <path d="M0,0 L11,5.5 L0,11 z" fill="context-stroke" />
+                        <path d="M0,0 L11,5.5 L0,11 z" fill="currentColor" />
                     </marker>
                 </defs>
 
@@ -60,10 +49,14 @@ function BlueprintSchematicOverlay() {
                 <text x="50" y="366" fontSize="9.5" fill="rgba(30,30,46,0.56)" letterSpacing="0.04em">DELIVERIES</text>
 
                 {/* Lola node */}
-                <g className="blueprint-lola-pulse">
-                    <circle cx="258" cy="210" r="47" fill="none" stroke="rgba(255,107,107,0.38)" strokeWidth="1.4" />
+                <g className="blueprint-lola-pulse-soft">
+                    <circle cx="258" cy="210" r="55" fill="none" stroke="rgba(255,107,107,0.30)" strokeWidth="1.1" />
                 </g>
-                <circle cx="258" cy="210" r="36" fill="rgba(255,107,107,0.14)" stroke="rgba(255,107,107,0.88)" strokeWidth="1.4" />
+                <g className="blueprint-lola-pulse">
+                    <circle cx="258" cy="210" r="47" fill="none" stroke="rgba(255,107,107,0.56)" strokeWidth="1.4" />
+                </g>
+                <circle cx="258" cy="210" r="36" fill="rgba(255,107,107,0.20)" stroke="rgba(255,107,107,0.92)" strokeWidth="1.5" />
+                <circle cx="258" cy="210" r="41" fill="none" stroke="rgba(255,107,107,0.42)" strokeWidth="1.1" style={{ filter: "blur(1.4px)" }} />
                 <foreignObject x="224" y="176" width="68" height="68">
                     <div className="flex h-full w-full items-center justify-center">
                         <BrandMark className="h-10 w-10" />
@@ -91,8 +84,7 @@ function BlueprintSchematicOverlay() {
                     className="text-[rgba(30,30,46,0.56)]"
                     stroke="currentColor"
                     strokeWidth="1.2"
-                    markerStart="url(#arrow-start)"
-                    markerEnd="url(#arrow-end)"
+                    markerEnd="url(#arrow)"
                 />
                 <path
                     d="M292 192 C332 164, 360 148, 390 132"
@@ -100,8 +92,7 @@ function BlueprintSchematicOverlay() {
                     className="text-[rgba(255,107,107,0.9)]"
                     stroke="currentColor"
                     strokeWidth="1.25"
-                    markerStart="url(#arrow-start)"
-                    markerEnd="url(#arrow-end)"
+                    markerEnd="url(#arrow)"
                 />
                 <path
                     d="M292 228 C338 250, 368 270, 394 286"
@@ -109,8 +100,7 @@ function BlueprintSchematicOverlay() {
                     className="text-[rgba(30,30,46,0.56)]"
                     stroke="currentColor"
                     strokeWidth="1.2"
-                    markerStart="url(#arrow-start)"
-                    markerEnd="url(#arrow-end)"
+                    markerEnd="url(#arrow)"
                 />
                 <path
                     d="M138 302 C232 302, 314 302, 392 302"
@@ -118,8 +108,7 @@ function BlueprintSchematicOverlay() {
                     className="text-[rgba(30,30,46,0.54)]"
                     stroke="currentColor"
                     strokeWidth="1.2"
-                    markerStart="url(#arrow-start)"
-                    markerEnd="url(#arrow-end)"
+                    markerEnd="url(#arrow)"
                 />
             </svg>
 
@@ -129,18 +118,32 @@ function BlueprintSchematicOverlay() {
                     transform-origin: center;
                     animation: blueprintPulse 2.8s ease-out infinite;
                 }
+                .blueprint-lola-pulse-soft {
+                    transform-box: fill-box;
+                    transform-origin: center;
+                    animation: blueprintPulseSoft 3.6s ease-out infinite;
+                }
 
                 @keyframes blueprintPulse {
                     0% {
-                        opacity: 0.2;
+                        opacity: 0.34;
+                        transform: scale(1);
+                    }
+                    100% {
+                        opacity: 0.08;
+                        transform: scale(1.08);
+                    }
+                }
+                @keyframes blueprintPulseSoft {
+                    0% {
+                        opacity: 0.24;
                         transform: scale(1);
                     }
                     100% {
                         opacity: 0.05;
-                        transform: scale(1.08);
+                        transform: scale(1.1);
                     }
                 }
-
             `}</style>
         </div>
     );
