@@ -6,7 +6,18 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { BrandMark } from "./Logo";
-import { ScanLine, AudioWaveform } from "lucide-react";
+import Link from "next/link";
+import {
+    AudioWaveform,
+    ArrowRight,
+    CalendarCheck2,
+    Clock3,
+    ConciergeBell,
+    MessageSquareReply,
+    PhoneForwarded,
+    Star,
+    UserRoundCheck
+} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -214,6 +225,155 @@ function BlueprintSchematicOverlay() {
     );
 }
 
+type FrameworkStepSetup = {
+    id: 1;
+    title: string;
+    subheadline: string;
+    body: string;
+    bullets: string[];
+    closing: string;
+    visual: () => JSX.Element;
+};
+
+type FrameworkStepBento = {
+    id: 2 | 3;
+    phaseLabel: "Phase 02/A" | "Phase 02/B";
+    title: string;
+    subheadline: string;
+    body: string;
+    bullets: string[];
+    ctaPrimaryLabel: string;
+    ctaPrimaryHref: string;
+    ctaSecondaryLabel?: string;
+    ctaSecondaryHref?: string;
+    visual: () => JSX.Element;
+};
+
+type FrameworkStepStandard = {
+    id: 4;
+    title: string;
+    description: string;
+    visual: () => JSX.Element;
+};
+
+type FrameworkStep = FrameworkStepSetup | FrameworkStepBento | FrameworkStepStandard;
+
+function GlassCard({
+    className,
+    children
+}: {
+    className?: string;
+    children: React.ReactNode;
+}) {
+    return (
+        <div
+            className={cn(
+                "rounded-[1.75rem] border border-charcoal/12 bg-white/70 p-5 shadow-[0_20px_48px_rgba(30,30,46,0.08)] backdrop-blur-xl md:p-6",
+                className
+            )}
+        >
+            {children}
+        </div>
+    );
+}
+
+function OpsRow({
+    icon,
+    title,
+    detail
+}: {
+    icon: React.ReactNode;
+    title: string;
+    detail: string;
+}) {
+    return (
+        <div className="flex items-start gap-3 rounded-2xl border border-charcoal/10 bg-white/65 px-4 py-3">
+            <span className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl border border-coral/20 bg-coral/10 text-coral">
+                {icon}
+            </span>
+            <div className="space-y-0.5">
+                <p className="font-outfit text-sm font-medium text-ink md:text-base">{title}</p>
+                <p className="font-outfit text-xs text-charcoal/75 md:text-sm">{detail}</p>
+            </div>
+        </div>
+    );
+}
+
+function OperationBentoVisual() {
+    return (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
+            <GlassCard className="relative md:col-span-4">
+                <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-coral/25 bg-coral/12 px-3 py-1 font-jetbrains text-[10px] font-semibold uppercase tracking-[0.14em] text-coral">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-coral" />
+                    Live Ops
+                </span>
+                <p className="mb-5 font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Operations Panel</p>
+                <div className="space-y-3 pt-2">
+                    <OpsRow icon={<CalendarCheck2 className="h-4 w-4" />} title="Booking confirmed" detail="Sat 19:30 • 4 guests • Terrace" />
+                    <OpsRow icon={<Clock3 className="h-4 w-4" />} title="Time changed (+30 mins)" detail="Updated by caller while in queue" />
+                    <OpsRow icon={<ConciergeBell className="h-4 w-4" />} title="Dietary note captured" detail="Shellfish allergy added to booking" />
+                    <OpsRow icon={<Star className="h-4 w-4" />} title="Waitlist converted" detail="Spot opened • guest auto-confirmed" />
+                </div>
+            </GlassCard>
+            <GlassCard className="md:col-span-2">
+                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Guest Context</p>
+                <p className="mt-3 font-outfit text-lg font-medium text-ink">Returning guest recognised</p>
+                <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/75">
+                    &ldquo;Hi Sarah.&rdquo; Not &ldquo;What&apos;s your name again?&rdquo; Guest details sync straight from your booking system.
+                </p>
+            </GlassCard>
+            <GlassCard className="md:col-span-3">
+                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Capacity Assist</p>
+                <p className="mt-3 font-outfit text-lg font-medium text-ink">Suggested alternative times</p>
+                <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/75">
+                    If a slot is full, Lola offers nearby times, different areas, or the waitlist where supported.
+                </p>
+            </GlassCard>
+            <GlassCard className="md:col-span-3">
+                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Service Notes</p>
+                <p className="mt-3 font-outfit text-lg font-medium text-ink">Special request captured</p>
+                <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/75">
+                    Celebrations, accessibility notes, and table preferences are added with context before service.
+                </p>
+            </GlassCard>
+        </div>
+    );
+}
+
+function RulesRoutingBentoVisual() {
+    return (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
+            <GlassCard className="md:col-span-3">
+                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">House Rules</p>
+                <div className="mt-3 space-y-2.5 font-outfit text-sm text-charcoal/80">
+                    <p className="flex items-center justify-between rounded-xl border border-charcoal/10 bg-white/65 px-3 py-2.5"><span className="text-ink">Corkage</span><span>Rxx</span></p>
+                    <p className="flex items-center justify-between rounded-xl border border-charcoal/10 bg-white/65 px-3 py-2.5"><span className="text-ink">Kids</span><span>Allowed until xx:xx</span></p>
+                    <p className="flex items-center justify-between rounded-xl border border-charcoal/10 bg-white/65 px-3 py-2.5"><span className="text-ink">Dress code</span><span>Smart casual</span></p>
+                    <p className="flex items-center justify-between rounded-xl border border-charcoal/10 bg-white/65 px-3 py-2.5"><span className="text-ink">Seating</span><span>Bar / Terrace / Main</span></p>
+                </div>
+            </GlassCard>
+            <GlassCard className="md:col-span-3">
+                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Routing Rules</p>
+                <div className="mt-3 space-y-2.5">
+                    <OpsRow icon={<ArrowRight className="h-4 w-4" />} title="Intent: Large group" detail="Send private events link" />
+                    <OpsRow icon={<PhoneForwarded className="h-4 w-4" />} title="Intent: VIP" detail="Forward to maître d’" />
+                    <OpsRow icon={<PhoneForwarded className="h-4 w-4" />} title="Intent: Supplier" detail="Route to direct line" />
+                    <OpsRow icon={<MessageSquareReply className="h-4 w-4" />} title="Intent: Press" detail="Take message + email summary" />
+                </div>
+            </GlassCard>
+            <GlassCard className="md:col-span-6">
+                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">FAQ answered instantly</p>
+                <p className="mt-3 font-outfit text-sm text-charcoal/75 md:text-base">
+                    <span className="font-medium text-ink">Guest:</span> “Can I bring my kids for a late booking?”
+                </p>
+                <p className="mt-1.5 font-outfit text-sm text-charcoal/75 md:text-base">
+                    <span className="font-medium text-ink">Lola:</span> “Yes — children are welcome until xx:xx. For later seatings we recommend Bar or Main.”
+                </p>
+            </GlassCard>
+        </div>
+    );
+}
+
 const FRAMEWORK_STEPS = [
     {
         id: 1,
@@ -232,37 +392,37 @@ const FRAMEWORK_STEPS = [
     },
     {
         id: 2,
-        title: "Lola Learns",
-        description: "Upload PDFs of your menus, floor plans, and wine lists. Lola instantly vectorizes the knowledge.",
-        visual: () => (
-            <div className="w-56 h-64 bg-white border border-charcoal/20 rounded-lg shadow-xl relative overflow-hidden flex flex-col justify-between p-4">
-                <div className="w-full h-2 bg-charcoal/10 rounded-full mb-4" />
-                <div className="w-3/4 h-2 bg-charcoal/10 rounded-full mb-2" />
-                <div className="w-5/6 h-2 bg-charcoal/10 rounded-full mb-auto" />
-
-                {/* Laser Scanner */}
-                <div className="absolute top-0 left-0 w-full h-[2px] bg-coral shadow-[0_0_15px_rgba(255,107,107,0.8)] z-10 animate-[bounce_2s_infinite]" />
-                <div className="absolute inset-0 bg-coral/5 z-0" />
-                <ScanLine className="absolute bottom-4 right-4 text-charcoal/30" />
-            </div>
-        )
+        phaseLabel: "Phase 02/A",
+        title: "Lola Operation",
+        subheadline: "Lola answers like your best host — instantly.",
+        body: "Lola handles the calls your team shouldn’t have to: booking, amending, cancelling, and the “quick questions” that flood the line during service. Guests get help immediately. Your staff stays focused on the floor.",
+        bullets: [
+            "Book, amend, cancel — in seconds",
+            "Offer alternatives when you’re full (nearby times, different areas, waitlist where supported)",
+            "“Hi Sarah.” Not “What’s your name again?”",
+            "Recognises returning guests (or pulls details from the booking system)"
+        ],
+        ctaPrimaryLabel: "Book a demo",
+        ctaPrimaryHref: "/book",
+        ctaSecondaryLabel: "Hear Lola →",
+        ctaSecondaryHref: "#hear-lola",
+        visual: () => <OperationBentoVisual />
     },
     {
         id: 3,
-        title: "Lola Learns",
-        description: "Upload PDFs of your menus, floor plans, and wine lists. Lola instantly vectorizes the knowledge.",
-        visual: () => (
-            <div className="w-56 h-64 bg-white border border-charcoal/20 rounded-lg shadow-xl relative overflow-hidden flex flex-col justify-between p-4">
-                <div className="w-full h-2 bg-charcoal/10 rounded-full mb-4" />
-                <div className="w-3/4 h-2 bg-charcoal/10 rounded-full mb-2" />
-                <div className="w-5/6 h-2 bg-charcoal/10 rounded-full mb-auto" />
-
-                {/* Laser Scanner */}
-                <div className="absolute top-0 left-0 w-full h-[2px] bg-coral shadow-[0_0_15px_rgba(255,107,107,0.8)] z-10 animate-[bounce_2s_infinite]" />
-                <div className="absolute inset-0 bg-coral/5 z-0" />
-                <ScanLine className="absolute bottom-4 right-4 text-charcoal/30" />
-            </div>
-        )
+        phaseLabel: "Phase 02/B",
+        title: "Rules, FAQs & Routing",
+        subheadline: "House rules in. Confident answers out.",
+        body: "Lola answers FAQs using your exact policies — not generic internet fluff — and routes edge cases exactly how you want.",
+        bullets: [
+            "FAQs, handled — with your exact house rules (hours, parking, corkage, kids, dress code, seating areas, accessibility, celebrations)",
+            "Intent-based routing (you decide what gets through)",
+            "Options: forward to direct line, send a link, take a message with context, route by intent (press, large groups, suppliers, VIPs)",
+            "Every call ends with clarity (clear confirmation + next steps)"
+        ],
+        ctaPrimaryLabel: "See how routing works",
+        ctaPrimaryHref: "/book",
+        visual: () => <RulesRoutingBentoVisual />
     },
     {
         id: 4,
@@ -275,7 +435,7 @@ const FRAMEWORK_STEPS = [
             </div>
         )
     }
-];
+] satisfies FrameworkStep[];
 
 export function TheFramework() {
     const container = useRef<HTMLDivElement>(null);
@@ -311,6 +471,7 @@ export function TheFramework() {
             <div ref={container} className="relative w-full">
                 {FRAMEWORK_STEPS.map((step, index) => {
                     const isSetup = step.id === 1;
+                    const isBentoPhase = step.id === 2 || step.id === 3;
                     const cardBackgroundColor =
                         step.id === 3
                             ? "var(--color-white)"
@@ -333,63 +494,125 @@ export function TheFramework() {
                             zIndex: index
                         }}
                     >
-                        <div
-                            className={cn(
-                                "grid w-full grid-cols-1 gap-8 items-center md:gap-10 lg:gap-12",
-                                isSetup
-                                    ? "max-w-7xl lg:grid-cols-12"
-                                    : "max-w-6xl md:grid-cols-2"
-                            )}
-                        >
-                            <div
-                                className={cn(
-                                    "order-2 flex justify-center py-8 md:order-1 md:py-10",
-                                    isSetup && "w-full justify-center lg:col-span-5 lg:justify-center lg:pl-6"
-                                )}
-                            >
-                                <div className={cn(isSetup && "w-full max-w-[580px] opacity-90 sm:opacity-85")}>
-                                    <step.visual />
-                                </div>
-                            </div>
-                            <div className={cn("order-1 flex flex-col items-start gap-6 md:order-2", isSetup && "lg:col-span-7 md:gap-6")}>
-                                <span className="text-coral font-jetbrains font-bold tracking-widest text-sm uppercase">Phase 0{step.id}</span>
-                                <h2 className="text-5xl md:text-7xl font-playfair italic text-ink">{step.title}</h2>
-                                {"subheadline" in step ? (
-                                    <>
-                                        <p className="max-w-[30ch] font-outfit text-2xl leading-snug text-charcoal md:text-[2rem]">
+                        {isBentoPhase ? (
+                            <div className="w-full max-w-7xl space-y-7 md:space-y-8">
+                                <div className="space-y-4 md:space-y-5">
+                                    {"phaseLabel" in step ? (
+                                        <span className="font-jetbrains text-xs font-bold uppercase tracking-[0.22em] text-coral md:text-sm">
+                                            {step.phaseLabel}
+                                        </span>
+                                    ) : null}
+                                    <h2 className="font-playfair text-5xl italic text-ink md:text-7xl">{step.title}</h2>
+                                    {"subheadline" in step ? (
+                                        <p className="max-w-[32ch] font-outfit text-2xl leading-snug text-charcoal md:text-[2rem]">
                                             {step.subheadline}
                                         </p>
-                                        <p className="max-w-[68ch] font-outfit text-base leading-relaxed text-charcoal md:text-lg">
+                                    ) : null}
+                                    {"body" in step ? (
+                                        <p className="max-w-[76ch] font-outfit text-base leading-relaxed text-charcoal md:text-lg">
                                             {step.body}
                                         </p>
-                                        <ul className="max-w-[68ch] space-y-2.5 font-outfit text-charcoal">
-                                            <li className="text-base leading-relaxed md:text-lg">
-                                                <span className="font-medium text-coral">Lola number</span>: One number guests actually use: publish the Lola number everywhere (Google, website, Instagram, menus).
-                                            </li>
-                                            <li className="text-base leading-relaxed md:text-lg">
-                                                <span className="font-medium text-coral">WhatsApp calls</span>: Call + WhatsApp-ready: guests can reach you via standard calls or WhatsApp calls — essential for travellers.
-                                            </li>
-                                            <li className="text-base leading-relaxed md:text-lg">
-                                                Connects to your booking system: Lola plugs into your booking API to see availability, table options, rules, and guest details.
-                                            </li>
-                                            <li className="text-base leading-relaxed md:text-lg">
-                                                Learns your house rules: hours, menus, corkage, kids, seating areas, dress code, policies — plus booking constraints.
-                                            </li>
-                                            <li className="text-base leading-relaxed md:text-lg">
-                                                Routing you control: if a guest insists on speaking to the restaurant, Lola can forward immediately.
-                                            </li>
-                                        </ul>
-                                        <p className="max-w-[68ch] pt-1 font-outfit text-lg leading-relaxed text-ink md:text-2xl">
-                                            {step.closing}
+                                    ) : null}
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:items-start">
+                                    <div className="lg:col-span-8">
+                                        <step.visual />
+                                    </div>
+                                    <GlassCard className="lg:col-span-4">
+                                        <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">
+                                            Key outcomes
                                         </p>
-                                    </>
-                                ) : (
-                                    <p className="text-xl md:text-3xl text-charcoal font-outfit max-w-lg leading-relaxed">
-                                        {step.description}
-                                    </p>
-                                )}
+                                        {"bullets" in step ? (
+                                            <ul className="mt-3 space-y-2.5 font-outfit text-sm text-charcoal md:text-base">
+                                                {step.bullets.map((bullet) => (
+                                                    <li key={bullet} className="flex items-start gap-2.5 leading-relaxed">
+                                                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                                                        <span>{bullet}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        ) : null}
+                                        {"ctaPrimaryLabel" in step ? (
+                                            <div className="mt-5 flex flex-wrap items-center gap-4">
+                                                <Link
+                                                    href={step.ctaPrimaryHref}
+                                                    className="inline-flex items-center justify-center rounded-full border border-coral/40 bg-coral px-5 py-2.5 font-outfit text-sm font-medium text-white shadow-[0_10px_26px_rgba(255,107,107,0.28)] transition-transform hover:scale-[1.02]"
+                                                >
+                                                    {step.ctaPrimaryLabel}
+                                                </Link>
+                                                {step.ctaSecondaryLabel && step.ctaSecondaryHref ? (
+                                                    <Link
+                                                        href={step.ctaSecondaryHref}
+                                                        className="font-jetbrains text-xs uppercase tracking-[0.16em] text-coral transition-opacity hover:opacity-75"
+                                                    >
+                                                        {step.ctaSecondaryLabel}
+                                                    </Link>
+                                                ) : null}
+                                            </div>
+                                        ) : null}
+                                    </GlassCard>
+                                </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div
+                                className={cn(
+                                    "grid w-full grid-cols-1 gap-8 items-center md:gap-10 lg:gap-12",
+                                    isSetup
+                                        ? "max-w-7xl lg:grid-cols-12"
+                                        : "max-w-6xl md:grid-cols-2"
+                                )}
+                            >
+                                <div
+                                    className={cn(
+                                        "order-2 flex justify-center py-8 md:order-1 md:py-10",
+                                        isSetup && "w-full justify-center lg:col-span-5 lg:justify-center lg:pl-6"
+                                    )}
+                                >
+                                    <div className={cn(isSetup && "w-full max-w-[580px] opacity-90 sm:opacity-85")}>
+                                        <step.visual />
+                                    </div>
+                                </div>
+                                <div className={cn("order-1 flex flex-col items-start gap-6 md:order-2", isSetup && "lg:col-span-7 md:gap-6")}>
+                                    <span className="text-coral font-jetbrains font-bold tracking-widest text-sm uppercase">Phase 0{step.id}</span>
+                                    <h2 className="text-5xl md:text-7xl font-playfair italic text-ink">{step.title}</h2>
+                                    {"subheadline" in step ? (
+                                        <>
+                                            <p className="max-w-[30ch] font-outfit text-2xl leading-snug text-charcoal md:text-[2rem]">
+                                                {step.subheadline}
+                                            </p>
+                                            <p className="max-w-[68ch] font-outfit text-base leading-relaxed text-charcoal md:text-lg">
+                                                {step.body}
+                                            </p>
+                                            <ul className="max-w-[68ch] space-y-2.5 font-outfit text-charcoal">
+                                                <li className="text-base leading-relaxed md:text-lg">
+                                                    <span className="font-medium text-coral">Lola number</span>: One number guests actually use: publish the Lola number everywhere (Google, website, Instagram, menus).
+                                                </li>
+                                                <li className="text-base leading-relaxed md:text-lg">
+                                                    <span className="font-medium text-coral">WhatsApp calls</span>: Call + WhatsApp-ready: guests can reach you via standard calls or WhatsApp calls — essential for travellers.
+                                                </li>
+                                                <li className="text-base leading-relaxed md:text-lg">
+                                                    Connects to your booking system: Lola plugs into your booking API to see availability, table options, rules, and guest details.
+                                                </li>
+                                                <li className="text-base leading-relaxed md:text-lg">
+                                                    Learns your house rules: hours, menus, corkage, kids, seating areas, dress code, policies — plus booking constraints.
+                                                </li>
+                                                <li className="text-base leading-relaxed md:text-lg">
+                                                    Routing you control: if a guest insists on speaking to the restaurant, Lola can forward immediately.
+                                                </li>
+                                            </ul>
+                                            <p className="max-w-[68ch] pt-1 font-outfit text-lg leading-relaxed text-ink md:text-2xl">
+                                                {step.closing}
+                                            </p>
+                                        </>
+                                    ) : (
+                                        <p className="text-xl md:text-3xl text-charcoal font-outfit max-w-lg leading-relaxed">
+                                            {step.description}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
                     );
                 })}
