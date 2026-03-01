@@ -28,10 +28,14 @@ export function Hero() {
             <span className="font-outfit text-4xl font-bold uppercase tracking-[0.18em] text-white drop-shadow-[0_3px_14px_rgba(8,8,14,0.45)] md:text-6xl lg:text-7xl">
               SEAMLESS SERVICE
             </span>
-            <span className="font-playfair text-5xl italic leading-[1.04] text-[#ff9b92] drop-shadow-[0_5px_16px_rgba(8,8,14,0.42)] md:text-7xl lg:text-[6.5rem]">
+            <span className="type-display text-[#ff9b92] drop-shadow-[0_5px_16px_rgba(8,8,14,0.42)]">
               Starts with Lola
             </span>
           </h1>
+
+          <p className="type-lead mt-6 max-w-[56ch] text-peach/88">
+            Lola answers your restaurant&apos;s phone, handles bookings, and never misses a call — so your team stays on the floor.
+          </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4 md:mt-10 lg:mt-16">
             <a

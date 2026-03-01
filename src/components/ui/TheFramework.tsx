@@ -1,11 +1,8 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { BrandMark } from "./Logo";
+import { SectionHeading } from "@/components/typography/SectionHeading";
 import Link from "next/link";
 import {
     AudioWaveform,
@@ -18,8 +15,6 @@ import {
     Star,
     UserRoundCheck
 } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 function BlueprintSchematicOverlay() {
     type Node = { x: number; y: number; r: number };
@@ -251,12 +246,14 @@ type FrameworkStepBento = {
 
 type FrameworkStepStandard = {
     id: 4;
+    phaseLabel?: "Phase 03";
     title: string;
     description: string;
     visual: () => JSX.Element;
 };
 
 type FrameworkStep = FrameworkStepSetup | FrameworkStepBento | FrameworkStepStandard;
+const FEATURE_SECTION_TITLE_CLASS = "type-h2";
 
 function GlassCard({
     className,
@@ -426,6 +423,7 @@ const FRAMEWORK_STEPS = [
     },
     {
         id: 4,
+        phaseLabel: "Phase 03",
         title: "Service Begins",
         description: "Lola handles 100% of incoming triage, routing VIPs to the Maître d', and booking standard reservations autonomously.",
         visual: () => (
@@ -438,37 +436,10 @@ const FRAMEWORK_STEPS = [
 ] satisfies FrameworkStep[];
 
 export function TheFramework() {
-    const container = useRef<HTMLDivElement>(null);
-
-    useGSAP(() => {
-        // Select all cards inside the container
-        if (!container.current) return;
-        const cards = gsap.utils.toArray<HTMLElement>(".framework-card");
-
-        cards.forEach((card, i) => {
-            if (i === cards.length - 1) return; // Don't animate the last card out
-
-            ScrollTrigger.create({
-                trigger: card,
-                start: "top top",
-                end: "bottom top",
-                pin: true,
-                pinSpacing: false, // Allows the next card to scroll *over* this one
-                animation: gsap.to(card, {
-                    scale: 0.9,
-                    filter: "blur(20px)",
-                    opacity: 0.5,
-                    ease: "none"
-                }),
-                scrub: true,
-            });
-        });
-    }, { scope: container });
-
     return (
-        <section id="framework" className="w-full bg-ink relative">
+        <section id="framework" className="section-offset relative w-full bg-ink">
             {/* Sticky Stacking Cards Container */}
-            <div ref={container} className="relative w-full">
+            <div className="relative w-full">
                 {FRAMEWORK_STEPS.map((step, index) => {
                     const isSetup = step.id === 1;
                     const isBentoPhase = step.id === 2 || step.id === 3;
@@ -486,8 +457,8 @@ export function TheFramework() {
                         className={cn(
                             "framework-card sticky top-0 flex w-full justify-center p-6 md:p-12 lg:p-16",
                             isSetup
-                                ? "min-h-[calc(100svh-76px)] items-start pt-24 md:pt-28"
-                                : "h-[100dvh] items-center"
+                                ? "min-h-[100svh] items-start pt-24 md:pt-28"
+                                : "min-h-[100svh] items-center"
                         )}
                         style={{
                             backgroundColor: cardBackgroundColor,
@@ -496,35 +467,30 @@ export function TheFramework() {
                     >
                         {isBentoPhase ? (
                             <div className="w-full max-w-7xl space-y-7 md:space-y-8">
-                                <div className="space-y-4 md:space-y-5">
-                                    {"phaseLabel" in step ? (
-                                        <span className="font-jetbrains text-xs font-bold uppercase tracking-[0.22em] text-coral md:text-sm">
-                                            {step.phaseLabel}
-                                        </span>
-                                    ) : null}
-                                    <h2 className="font-playfair text-5xl italic text-ink md:text-7xl">{step.title}</h2>
-                                    {"subheadline" in step ? (
-                                        <p className="max-w-[32ch] font-outfit text-2xl leading-snug text-charcoal md:text-[2rem]">
-                                            {step.subheadline}
-                                        </p>
-                                    ) : null}
-                                    {"body" in step ? (
-                                        <p className="max-w-[76ch] font-outfit text-base leading-relaxed text-charcoal md:text-lg">
-                                            {step.body}
-                                        </p>
-                                    ) : null}
-                                </div>
+                                {"phaseLabel" in step ? (
+                                    <SectionHeading
+                                        eyebrow={step.phaseLabel}
+                                        title={step.title}
+                                        subtitle={step.subheadline}
+                                        titleClassName={FEATURE_SECTION_TITLE_CLASS}
+                                    />
+                                ) : null}
+                                {"body" in step ? (
+                                    <p className="type-body text-charcoal">
+                                        {step.body}
+                                    </p>
+                                ) : null}
 
                                 <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:items-start">
                                     <div className="lg:col-span-8">
                                         <step.visual />
                                     </div>
                                     <GlassCard className="lg:col-span-4">
-                                        <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">
+                                        <p className="type-eyebrow text-charcoal/60">
                                             Key outcomes
                                         </p>
                                         {"bullets" in step ? (
-                                            <ul className="mt-3 space-y-2.5 font-outfit text-sm text-charcoal md:text-base">
+                                            <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal">
                                                 {step.bullets.map((bullet) => (
                                                     <li key={bullet} className="flex items-start gap-2.5 leading-relaxed">
                                                         <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
@@ -544,7 +510,7 @@ export function TheFramework() {
                                                 {step.ctaSecondaryLabel && step.ctaSecondaryHref ? (
                                                     <Link
                                                         href={step.ctaSecondaryHref}
-                                                        className="font-jetbrains text-xs uppercase tracking-[0.16em] text-coral transition-opacity hover:opacity-75"
+                                                        className="type-eyebrow text-coral transition-opacity hover:opacity-75"
                                                     >
                                                         {step.ctaSecondaryLabel}
                                                     </Link>
@@ -574,13 +540,14 @@ export function TheFramework() {
                                     </div>
                                 </div>
                                 <div className={cn("order-1 flex flex-col items-start gap-6 md:order-2", isSetup && "lg:col-span-7 md:gap-6")}>
-                                    <span className="text-coral font-jetbrains font-bold tracking-widest text-sm uppercase">Phase 0{step.id}</span>
-                                    <h2 className="text-5xl md:text-7xl font-playfair italic text-ink">{step.title}</h2>
                                     {"subheadline" in step ? (
                                         <>
-                                            <p className="max-w-[30ch] font-outfit text-2xl leading-snug text-charcoal md:text-[2rem]">
-                                                {step.subheadline}
-                                            </p>
+                                            <SectionHeading
+                                                eyebrow={`Phase 0${step.id}`}
+                                                title={step.title}
+                                                subtitle={step.subheadline}
+                                                titleClassName={FEATURE_SECTION_TITLE_CLASS}
+                                            />
                                             <p className="max-w-[68ch] font-outfit text-base leading-relaxed text-charcoal md:text-lg">
                                                 {step.body}
                                             </p>
@@ -606,9 +573,18 @@ export function TheFramework() {
                                             </p>
                                         </>
                                     ) : (
-                                        <p className="text-xl md:text-3xl text-charcoal font-outfit max-w-lg leading-relaxed">
-                                            {step.description}
-                                        </p>
+                                        <>
+                                            {"phaseLabel" in step && step.phaseLabel ? (
+                                                <SectionHeading
+                                                    eyebrow={step.phaseLabel}
+                                                    title={step.title}
+                                                    titleClassName={FEATURE_SECTION_TITLE_CLASS}
+                                                />
+                                            ) : null}
+                                            <p className="text-xl md:text-3xl text-charcoal font-outfit max-w-lg leading-relaxed">
+                                                {step.description}
+                                            </p>
+                                        </>
                                     )}
                                 </div>
                             </div>

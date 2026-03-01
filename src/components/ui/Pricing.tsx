@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { SectionHeading } from "@/components/typography/SectionHeading";
 
 const TIERS = [
     {
@@ -33,15 +34,15 @@ const TIERS = [
 
 export function Pricing() {
     return (
-        <section id="pricing" className="w-full bg-peach/30 py-32 px-6 md:px-16 border-t border-charcoal/10 relative overflow-hidden">
+        <section id="pricing" className="section-offset w-full bg-peach/30 py-32 px-6 md:px-16 border-t border-charcoal/10 relative overflow-hidden">
             <div className="max-w-7xl mx-auto relative z-10">
-                <div className="text-center mb-20">
-                    <h2 className="text-4xl md:text-6xl font-playfair italic text-ink mb-6">
-                        Membership
-                    </h2>
-                    <p className="text-xl text-charcoal max-w-2xl mx-auto font-outfit">
-                        Transparent pricing. Immediate ROI by reclaiming your host stand.
-                    </p>
+                <div className="section-header mb-20 text-center">
+                    <SectionHeading
+                        title="Membership"
+                        subtitle="Transparent pricing. Immediate ROI by reclaiming your host stand."
+                        className="justify-items-center text-center"
+                        titleClassName="type-h2-serif"
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start lg:px-12">

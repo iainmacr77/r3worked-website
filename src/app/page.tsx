@@ -11,6 +11,7 @@ import { Pricing } from "@/components/ui/Pricing";
 import { Footer } from "@/components/ui/Footer";
 import { WhyLolaCarousel } from "@/components/ui/WhyLolaCarousel";
 import { NarrativeBreaker } from "@/components/ui/NarrativeBreaker";
+import { SectionHeading } from "@/components/typography/SectionHeading";
 import Link from "next/link";
 
 type StorySectionProps = {
@@ -36,16 +37,16 @@ function StorySection({
             {children}
           </div>
         </div>
-        <div className={cardOnLeft ? "order-2" : "order-1"}>
-          <h2 className="mb-4 font-outfit text-4xl font-semibold text-ink md:text-5xl">
+        <div className={`${cardOnLeft ? "order-2" : "order-1"} section-header`}>
+          <h2 className="type-h2 text-ink">
             {title}
           </h2>
-          <p className="mb-6 max-w-[40ch] font-outfit text-lg text-charcoal md:text-xl">
+          <p className="type-lead text-charcoal">
             {body}
           </p>
-          <ul className="mb-6 space-y-3 font-outfit text-charcoal">
+          <ul className="type-body max-w-[68ch] space-y-3 text-charcoal">
             {bullets.map((bullet) => (
-              <li key={bullet} className="flex items-start gap-3 text-base md:text-lg">
+              <li key={bullet} className="flex items-start gap-3">
                 <span className="mt-1 inline-block h-2 w-2 rounded-full bg-coral" />
                 <span>{bullet}</span>
               </li>
@@ -53,7 +54,7 @@ function StorySection({
           </ul>
           <Link
             href="#hear-lola"
-            className="font-jetbrains text-sm uppercase tracking-widest text-coral transition-opacity hover:opacity-80"
+            className="type-eyebrow text-coral transition-opacity hover:opacity-80"
           >
             Hear Lola →
           </Link>
@@ -65,16 +66,15 @@ function StorySection({
 
 function WhyLolaSection() {
   return (
-    <section id="features" className="w-full bg-peach px-6 py-20 md:px-16 md:py-24">
+    <section id="features" className="section-offset w-full bg-peach px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
         <div>
-          <h2 className="mb-5 max-w-[14ch] font-playfair text-4xl italic text-ink md:text-6xl">
-            The phone never stops. Service does.
-          </h2>
-          <p className="mb-6 max-w-[42ch] font-outfit text-lg text-charcoal md:text-xl">
-            Every ring pulls staff off the floor. Every missed call is revenue — and you don’t even know why they called.
-          </p>
-          <div className="space-y-2 font-outfit text-charcoal">
+          <SectionHeading
+            title="The phone never stops. Service does."
+            subtitle="Every ring pulls staff off the floor. Every missed call is revenue — and you don’t even know why they called."
+            titleClassName="type-h2-serif max-w-[16ch]"
+          />
+          <div className="type-body max-w-[64ch] space-y-2 text-charcoal">
             <p>Argh — the phone is ringing and we’re in the weeds.</p>
             <p>Argh — my floor manager is spelling names again.</p>
             <p>Argh — we missed calls during peak service.</p>
@@ -91,18 +91,19 @@ function WhyLolaSection() {
 
 function HearLolaSection({ audioSrc }: { audioSrc: string }) {
   return (
-    <section id="hear-lola" className="w-full bg-ink px-6 py-20 md:px-16 md:py-24">
+    <section id="hear-lola" className="section-offset w-full bg-ink px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto w-full max-w-5xl rounded-[2rem] border border-charcoal bg-charcoal/30 p-8 shadow-[0_24px_64px_rgba(0,0,0,0.35)] backdrop-blur-sm md:p-10">
-        <h2 className="mb-3 font-playfair text-4xl italic text-peach md:text-5xl">
-          Hear Lola in action
-        </h2>
-        <p className="mb-8 max-w-[60ch] font-outfit text-lg text-peach/80">
-          A real booking flow — reservation, kid-friendly question, dietary note — handled in under 30 seconds.
-        </p>
+        <SectionHeading
+          className="mb-8"
+          title="Hear Lola in action"
+          subtitle="A real booking flow — reservation, kid-friendly question, dietary note — handled in under 30 seconds."
+          titleClassName="type-h2-serif text-peach"
+          subtitleClassName="text-peach/80"
+        />
         <div className="rounded-2xl border border-peach/15 bg-ink/60 p-5">
           <div className="mb-3 flex items-center justify-between">
-            <p className="font-outfit text-base text-peach">Saturday Dinner Booking Demo</p>
-            <p className="font-jetbrains text-xs uppercase tracking-widest text-peach/60">
+            <p className="type-body max-w-none text-peach">Saturday Dinner Booking Demo</p>
+            <p className="type-eyebrow text-peach/60">
               00:30
             </p>
           </div>

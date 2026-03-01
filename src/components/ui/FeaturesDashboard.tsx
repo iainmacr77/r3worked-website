@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Utensils, AlertCircle, Sparkles, Navigation } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SectionHeading } from "@/components/typography/SectionHeading";
 
 const CALL_EVENTS = [
     { id: 1, text: "Table for 4 Confirmed", icon: Utensils },
@@ -27,15 +28,14 @@ const TRANSCRIPT = [
 
 export function FeaturesDashboard() {
     return (
-        <section id="features" className="w-full bg-peach py-32 px-6 md:px-16 overflow-hidden">
+        <section id="features" className="section-offset w-full bg-peach py-32 px-6 md:px-16 overflow-hidden">
             <div className="max-w-7xl mx-auto">
-                <div className="mb-20">
-                    <h2 className="text-4xl md:text-5xl font-playfair italic text-ink mb-6">
-                        The Precision Dashboard
-                    </h2>
-                    <p className="text-xl text-charcoal max-w-2xl font-outfit">
-                        A front-of-house operating system that never sleeps. Watch Lola orchestrate your flow in real-time.
-                    </p>
+                <div className="section-header mb-20">
+                    <SectionHeading
+                        title="The Precision Dashboard"
+                        subtitle="A front-of-house operating system that never sleeps. Watch Lola orchestrate your flow in real-time."
+                        titleClassName="type-h2-serif"
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-auto lg:h-[600px]">
