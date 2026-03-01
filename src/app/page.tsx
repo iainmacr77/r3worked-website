@@ -145,7 +145,7 @@ export default function Home() {
           "Waitlist opportunities converted",
           "Ops timeline your team can trust",
         ]}
-        cardOnLeft={false}
+        cardOnLeft
       >
         <ReservationShuffler />
       </StorySection>
