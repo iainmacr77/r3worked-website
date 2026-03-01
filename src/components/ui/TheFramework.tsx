@@ -4,9 +4,11 @@ import { cn } from "@/lib/utils";
 import { BrandMark } from "./Logo";
 import { SectionHeading } from "@/components/typography/SectionHeading";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
     AudioWaveform,
     ArrowRight,
+    Brain,
     CalendarCheck2,
     Clock3,
     ConciergeBell,
@@ -257,15 +259,18 @@ const FEATURE_SECTION_TITLE_CLASS = "type-h2";
 
 function GlassCard({
     className,
+    disableGlassBase = false,
     children
 }: {
     className?: string;
+    disableGlassBase?: boolean;
     children: React.ReactNode;
 }) {
     return (
         <div
             className={cn(
-                "rounded-[1.75rem] border border-charcoal/12 bg-white/70 p-5 shadow-[0_20px_48px_rgba(30,30,46,0.08)] backdrop-blur-xl md:p-6",
+                "rounded-[1.75rem] border border-charcoal/12 p-5 shadow-[0_20px_48px_rgba(30,30,46,0.08)] md:p-6",
+                !disableGlassBase && "bg-white/70 backdrop-blur-xl",
                 className
             )}
         >
@@ -277,14 +282,16 @@ function GlassCard({
 function OpsRow({
     icon,
     title,
-    detail
+    detail,
+    className
 }: {
     icon: React.ReactNode;
     title: string;
     detail: string;
+    className?: string;
 }) {
     return (
-        <div className="flex items-start gap-3 rounded-2xl border border-charcoal/10 bg-white/65 px-4 py-3">
+        <div className={cn("ops-item flex items-start gap-3 rounded-2xl border border-charcoal/10 bg-white/65 px-4 py-3", className)}>
             <span className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl border border-coral/20 bg-coral/10 text-coral">
                 {icon}
             </span>
@@ -297,68 +304,143 @@ function OpsRow({
 }
 
 function OperationBentoVisual() {
+    const operationCardShellClassName = "operation-cream-glass";
+    const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+        () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
+    const [activeIndex, setActiveIndex] = useState(0);
+    const opsItems = [
+        {
+            icon: CalendarCheck2,
+            title: "Booking confirmed",
+            detail: "Sat 19:30 • 4 guests • Terrace"
+        },
+        {
+            icon: Clock3,
+            title: "Time changed (+30 mins)",
+            detail: "Updated by caller while in queue"
+        },
+        {
+            icon: ConciergeBell,
+            title: "Dietary note captured",
+            detail: "Shellfish allergy added to booking"
+        },
+        {
+            icon: Star,
+            title: "Waitlist converted",
+            detail: "Spot opened • guest auto-confirmed"
+        },
+        {
+            icon: PhoneForwarded,
+            title: "Call escalated",
+            detail: "Guest requested a human • forwarded instantly"
+        }
+    ];
+
+    useEffect(() => {
+        const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const handleReducedMotionChange = (event: MediaQueryListEvent) => {
+            setPrefersReducedMotion(event.matches);
+        };
+
+        reducedMotionQuery.addEventListener("change", handleReducedMotionChange);
+
+        return () => {
+            reducedMotionQuery.removeEventListener("change", handleReducedMotionChange);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (prefersReducedMotion) {
+            return;
+        }
+        const intervalId = window.setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % opsItems.length);
+        }, 3200);
+
+        return () => {
+            window.clearInterval(intervalId);
+        };
+    }, [opsItems.length, prefersReducedMotion]);
+
     return (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
-            <GlassCard>
-                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Always On. Zero Missed Calls.</p>
-                <p className="mt-3 font-outfit text-sm leading-relaxed text-charcoal/75 md:text-base">
-                    Lola answers instantly — even at peak. No hold music, no voicemail, no &ldquo;please call back later&rdquo;.
-                </p>
-                <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal">
-                    <li className="flex items-start gap-2.5 leading-relaxed">
-                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
-                        <span>24/7 coverage</span>
-                    </li>
-                    <li className="flex items-start gap-2.5 leading-relaxed">
-                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
-                        <span>Handles multiple callers at once</span>
-                    </li>
-                    <li className="flex items-start gap-2.5 leading-relaxed">
-                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
-                        <span>Escalates when needed</span>
-                    </li>
-                </ul>
-            </GlassCard>
+        <>
+            <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 md:gap-5">
+                <GlassCard className={cn(operationCardShellClassName, "h-full")} disableGlassBase>
+                    <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-charcoal/95">Always on. Zero missed calls</p>
+                    <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">
+                        Lola answers instantly — even at peak. No hold music, no voicemail, no &ldquo;please call back later&rdquo;.
+                    </p>
+                    <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal/95">
+                        <li className="flex items-start gap-2.5 leading-relaxed">
+                            <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                            <span>24/7 coverage</span>
+                        </li>
+                        <li className="flex items-start gap-2.5 leading-relaxed">
+                            <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                            <span>Handles multiple callers at once</span>
+                        </li>
+                        <li className="flex items-start gap-2.5 leading-relaxed">
+                            <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                            <span>Escalates when needed</span>
+                        </li>
+                    </ul>
+                </GlassCard>
 
-            <GlassCard className="order-3 md:order-none md:row-span-2 relative">
-                <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-coral/25 bg-coral/12 px-3 py-1 font-jetbrains text-[10px] font-semibold uppercase tracking-[0.14em] text-coral">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-coral" />
-                    Live Ops
-                </span>
-                <p className="mb-5 font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Operations Panel</p>
-                <div className="space-y-3 pt-2">
-                    <OpsRow icon={<CalendarCheck2 className="h-4 w-4" />} title="Booking confirmed" detail="Sat 19:30 • 4 guests • Terrace" />
-                    <OpsRow icon={<Clock3 className="h-4 w-4" />} title="Time changed (+30 mins)" detail="Updated by caller while in queue" />
-                    <OpsRow icon={<ConciergeBell className="h-4 w-4" />} title="Dietary note captured" detail="Shellfish allergy added to booking" />
-                    <OpsRow icon={<Star className="h-4 w-4" />} title="Waitlist converted" detail="Spot opened • guest auto-confirmed" />
-                </div>
-            </GlassCard>
+                <GlassCard className={cn("order-3 h-full md:order-none md:row-span-2 relative flex flex-col pb-4 md:pb-5", operationCardShellClassName)} disableGlassBase>
+                    <div className="-mx-5 -mt-5 mb-4 flex items-center justify-between gap-3 rounded-t-[1.75rem] border-b border-white/45 bg-gradient-to-r from-white/44 via-white/20 to-white/8 px-5 py-3 md:-mx-6 md:-mt-6 md:px-6 md:py-3.5">
+                        <p className="eyebrow-pulse font-jetbrains text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/90">Operations Panel</p>
+                        <span className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-coral/25 bg-coral/12 px-3 py-1 font-jetbrains text-[10px] font-semibold uppercase tracking-[0.14em] text-coral">
+                            <span className="inline-block h-1.5 w-1.5 rounded-full bg-coral" />
+                            Live Ops
+                        </span>
+                    </div>
+                    <div className="space-y-3 pt-2">
+                        {opsItems.map((item, index) => {
+                            const Icon = item.icon;
+                            const isActive = prefersReducedMotion ? index === 0 : index === activeIndex;
 
-            <GlassCard className="order-2 md:order-none">
-                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Guest Memory</p>
-                <p className="mt-3 font-outfit text-sm leading-relaxed text-charcoal/75 md:text-base">
-                    Every caller is recognised. Lola pulls bookings and context instantly — so guests never repeat themselves.
-                </p>
-                <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal">
-                    <li className="flex items-start gap-2.5 leading-relaxed">
-                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
-                        <span>Caller recognised: Sarah M.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5 leading-relaxed">
-                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
-                        <span>Last booking: Sat 19:30 · Terrace · 4 guests</span>
-                    </li>
-                    <li className="flex items-start gap-2.5 leading-relaxed">
-                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
-                        <span>Preference: corner table · still water</span>
-                    </li>
-                    <li className="flex items-start gap-2.5 leading-relaxed">
-                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
-                        <span>Note: shellfish allergy</span>
-                    </li>
-                </ul>
-            </GlassCard>
-        </div>
+                            return (
+                                <OpsRow
+                                    key={item.title}
+                                    className={cn(
+                                        "transition-all duration-500 ease-out",
+                                        isActive
+                                            ? "ops-item--active -translate-y-px shadow-[0_10px_20px_rgba(0,0,0,0.10)]"
+                                            : "translate-y-0"
+                                    )}
+                                    icon={<Icon className="h-4 w-4" />}
+                                    title={item.title}
+                                    detail={item.detail}
+                                />
+                            );
+                        })}
+                    </div>
+                </GlassCard>
+
+                <GlassCard className={cn("order-2 h-full md:order-none", operationCardShellClassName)} disableGlassBase>
+                    <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-charcoal/95">Guest memory</p>
+                    <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">
+                        Every caller is recognised. Lola pulls context instantly — so guests never repeat themselves.
+                    </p>
+                    <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal/95">
+                        <li className="flex items-start gap-2.5 leading-relaxed">
+                            <Brain className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                            <span>Caller recognised: Sarah M.</span>
+                        </li>
+                        <li className="flex items-start gap-2.5 leading-relaxed">
+                            <Brain className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                            <span>Last booking: Sat 19:30 · Terrace · 4 guests</span>
+                        </li>
+                        <li className="flex items-start gap-2.5 leading-relaxed">
+                            <Brain className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                            <span>Note: shellfish allergy</span>
+                        </li>
+                    </ul>
+                </GlassCard>
+            </div>
+
+        </>
     );
 }
 
@@ -468,8 +550,11 @@ export function TheFramework() {
                 {FRAMEWORK_STEPS.map((step, index) => {
                     const isSetup = step.id === 1;
                     const isBentoPhase = step.id === 2 || step.id === 3;
+                    const isOperation = step.id === 2;
                     const cardBackgroundColor =
-                        step.id === 3
+                        step.id === 2
+                            ? "var(--color-ink)"
+                            : step.id === 3
                             ? "var(--color-white)"
                             : step.id === 4
                                 ? "var(--color-peach)"
@@ -481,6 +566,7 @@ export function TheFramework() {
                         key={step.id}
                         className={cn(
                             "framework-card sticky top-0 flex w-full justify-center p-6 md:p-12 lg:p-16",
+                            isOperation && "overflow-hidden",
                             isSetup
                                 ? "min-h-[100svh] items-start pt-24 md:pt-28"
                                 : "min-h-[100svh] items-center"
@@ -491,13 +577,14 @@ export function TheFramework() {
                         }}
                     >
                         {isBentoPhase ? (
-                            <div className="w-full max-w-7xl space-y-7 md:space-y-8">
+                            <div className="relative z-10 w-full max-w-7xl space-y-7 md:space-y-8">
                                 {"phaseLabel" in step ? (
                                     <SectionHeading
                                         eyebrow={step.phaseLabel}
                                         title={step.title}
                                         subtitle={step.subheadline}
-                                        titleClassName={FEATURE_SECTION_TITLE_CLASS}
+                                        titleClassName={cn(FEATURE_SECTION_TITLE_CLASS, isOperation && "text-peach")}
+                                        subtitleClassName={isOperation ? "text-peach/80" : undefined}
                                     />
                                 ) : null}
                                 {"body" in step && step.body ? (
@@ -509,7 +596,7 @@ export function TheFramework() {
                                 {step.id === 2 ? (
                                     <>
                                         <step.visual />
-                                        <p className="font-outfit text-sm leading-relaxed text-charcoal/65">
+                                        <p className="font-outfit text-sm leading-relaxed text-peach/70">
                                             Next: define how Lola routes edge cases and follows your exact policies.
                                         </p>
                                     </>
