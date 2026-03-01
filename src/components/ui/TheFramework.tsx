@@ -298,8 +298,29 @@ function OpsRow({
 
 function OperationBentoVisual() {
     return (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
-            <GlassCard className="relative md:col-span-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+            <GlassCard>
+                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Always On. Zero Missed Calls.</p>
+                <p className="mt-3 font-outfit text-sm leading-relaxed text-charcoal/75 md:text-base">
+                    Lola answers instantly — even at peak. No hold music, no voicemail, no &ldquo;please call back later&rdquo;.
+                </p>
+                <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal">
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>24/7 coverage</span>
+                    </li>
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>Handles multiple callers at once</span>
+                    </li>
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>Escalates when needed</span>
+                    </li>
+                </ul>
+            </GlassCard>
+
+            <GlassCard className="order-3 md:order-none md:row-span-2 relative">
                 <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-coral/25 bg-coral/12 px-3 py-1 font-jetbrains text-[10px] font-semibold uppercase tracking-[0.14em] text-coral">
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-coral" />
                     Live Ops
@@ -312,26 +333,30 @@ function OperationBentoVisual() {
                     <OpsRow icon={<Star className="h-4 w-4" />} title="Waitlist converted" detail="Spot opened • guest auto-confirmed" />
                 </div>
             </GlassCard>
-            <GlassCard className="md:col-span-2">
-                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Guest Context</p>
-                <p className="mt-3 font-outfit text-lg font-medium text-ink">Returning guest recognised</p>
-                <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/75">
-                    &ldquo;Hi Sarah.&rdquo; Not &ldquo;What&apos;s your name again?&rdquo; Guest details sync straight from your booking system.
+
+            <GlassCard className="order-2 md:order-none">
+                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Guest Memory</p>
+                <p className="mt-3 font-outfit text-sm leading-relaxed text-charcoal/75 md:text-base">
+                    Every caller is recognised. Lola pulls bookings and context instantly — so guests never repeat themselves.
                 </p>
-            </GlassCard>
-            <GlassCard className="md:col-span-3">
-                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Capacity Assist</p>
-                <p className="mt-3 font-outfit text-lg font-medium text-ink">Suggested alternative times</p>
-                <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/75">
-                    If a slot is full, Lola offers nearby times, different areas, or the waitlist where supported.
-                </p>
-            </GlassCard>
-            <GlassCard className="md:col-span-3">
-                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Service Notes</p>
-                <p className="mt-3 font-outfit text-lg font-medium text-ink">Special request captured</p>
-                <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/75">
-                    Celebrations, accessibility notes, and table preferences are added with context before service.
-                </p>
+                <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal">
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>Caller recognised: Sarah M.</span>
+                    </li>
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>Last booking: Sat 19:30 · Terrace · 4 guests</span>
+                    </li>
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>Preference: corner table · still water</span>
+                    </li>
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>Note: shellfish allergy</span>
+                    </li>
+                </ul>
             </GlassCard>
         </div>
     );
@@ -391,8 +416,8 @@ const FRAMEWORK_STEPS = [
         id: 2,
         phaseLabel: "Phase 02/A",
         title: "Lola Operation",
-        subheadline: "Lola answers like your best host — instantly.",
-        body: "Lola handles the calls your team shouldn’t have to: booking, amending, cancelling, and the “quick questions” that flood the line during service. Guests get help immediately. Your staff stays focused on the floor.",
+        subheadline: "Always on. Instant answer. Infinite scale — with memory.",
+        body: "",
         bullets: [
             "Book, amend, cancel — in seconds",
             "Offer alternatives when you’re full (nearby times, different areas, waitlist where supported)",
@@ -475,50 +500,59 @@ export function TheFramework() {
                                         titleClassName={FEATURE_SECTION_TITLE_CLASS}
                                     />
                                 ) : null}
-                                {"body" in step ? (
+                                {"body" in step && step.body ? (
                                     <p className="type-body text-charcoal">
                                         {step.body}
                                     </p>
                                 ) : null}
 
-                                <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:items-start">
-                                    <div className="lg:col-span-8">
+                                {step.id === 2 ? (
+                                    <>
                                         <step.visual />
-                                    </div>
-                                    <GlassCard className="lg:col-span-4">
-                                        <p className="type-eyebrow text-charcoal/60">
-                                            Key outcomes
+                                        <p className="font-outfit text-sm leading-relaxed text-charcoal/65">
+                                            Next: define how Lola routes edge cases and follows your exact policies.
                                         </p>
-                                        {"bullets" in step ? (
-                                            <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal">
-                                                {step.bullets.map((bullet) => (
-                                                    <li key={bullet} className="flex items-start gap-2.5 leading-relaxed">
-                                                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
-                                                        <span>{bullet}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        ) : null}
-                                        {"ctaPrimaryLabel" in step ? (
-                                            <div className="mt-5 flex flex-wrap items-center gap-4">
-                                                <Link
-                                                    href={step.ctaPrimaryHref}
-                                                    className="inline-flex items-center justify-center rounded-full border border-coral/40 bg-coral px-5 py-2.5 font-outfit text-sm font-medium text-white shadow-[0_10px_26px_rgba(255,107,107,0.28)] transition-transform hover:scale-[1.02]"
-                                                >
-                                                    {step.ctaPrimaryLabel}
-                                                </Link>
-                                                {step.ctaSecondaryLabel && step.ctaSecondaryHref ? (
+                                    </>
+                                ) : (
+                                    <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:items-start">
+                                        <div className="lg:col-span-8">
+                                            <step.visual />
+                                        </div>
+                                        <GlassCard className="lg:col-span-4">
+                                            <p className="type-eyebrow text-charcoal/60">
+                                                Key outcomes
+                                            </p>
+                                            {"bullets" in step ? (
+                                                <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal">
+                                                    {step.bullets.map((bullet) => (
+                                                        <li key={bullet} className="flex items-start gap-2.5 leading-relaxed">
+                                                            <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                                                            <span>{bullet}</span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            ) : null}
+                                            {"ctaPrimaryLabel" in step ? (
+                                                <div className="mt-5 flex flex-wrap items-center gap-4">
                                                     <Link
-                                                        href={step.ctaSecondaryHref}
-                                                        className="type-eyebrow text-coral transition-opacity hover:opacity-75"
+                                                        href={step.ctaPrimaryHref}
+                                                        className="inline-flex items-center justify-center rounded-full border border-coral/40 bg-coral px-5 py-2.5 font-outfit text-sm font-medium text-white shadow-[0_10px_26px_rgba(255,107,107,0.28)] transition-transform hover:scale-[1.02]"
                                                     >
-                                                        {step.ctaSecondaryLabel}
+                                                        {step.ctaPrimaryLabel}
                                                     </Link>
-                                                ) : null}
-                                            </div>
-                                        ) : null}
-                                    </GlassCard>
-                                </div>
+                                                    {step.ctaSecondaryLabel && step.ctaSecondaryHref ? (
+                                                        <Link
+                                                            href={step.ctaSecondaryHref}
+                                                            className="type-eyebrow text-coral transition-opacity hover:opacity-75"
+                                                        >
+                                                            {step.ctaSecondaryLabel}
+                                                        </Link>
+                                                    ) : null}
+                                                </div>
+                                            ) : null}
+                                        </GlassCard>
+                                    </div>
+                                )}
                             </div>
                         ) : (
                             <div
