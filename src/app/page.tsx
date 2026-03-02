@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/FeaturesDashboard";
 import { Philosophy } from "@/components/ui/Philosophy";
 import { TheFramework } from "@/components/ui/TheFramework";
-import { Pricing } from "@/components/ui/Pricing";
+import { PricingControlRoom } from "@/components/sections/PricingControlRoom";
 import { Footer } from "@/components/ui/Footer";
 import { WhyLolaCarousel } from "@/components/ui/WhyLolaCarousel";
 import { NarrativeBreaker } from "@/components/ui/NarrativeBreaker";
@@ -163,7 +163,7 @@ export default function Home() {
       <HearLolaSection audioSrc="/audio/lola-demo-placeholder.mp3" />
       <Philosophy />
       <TheFramework />
-      <Pricing />
+      <PricingControlRoom />
       <Footer />
     </main>
   );
