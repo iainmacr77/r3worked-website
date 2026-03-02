@@ -280,6 +280,28 @@ function GlassCard({
     );
 }
 
+function DarkGlassCard({
+    className,
+    children
+}: {
+    className?: string;
+    children: React.ReactNode;
+}) {
+    return (
+        <GlassCard
+            disableGlassBase
+            className={cn(
+                "relative overflow-hidden border-white/14 bg-gradient-to-br from-white/[0.11] via-white/[0.06] to-white/[0.025] shadow-[0_24px_56px_rgba(0,0,0,0.45)] backdrop-blur-xl",
+                className
+            )}
+        >
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/12 to-transparent" />
+            <div className="pointer-events-none absolute -right-10 top-8 h-24 w-24 rounded-full bg-coral/12 blur-3xl" />
+            <div className="relative z-10">{children}</div>
+        </GlassCard>
+    );
+}
+
 function OpsRow({
     icon,
     title,
@@ -292,20 +314,25 @@ function OpsRow({
     className?: string;
 }) {
     return (
-        <div className={cn("ops-item flex items-start gap-3 rounded-2xl border border-charcoal/10 bg-white/65 px-4 py-3", className)}>
-            <span className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl border border-coral/20 bg-coral/10 text-coral">
+        <div
+            className={cn(
+                "ops-item flex items-start gap-3 rounded-2xl border border-white/12 bg-gradient-to-r from-ink/70 via-ink/55 to-white/[0.03] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-300",
+                className
+            )}
+        >
+            <span className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl border border-coral/32 bg-coral/14 text-coral">
                 {icon}
             </span>
             <div className="space-y-0.5">
-                <p className="font-outfit text-sm font-medium text-ink md:text-base">{title}</p>
-                <p className="font-outfit text-xs text-charcoal/75 md:text-sm">{detail}</p>
+                <p className="font-outfit text-sm font-medium text-peach/92 md:text-base">{title}</p>
+                <p className="font-outfit text-xs text-peach/66 md:text-sm">{detail}</p>
             </div>
         </div>
     );
 }
 
 function OperationBentoVisual() {
-    const operationCardShellClassName = "operation-cream-glass";
+    const operationCardShellClassName = "h-full";
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(
         () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
     );
@@ -367,31 +394,31 @@ function OperationBentoVisual() {
     return (
         <>
             <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 md:gap-5">
-                <GlassCard className={cn(operationCardShellClassName, "h-full")} disableGlassBase>
-                    <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-charcoal/95">Always on. Zero missed calls</p>
-                    <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">
+                <DarkGlassCard className={operationCardShellClassName}>
+                    <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-peach/94">Always on. Zero missed calls</p>
+                    <p className="mt-2 font-outfit text-sm leading-relaxed text-peach/74 md:text-base">
                         Lola answers instantly — even at peak. No hold music, no voicemail, no &ldquo;please call back later&rdquo;.
                     </p>
-                    <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal/95">
+                    <ul className="type-body mt-3 max-w-none space-y-2.5 text-peach/86">
                         <li className="flex items-start gap-2.5 leading-relaxed">
-                            <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                            <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral/95" />
                             <span>24/7 coverage</span>
                         </li>
                         <li className="flex items-start gap-2.5 leading-relaxed">
-                            <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                            <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral/95" />
                             <span>Handles multiple callers at once</span>
                         </li>
                         <li className="flex items-start gap-2.5 leading-relaxed">
-                            <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                            <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral/95" />
                             <span>Escalates when needed</span>
                         </li>
                     </ul>
-                </GlassCard>
+                </DarkGlassCard>
 
-                <GlassCard className={cn("order-3 h-full md:order-none md:row-span-2 relative flex flex-col pb-4 md:pb-5", operationCardShellClassName)} disableGlassBase>
-                    <div className="-mx-5 -mt-5 mb-4 flex items-center justify-between gap-3 rounded-t-[1.75rem] border-b border-white/45 bg-gradient-to-r from-white/44 via-white/20 to-white/8 px-5 py-3 md:-mx-6 md:-mt-6 md:px-6 md:py-3.5">
-                        <p className="eyebrow-pulse font-jetbrains text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/90">Operations Panel</p>
-                        <span className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-coral/25 bg-coral/12 px-3 py-1 font-jetbrains text-[10px] font-semibold uppercase tracking-[0.14em] text-coral">
+                <DarkGlassCard className={cn("order-3 md:order-none md:row-span-2 relative flex flex-col pb-4 md:pb-5", operationCardShellClassName)}>
+                    <div className="-mx-5 -mt-5 mb-4 flex items-center justify-between gap-3 rounded-t-[1.75rem] border-b border-white/12 bg-gradient-to-r from-white/[0.14] via-white/[0.06] to-transparent px-5 py-3 md:-mx-6 md:-mt-6 md:px-6 md:py-3.5">
+                        <p className="eyebrow-pulse font-jetbrains text-[11px] font-semibold uppercase tracking-[0.18em] text-peach/88">OPERATIONS PANEL</p>
+                        <span className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-coral/32 bg-coral/16 px-3 py-1 font-jetbrains text-[10px] font-semibold uppercase tracking-[0.14em] text-coral">
                             <span className="inline-block h-1.5 w-1.5 rounded-full bg-coral" />
                             Live Ops
                         </span>
@@ -407,8 +434,8 @@ function OperationBentoVisual() {
                                     className={cn(
                                         "transition-all duration-500 ease-out",
                                         isActive
-                                            ? "ops-item--active -translate-y-px shadow-[0_10px_20px_rgba(0,0,0,0.10)]"
-                                            : "translate-y-0"
+                                            ? "ops-item--active -translate-y-px border-coral/35 bg-gradient-to-r from-coral/14 via-white/[0.1] to-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_14px_30px_rgba(0,0,0,0.35)]"
+                                            : "translate-y-0 hover:border-white/20"
                                     )}
                                     icon={<Icon className="h-4 w-4" />}
                                     title={item.title}
@@ -417,14 +444,14 @@ function OperationBentoVisual() {
                             );
                         })}
                     </div>
-                </GlassCard>
+                </DarkGlassCard>
 
-                <GlassCard className={cn("order-2 h-full md:order-none", operationCardShellClassName)} disableGlassBase>
-                    <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-charcoal/95">Guest memory</p>
-                    <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">
+                <DarkGlassCard className={cn("order-2 md:order-none", operationCardShellClassName)}>
+                    <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-peach/94">Guest memory</p>
+                    <p className="mt-2 font-outfit text-sm leading-relaxed text-peach/74 md:text-base">
                         Every caller is recognised. Lola pulls context instantly — so guests never repeat themselves.
                     </p>
-                    <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal/95">
+                    <ul className="type-body mt-3 max-w-none space-y-2.5 text-peach/86">
                         <li className="flex items-start gap-2.5 leading-relaxed">
                             <Brain className="mt-0.5 h-4 w-4 flex-none text-coral" />
                             <span>Caller recognised: Sarah M.</span>
@@ -438,7 +465,7 @@ function OperationBentoVisual() {
                             <span>Note: shellfish allergy</span>
                         </li>
                     </ul>
-                </GlassCard>
+                </DarkGlassCard>
             </div>
 
         </>
@@ -446,7 +473,7 @@ function OperationBentoVisual() {
 }
 
 function RulesRoutingBentoVisual() {
-    const panelClassName = "operation-cream-glass h-full shadow-none";
+    const panelClassName = "h-full";
     const houseRules = [
         { label: "Corkage", value: "Rxx / bottle" },
         { label: "Kids", value: "Allowed until 20:00" },
@@ -456,31 +483,31 @@ function RulesRoutingBentoVisual() {
         { label: "Accessibility", value: "Step-free entrance via side gate" }
     ];
     const routingRules = [
-        { icon: ArrowRight, title: "Intent: Large group", detail: "Table over 10 → call forwarded to restaurant." },
-        { icon: Clock3, title: "Intent: Short notice", detail: "Reservation within 24 hours → call forwarded to restaurant." },
-        { icon: MessageSquareReply, title: "Intent: Menu query", detail: "Vegan options not in system → send website link via WhatsApp." },
-        { icon: PhoneForwarded, title: "Intent: Supplier", detail: "Route to back office." },
-        { icon: AlertTriangle, title: "Intent: Complaint", detail: "Escalate immediately." }
+        { icon: ArrowRight, title: "Intent: Large group", detail: "Table over 10 → call forwarded to restaurant" },
+        { icon: Clock3, title: "Intent: Short notice", detail: "Reservation within 24 hours → call forwarded to restaurant" },
+        { icon: MessageSquareReply, title: "Intent: Menu query", detail: "Vegan menu query not in system → send website link via WhatsApp" },
+        { icon: PhoneForwarded, title: "Intent: Supplier", detail: "Route to back office" },
+        { icon: AlertTriangle, title: "Intent: Complaint", detail: "Escalate immediately" }
     ];
 
     return (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 md:gap-5">
-            <GlassCard className={panelClassName} disableGlassBase>
-                <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-charcoal/95">House rules</p>
-                <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">Synced from booking system policy fields and restaurant source of truth.</p>
-                <div className="mt-3 space-y-2.5 font-outfit text-sm text-charcoal/80">
+            <DarkGlassCard className={panelClassName}>
+                <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-peach/94">House rules</p>
+                <p className="mt-2 font-outfit text-sm leading-relaxed text-peach/72 md:text-base">Synced from booking system policy fields and restaurant source of truth.</p>
+                <div className="mt-3 space-y-2.5 font-outfit text-sm text-peach/72">
                     {houseRules.map((rule) => (
-                        <p key={rule.label} className="flex items-center justify-between gap-3 rounded-xl border border-charcoal/10 bg-white/65 px-3 py-2.5">
-                            <span className="text-ink">{rule.label}</span>
-                            <span className="text-right text-charcoal/75">{rule.value}</span>
+                        <p key={rule.label} className="flex items-center justify-between gap-3 rounded-xl border border-white/12 bg-ink/52 px-3 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                            <span className="text-peach/88">{rule.label}</span>
+                            <span className="text-right text-peach/66">{rule.value}</span>
                         </p>
                     ))}
                 </div>
-            </GlassCard>
-            <GlassCard className={cn(panelClassName, "relative flex flex-col pb-4 md:pb-5")} disableGlassBase>
-                <div className="-mx-5 -mt-5 mb-4 flex items-center justify-between gap-3 rounded-t-[1.75rem] border-b border-white/45 bg-gradient-to-r from-white/44 via-white/20 to-white/8 px-5 py-3 md:-mx-6 md:-mt-6 md:px-6 md:py-3.5">
-                    <p className="font-jetbrains text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/90">ROUTING RULES</p>
-                    <span className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-coral/25 bg-coral/12 px-3 py-1 font-jetbrains text-[10px] font-semibold uppercase tracking-[0.14em] text-coral">
+            </DarkGlassCard>
+            <DarkGlassCard className={cn(panelClassName, "relative flex flex-col pb-4 md:pb-5")}>
+                <div className="-mx-5 -mt-5 mb-4 flex items-center justify-between gap-3 rounded-t-[1.75rem] border-b border-white/12 bg-gradient-to-r from-white/[0.14] via-white/[0.06] to-transparent px-5 py-3 md:-mx-6 md:-mt-6 md:px-6 md:py-3.5">
+                    <p className="font-jetbrains text-[11px] font-semibold uppercase tracking-[0.18em] text-peach/88">ROUTING RULES</p>
+                    <span className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-coral/32 bg-coral/16 px-3 py-1 font-jetbrains text-[10px] font-semibold uppercase tracking-[0.14em] text-coral">
                         <span className="inline-block h-1.5 w-1.5 rounded-full bg-coral" />
                         Live Rules
                     </span>
@@ -499,11 +526,11 @@ function RulesRoutingBentoVisual() {
                         );
                     })}
                 </div>
-            </GlassCard>
-            <GlassCard className={panelClassName} disableGlassBase>
-                <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-charcoal/95">Key outcomes</p>
-                <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">Clear answers from your rules — with deterministic next steps.</p>
-                <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal">
+            </DarkGlassCard>
+            <DarkGlassCard className={panelClassName}>
+                <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-peach/94">Key outcomes</p>
+                <p className="mt-2 font-outfit text-sm leading-relaxed text-peach/72 md:text-base">Clear answers from your rules — with deterministic next steps.</p>
+                <ul className="type-body mt-3 max-w-none space-y-2.5 text-peach/84">
                     <li className="flex items-start gap-2.5 leading-relaxed">
                         <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
                         <span>FAQs answered using your exact house rules</span>
@@ -521,7 +548,7 @@ function RulesRoutingBentoVisual() {
                         <span>Every call ends with clear next steps</span>
                     </li>
                 </ul>
-            </GlassCard>
+            </DarkGlassCard>
         </div>
     );
 }
