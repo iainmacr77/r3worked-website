@@ -6,6 +6,7 @@ import { SectionHeading } from "@/components/typography/SectionHeading";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
+    AlertTriangle,
     AudioWaveform,
     ArrowRight,
     Brain,
@@ -239,8 +240,8 @@ type FrameworkStepBento = {
     subheadline: string;
     body: string;
     bullets: string[];
-    ctaPrimaryLabel: string;
-    ctaPrimaryHref: string;
+    ctaPrimaryLabel?: string;
+    ctaPrimaryHref?: string;
     ctaSecondaryLabel?: string;
     ctaSecondaryHref?: string;
     visual: () => JSX.Element;
@@ -445,34 +446,81 @@ function OperationBentoVisual() {
 }
 
 function RulesRoutingBentoVisual() {
+    const panelClassName = "operation-cream-glass h-full shadow-none";
+    const houseRules = [
+        { label: "Corkage", value: "Rxx / bottle" },
+        { label: "Kids", value: "Allowed until 20:00" },
+        { label: "Dress code", value: "Smart casual" },
+        { label: "Seating", value: "Bar / Terrace / Main" },
+        { label: "Availability", value: "2-10 guests / Indoor / Outdoor / Roof terrace" },
+        { label: "Accessibility", value: "Step-free entrance via side gate" }
+    ];
+    const routingRules = [
+        { icon: ArrowRight, title: "Intent: Large group", detail: "Table over 10 → call forwarded to restaurant." },
+        { icon: Clock3, title: "Intent: Short notice", detail: "Reservation within 24 hours → call forwarded to restaurant." },
+        { icon: MessageSquareReply, title: "Intent: Menu query", detail: "Vegan options not in system → send website link via WhatsApp." },
+        { icon: PhoneForwarded, title: "Intent: Supplier", detail: "Route to back office." },
+        { icon: AlertTriangle, title: "Intent: Complaint", detail: "Escalate immediately." }
+    ];
+
     return (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
-            <GlassCard className="md:col-span-3">
-                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">House Rules</p>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 md:gap-5">
+            <GlassCard className={panelClassName} disableGlassBase>
+                <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-charcoal/95">House rules</p>
+                <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">Synced from booking system policy fields and restaurant source of truth.</p>
                 <div className="mt-3 space-y-2.5 font-outfit text-sm text-charcoal/80">
-                    <p className="flex items-center justify-between rounded-xl border border-charcoal/10 bg-white/65 px-3 py-2.5"><span className="text-ink">Corkage</span><span>Rxx</span></p>
-                    <p className="flex items-center justify-between rounded-xl border border-charcoal/10 bg-white/65 px-3 py-2.5"><span className="text-ink">Kids</span><span>Allowed until xx:xx</span></p>
-                    <p className="flex items-center justify-between rounded-xl border border-charcoal/10 bg-white/65 px-3 py-2.5"><span className="text-ink">Dress code</span><span>Smart casual</span></p>
-                    <p className="flex items-center justify-between rounded-xl border border-charcoal/10 bg-white/65 px-3 py-2.5"><span className="text-ink">Seating</span><span>Bar / Terrace / Main</span></p>
+                    {houseRules.map((rule) => (
+                        <p key={rule.label} className="flex items-center justify-between gap-3 rounded-xl border border-charcoal/10 bg-white/65 px-3 py-2.5">
+                            <span className="text-ink">{rule.label}</span>
+                            <span className="text-right text-charcoal/75">{rule.value}</span>
+                        </p>
+                    ))}
                 </div>
             </GlassCard>
-            <GlassCard className="md:col-span-3">
-                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">Routing Rules</p>
-                <div className="mt-3 space-y-2.5">
-                    <OpsRow icon={<ArrowRight className="h-4 w-4" />} title="Intent: Large group" detail="Send private events link" />
-                    <OpsRow icon={<PhoneForwarded className="h-4 w-4" />} title="Intent: VIP" detail="Forward to maître d’" />
-                    <OpsRow icon={<PhoneForwarded className="h-4 w-4" />} title="Intent: Supplier" detail="Route to direct line" />
-                    <OpsRow icon={<MessageSquareReply className="h-4 w-4" />} title="Intent: Press" detail="Take message + email summary" />
+            <GlassCard className={cn(panelClassName, "relative flex flex-col pb-4 md:pb-5")} disableGlassBase>
+                <div className="-mx-5 -mt-5 mb-4 flex items-center justify-between gap-3 rounded-t-[1.75rem] border-b border-white/45 bg-gradient-to-r from-white/44 via-white/20 to-white/8 px-5 py-3 md:-mx-6 md:-mt-6 md:px-6 md:py-3.5">
+                    <p className="font-jetbrains text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/90">ROUTING RULES</p>
+                    <span className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-coral/25 bg-coral/12 px-3 py-1 font-jetbrains text-[10px] font-semibold uppercase tracking-[0.14em] text-coral">
+                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-coral" />
+                        Live Rules
+                    </span>
+                </div>
+                <div className="mt-3 space-y-2">
+                    {routingRules.map((rule) => {
+                        const Icon = rule.icon;
+                        return (
+                            <OpsRow
+                                key={rule.title}
+                                className="px-3 py-2.5"
+                                icon={<Icon className="h-4 w-4" />}
+                                title={rule.title}
+                                detail={rule.detail}
+                            />
+                        );
+                    })}
                 </div>
             </GlassCard>
-            <GlassCard className="md:col-span-6">
-                <p className="font-jetbrains text-[11px] uppercase tracking-[0.18em] text-charcoal/60">FAQ answered instantly</p>
-                <p className="mt-3 font-outfit text-sm text-charcoal/75 md:text-base">
-                    <span className="font-medium text-ink">Guest:</span> “Can I bring my kids for a late booking?”
-                </p>
-                <p className="mt-1.5 font-outfit text-sm text-charcoal/75 md:text-base">
-                    <span className="font-medium text-ink">Lola:</span> “Yes — children are welcome until xx:xx. For later seatings we recommend Bar or Main.”
-                </p>
+            <GlassCard className={panelClassName} disableGlassBase>
+                <p className="font-outfit text-xl font-medium leading-tight tracking-tight text-charcoal/95">Key outcomes</p>
+                <p className="mt-2 font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">Clear answers from your rules — with deterministic next steps.</p>
+                <ul className="type-body mt-3 max-w-none space-y-2.5 text-charcoal">
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>FAQs answered using your exact house rules</span>
+                    </li>
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>Availability checked live (party size + seating area)</span>
+                    </li>
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>Edge cases routed by intent (you decide what gets through)</span>
+                    </li>
+                    <li className="flex items-start gap-2.5 leading-relaxed">
+                        <UserRoundCheck className="mt-0.5 h-4 w-4 flex-none text-coral" />
+                        <span>Every call ends with clear next steps</span>
+                    </li>
+                </ul>
             </GlassCard>
         </div>
     );
@@ -516,16 +564,14 @@ const FRAMEWORK_STEPS = [
         id: 3,
         phaseLabel: "Phase 02/B",
         title: "Rules, FAQs & Routing",
-        subheadline: "House rules in. Confident answers out.",
-        body: "Lola answers FAQs using your exact policies — not generic internet fluff — and routes edge cases exactly how you want.",
+        subheadline: "Your policies in. Confident answers out.",
+        body: "",
         bullets: [
-            "FAQs, handled — with your exact house rules (hours, parking, corkage, kids, dress code, seating areas, accessibility, celebrations)",
-            "Intent-based routing (you decide what gets through)",
-            "Options: forward to direct line, send a link, take a message with context, route by intent (press, large groups, suppliers, VIPs)",
-            "Every call ends with clarity (clear confirmation + next steps)"
+            "FAQs answered using your exact house rules",
+            "Availability checked live (party size + seating area)",
+            "Edge cases routed by intent (you decide what gets through)",
+            "Every call ends with clear next steps"
         ],
-        ctaPrimaryLabel: "See how routing works",
-        ctaPrimaryHref: "/book",
         visual: () => <RulesRoutingBentoVisual />
     },
     {
@@ -551,11 +597,12 @@ export function TheFramework() {
                     const isSetup = step.id === 1;
                     const isBentoPhase = step.id === 2 || step.id === 3;
                     const isOperation = step.id === 2;
+                    const isDarkBentoPhase = step.id === 2 || step.id === 3;
                     const cardBackgroundColor =
                         step.id === 2
                             ? "var(--color-ink)"
                             : step.id === 3
-                            ? "var(--color-white)"
+                            ? "var(--color-ink)"
                             : step.id === 4
                                 ? "var(--color-peach)"
                                 : index % 2 === 0
@@ -583,8 +630,8 @@ export function TheFramework() {
                                         eyebrow={step.phaseLabel}
                                         title={step.title}
                                         subtitle={step.subheadline}
-                                        titleClassName={cn(FEATURE_SECTION_TITLE_CLASS, isOperation && "text-peach")}
-                                        subtitleClassName={isOperation ? "text-peach/80" : undefined}
+                                        titleClassName={cn(FEATURE_SECTION_TITLE_CLASS, isDarkBentoPhase && "text-peach")}
+                                        subtitleClassName={isDarkBentoPhase ? "text-peach/80" : undefined}
                                     />
                                 ) : null}
                                 {"body" in step && step.body ? (
@@ -600,6 +647,8 @@ export function TheFramework() {
                                             Next: define how Lola routes edge cases and follows your exact policies.
                                         </p>
                                     </>
+                                ) : step.id === 3 ? (
+                                    <step.visual />
                                 ) : (
                                     <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:items-start">
                                         <div className="lg:col-span-8">
@@ -619,7 +668,7 @@ export function TheFramework() {
                                                     ))}
                                                 </ul>
                                             ) : null}
-                                            {"ctaPrimaryLabel" in step ? (
+                                            {"ctaPrimaryLabel" in step && step.ctaPrimaryLabel && step.ctaPrimaryHref ? (
                                                 <div className="mt-5 flex flex-wrap items-center gap-4">
                                                     <Link
                                                         href={step.ctaPrimaryHref}
