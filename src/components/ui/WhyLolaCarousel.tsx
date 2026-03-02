@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type TransitionEvent } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BokehBackground } from "@/components/ui/BokehBackground";
@@ -50,14 +50,24 @@ const PAIN_SLIDES: PainSlide[] = [
 ];
 
 const AUTOPLAY_MS = 4400;
+const TOTAL_SLIDES = PAIN_SLIDES.length;
 
 export function WhyLolaCarousel() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isInstantJump, setIsInstantJump] = useState(false);
   const [slideOffsets, setSlideOffsets] = useState<number[]>([]);
   const trackRef = useRef<HTMLUListElement | null>(null);
   const slideRefs = useRef<Array<HTMLLIElement | null>>([]);
+  const loopedSlides = useMemo(
+    () => [PAIN_SLIDES[TOTAL_SLIDES - 1], ...PAIN_SLIDES, PAIN_SLIDES[0]],
+    []
+  );
+  const activeIndex = useMemo(
+    () => ((currentIndex - 1 + TOTAL_SLIDES) % TOTAL_SLIDES),
+    [currentIndex]
+  );
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -70,7 +80,7 @@ export function WhyLolaCarousel() {
   useEffect(() => {
     if (prefersReducedMotion || isPaused) return;
     const intervalId = window.setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % PAIN_SLIDES.length);
+      setCurrentIndex((prev) => prev + 1);
     }, AUTOPLAY_MS);
 
     return () => window.clearInterval(intervalId);
@@ -81,12 +91,33 @@ export function WhyLolaCarousel() {
     return `${active.signal}. ${active.headline}`;
   }, [activeIndex]);
 
+  useEffect(() => {
+    if (!isInstantJump) return;
+    const raf = window.requestAnimationFrame(() => setIsInstantJump(false));
+    return () => window.cancelAnimationFrame(raf);
+  }, [isInstantJump]);
+
   const goTo = (index: number) => {
-    setActiveIndex((index + PAIN_SLIDES.length) % PAIN_SLIDES.length);
+    setCurrentIndex((index + TOTAL_SLIDES) % TOTAL_SLIDES + 1);
   };
 
-  const goPrev = () => goTo(activeIndex - 1);
-  const goNext = () => goTo(activeIndex + 1);
+  const goPrev = () => setCurrentIndex((prev) => prev - 1);
+  const goNext = () => setCurrentIndex((prev) => prev + 1);
+
+  const handleTrackTransitionEnd = (event: TransitionEvent<HTMLUListElement>) => {
+    if (event.target !== event.currentTarget) return;
+
+    if (currentIndex <= 0) {
+      setIsInstantJump(true);
+      setCurrentIndex(TOTAL_SLIDES);
+      return;
+    }
+
+    if (currentIndex >= TOTAL_SLIDES + 1) {
+      setIsInstantJump(true);
+      setCurrentIndex(1);
+    }
+  };
 
   const measureOffsets = useCallback(() => {
     setSlideOffsets(slideRefs.current.map((slide) => slide?.offsetLeft ?? 0));
@@ -119,7 +150,7 @@ export function WhyLolaCarousel() {
     };
   }, [measureOffsets]);
 
-  const translateX = slideOffsets[activeIndex] ?? 0;
+  const translateX = slideOffsets[currentIndex] ?? 0;
 
   return (
     <div
@@ -150,12 +181,16 @@ export function WhyLolaCarousel() {
       <div className="w-full overflow-hidden">
         <ul
           ref={trackRef}
-          className="flex gap-4 transition-transform duration-700 ease-out motion-reduce:transition-none md:gap-5"
+          onTransitionEnd={handleTrackTransitionEnd}
+          className={cn(
+            "flex gap-4 motion-reduce:transition-none md:gap-5",
+            isInstantJump ? "transition-none" : "transition-transform duration-700 ease-out"
+          )}
           style={{ transform: `translateX(-${translateX}px)` }}
         >
-          {PAIN_SLIDES.map((slide, index) => (
+          {loopedSlides.map((slide, index) => (
             <li
-              key={slide.signal}
+              key={`${slide.signal}-${index}`}
               ref={(element) => {
                 slideRefs.current[index] = element;
               }}
@@ -164,10 +199,10 @@ export function WhyLolaCarousel() {
               <article
                 className={cn(
                   "relative h-[340px] overflow-hidden rounded-[2rem] border border-white/12 bg-[#0B0E13] p-6 ring-1 ring-white/6 sm:h-[390px] sm:p-7 lg:h-[430px]",
-                  activeIndex === index ? "opacity-100" : "opacity-90"
+                  currentIndex === index ? "opacity-100" : "opacity-90"
                 )}
               >
-                <BokehBackground variant={index} />
+                <BokehBackground variant={(index + TOTAL_SLIDES - 1) % TOTAL_SLIDES} />
                 <div
                   aria-hidden
                   className="pointer-events-none absolute -inset-px rounded-[2rem] bg-[radial-gradient(130%_90%_at_50%_0%,rgba(255,255,255,0.12),rgba(255,255,255,0)_58%)]"
@@ -196,40 +231,42 @@ export function WhyLolaCarousel() {
         </ul>
       </div>
 
-      <div className="mt-6 grid grid-cols-[auto_1fr_auto] items-center gap-4 sm:mt-7">
-        <button
-          type="button"
-          onClick={goPrev}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-charcoal/25 bg-white/70 text-ink transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft size={18} />
-        </button>
+      <div className="mt-6 flex justify-center sm:mt-7">
+        <div className="inline-flex items-center gap-3">
+          <button
+            type="button"
+            onClick={goPrev}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-charcoal/25 bg-white/70 text-ink transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={18} />
+          </button>
 
-        <div className="flex items-center justify-center gap-2" aria-label="Slide pagination">
-          {PAIN_SLIDES.map((slide, index) => (
-            <button
-              key={slide.signal}
-              type="button"
-              onClick={() => goTo(index)}
-              aria-label={`Go to slide ${index + 1}`}
-              aria-current={activeIndex === index}
-              className={cn(
-                "h-2.5 rounded-full transition-all duration-300",
-                activeIndex === index ? "w-6 bg-coral" : "w-2.5 bg-charcoal/35 hover:bg-charcoal/55"
-              )}
-            />
-          ))}
+          <div className="flex items-center justify-center gap-2" aria-label="Slide pagination">
+            {PAIN_SLIDES.map((slide, index) => (
+              <button
+                key={slide.signal}
+                type="button"
+                onClick={() => goTo(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                aria-current={activeIndex === index}
+                className={cn(
+                  "h-2.5 rounded-full transition-all duration-300",
+                  activeIndex === index ? "w-6 bg-coral" : "w-2.5 bg-charcoal/35 hover:bg-charcoal/55"
+                )}
+              />
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={goNext}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-charcoal/25 bg-white/70 text-ink transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
-
-        <button
-          type="button"
-          onClick={goNext}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-charcoal/25 bg-white/70 text-ink transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60"
-          aria-label="Next slide"
-        >
-          <ChevronRight size={18} />
-        </button>
       </div>
 
       <p className="sr-only" aria-live="polite">
