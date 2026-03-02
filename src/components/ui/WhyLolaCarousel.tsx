@@ -1,6 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, type TransitionEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+  type TransitionEvent,
+} from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BokehBackground } from "@/components/ui/BokehBackground";
@@ -50,14 +58,24 @@ const PAIN_SLIDES: PainSlide[] = [
 ];
 
 const AUTOPLAY_MS = 4400;
+const AUTOPLAY_RESUME_DELAY_MS = 1800;
 const TOTAL_SLIDES = PAIN_SLIDES.length;
 
 export function WhyLolaCarousel() {
   const [currentIndex, setCurrentIndex] = useState(1);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isAutoplayActive, setIsAutoplayActive] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isInstantJump, setIsInstantJump] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
   const [slideOffsets, setSlideOffsets] = useState<number[]>([]);
+  const resumeTimeoutRef = useRef<number | null>(null);
+  const hoverRef = useRef(false);
+  const isDraggingRef = useRef(false);
+  const pointerIdRef = useRef<number | null>(null);
+  const dragStartXRef = useRef(0);
+  const dragOffsetRef = useRef(0);
   const trackRef = useRef<HTMLUListElement | null>(null);
   const slideRefs = useRef<Array<HTMLLIElement | null>>([]);
   const loopedSlides = useMemo(
@@ -78,13 +96,13 @@ export function WhyLolaCarousel() {
   }, []);
 
   useEffect(() => {
-    if (prefersReducedMotion || isPaused) return;
+    if (prefersReducedMotion || !isAutoplayActive) return;
     const intervalId = window.setInterval(() => {
       setCurrentIndex((prev) => prev + 1);
     }, AUTOPLAY_MS);
 
     return () => window.clearInterval(intervalId);
-  }, [isPaused, prefersReducedMotion]);
+  }, [isAutoplayActive, prefersReducedMotion]);
 
   const liveLabel = useMemo(() => {
     const active = PAIN_SLIDES[activeIndex];
@@ -97,12 +115,118 @@ export function WhyLolaCarousel() {
     return () => window.cancelAnimationFrame(raf);
   }, [isInstantJump]);
 
+  useEffect(() => {
+    hoverRef.current = isHovered;
+  }, [isHovered]);
+
+  useEffect(() => {
+    isDraggingRef.current = isDragging;
+  }, [isDragging]);
+
+  useEffect(
+    () => () => {
+      if (resumeTimeoutRef.current !== null) {
+        window.clearTimeout(resumeTimeoutRef.current);
+      }
+    },
+    []
+  );
+
   const goTo = (index: number) => {
     setCurrentIndex((index + TOTAL_SLIDES) % TOTAL_SLIDES + 1);
   };
 
-  const goPrev = () => setCurrentIndex((prev) => prev - 1);
-  const goNext = () => setCurrentIndex((prev) => prev + 1);
+  const goPrev = useCallback(() => {
+    setCurrentIndex((prev) => prev - 1);
+  }, []);
+
+  const goNext = useCallback(() => {
+    setCurrentIndex((prev) => prev + 1);
+  }, []);
+
+  const clearResumeTimeout = useCallback(() => {
+    if (resumeTimeoutRef.current !== null) {
+      window.clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+  }, []);
+
+  const scheduleResumeAutoplay = useCallback(() => {
+    clearResumeTimeout();
+    resumeTimeoutRef.current = window.setTimeout(() => {
+      if (!hoverRef.current && !isDraggingRef.current) {
+        setIsAutoplayActive(true);
+      }
+    }, AUTOPLAY_RESUME_DELAY_MS);
+  }, [clearResumeTimeout]);
+
+  const pauseAutoplayImmediately = useCallback(() => {
+    clearResumeTimeout();
+    setIsAutoplayActive(false);
+  }, [clearResumeTimeout]);
+
+  const handleViewportMouseEnter = () => {
+    setIsHovered(true);
+    pauseAutoplayImmediately();
+  };
+
+  const handleViewportMouseLeave = () => {
+    setIsHovered(false);
+    if (!isDraggingRef.current) {
+      scheduleResumeAutoplay();
+    }
+  };
+
+  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+
+    pointerIdRef.current = event.pointerId;
+    dragStartXRef.current = event.clientX;
+    dragOffsetRef.current = 0;
+    setDragOffset(0);
+    setIsDragging(true);
+    pauseAutoplayImmediately();
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current || pointerIdRef.current !== event.pointerId) return;
+
+    const nextOffset = event.clientX - dragStartXRef.current;
+    dragOffsetRef.current = nextOffset;
+    setDragOffset(nextOffset);
+  };
+
+  const finishPointerDrag = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (!isDraggingRef.current || pointerIdRef.current !== event.pointerId) return;
+
+      const dragDistance = dragOffsetRef.current;
+      pointerIdRef.current = null;
+      dragOffsetRef.current = 0;
+      setIsDragging(false);
+      setDragOffset(0);
+
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+
+      const stepSize =
+        Math.abs((slideOffsets[currentIndex + 1] ?? 0) - (slideOffsets[currentIndex] ?? 0)) ||
+        Math.abs((slideOffsets[currentIndex] ?? 0) - (slideOffsets[currentIndex - 1] ?? 0)) ||
+        240;
+      const dragThreshold = stepSize * 0.18;
+
+      if (dragDistance <= -dragThreshold) {
+        goNext();
+      } else if (dragDistance >= dragThreshold) {
+        goPrev();
+      }
+
+      scheduleResumeAutoplay();
+    },
+    [currentIndex, goNext, goPrev, scheduleResumeAutoplay, slideOffsets]
+  );
 
   const handleTrackTransitionEnd = (event: TransitionEvent<HTMLUListElement>) => {
     if (event.target !== event.currentTarget) return;
@@ -151,6 +275,7 @@ export function WhyLolaCarousel() {
   }, [measureOffsets]);
 
   const translateX = slideOffsets[currentIndex] ?? 0;
+  const trackTranslate = -translateX + dragOffset;
 
   return (
     <div
@@ -158,12 +283,12 @@ export function WhyLolaCarousel() {
       aria-roledescription="carousel"
       aria-label="Operational pain points"
       tabIndex={0}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocusCapture={() => setIsPaused(true)}
+      onFocusCapture={pauseAutoplayImmediately}
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) {
-          setIsPaused(false);
+          if (!hoverRef.current && !isDraggingRef.current) {
+            scheduleResumeAutoplay();
+          }
         }
       }}
       onKeyDown={(event) => {
@@ -178,15 +303,28 @@ export function WhyLolaCarousel() {
       }}
       className="w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60"
     >
-      <div className="w-full overflow-hidden">
+      <div
+        className={cn(
+          "w-full overflow-hidden touch-pan-y select-none",
+          isDragging ? "cursor-grabbing" : "cursor-grab"
+        )}
+        onMouseEnter={handleViewportMouseEnter}
+        onMouseLeave={handleViewportMouseLeave}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={finishPointerDrag}
+        onPointerCancel={finishPointerDrag}
+      >
         <ul
           ref={trackRef}
           onTransitionEnd={handleTrackTransitionEnd}
           className={cn(
             "flex gap-4 motion-reduce:transition-none md:gap-5",
-            isInstantJump ? "transition-none" : "transition-transform duration-700 ease-out"
+            isInstantJump || isDragging
+              ? "transition-none"
+              : "transition-transform duration-700 ease-out"
           )}
-          style={{ transform: `translateX(-${translateX}px)` }}
+          style={{ transform: `translateX(${trackTranslate}px)` }}
         >
           {loopedSlides.map((slide, index) => (
             <li
