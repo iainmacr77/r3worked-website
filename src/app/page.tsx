@@ -67,22 +67,20 @@ function StorySection({
 function WhyLolaSection() {
   return (
     <section id="features" className="section-offset w-full bg-peach px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
-        <div>
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="mx-auto max-w-4xl">
           <SectionHeading
             title="The phone never stops. Service does."
             subtitle="Every ring pulls staff off the floor. Every missed call is revenue — and you don’t even know why they called."
-            titleClassName="type-h2-serif max-w-[16ch]"
+            className="justify-items-center text-center"
+            titleClassName="type-h2-serif max-w-[16ch] text-center"
+            subtitleClassName="text-center"
           />
-          <div className="type-body max-w-[64ch] space-y-2 text-charcoal">
-            <p>Argh — the phone is ringing and we’re in the weeds.</p>
-            <p>Argh — my floor manager is spelling names again.</p>
-            <p>Argh — we missed calls during peak service.</p>
-          </div>
         </div>
-
-        <div className="min-w-0">
-          <WhyLolaCarousel />
+        <div className="relative left-1/2 mt-10 w-screen min-w-0 -translate-x-1/2 px-6 md:px-16">
+          <div className="w-full">
+            <WhyLolaCarousel />
+          </div>
         </div>
       </div>
     </section>
