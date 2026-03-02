@@ -3,11 +3,11 @@
 import { cn } from "@/lib/utils";
 import { BrandMark } from "./Logo";
 import { SectionHeading } from "@/components/typography/SectionHeading";
+import { ControlRoomMetrics } from "./ControlRoomMetrics";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
     AlertTriangle,
-    AudioWaveform,
     ArrowRight,
     Brain,
     CalendarCheck2,
@@ -577,14 +577,9 @@ const FRAMEWORK_STEPS = [
     {
         id: 4,
         phaseLabel: "Phase 03",
-        title: "Service Begins",
-        description: "Lola handles 100% of incoming triage, routing VIPs to the Maître d', and booking standard reservations autonomously.",
-        visual: () => (
-            <div className="w-full max-w-[280px] h-32 bg-ink rounded-[2rem] flex items-center justify-center relative overflow-hidden">
-                <AudioWaveform className="w-20 h-20 text-mint animate-pulse" />
-                <div className="absolute inset-0 bg-gradient-to-r from-ink via-transparent to-ink" />
-            </div>
-        )
+        title: "The Control Room",
+        description: "Every ring becomes a data point.",
+        visual: () => <div />
     }
 ] satisfies FrameworkStep[];
 
@@ -596,6 +591,7 @@ export function TheFramework() {
                 {FRAMEWORK_STEPS.map((step, index) => {
                     const isSetup = step.id === 1;
                     const isBentoPhase = step.id === 2 || step.id === 3;
+                    const isControlRoom = step.id === 4;
                     const isOperation = step.id === 2;
                     const isDarkBentoPhase = step.id === 2 || step.id === 3;
                     const cardBackgroundColor =
@@ -604,7 +600,7 @@ export function TheFramework() {
                             : step.id === 3
                             ? "var(--color-ink)"
                             : step.id === 4
-                                ? "var(--color-peach)"
+                                ? "var(--color-ink)"
                                 : index % 2 === 0
                                     ? "var(--color-peach)"
                                     : "var(--color-white)";
@@ -623,7 +619,11 @@ export function TheFramework() {
                             zIndex: index
                         }}
                     >
-                        {isBentoPhase ? (
+                        {isControlRoom ? (
+                            <div className="relative z-10 w-full max-w-7xl">
+                                <ControlRoomMetrics />
+                            </div>
+                        ) : isBentoPhase ? (
                             <div className="relative z-10 w-full max-w-7xl space-y-7 md:space-y-8">
                                 {"phaseLabel" in step ? (
                                     <SectionHeading
