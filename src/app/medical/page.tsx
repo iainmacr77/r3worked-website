@@ -40,7 +40,7 @@ function Hero() {
       className="relative isolate flex min-h-[100svh] w-full items-end overflow-hidden bg-ink md:min-h-screen"
     >
       <div className="absolute inset-0 z-0 bg-[linear-gradient(145deg,#101725_8%,#17223a_42%,#0d1628_100%)]" />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(45%_40%_at_72%_66%,rgba(255,107,107,0.2)_0%,rgba(255,107,107,0.04)_56%,transparent_80%)]" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(45%_40%_at_72%_66%,rgba(94,223,201,0.24)_0%,rgba(94,223,201,0.06)_56%,transparent_80%)]" />
       <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-b from-[#0b1120]/70 via-[#132038]/56 to-[#101b2a]/78" />
 
       <div className="relative z-10 mx-auto flex w-[95%] max-w-7xl px-6 pb-16 pt-28 md:pb-24">
@@ -49,7 +49,7 @@ function Hero() {
             <span className="font-outfit text-4xl font-bold uppercase tracking-[0.18em] text-white md:text-6xl lg:text-7xl">
               CLINIC CALM
             </span>
-            <span className="type-display text-[#ff9b92]">Starts with Lola</span>
+            <span className="type-display text-[#8fe8d8]">Starts with Lola</span>
           </h1>
           <p className="type-lead mt-6 max-w-[58ch] text-peach/90">
             For doctors and dentists, Lola handles scheduling conversations end
@@ -59,7 +59,7 @@ function Hero() {
           <div className="mt-8 flex flex-wrap items-center gap-4 md:mt-10 lg:mt-14">
             <a
               href="#connect"
-              className="inline-flex min-h-12 items-center justify-center rounded-full border border-coral/55 bg-ink px-7 py-3 text-sm font-semibold tracking-[0.08em] text-peach shadow-[0_0_0_1px_rgba(255,107,107,0.22),0_10px_26px_rgba(255,82,82,0.2)] transition-transform duration-300 hover:-translate-y-0.5"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#69d9c3]/55 bg-ink px-7 py-3 text-sm font-semibold tracking-[0.08em] text-peach shadow-[0_0_0_1px_rgba(94,223,201,0.22),0_10px_26px_rgba(64,194,172,0.2)] transition-transform duration-300 hover:-translate-y-0.5"
             >
               See Clinic Flow
             </a>
@@ -114,7 +114,7 @@ function ScopeAndTrustSection() {
           <ul className="mt-5 space-y-3">
             {TRUST_SCOPE.map((item) => (
               <li key={item} className="flex items-start gap-3 text-peach/86">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-coral" />
+                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-[#69d9c3]" />
                 <span>{item}</span>
               </li>
             ))}
@@ -133,7 +133,7 @@ function ScopeAndTrustSection() {
             discussion, the call is escalated to your reception protocol
             immediately.
           </p>
-          <div className="mt-6 rounded-2xl border border-coral/30 bg-coral/12 p-4 text-sm text-peach">
+          <div className="mt-6 rounded-2xl border border-[#69d9c3]/40 bg-[#69d9c3]/12 p-4 text-sm text-peach">
             Escalation examples: urgent symptoms, medication concerns, test
             results, treatment questions.
           </div>
@@ -145,7 +145,7 @@ function ScopeAndTrustSection() {
 
 function ConnectSection() {
   return (
-    <section id="connect" className="section-offset w-full bg-peach px-6 py-20 md:px-16 md:py-24">
+    <section id="connect" className="section-offset w-full bg-[#f8fffd] px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto w-full max-w-7xl">
         <SectionHeading
           eyebrow="HOW IT CONNECTS"
@@ -157,13 +157,47 @@ function ConnectSection() {
           {CONNECT_FLOW.map((step) => (
             <article
               key={step.title}
-              className="rounded-[1.75rem] border border-charcoal/12 bg-white/75 p-6 shadow-[0_18px_36px_rgba(30,30,46,0.08)]"
+              className="rounded-[1.75rem] border border-[#8addcc]/35 bg-white p-6 shadow-[0_18px_36px_rgba(30,30,46,0.08)]"
             >
               <h3 className="font-outfit text-2xl font-semibold text-ink">{step.title}</h3>
               <p className="mt-3 text-charcoal">{step.body}</p>
             </article>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function LightContrastSection() {
+  return (
+    <section className="w-full bg-[#effcf8] px-6 py-20 md:px-16 md:py-24">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-5 lg:grid-cols-3">
+        {[
+          {
+            title: "Clean reception desk flow",
+            body: "Front desk handles people in front of them while Lola handles the queue on the phone.",
+          },
+          {
+            title: "Diary gaps recovered faster",
+            body: "When cancellations happen, Lola can immediately rebook into newly opened slots.",
+          },
+          {
+            title: "After-hours capture",
+            body: "Booking intent is not lost when the practice is closed.",
+          },
+        ].map((item) => (
+          <article
+            key={item.title}
+            className="rounded-[1.75rem] border border-[#83dcca]/45 bg-white p-6 shadow-[0_18px_36px_rgba(30,30,46,0.08)]"
+          >
+            <p className="font-jetbrains text-[11px] uppercase tracking-[0.14em] text-[#1e8a78]">
+              Clinic clarity
+            </p>
+            <h3 className="mt-3 font-outfit text-2xl font-semibold text-ink">{item.title}</h3>
+            <p className="mt-3 text-charcoal">{item.body}</p>
+          </article>
+        ))}
       </div>
     </section>
   );
@@ -183,7 +217,7 @@ function ConversationCard() {
           Lola: Yes. Dr. Meyer has 15:20 and 16:10 open. Which slot should I hold?
         </p>
         <p>Caller: Also my extraction site is painful and swelling.</p>
-        <p className="rounded-xl border border-coral/35 bg-coral/14 px-3 py-2 text-white">
+        <p className="rounded-xl border border-[#6fdcca]/35 bg-[#6fdcca]/14 px-3 py-2 text-white">
           Lola: I&apos;m transferring you to reception now so the clinical team can
           assist safely.
         </p>
@@ -235,7 +269,7 @@ function PricingScaffold() {
               <p className="mt-2 text-peach/72">Clinic-specific pricing details in next section refinement.</p>
               <Link
                 href="/book"
-                className="mt-4 inline-flex rounded-full bg-coral px-4 py-2 text-sm font-semibold text-white"
+                className="mt-4 inline-flex rounded-full bg-[#2cbca3] px-4 py-2 text-sm font-semibold text-ink"
               >
                 Book a demo
               </Link>
@@ -249,12 +283,16 @@ function PricingScaffold() {
 
 export default function MedicalPage() {
   return (
-    <main data-vertical="medical" className="flex min-h-screen w-full scroll-smooth flex-col bg-ink">
+    <main
+      data-vertical="medical"
+      className="flex min-h-screen w-full scroll-smooth flex-col bg-ink"
+    >
       <Navbar />
       <Hero />
       <ClinicPainSection />
       <ScopeAndTrustSection />
       <ConnectSection />
+      <LightContrastSection />
       <section className="w-full bg-ink px-6 py-20 md:px-16 md:py-24">
         <div className="mx-auto w-full max-w-7xl">
           <ConversationCard />
