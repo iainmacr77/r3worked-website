@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Footer } from "@/components/ui/Footer";
 import { Navbar } from "@/components/ui/Navbar";
 import { SectionHeading } from "@/components/typography/SectionHeading";
+import { RightSlideOverlayPair } from "@/components/medical/RightSlideOverlayPair";
 
 const CLINIC_PAIN_POINTS = [
   "Peak-hour phone pileups while reception is checking in patients",
@@ -30,6 +31,24 @@ const CONNECT_FLOW = [
   {
     title: "Audit Trail by Default",
     body: "Every booking, cancellation, escalation, and note is logged with timestamp, caller context, and outcome.",
+  },
+];
+
+const CLINIC_CLARITY = [
+  {
+    badge: "Clinic clarity",
+    title: "Clean reception desk flow",
+    body: "Front desk handles people in front of them while Lola handles the queue on the phone.",
+  },
+  {
+    badge: "Clinic clarity",
+    title: "Diary gaps recovered faster",
+    body: "When cancellations happen, Lola can immediately rebook into newly opened slots.",
+  },
+  {
+    badge: "Clinic clarity",
+    title: "After-hours capture",
+    body: "Booking intent is not lost when the practice is closed.",
   },
 ];
 
@@ -154,54 +173,12 @@ function ScopeAndTrustSection() {
 
 function ConnectSection() {
   return (
-    <section id="connect" className="section-offset w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto w-full max-w-7xl">
-        <SectionHeading
-          eyebrow="HOW IT CONNECTS"
-          title="Built for real clinic operations."
-          subtitle="Lola plugs into your existing scheduling reality first, then adds control."
-          titleClassName="type-h2"
-        />
-        <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-3">
-          {CONNECT_FLOW.map((step) => (
-            <article
-              key={step.title}
-              className="rounded-[1.75rem] border border-[#8addcc]/35 bg-white p-6 shadow-[0_18px_36px_rgba(30,30,46,0.08)]"
-            >
-              <h3 className="font-outfit text-2xl font-semibold text-ink">{step.title}</h3>
-              <p className="mt-3 text-charcoal">{step.body}</p>
-            </article>
-          ))}
-        </div>
-        <div className="mt-5 grid w-full grid-cols-1 gap-5 lg:grid-cols-3">
-          {[
-            {
-              title: "Clean reception desk flow",
-              body: "Front desk handles people in front of them while Lola handles the queue on the phone.",
-            },
-            {
-              title: "Diary gaps recovered faster",
-              body: "When cancellations happen, Lola can immediately rebook into newly opened slots.",
-            },
-            {
-              title: "After-hours capture",
-              body: "Booking intent is not lost when the practice is closed.",
-            },
-          ].map((item) => (
-            <article
-              key={item.title}
-              className="rounded-[1.75rem] border border-[#83dcca]/45 bg-white p-6 shadow-[0_18px_36px_rgba(30,30,46,0.08)]"
-            >
-              <p className="font-jetbrains text-[11px] uppercase tracking-[0.14em] text-[#1e8a78]">
-                Clinic clarity
-              </p>
-              <h3 className="mt-3 font-outfit text-2xl font-semibold text-ink">{item.title}</h3>
-              <p className="mt-3 text-charcoal">{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
+    <RightSlideOverlayPair
+      heading="Built for real clinic operations."
+      subheading="Lola plugs into your existing scheduling reality first, then operations slide in as demand takes over."
+      setupCards={CONNECT_FLOW}
+      operationCards={CLINIC_CLARITY}
+    />
   );
 }
 
