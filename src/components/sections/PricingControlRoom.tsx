@@ -1,12 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import {
-  animate,
   motion,
   useMotionValue,
-  useMotionValueEvent,
   useReducedMotion,
   useSpring,
   type Variants,
@@ -58,6 +56,29 @@ const PROOF_CHIPS = [
   "Complaints escalated: 4",
 ];
 
+const HEAT_CELLS = [
+  { x: 8, y: 18, size: 126, delay: 0.2, duration: 16 },
+  { x: 18, y: 56, size: 98, delay: 1.1, duration: 13 },
+  { x: 27, y: 35, size: 108, delay: 0.6, duration: 15 },
+  { x: 37, y: 71, size: 116, delay: 1.3, duration: 14 },
+  { x: 45, y: 22, size: 92, delay: 0.8, duration: 17 },
+  { x: 53, y: 48, size: 112, delay: 1.5, duration: 16 },
+  { x: 64, y: 18, size: 108, delay: 0.4, duration: 15 },
+  { x: 70, y: 62, size: 122, delay: 1.2, duration: 14 },
+  { x: 78, y: 38, size: 96, delay: 0.9, duration: 16 },
+  { x: 84, y: 74, size: 128, delay: 0.1, duration: 18 },
+  { x: 90, y: 50, size: 102, delay: 1.7, duration: 13 },
+  { x: 12, y: 80, size: 106, delay: 0.5, duration: 16 },
+] as const;
+
+const CHIP_HEATMAP_LINKS = [
+  [0, 3, 8],
+  [2, 5, 9],
+  [1, 6, 10],
+  [4, 7, 11],
+  [0, 6, 9],
+] as const;
+
 function AnimatedNumber({
   value,
   format,
@@ -68,24 +89,40 @@ function AnimatedNumber({
   className?: string;
 }) {
   const prefersReducedMotion = useReducedMotion();
-  const motionValue = useMotionValue(value);
   const [displayValue, setDisplayValue] = useState(value);
-
-  useMotionValueEvent(motionValue, "change", (latest) => {
-    setDisplayValue(latest);
-  });
+  const previousValueRef = useRef(value);
 
   useEffect(() => {
     if (prefersReducedMotion) {
-      motionValue.set(value);
-      return;
+      const frame = window.requestAnimationFrame(() => {
+        setDisplayValue(value);
+        previousValueRef.current = value;
+      });
+      return () => window.cancelAnimationFrame(frame);
     }
-    const controls = animate(motionValue, value, {
-      duration: 0.75,
-      ease: [0.22, 1, 0.36, 1],
-    });
-    return () => controls.stop();
-  }, [motionValue, prefersReducedMotion, value]);
+
+    let frame = 0;
+    const duration = 720;
+    const from = previousValueRef.current;
+    const to = value;
+    const startedAt = performance.now();
+
+    const tick = (now: number) => {
+      const elapsed = now - startedAt;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const next = from + (to - from) * eased;
+      setDisplayValue(next);
+      if (progress < 1) {
+        frame = window.requestAnimationFrame(tick);
+      } else {
+        previousValueRef.current = to;
+      }
+    };
+
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [prefersReducedMotion, value]);
 
   return <span className={className}>{format(displayValue)}</span>;
 }
@@ -109,6 +146,7 @@ function SliderField({
   onChange: (value: number) => void;
   valueLabel: string;
 }) {
+  const sliderPercent = ((value - min) / (max - min)) * 100;
   return (
     <div className="space-y-2.5">
       <div className="flex items-center justify-between gap-3">
@@ -133,7 +171,8 @@ function SliderField({
         step={step}
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
-        className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/14 accent-coral focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+        style={{ "--slider-percent": `${sliderPercent}%` } as CSSProperties}
+        className="roi-slider h-2 w-full cursor-pointer appearance-none rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
       />
     </div>
   );
@@ -146,11 +185,20 @@ export function PricingControlRoom() {
   const [callsPerNight, setCallsPerNight] = useState(120);
   const [missedPct, setMissedPct] = useState(25);
   const [avgBookingValue, setAvgBookingValue] = useState(1200);
+  const [activeChipIndex, setActiveChipIndex] = useState(0);
 
   const parallaxX = useMotionValue(0);
   const parallaxY = useMotionValue(0);
   const springX = useSpring(parallaxX, { stiffness: 48, damping: 22, mass: 0.8 });
   const springY = useSpring(parallaxY, { stiffness: 48, damping: 22, mass: 0.8 });
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const cycle = window.setInterval(() => {
+      setActiveChipIndex((prev) => (prev + 1) % PROOF_CHIPS.length);
+    }, 2600);
+    return () => window.clearInterval(cycle);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     if (prefersReducedMotion) return;
@@ -171,6 +219,11 @@ export function PricingControlRoom() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [parallaxX, parallaxY, prefersReducedMotion]);
+
+  const activeHeatCells = useMemo(
+    () => new Set(CHIP_HEATMAP_LINKS[activeChipIndex]),
+    [activeChipIndex]
+  );
 
   const results = useMemo(() => {
     const missedCallsPerNight = callsPerNight * (missedPct / 100);
@@ -213,6 +266,25 @@ export function PricingControlRoom() {
         className="pointer-events-none absolute left-1/2 top-20 h-64 w-64 -translate-x-1/2 rounded-full bg-coral/12 blur-[96px]"
         style={{ x: springX, y: springY }}
       />
+      <div className="pointer-events-none absolute inset-0 pricing-heatmap-layer">
+        {HEAT_CELLS.map((cell, index) => (
+          <span
+            key={`heat-cell-${index}`}
+            className={cn("heat-cell", activeHeatCells.has(index) && "heat-cell--active")}
+            style={
+              {
+                left: `${cell.x}%`,
+                top: `${cell.y}%`,
+                width: `${cell.size}px`,
+                height: `${cell.size * 0.66}px`,
+                "--heat-delay": `${cell.delay}s`,
+                "--heat-duration": `${cell.duration}s`,
+              } as CSSProperties
+            }
+          />
+        ))}
+        <span className="heatmap-shimmer" />
+      </div>
       <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.45)_0.6px,transparent_0.6px)] [background-size:3px_3px]" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent" />
 
@@ -221,7 +293,7 @@ export function PricingControlRoom() {
         initial={prefersReducedMotion ? "show" : "hidden"}
         whileInView="show"
         viewport={{ once: true, amount: 0.22 }}
-        className="mx-auto w-full max-w-7xl space-y-8"
+        className="relative z-10 mx-auto w-full max-w-7xl space-y-8"
       >
         <motion.div variants={childVariants} className="section-header max-w-4xl">
           <SectionHeading
@@ -245,9 +317,15 @@ export function PricingControlRoom() {
             <div className="pointer-events-none absolute right-[-8%] top-[15%] h-48 w-48 rounded-full bg-coral/14 blur-[88px]" />
             <div className="relative space-y-6">
               <div className="space-y-2">
-                <p className="font-jetbrains text-[11px] uppercase tracking-[0.16em] text-peach/66">
-                  ROI SIMULATOR
-                </p>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="font-jetbrains text-[11px] uppercase tracking-[0.16em] text-peach/66">
+                    ROI SIMULATOR
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#73cfa0]/35 bg-[#73cfa0]/10 px-2.5 py-1 font-jetbrains text-[10px] uppercase tracking-[0.12em] text-[#8de3b6]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#7bd6a7]" />
+                    LIVE
+                  </span>
+                </div>
                 <h3 className="font-outfit text-2xl font-semibold tracking-tight text-peach md:text-[2rem]">
                   Your phone bill is not the cost. Missed calls are.
                 </h3>
@@ -284,38 +362,59 @@ export function PricingControlRoom() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                <div className="rounded-2xl border border-white/12 bg-ink/42 p-4 min-h-[104px]">
-                  <p className="font-jetbrains text-[10px] uppercase tracking-[0.13em] text-peach/62">
-                    Bookings recovered / month
-                  </p>
-                  <AnimatedNumber
-                    value={results.bookingsRecoveredMonth}
-                    format={(number) => Math.round(number).toLocaleString("en-ZA")}
-                    className="mt-2 block font-outfit text-3xl font-semibold tracking-tight text-peach"
+              <div className="relative rounded-2xl border border-white/10 bg-white/[0.02] p-2">
+                <svg
+                  aria-hidden
+                  viewBox="0 0 800 120"
+                  className="pointer-events-none absolute inset-x-2 top-2 h-[96px] w-[calc(100%-1rem)] opacity-30"
+                >
+                  <path
+                    d="M0 68 C80 20, 140 100, 220 56 C300 18, 360 92, 440 58 C520 26, 600 88, 680 52 C730 32, 760 42, 800 46"
+                    fill="none"
+                    stroke="rgba(126,219,168,0.26)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
                   />
+                </svg>
+                <div className="mb-2 flex items-center justify-between px-2">
+                  <p className="font-jetbrains text-[10px] uppercase tracking-[0.13em] text-peach/60">
+                    Recovered output snapshot
+                  </p>
+                  <p className="font-jetbrains text-[10px] uppercase tracking-[0.12em] text-[#7edcab]/80">
+                    Last 7 days
+                  </p>
                 </div>
-                <div className="rounded-2xl border border-white/12 bg-ink/42 p-4 min-h-[104px]">
-                  <p className="font-jetbrains text-[10px] uppercase tracking-[0.13em] text-peach/62">
-                    Revenue recovered / month
-                  </p>
-                  <AnimatedNumber
-                    value={results.revenueRecoveredMonth}
-                    format={(number) =>
-                      `R${Math.round(number).toLocaleString("en-ZA")}`
-                    }
-                    className="mt-2 block font-outfit text-3xl font-semibold tracking-tight text-peach"
-                  />
-                </div>
-                <div className="rounded-2xl border border-white/12 bg-ink/42 p-4 min-h-[104px]">
-                  <p className="font-jetbrains text-[10px] uppercase tracking-[0.13em] text-peach/62">
-                    Host hours reclaimed / month
-                  </p>
-                  <AnimatedNumber
-                    value={results.hostHoursReclaimedMonth}
-                    format={(number) => number.toFixed(1)}
-                    className="mt-2 block font-outfit text-3xl font-semibold tracking-tight text-peach"
-                  />
+                <div className="relative grid grid-cols-1 gap-3 md:grid-cols-3">
+                  <div className="rounded-2xl border border-white/12 bg-ink/42 p-4 min-h-[104px]">
+                    <p className="font-jetbrains text-[10px] uppercase tracking-[0.13em] text-peach/62">
+                      Bookings recovered / month
+                    </p>
+                    <AnimatedNumber
+                      value={results.bookingsRecoveredMonth}
+                      format={(number) => Math.round(number).toLocaleString("en-ZA")}
+                      className="mt-2 block font-outfit text-3xl font-semibold tracking-tight text-peach"
+                    />
+                  </div>
+                  <div className="rounded-2xl border border-[#73cfa0]/34 bg-gradient-to-b from-[#73cfa0]/10 to-ink/45 p-4 min-h-[104px] shadow-[0_0_0_1px_rgba(115,207,160,0.16),0_12px_24px_rgba(0,0,0,0.25)]">
+                    <p className="font-jetbrains text-[10px] uppercase tracking-[0.13em] text-[#9be8c0]">
+                      Revenue recovered / month
+                    </p>
+                    <AnimatedNumber
+                      value={results.revenueRecoveredMonth}
+                      format={(number) => `R${Math.round(number).toLocaleString("en-ZA")}`}
+                      className="mt-2 block font-outfit text-3xl font-semibold tracking-tight text-[#89dfb3]"
+                    />
+                  </div>
+                  <div className="rounded-2xl border border-white/12 bg-ink/42 p-4 min-h-[104px]">
+                    <p className="font-jetbrains text-[10px] uppercase tracking-[0.13em] text-peach/62">
+                      Host hours reclaimed / month
+                    </p>
+                    <AnimatedNumber
+                      value={results.hostHoursReclaimedMonth}
+                      format={(number) => number.toFixed(1)}
+                      className="mt-2 block font-outfit text-3xl font-semibold tracking-tight text-peach"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -341,23 +440,20 @@ export function PricingControlRoom() {
             </div>
           </motion.article>
 
-          <motion.aside
-            variants={childVariants}
-            className="grid grid-cols-1 gap-3 xl:col-span-5"
-          >
+          <motion.aside variants={childVariants} className="grid grid-cols-1 gap-3 xl:col-span-5">
             {PLANS.map((plan) => (
               <article
                 key={plan.name}
                 className={cn(
-                  "rounded-[1.5rem] border p-5 backdrop-blur-xl",
+                  "rounded-[1.5rem] border p-5 backdrop-blur-xl transition-all duration-300",
                   "bg-gradient-to-br from-white/[0.1] via-white/[0.055] to-white/[0.025]",
-                  "border-white/14 shadow-[0_20px_45px_rgba(0,0,0,0.36)]",
+                  "border-white/14 shadow-[0_20px_45px_rgba(0,0,0,0.36)] hover:-translate-y-1 hover:border-white/24",
                   plan.featured &&
                     "relative z-10 border-coral/28 shadow-[0_30px_60px_rgba(0,0,0,0.42),0_0_0_1px_rgba(255,107,107,0.22)]"
                 )}
               >
                 <p className="font-outfit text-xl font-medium text-peach">{plan.name}</p>
-                <p className="mt-1 font-outfit text-sm text-peach/70">{plan.payback}</p>
+                <p className="mt-1 font-outfit text-sm text-[#8fdfb9]">{plan.payback}</p>
                 <p className="mt-4 font-playfair text-3xl italic text-peach">
                   From {plan.price}
                   <span className="ml-1 font-outfit text-sm not-italic text-peach/68">
@@ -411,7 +507,12 @@ export function PricingControlRoom() {
                 whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ delay: index * 0.08, duration: 0.45, ease: "easeOut" }}
-                className="inline-flex shrink-0 items-center rounded-full border border-white/14 bg-ink/48 px-3 py-1.5 font-jetbrains text-[10px] uppercase tracking-[0.12em] text-peach/74 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                className={cn(
+                  "inline-flex shrink-0 items-center rounded-full border bg-ink/48 px-3 py-1.5 font-jetbrains text-[10px] uppercase tracking-[0.12em] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors duration-500",
+                  index === activeChipIndex
+                    ? "border-[#73cfa0]/42 text-[#9be8c0]"
+                    : "border-white/14 text-peach/74"
+                )}
               >
                 {chip}
               </motion.span>
@@ -475,6 +576,83 @@ export function PricingControlRoom() {
       </motion.div>
 
       <style jsx>{`
+        .pricing-heatmap-layer {
+          opacity: 0.9;
+        }
+
+        .heat-cell {
+          position: absolute;
+          transform: translate(-50%, -50%);
+          border-radius: 9999px;
+          background:
+            radial-gradient(circle at 45% 40%, rgba(115, 207, 160, 0.18), rgba(115, 207, 160, 0.05) 48%, rgba(255, 255, 255, 0) 78%),
+            radial-gradient(circle at 60% 65%, rgba(255, 107, 107, 0.08), rgba(255, 107, 107, 0) 70%);
+          filter: blur(12px);
+          opacity: 0.35;
+          animation: heatPulse var(--heat-duration, 15s) ease-in-out infinite;
+          animation-delay: var(--heat-delay, 0s);
+        }
+
+        .heat-cell--active {
+          opacity: 0.72;
+          filter: blur(9px);
+          background:
+            radial-gradient(circle at 45% 40%, rgba(115, 207, 160, 0.26), rgba(115, 207, 160, 0.1) 48%, rgba(255, 255, 255, 0) 78%),
+            radial-gradient(circle at 60% 65%, rgba(255, 107, 107, 0.1), rgba(255, 107, 107, 0) 70%);
+        }
+
+        .heatmap-shimmer {
+          position: absolute;
+          inset: -20% -5%;
+          background: linear-gradient(
+            135deg,
+            transparent 38%,
+            rgba(255, 255, 255, 0.06) 50%,
+            transparent 62%
+          );
+          transform: translate3d(-10%, -10%, 0);
+          animation: heatShimmer 12s ease-in-out infinite;
+        }
+
+        .roi-slider {
+          background: linear-gradient(
+            90deg,
+            rgba(115, 207, 160, 0.58) 0%,
+            rgba(115, 207, 160, 0.58) var(--slider-percent),
+            rgba(255, 255, 255, 0.14) var(--slider-percent),
+            rgba(255, 255, 255, 0.14) 100%
+          );
+          transition: filter 220ms ease;
+        }
+
+        .roi-slider:hover {
+          filter: brightness(1.08);
+        }
+
+        .roi-slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 16px;
+          height: 16px;
+          border-radius: 9999px;
+          border: 1px solid rgba(255, 255, 255, 0.72);
+          background: rgba(115, 207, 160, 0.88);
+          box-shadow:
+            0 0 0 3px rgba(115, 207, 160, 0.2),
+            0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .roi-slider::-moz-range-thumb {
+          width: 16px;
+          height: 16px;
+          border-radius: 9999px;
+          border: 1px solid rgba(255, 255, 255, 0.72);
+          background: rgba(115, 207, 160, 0.88);
+          box-shadow:
+            0 0 0 3px rgba(115, 207, 160, 0.2),
+            0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
         .pricing-scanline {
           opacity: 0;
           background: linear-gradient(
@@ -484,8 +662,36 @@ export function PricingControlRoom() {
             transparent 58%
           );
           transform: translateY(-110%);
-          animation: pricingScanline 8s ease-in-out infinite;
+          animation: pricingScanline 12s ease-in-out infinite;
           mix-blend-mode: screen;
+        }
+
+        @keyframes heatPulse {
+          0%,
+          100% {
+            opacity: 0.28;
+            transform: translate(-50%, -50%) scale(0.96);
+          }
+          50% {
+            opacity: 0.46;
+            transform: translate(-50%, -50%) scale(1.06);
+          }
+        }
+
+        @keyframes heatShimmer {
+          0%,
+          78%,
+          100% {
+            opacity: 0;
+            transform: translate3d(-12%, -10%, 0);
+          }
+          84% {
+            opacity: 0.16;
+          }
+          92% {
+            opacity: 0;
+            transform: translate3d(12%, 12%, 0);
+          }
         }
 
         @keyframes pricingScanline {
@@ -507,8 +713,14 @@ export function PricingControlRoom() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .pricing-scanline {
+          .pricing-scanline,
+          .heat-cell,
+          .heatmap-shimmer {
             animation: none;
+          }
+
+          .heat-cell {
+            opacity: 0.3;
           }
         }
       `}</style>
