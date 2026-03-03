@@ -33,6 +33,15 @@ const CONNECT_FLOW = [
   },
 ];
 
+const METRIC_CARDS = [
+  { label: "Call answer rate", value: "97%", detail: "Across open + after-hours windows" },
+  { label: "Avg time to answer", value: "4.8s", detail: "No hold queue for scheduling intents" },
+  { label: "Recovered slots", value: "38", detail: "Cancelled slots rebooked this month" },
+  { label: "After-hours bookings", value: "26", detail: "Captured outside reception hours" },
+  { label: "Escalation rate", value: "11%", detail: "Clinical questions routed to reception" },
+  { label: "Reception minutes saved", value: "19h", detail: "Proxy from calls handled by Lola" },
+];
+
 function Hero() {
   return (
     <section
@@ -253,20 +262,77 @@ function HearLolaSection() {
 
 function PricingScaffold() {
   return (
+    <>
+    <section id="metrics" className="section-offset w-full bg-ink px-6 py-20 md:px-16 md:py-24">
+      <div className="mx-auto w-full max-w-7xl">
+        <SectionHeading
+          eyebrow="CLINIC CONTROL ROOM"
+          title="Metrics teams can actually operate from."
+          subtitle="Measure scheduling throughput, patient access, and escalation load in one place."
+          titleClassName="type-h2 text-peach"
+          subtitleClassName="text-peach/80"
+        />
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {METRIC_CARDS.map((metric) => (
+            <article
+              key={metric.label}
+              className="rounded-[1.5rem] border border-white/12 bg-gradient-to-br from-white/[0.1] via-white/[0.05] to-white/[0.02] p-5 shadow-[0_20px_44px_rgba(0,0,0,0.36)]"
+            >
+              <p className="font-jetbrains text-[10px] uppercase tracking-[0.14em] text-peach/65">
+                {metric.label}
+              </p>
+              <p className="mt-2 font-outfit text-4xl font-semibold tracking-tight text-[#98ecdc]">
+                {metric.value}
+              </p>
+              <p className="mt-2 text-sm text-peach/75">{metric.detail}</p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-6 rounded-2xl border border-[#77d8c6]/35 bg-[#77d8c6]/12 p-4 text-sm text-peach">
+          Booking change counters tracked: created, rescheduled, cancelled, with
+          linked outcome logs and escalation tags.
+        </div>
+      </div>
+    </section>
+
     <section id="pricing" className="section-offset w-full bg-ink px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto w-full max-w-7xl rounded-[2rem] border border-white/12 bg-white/[0.04] p-8 shadow-[0_28px_64px_rgba(0,0,0,0.4)] md:p-10">
         <SectionHeading
           eyebrow="PRICING"
-          title="Built for clinic scheduling volume."
-          subtitle="Solo practice to multi-provider operations, with routing controls."
+          title="Clinic plans that scale with complexity."
+          subtitle="From one provider to multi-provider routing with strict escalation guardrails."
           titleClassName="type-h2 text-peach"
           subtitleClassName="text-peach/80"
         />
         <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {["Solo Practice", "Practice + Routing", "Multi-Provider"].map((name) => (
-            <article key={name} className="rounded-2xl border border-white/12 bg-ink/50 p-5">
-              <h3 className="font-outfit text-xl text-peach">{name}</h3>
-              <p className="mt-2 text-peach/72">Clinic-specific pricing details in next section refinement.</p>
+          {[
+            {
+              name: "Solo Practice",
+              tagline: "For a single doctor or dentist",
+              items: ["Google Calendar scheduling", "Book/reschedule/cancel", "Core policy FAQs"],
+            },
+            {
+              name: "Practice + Routing",
+              tagline: "For busier clinics with reception workflows",
+              items: ["Clinical escalation routing", "Receptionist confirm mode", "Booking change audit trail"],
+            },
+            {
+              name: "Multi-Provider",
+              tagline: "For multi-provider diaries and service lines",
+              items: ["Cross-provider slot logic", "Advanced intent routing", "Control room metrics + exports"],
+            },
+          ].map((plan) => (
+            <article key={plan.name} className="rounded-2xl border border-white/12 bg-ink/50 p-5">
+              <h3 className="font-outfit text-xl text-peach">{plan.name}</h3>
+              <p className="mt-2 text-sm text-[#9be8d9]">{plan.tagline}</p>
+              <ul className="mt-4 space-y-2 text-peach/78">
+                {plan.items.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="mt-1 inline-block h-2 w-2 rounded-full bg-[#6edbc9]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
               <Link
                 href="/book"
                 className="mt-4 inline-flex rounded-full bg-[#2cbca3] px-4 py-2 text-sm font-semibold text-ink"
@@ -278,6 +344,7 @@ function PricingScaffold() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 
