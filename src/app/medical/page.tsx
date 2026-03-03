@@ -87,7 +87,7 @@ function Hero() {
 
 function ClinicPainSection() {
   return (
-    <section id="pain" className="section-offset w-full bg-peach px-6 py-20 md:px-16 md:py-24">
+    <section id="pain" className="section-offset w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto w-full max-w-7xl">
         <SectionHeading
           title="Clinics do not lose patients from lack of demand."
@@ -154,7 +154,7 @@ function ScopeAndTrustSection() {
 
 function ConnectSection() {
   return (
-    <section id="connect" className="section-offset w-full bg-[#f8fffd] px-6 py-20 md:px-16 md:py-24">
+    <section id="connect" className="section-offset w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto w-full max-w-7xl">
         <SectionHeading
           eyebrow="HOW IT CONNECTS"
@@ -173,40 +173,33 @@ function ConnectSection() {
             </article>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
-
-function LightContrastSection() {
-  return (
-    <section className="w-full bg-[#effcf8] px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-5 lg:grid-cols-3">
-        {[
-          {
-            title: "Clean reception desk flow",
-            body: "Front desk handles people in front of them while Lola handles the queue on the phone.",
-          },
-          {
-            title: "Diary gaps recovered faster",
-            body: "When cancellations happen, Lola can immediately rebook into newly opened slots.",
-          },
-          {
-            title: "After-hours capture",
-            body: "Booking intent is not lost when the practice is closed.",
-          },
-        ].map((item) => (
-          <article
-            key={item.title}
-            className="rounded-[1.75rem] border border-[#83dcca]/45 bg-white p-6 shadow-[0_18px_36px_rgba(30,30,46,0.08)]"
-          >
-            <p className="font-jetbrains text-[11px] uppercase tracking-[0.14em] text-[#1e8a78]">
-              Clinic clarity
-            </p>
-            <h3 className="mt-3 font-outfit text-2xl font-semibold text-ink">{item.title}</h3>
-            <p className="mt-3 text-charcoal">{item.body}</p>
-          </article>
-        ))}
+        <div className="mt-5 grid w-full grid-cols-1 gap-5 lg:grid-cols-3">
+          {[
+            {
+              title: "Clean reception desk flow",
+              body: "Front desk handles people in front of them while Lola handles the queue on the phone.",
+            },
+            {
+              title: "Diary gaps recovered faster",
+              body: "When cancellations happen, Lola can immediately rebook into newly opened slots.",
+            },
+            {
+              title: "After-hours capture",
+              body: "Booking intent is not lost when the practice is closed.",
+            },
+          ].map((item) => (
+            <article
+              key={item.title}
+              className="rounded-[1.75rem] border border-[#83dcca]/45 bg-white p-6 shadow-[0_18px_36px_rgba(30,30,46,0.08)]"
+            >
+              <p className="font-jetbrains text-[11px] uppercase tracking-[0.14em] text-[#1e8a78]">
+                Clinic clarity
+              </p>
+              <h3 className="mt-3 font-outfit text-2xl font-semibold text-ink">{item.title}</h3>
+              <p className="mt-3 text-charcoal">{item.body}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -359,7 +352,6 @@ export default function MedicalPage() {
       <ClinicPainSection />
       <ScopeAndTrustSection />
       <ConnectSection />
-      <LightContrastSection />
       <section className="w-full bg-ink px-6 py-20 md:px-16 md:py-24">
         <div className="mx-auto w-full max-w-7xl">
           <ConversationCard />
