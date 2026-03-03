@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Logo, BrandMark } from "./Logo";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 type NavMode = "top" | "hero" | "compact";
 
@@ -15,6 +16,8 @@ export function Navbar() {
   const [navMode, setNavMode] = useState<NavMode>("top");
   const [compactMenuOpen, setCompactMenuOpen] = useState(false);
   const latestModeRef = useRef<NavMode>("top");
+  const pathname = usePathname();
+  const isMedical = pathname === "/medical";
 
   const scrollToAnchor = (id: "#features" | "#framework" | "#pricing") => {
     setCompactMenuOpen(false);
@@ -87,7 +90,27 @@ export function Navbar() {
           </Link>
         </div>
 
-        <div className="hidden items-center md:flex">
+        <div className="hidden items-center gap-3 md:flex">
+          <div className="inline-flex items-center rounded-full border border-charcoal/30 bg-ink/45 p-1 text-xs font-medium">
+            <Link
+              href="/restaurants"
+              className={cn(
+                "rounded-full px-3 py-1.5 transition-colors",
+                !isMedical ? "bg-coral text-white" : "text-peach/85 hover:text-peach"
+              )}
+            >
+              For Restaurants
+            </Link>
+            <Link
+              href="/medical"
+              className={cn(
+                "rounded-full px-3 py-1.5 transition-colors",
+                isMedical ? "bg-coral text-white" : "text-peach/85 hover:text-peach"
+              )}
+            >
+              For Medical
+            </Link>
+          </div>
           <Link
             href="/book"
             className="magnetic-button rounded-full bg-coral px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-coral/20 hover:bg-coral/90"
@@ -126,7 +149,27 @@ export function Navbar() {
           </Link>
         </div>
 
-        <div className="hidden items-center md:flex">
+        <div className="hidden items-center gap-3 md:flex">
+          <div className="inline-flex items-center rounded-full border border-charcoal/50 bg-ink/70 p-1 text-xs font-medium text-peach">
+            <Link
+              href="/restaurants"
+              className={cn(
+                "rounded-full px-3 py-1.5 transition-colors",
+                !isMedical ? "bg-coral text-white" : "text-peach/85 hover:text-peach"
+              )}
+            >
+              For Restaurants
+            </Link>
+            <Link
+              href="/medical"
+              className={cn(
+                "rounded-full px-3 py-1.5 transition-colors",
+                isMedical ? "bg-coral text-white" : "text-peach/85 hover:text-peach"
+              )}
+            >
+              For Medical
+            </Link>
+          </div>
           <Link
             href="/book"
             className="magnetic-button rounded-full bg-coral px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-coral/20 hover:bg-coral/90"
@@ -180,6 +223,28 @@ export function Navbar() {
                   : "-translate-y-2 pointer-events-none opacity-0"
               )}
             >
+              <div className="mb-2 inline-flex w-full items-center rounded-xl border border-charcoal/80 bg-ink/80 p-1 text-[11px]">
+                <Link
+                  href="/restaurants"
+                  onClick={() => setCompactMenuOpen(false)}
+                  className={cn(
+                    "flex-1 rounded-lg px-2 py-1.5 text-center transition-colors",
+                    !isMedical ? "bg-coral text-white" : "text-peach/85"
+                  )}
+                >
+                  For Restaurants
+                </Link>
+                <Link
+                  href="/medical"
+                  onClick={() => setCompactMenuOpen(false)}
+                  className={cn(
+                    "flex-1 rounded-lg px-2 py-1.5 text-center transition-colors",
+                    isMedical ? "bg-coral text-white" : "text-peach/85"
+                  )}
+                >
+                  For Medical
+                </Link>
+              </div>
               <button
                 onClick={() => scrollToAnchor("#features")}
                 className="w-full rounded-xl px-3 py-2 text-left text-sm font-medium transition-colors hover:bg-peach/10"
