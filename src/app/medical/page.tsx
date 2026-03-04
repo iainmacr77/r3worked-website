@@ -2,16 +2,8 @@ import Link from "next/link";
 import { Footer } from "@/components/ui/Footer";
 import { Navbar } from "@/components/ui/Navbar";
 import { SectionHeading } from "@/components/typography/SectionHeading";
+import { ClinicMomentumSurface } from "@/components/medical/ClinicMomentumSurface";
 import { RightSlideOverlayPair } from "@/components/medical/RightSlideOverlayPair";
-
-const CLINIC_PAIN_POINTS = [
-  "Peak-hour phone pileups while reception is checking in patients",
-  "Reschedules and cancellations creating expensive diary gaps",
-  "No-shows and late arrivals forcing same-day slot reshuffles",
-  "After-hours booking intent missed when lines go unanswered",
-  "Triage boundary risk when callers ask for medical advice",
-  "Multi-provider complexity across doctors, dentists, and procedure types",
-];
 
 const TRUST_SCOPE = [
   "Book, reschedule, and cancel appointments",
@@ -99,73 +91,6 @@ function Hero() {
             </a>
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-function ClinicPainSection() {
-  return (
-    <section id="pain" className="section-offset w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto w-full max-w-7xl">
-        <SectionHeading
-          title="Clinics do not lose patients from lack of demand."
-          subtitle="They lose momentum in the space between ringing phones, full reception desks, and fragmented scheduling tools."
-          titleClassName="type-h2-serif max-w-[18ch]"
-        />
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {CLINIC_PAIN_POINTS.map((point) => (
-            <article
-              key={point}
-              className="rounded-[1.6rem] border border-charcoal/12 bg-white/70 p-5 shadow-[0_16px_30px_rgba(30,30,46,0.08)]"
-            >
-              <p className="font-outfit text-lg leading-snug text-ink">{point}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ScopeAndTrustSection() {
-  return (
-    <section className="w-full bg-ink px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 lg:grid-cols-2">
-        <article className="rounded-[2rem] border border-white/12 bg-gradient-to-br from-white/[0.12] via-white/[0.06] to-white/[0.025] p-7 shadow-[0_24px_56px_rgba(0,0,0,0.45)] md:p-8">
-          <p className="font-jetbrains text-[11px] uppercase tracking-[0.16em] text-peach/68">
-            Scope
-          </p>
-          <h3 className="mt-3 font-outfit text-3xl font-semibold leading-tight text-peach">
-            What Lola handles confidently
-          </h3>
-          <ul className="mt-5 space-y-3">
-            {TRUST_SCOPE.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-peach/86">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-[#69d9c3]" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </article>
-        <article className="rounded-[2rem] border border-white/12 bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-white/[0.015] p-7 shadow-[0_24px_56px_rgba(0,0,0,0.45)] md:p-8">
-          <p className="font-jetbrains text-[11px] uppercase tracking-[0.16em] text-peach/68">
-            Trust Boundary
-          </p>
-          <h3 className="mt-3 font-outfit text-3xl font-semibold leading-tight text-peach">
-            No medical advice, ever
-          </h3>
-          <p className="mt-5 max-w-[52ch] text-peach/84">
-            Lola never diagnoses and never provides clinical guidance. If a caller
-            asks a clinical question, reports symptoms, or needs a script/results
-            discussion, the call is escalated to your reception protocol
-            immediately.
-          </p>
-          <div className="mt-6 rounded-2xl border border-[#69d9c3]/40 bg-[#69d9c3]/12 p-4 text-sm text-peach">
-            Escalation examples: urgent symptoms, medication concerns, test
-            results, treatment questions.
-          </div>
-        </article>
       </div>
     </section>
   );
@@ -326,8 +251,7 @@ export default function MedicalPage() {
     >
       <Navbar />
       <Hero />
-      <ClinicPainSection />
-      <ScopeAndTrustSection />
+      <ClinicMomentumSurface trustScope={TRUST_SCOPE} />
       <ConnectSection />
       <section className="w-full bg-ink px-6 py-20 md:px-16 md:py-24">
         <div className="mx-auto w-full max-w-7xl">
