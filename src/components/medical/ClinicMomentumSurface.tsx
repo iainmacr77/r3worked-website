@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import { SectionHeading } from "@/components/typography/SectionHeading";
+import { WhyLolaSection } from "@/components/medical/WhyLolaSection";
 
 type Mode = "reality" | "calm";
 
@@ -50,15 +50,9 @@ export function ClinicMomentumSurface({
 
   return (
     <section id="pain" className="section-offset w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto w-full max-w-7xl">
-        <SectionHeading
-          title="Clinic momentum leaks in the gaps between calls, diaries, and reception overload."
-          subtitle="A clinic control surface showing how momentum breaks in reality and stabilizes when Lola absorbs scheduling pressure."
-          titleClassName="type-h2-serif max-w-[20ch]"
-        />
-      </div>
+      <WhyLolaSection />
 
-      <div ref={transitionRef} className="relative mx-auto mt-10 hidden min-h-[195svh] w-full max-w-7xl md:block">
+      <div ref={transitionRef} className="relative mx-auto mt-12 hidden min-h-[195svh] w-full max-w-7xl md:block">
         <div className="sticky top-0 z-10 flex h-[100svh] items-center py-6">
           <motion.article
             style={
@@ -76,18 +70,16 @@ export function ClinicMomentumSurface({
                 <button
                   type="button"
                   onClick={() => setMode("reality")}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                    mode === "reality" ? "bg-ink text-peach" : "text-charcoal/75"
-                  }`}
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${mode === "reality" ? "bg-ink text-peach" : "text-charcoal/75"
+                    }`}
                 >
                   Clinic Reality
                 </button>
                 <button
                   type="button"
                   onClick={() => setMode("calm")}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                    mode === "calm" ? "bg-[#2cbca3] text-ink" : "text-charcoal/75"
-                  }`}
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${mode === "calm" ? "bg-[#2cbca3] text-ink" : "text-charcoal/75"
+                    }`}
                 >
                   Clinic Calm
                 </button>
