@@ -65,14 +65,14 @@ export function MedicalConversationFeature() {
                     setMessages((prev) => [...prev, nextMessage]);
                     setIsTyping(false);
                     playSequence(index + 1);
-                }, 900);
+                }, 700);
                 return;
             }
 
             schedule(() => {
                 setMessages((prev) => [...prev, nextMessage]);
                 playSequence(index + 1);
-            }, 1500);
+            }, 1200);
         };
 
         playSequence(0);
@@ -98,6 +98,9 @@ export function MedicalConversationFeature() {
                         <span className="text-[10px] font-jetbrains uppercase tracking-widest text-[#FFF5F0]">Live</span>
                     </div>
                 </div>
+                <p className="max-w-[30ch] text-sm text-white/75">
+                    Understood naturally, confirmed accurately, and routed with the right visit context.
+                </p>
             </div>
 
             <div className="relative z-10 mt-5 flex-1 min-h-0 rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.09] to-white/[0.03] p-4 shadow-inner shadow-black/25 ring-1 ring-white/10 backdrop-blur-md">

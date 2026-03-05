@@ -11,47 +11,54 @@ export function MedicalCapacityFeature() {
     const planRef = useRef<HTMLDivElement>(null);
     const tableRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-    // Adjusted for medical context: "appointments" instead of "tables"
     const APPOINTMENTS = [
-        { id: "A1", type: "Consult", initialStatus: "booked" as const },
+        { id: "A1", type: "Consult", initialStatus: "filled" as const },
         { id: "A2", type: "Follow-up", initialStatus: "available" as const },
-        { id: "A3", type: "Procedure", initialStatus: "booked" as const },
-        { id: "A4", type: "Consult", initialStatus: "available" as const },
-        { id: "A5", type: "Follow-up", initialStatus: "booked" as const },
+        { id: "A3", type: "Dental Cleaning", initialStatus: "filled" as const },
+        { id: "A4", type: "Derm Check", initialStatus: "waitlist" as const },
+        { id: "A5", type: "Chiro Adjustment", initialStatus: "filled" as const },
         { id: "A6", type: "Consult", initialStatus: "available" as const },
-        { id: "A7", type: "Follow-up", initialStatus: "available" as const },
-        { id: "A8", type: "Procedure", initialStatus: "booked" as const },
-        { id: "A9", type: "Consult", initialStatus: "available" as const },
-        { id: "A10", type: "Follow-up", initialStatus: "booked" as const },
+        { id: "A7", type: "Follow-up", initialStatus: "waitlist" as const },
+        { id: "A8", type: "Dental Cleaning", initialStatus: "filled" as const },
+        { id: "A9", type: "Derm Check", initialStatus: "available" as const },
+        { id: "A10", type: "Chiro Adjustment", initialStatus: "filled" as const },
         { id: "A11", type: "Consult", initialStatus: "available" as const },
-        { id: "A12", type: "Procedure", initialStatus: "booked" as const },
+        { id: "A12", type: "Follow-up", initialStatus: "filled" as const },
     ];
     const BOOKING_SEQUENCE = ["A2", "A11", "A6", "A7", "A9"] as const;
 
     useGSAP(() => {
         if (!cursorRef.current || !planRef.current) return;
 
-        // Medical style colors: available=light mint, booked=darker mint/teal
         const availableStyles = {
-            backgroundColor: "rgba(255, 245, 240, 0.6)", // Peach light
-            color: "#1E1E2E",
-            borderColor: "rgba(30, 30, 46, 0.18)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.38)"
+            backgroundColor: "rgba(255,255,255,0.18)",
+            color: "rgba(255,245,240,0.95)",
+            borderColor: "rgba(160,245,228,0.36)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16)"
         };
 
-        // Instead of coral, use a distinct mint/teal for "booked"
-        const bookedStyles = {
-            backgroundColor: "rgba(52, 211, 153, 0.8)", // Mint
+        const filledStyles = {
+            backgroundColor: "rgba(52, 211, 153, 0.74)",
             color: "#1E1E2E",
-            borderColor: "rgba(255,255,255,0.4)",
+            borderColor: "rgba(255,255,255,0.32)",
             boxShadow: "inset 0 1px 0 rgba(255,255,255,0.3)"
         };
+
+        const waitlistStyles = {
+            backgroundColor: "rgba(132, 247, 218, 0.28)",
+            color: "#EAFDF8",
+            borderColor: "rgba(132,247,218,0.44)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.22)"
+        };
+
+        const stylesForStatus = (status: "filled" | "available" | "waitlist") =>
+            status === "filled" ? filledStyles : status === "waitlist" ? waitlistStyles : availableStyles;
 
         const setInitialTableStates = () => {
             APPOINTMENTS.forEach((appt) => {
                 const element = tableRefs.current[appt.id];
                 if (!element) return;
-                gsap.set(element, appt.initialStatus === "booked" ? bookedStyles : availableStyles);
+                gsap.set(element, stylesForStatus(appt.initialStatus));
             });
         };
 
@@ -85,7 +92,7 @@ export function MedicalCapacityFeature() {
             })
                 .to(cursorRef.current, { scale: 0.82, duration: 0.1, ease: "power1.out" })
                 .to(tableRefs.current[apptId], {
-                    ...bookedStyles,
+                    ...filledStyles,
                     duration: 0.26,
                     ease: "power1.out"
                 }, "<")
@@ -106,7 +113,7 @@ export function MedicalCapacityFeature() {
                     const element = tableRefs.current[appt.id];
                     if (!element) return;
                     gsap.to(element, {
-                        ...(appt.initialStatus === "booked" ? bookedStyles : availableStyles),
+                        ...stylesForStatus(appt.initialStatus),
                         duration: 0.26,
                         ease: "power1.inOut"
                     });
@@ -139,7 +146,8 @@ export function MedicalCapacityFeature() {
             >
                 <div className="grid h-full grid-cols-3 gap-2">
                     {APPOINTMENTS.map((appt) => {
-                        const isBooked = appt.initialStatus === "booked";
+                        const isFilled = appt.initialStatus === "filled";
+                        const isWaitlist = appt.initialStatus === "waitlist";
 
                         return (
                             <div
@@ -147,9 +155,11 @@ export function MedicalCapacityFeature() {
                                 ref={(el) => { tableRefs.current[appt.id] = el; }}
                                 className={cn(
                                     "relative flex flex-col items-center justify-center rounded-xl border text-center font-jetbrains shadow-[inset_0_1px_0_rgba(255,255,255,0.38)] transition-colors duration-300 ease-out",
-                                    isBooked
+                                    isFilled
                                         ? "border-mint/35 bg-mint/80 text-[#1E1E2E]"
-                                        : "border-charcoal/15 bg-peach/40 text-[#FFF5F0]/80"
+                                        : isWaitlist
+                                            ? "border-[#89dbc9]/45 bg-[#89dbc9]/25 text-[#EAFDF8]"
+                                            : "border-[#88dccc]/35 bg-white/[0.16] text-[#FFF5F0]/88"
                                 )}
                             >
                                 <div className="flex flex-col items-center gap-1">
@@ -158,6 +168,18 @@ export function MedicalCapacityFeature() {
                                     </span>
                                     <span className="text-[9px] uppercase tracking-wider opacity-60">
                                         {appt.type}
+                                    </span>
+                                    <span
+                                        className={cn(
+                                            "mt-1 rounded-full px-2 py-0.5 text-[8px] uppercase tracking-[0.12em]",
+                                            isFilled
+                                                ? "bg-white/35 text-[#14322d]"
+                                                : isWaitlist
+                                                    ? "bg-[#89dbc9]/30 text-[#d6fff6]"
+                                                    : "bg-white/20 text-[#dffcf6]"
+                                        )}
+                                    >
+                                        {isFilled ? "Filled" : isWaitlist ? "Waitlist" : "Available"}
                                     </span>
                                 </div>
                             </div>

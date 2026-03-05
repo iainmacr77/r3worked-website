@@ -4,6 +4,8 @@ import { Navbar } from "@/components/ui/Navbar";
 import { SectionHeading } from "@/components/typography/SectionHeading";
 import { ClinicMomentumSurface } from "@/components/medical/ClinicMomentumSurface";
 import { RightSlideOverlayPair } from "@/components/medical/RightSlideOverlayPair";
+import { MedicalConversationFeature } from "@/components/medical/MedicalConversationFeature";
+import { MedicalCapacityFeature } from "@/components/medical/MedicalCapacityFeature";
 
 const TRUST_SCOPE = [
   "Book, reschedule, and cancel appointments",
@@ -52,6 +54,14 @@ const METRIC_CARDS = [
   { label: "Escalation rate", value: "11%", detail: "Clinical questions routed to reception" },
   { label: "Reception minutes saved", value: "19h", detail: "Proxy from calls handled by Lola" },
 ];
+
+type StorySectionProps = {
+  title: string;
+  body: string;
+  bullets: string[];
+  cardOnLeft?: boolean;
+  children: React.ReactNode;
+};
 
 function Hero() {
   return (
@@ -107,26 +117,45 @@ function ConnectSection() {
   );
 }
 
-function ConversationCard() {
+function StorySection({
+  title,
+  body,
+  bullets,
+  cardOnLeft = true,
+  children,
+}: StorySectionProps) {
   return (
-    <article className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#0B0E13] p-7 shadow-[0_26px_65px_rgba(2,6,23,0.55)]">
-      <h3 className="font-outfit text-2xl font-semibold text-white">
-        Scheduling + escalation in one flow
-      </h3>
-      <div className="mt-5 space-y-3 rounded-2xl border border-white/10 bg-charcoal/30 p-4 font-jetbrains text-sm text-peach/95">
-        <p>
-          Caller: Can I move my cleaning and checkup to Friday after 15:00?
-        </p>
-        <p className="text-peach/80">
-          Lola: Yes. Dr. Meyer has 15:20 and 16:10 open. Which slot should I hold?
-        </p>
-        <p>Caller: Also my extraction site is painful and swelling.</p>
-        <p className="rounded-xl border border-[#6fdcca]/35 bg-[#6fdcca]/14 px-3 py-2 text-white">
-          Lola: I&apos;m transferring you to reception now so the clinical team can
-          assist safely.
-        </p>
+    <section className="w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className={cardOnLeft ? "order-1" : "order-2"}>
+          <div className="mx-auto h-[440px] w-full max-w-[560px] min-w-0 sm:h-[500px] lg:h-[560px] [&>*]:h-full [&>*]:min-h-0 [&>*]:w-full [&>*]:flex-shrink-0">
+            {children}
+          </div>
+        </div>
+        <div className={`${cardOnLeft ? "order-2" : "order-1"} section-header`}>
+          <h2 className="type-h2 text-ink">
+            {title}
+          </h2>
+          <p className="type-lead text-charcoal">
+            {body}
+          </p>
+          <ul className="type-body max-w-[68ch] space-y-3 text-charcoal">
+            {bullets.map((bullet) => (
+              <li key={bullet} className="flex items-start gap-3">
+                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-mint" />
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+          <Link
+            href="#hear-lola"
+            className="type-eyebrow text-mint transition-opacity hover:opacity-80"
+          >
+            HEAR LOLA →
+          </Link>
+        </div>
       </div>
-    </article>
+    </section>
   );
 }
 
@@ -252,12 +281,34 @@ export default function MedicalPage() {
       <Navbar />
       <Hero />
       <ClinicMomentumSurface trustScope={TRUST_SCOPE} />
+      <StorySection
+        title="Natural Conversation"
+        body="Patients speak normally. Lola understands intent and handles the booking in one clean flow."
+        bullets={[
+          "New or existing patients - handled appropriately",
+          "Book, reschedule, or cancel appointments",
+          "Reason for visit captured (so the practice is prepared)",
+          "Waitlist + callback when slots open up",
+          "FAQs handled (fees, directions, documents, prep instructions)",
+        ]}
+        cardOnLeft={false}
+      >
+        <MedicalConversationFeature />
+      </StorySection>
+      <StorySection
+        title="Schedule Maximizer"
+        body="Turn cancellations into filled slots - fewer gaps, fewer clashes, smoother days."
+        bullets={[
+          "Live availability via booking system integration",
+          "Waitlist auto-fill when cancellations happen",
+          "Fewer clashes / double bookings",
+          "Cleaner day flow for reception and clinicians",
+        ]}
+        cardOnLeft={false}
+      >
+        <MedicalCapacityFeature />
+      </StorySection>
       <ConnectSection />
-      <section className="w-full bg-ink px-6 py-20 md:px-16 md:py-24">
-        <div className="mx-auto w-full max-w-7xl">
-          <ConversationCard />
-        </div>
-      </section>
       <HearLolaSection />
       <PricingScaffold />
       <Footer />

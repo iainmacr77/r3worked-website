@@ -39,7 +39,7 @@ export function WhatIsLola() {
                 <SectionHeading
                     eyebrow="WHAT IS LOLA"
                     title="Lola is your front desk's AI booking agent."
-                    subtitle="Works for GPs, dentists, dermatologists, chiropractors and most appointment-based practices. Keeps the day calmer by reducing phone load and missed calls."
+                    subtitle="Lola answers everyday questions, books and changes appointments, and captures reason-for-visit context for your team. It works across GPs, dentists, dermatologists, chiropractors, and most appointment-based practices. The result is a calmer day with less phone pressure and fewer missed calls."
                     titleClassName="type-h2 text-charcoal"
                     subtitleClassName="text-charcoal/80"
                     className="mx-auto flex flex-col items-center text-center"

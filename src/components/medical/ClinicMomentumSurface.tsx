@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { WhyLolaSection } from "@/components/medical/WhyLolaSection";
 import { WhatLolaDoesStatement } from "@/components/medical/WhatLolaDoesStatement";
+import { WhatIsLola } from "@/components/medical/WhatIsLola";
 
 type Mode = "reality" | "calm";
 
@@ -56,6 +57,7 @@ export function ClinicMomentumSurface({
       </div>
 
       <WhatLolaDoesStatement />
+      <WhatIsLola />
 
       <div className="w-full bg-medical-soft-blue px-6 pb-20 pt-16 md:px-16 md:pb-24 md:pt-20">
         <div ref={transitionRef} className="relative mx-auto hidden min-h-[195svh] w-full max-w-7xl md:block">
