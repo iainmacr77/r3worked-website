@@ -280,7 +280,7 @@ export default function MedicalPage() {
     >
       <Navbar />
       <Hero />
-      <ClinicMomentumSurface trustScope={TRUST_SCOPE}>
+      <ClinicMomentumSurface trustScope={TRUST_SCOPE} connectSection={<ConnectSection />}>
         <StorySection
           title="Natural Conversation"
           body="Patients speak normally. Lola understands intent and handles the booking in one clean flow."
@@ -304,12 +304,11 @@ export default function MedicalPage() {
             "Fewer clashes / double bookings",
             "Cleaner day flow for reception and clinicians",
           ]}
-          cardOnLeft={false}
+          cardOnLeft={true}
         >
           <MedicalCapacityFeature />
         </StorySection>
       </ClinicMomentumSurface>
-      <ConnectSection />
       <HearLolaSection />
       <PricingScaffold />
       <Footer />

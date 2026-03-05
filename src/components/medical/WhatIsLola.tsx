@@ -38,12 +38,16 @@ export function WhatIsLola() {
             <div className="mx-auto w-full max-w-4xl text-center">
                 <SectionHeading
                     eyebrow="WHAT IS LOLA"
-                    title="Lola is your front desk's AI booking agent."
-                    subtitle="Lola answers everyday questions, books and changes appointments, and captures reason-for-visit context for your team. It works across GPs, dentists, dermatologists, chiropractors, and most appointment-based practices. The result is a calmer day with less phone pressure and fewer missed calls."
-                    titleClassName="type-h2 text-charcoal"
-                    subtitleClassName="text-charcoal/80"
-                    className="mx-auto flex flex-col items-center text-center"
+                    eyebrowClassName="text-[#156e60] tracking-[0.2em]"
+                    title="When the phone stops running the clinic."
+                    titleClassName="type-h2-serif text-charcoal text-center max-w-[16ch]"
+                    subtitle="Lola handles bookings and non-clinical FAQs by voice — with clinical guardrails built in."
+                    subtitleClassName="text-center text-charcoal/88 max-w-2xl text-base md:text-lg leading-relaxed mt-2"
+                    className="mx-auto flex flex-col items-center text-center justify-items-center mb-6"
                 />
+                <p className="type-body text-charcoal/80 max-w-2xl mx-auto md:text-lg leading-relaxed mb-12">
+                    Patients speak naturally. Lola books, reschedules, and cancels, captures reason-for-visit context, and routes anything clinical safely back to reception. It plugs into your existing scheduling system, or starts with Google Calendar for simpler practices.
+                </p>
 
                 <motion.div
                     variants={reducedMotion ? undefined : containerVariants}

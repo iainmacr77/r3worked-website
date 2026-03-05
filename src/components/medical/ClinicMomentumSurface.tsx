@@ -32,9 +32,11 @@ const METRICS = {
 export function ClinicMomentumSurface({
   trustScope,
   children,
+  connectSection,
 }: {
   trustScope: string[];
   children?: React.ReactNode;
+  connectSection?: React.ReactNode;
 }) {
   const [mode, setMode] = useState<Mode>("reality");
   const reducedMotion = useReducedMotion();
@@ -60,9 +62,8 @@ export function ClinicMomentumSurface({
 
       <WhatLolaDoesStatement />
       <WhatIsLola />
-
       {children}
-
+      {connectSection}
       <div className="w-full bg-medical-soft-blue px-6 pb-20 pt-16 md:px-16 md:pb-24 md:pt-20">
         <div ref={transitionRef} className="relative mx-auto hidden min-h-[195svh] w-full max-w-7xl md:block">
           <div className="sticky top-0 z-10 flex h-[100svh] items-center py-6">

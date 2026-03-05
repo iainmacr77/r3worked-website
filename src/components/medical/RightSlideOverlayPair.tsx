@@ -85,8 +85,6 @@ export function RightSlideOverlayPair({
           subtitle={subheading}
           titleClassName="type-h2"
         />
-        {/* Glass shelf that visually docks the heading to the surface below */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 rounded-[1.25rem] border border-white/45 bg-gradient-to-b from-white/46 via-white/26 to-transparent opacity-70 shadow-[0_10px_24px_rgba(22,40,52,0.08)] blur-[0.4px]" />
       </motion.div>
 
       <motion.div
