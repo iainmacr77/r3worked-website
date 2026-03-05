@@ -280,34 +280,35 @@ export default function MedicalPage() {
     >
       <Navbar />
       <Hero />
-      <ClinicMomentumSurface trustScope={TRUST_SCOPE} />
-      <StorySection
-        title="Natural Conversation"
-        body="Patients speak normally. Lola understands intent and handles the booking in one clean flow."
-        bullets={[
-          "New or existing patients - handled appropriately",
-          "Book, reschedule, or cancel appointments",
-          "Reason for visit captured (so the practice is prepared)",
-          "Waitlist + callback when slots open up",
-          "FAQs handled (fees, directions, documents, prep instructions)",
-        ]}
-        cardOnLeft={false}
-      >
-        <MedicalConversationFeature />
-      </StorySection>
-      <StorySection
-        title="Schedule Maximizer"
-        body="Turn cancellations into filled slots - fewer gaps, fewer clashes, smoother days."
-        bullets={[
-          "Live availability via booking system integration",
-          "Waitlist auto-fill when cancellations happen",
-          "Fewer clashes / double bookings",
-          "Cleaner day flow for reception and clinicians",
-        ]}
-        cardOnLeft={false}
-      >
-        <MedicalCapacityFeature />
-      </StorySection>
+      <ClinicMomentumSurface trustScope={TRUST_SCOPE}>
+        <StorySection
+          title="Natural Conversation"
+          body="Patients speak normally. Lola understands intent and handles the booking in one clean flow."
+          bullets={[
+            "New or existing patients - handled appropriately",
+            "Book, reschedule, or cancel appointments",
+            "Reason for visit captured (so the practice is prepared)",
+            "Waitlist + callback when slots open up",
+            "FAQs handled (fees, directions, documents, prep instructions)",
+          ]}
+          cardOnLeft={false}
+        >
+          <MedicalConversationFeature />
+        </StorySection>
+        <StorySection
+          title="Schedule Maximizer"
+          body="Turn cancellations into filled slots - fewer gaps, fewer clashes, smoother days."
+          bullets={[
+            "Live availability via booking system integration",
+            "Waitlist auto-fill when cancellations happen",
+            "Fewer clashes / double bookings",
+            "Cleaner day flow for reception and clinicians",
+          ]}
+          cardOnLeft={false}
+        >
+          <MedicalCapacityFeature />
+        </StorySection>
+      </ClinicMomentumSurface>
       <ConnectSection />
       <HearLolaSection />
       <PricingScaffold />
