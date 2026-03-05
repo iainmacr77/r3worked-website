@@ -145,6 +145,52 @@
     }
   }
 
+  /* Pain ticker marquee (medical pain-point strip) */
+  @keyframes pain-ticker-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-pain-ticker {
+    animation: pain-ticker-scroll 32s linear infinite;
+  }
+
+  @media (min-width: 768px) {
+    .animate-pain-ticker {
+      animation-duration: 38s;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-pain-ticker {
+      animation: none !important;
+    }
+  }
+
+  .mask-fade-pain-ticker {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 5%,
+      black 95%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 5%,
+      black 95%,
+      transparent 100%
+    );
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-composite: intersect;
+  }
+
   .operation-cream-glass {
     position: relative;
     overflow: hidden;
@@ -251,6 +297,10 @@
 
   .glass-panel {
     @apply bg-background/80 backdrop-blur-md border border-border/30;
+  }
+
+  .bg-medical-soft-blue {
+    background-color: #effcf8;
   }
 
   .magnetic-button {

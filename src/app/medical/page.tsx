@@ -2,15 +2,10 @@ import Link from "next/link";
 import { Footer } from "@/components/ui/Footer";
 import { Navbar } from "@/components/ui/Navbar";
 import { SectionHeading } from "@/components/typography/SectionHeading";
-
-const CLINIC_PAIN_POINTS = [
-  "Peak-hour phone pileups while reception is checking in patients",
-  "Reschedules and cancellations creating expensive diary gaps",
-  "No-shows and late arrivals forcing same-day slot reshuffles",
-  "After-hours booking intent missed when lines go unanswered",
-  "Triage boundary risk when callers ask for medical advice",
-  "Multi-provider complexity across doctors, dentists, and procedure types",
-];
+import { ClinicMomentumSurface } from "@/components/medical/ClinicMomentumSurface";
+import { RightSlideOverlayPair } from "@/components/medical/RightSlideOverlayPair";
+import { MedicalConversationFeature } from "@/components/medical/MedicalConversationFeature";
+import { MedicalCapacityFeature } from "@/components/medical/MedicalCapacityFeature";
 
 const TRUST_SCOPE = [
   "Book, reschedule, and cancel appointments",
@@ -33,6 +28,24 @@ const CONNECT_FLOW = [
   },
 ];
 
+const CLINIC_CLARITY = [
+  {
+    badge: "Clinic clarity",
+    title: "Clean reception desk flow",
+    body: "Front desk handles people in front of them while Lola handles the queue on the phone.",
+  },
+  {
+    badge: "Clinic clarity",
+    title: "Diary gaps recovered faster",
+    body: "When cancellations happen, Lola can immediately rebook into newly opened slots.",
+  },
+  {
+    badge: "Clinic clarity",
+    title: "After-hours capture",
+    body: "Booking intent is not lost when the practice is closed.",
+  },
+];
+
 const METRIC_CARDS = [
   { label: "Call answer rate", value: "97%", detail: "Across open + after-hours windows" },
   { label: "Avg time to answer", value: "4.8s", detail: "No hold queue for scheduling intents" },
@@ -41,6 +54,14 @@ const METRIC_CARDS = [
   { label: "Escalation rate", value: "11%", detail: "Clinical questions routed to reception" },
   { label: "Reception minutes saved", value: "19h", detail: "Proxy from calls handled by Lola" },
 ];
+
+type StorySectionProps = {
+  title: string;
+  body: string;
+  bullets: string[];
+  cardOnLeft?: boolean;
+  children: React.ReactNode;
+};
 
 function Hero() {
   return (
@@ -85,153 +106,56 @@ function Hero() {
   );
 }
 
-function ClinicPainSection() {
+function ConnectSection() {
   return (
-    <section id="pain" className="section-offset w-full bg-peach px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto w-full max-w-7xl">
-        <SectionHeading
-          title="Clinics do not lose patients from lack of demand."
-          subtitle="They lose momentum in the space between ringing phones, full reception desks, and fragmented scheduling tools."
-          titleClassName="type-h2-serif max-w-[18ch]"
-        />
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {CLINIC_PAIN_POINTS.map((point) => (
-            <article
-              key={point}
-              className="rounded-[1.6rem] border border-charcoal/12 bg-white/70 p-5 shadow-[0_16px_30px_rgba(30,30,46,0.08)]"
-            >
-              <p className="font-outfit text-lg leading-snug text-ink">{point}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
+    <RightSlideOverlayPair
+      heading="Built for real clinic operations."
+      subheading="Lola plugs into your existing scheduling reality first, then operations slide in as demand takes over."
+      setupCards={CONNECT_FLOW}
+      operationCards={CLINIC_CLARITY}
+    />
   );
 }
 
-function ScopeAndTrustSection() {
+function StorySection({
+  title,
+  body,
+  bullets,
+  cardOnLeft = true,
+  children,
+}: StorySectionProps) {
   return (
-    <section className="w-full bg-ink px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 lg:grid-cols-2">
-        <article className="rounded-[2rem] border border-white/12 bg-gradient-to-br from-white/[0.12] via-white/[0.06] to-white/[0.025] p-7 shadow-[0_24px_56px_rgba(0,0,0,0.45)] md:p-8">
-          <p className="font-jetbrains text-[11px] uppercase tracking-[0.16em] text-peach/68">
-            Scope
+    <section className="w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className={cardOnLeft ? "order-1" : "order-2"}>
+          <div className="mx-auto h-[440px] w-full max-w-[560px] min-w-0 sm:h-[500px] lg:h-[560px] [&>*]:h-full [&>*]:min-h-0 [&>*]:w-full [&>*]:flex-shrink-0">
+            {children}
+          </div>
+        </div>
+        <div className={`${cardOnLeft ? "order-2" : "order-1"} section-header`}>
+          <h2 className="type-h2 text-ink">
+            {title}
+          </h2>
+          <p className="type-lead text-charcoal">
+            {body}
           </p>
-          <h3 className="mt-3 font-outfit text-3xl font-semibold leading-tight text-peach">
-            What Lola handles confidently
-          </h3>
-          <ul className="mt-5 space-y-3">
-            {TRUST_SCOPE.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-peach/86">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-[#69d9c3]" />
-                <span>{item}</span>
+          <ul className="type-body max-w-[68ch] space-y-3 text-charcoal">
+            {bullets.map((bullet) => (
+              <li key={bullet} className="flex items-start gap-3">
+                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-mint" />
+                <span>{bullet}</span>
               </li>
             ))}
           </ul>
-        </article>
-        <article className="rounded-[2rem] border border-white/12 bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-white/[0.015] p-7 shadow-[0_24px_56px_rgba(0,0,0,0.45)] md:p-8">
-          <p className="font-jetbrains text-[11px] uppercase tracking-[0.16em] text-peach/68">
-            Trust Boundary
-          </p>
-          <h3 className="mt-3 font-outfit text-3xl font-semibold leading-tight text-peach">
-            No medical advice, ever
-          </h3>
-          <p className="mt-5 max-w-[52ch] text-peach/84">
-            Lola never diagnoses and never provides clinical guidance. If a caller
-            asks a clinical question, reports symptoms, or needs a script/results
-            discussion, the call is escalated to your reception protocol
-            immediately.
-          </p>
-          <div className="mt-6 rounded-2xl border border-[#69d9c3]/40 bg-[#69d9c3]/12 p-4 text-sm text-peach">
-            Escalation examples: urgent symptoms, medication concerns, test
-            results, treatment questions.
-          </div>
-        </article>
-      </div>
-    </section>
-  );
-}
-
-function ConnectSection() {
-  return (
-    <section id="connect" className="section-offset w-full bg-[#f8fffd] px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto w-full max-w-7xl">
-        <SectionHeading
-          eyebrow="HOW IT CONNECTS"
-          title="Built for real clinic operations."
-          subtitle="Lola plugs into your existing scheduling reality first, then adds control."
-          titleClassName="type-h2"
-        />
-        <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-3">
-          {CONNECT_FLOW.map((step) => (
-            <article
-              key={step.title}
-              className="rounded-[1.75rem] border border-[#8addcc]/35 bg-white p-6 shadow-[0_18px_36px_rgba(30,30,46,0.08)]"
-            >
-              <h3 className="font-outfit text-2xl font-semibold text-ink">{step.title}</h3>
-              <p className="mt-3 text-charcoal">{step.body}</p>
-            </article>
-          ))}
+          <Link
+            href="#hear-lola"
+            className="type-eyebrow text-mint transition-opacity hover:opacity-80"
+          >
+            HEAR LOLA →
+          </Link>
         </div>
       </div>
     </section>
-  );
-}
-
-function LightContrastSection() {
-  return (
-    <section className="w-full bg-[#effcf8] px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-5 lg:grid-cols-3">
-        {[
-          {
-            title: "Clean reception desk flow",
-            body: "Front desk handles people in front of them while Lola handles the queue on the phone.",
-          },
-          {
-            title: "Diary gaps recovered faster",
-            body: "When cancellations happen, Lola can immediately rebook into newly opened slots.",
-          },
-          {
-            title: "After-hours capture",
-            body: "Booking intent is not lost when the practice is closed.",
-          },
-        ].map((item) => (
-          <article
-            key={item.title}
-            className="rounded-[1.75rem] border border-[#83dcca]/45 bg-white p-6 shadow-[0_18px_36px_rgba(30,30,46,0.08)]"
-          >
-            <p className="font-jetbrains text-[11px] uppercase tracking-[0.14em] text-[#1e8a78]">
-              Clinic clarity
-            </p>
-            <h3 className="mt-3 font-outfit text-2xl font-semibold text-ink">{item.title}</h3>
-            <p className="mt-3 text-charcoal">{item.body}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ConversationCard() {
-  return (
-    <article className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#0B0E13] p-7 shadow-[0_26px_65px_rgba(2,6,23,0.55)]">
-      <h3 className="font-outfit text-2xl font-semibold text-white">
-        Scheduling + escalation in one flow
-      </h3>
-      <div className="mt-5 space-y-3 rounded-2xl border border-white/10 bg-charcoal/30 p-4 font-jetbrains text-sm text-peach/95">
-        <p>
-          Caller: Can I move my cleaning and checkup to Friday after 15:00?
-        </p>
-        <p className="text-peach/80">
-          Lola: Yes. Dr. Meyer has 15:20 and 16:10 open. Which slot should I hold?
-        </p>
-        <p>Caller: Also my extraction site is painful and swelling.</p>
-        <p className="rounded-xl border border-[#6fdcca]/35 bg-[#6fdcca]/14 px-3 py-2 text-white">
-          Lola: I&apos;m transferring you to reception now so the clinical team can
-          assist safely.
-        </p>
-      </div>
-    </article>
   );
 }
 
@@ -356,15 +280,36 @@ export default function MedicalPage() {
     >
       <Navbar />
       <Hero />
-      <ClinicPainSection />
-      <ScopeAndTrustSection />
+      <ClinicMomentumSurface trustScope={TRUST_SCOPE}>
+        <StorySection
+          title="Natural Conversation"
+          body="Patients speak normally. Lola understands intent and handles the booking in one clean flow."
+          bullets={[
+            "New or existing patients - handled appropriately",
+            "Book, reschedule, or cancel appointments",
+            "Reason for visit captured (so the practice is prepared)",
+            "Waitlist + callback when slots open up",
+            "FAQs handled (fees, directions, documents, prep instructions)",
+          ]}
+          cardOnLeft={false}
+        >
+          <MedicalConversationFeature />
+        </StorySection>
+        <StorySection
+          title="Schedule Maximizer"
+          body="Turn cancellations into filled slots - fewer gaps, fewer clashes, smoother days."
+          bullets={[
+            "Live availability via booking system integration",
+            "Waitlist auto-fill when cancellations happen",
+            "Fewer clashes / double bookings",
+            "Cleaner day flow for reception and clinicians",
+          ]}
+          cardOnLeft={false}
+        >
+          <MedicalCapacityFeature />
+        </StorySection>
+      </ClinicMomentumSurface>
       <ConnectSection />
-      <LightContrastSection />
-      <section className="w-full bg-ink px-6 py-20 md:px-16 md:py-24">
-        <div className="mx-auto w-full max-w-7xl">
-          <ConversationCard />
-        </div>
-      </section>
       <HearLolaSection />
       <PricingScaffold />
       <Footer />
