@@ -191,9 +191,38 @@ function Hero() {
       id="hero"
       className="relative isolate flex min-h-[100svh] w-full items-end overflow-hidden bg-ink md:min-h-screen"
     >
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(140deg,#08111d_0%,#0f1b2d_38%,#0a1019_100%)]" />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(42%_44%_at_76%_20%,rgba(124,226,208,0.18)_0%,rgba(124,226,208,0.08)_42%,transparent_76%)]" />
-      <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(34%_34%_at_14%_72%,rgba(255,255,255,0.08)_0%,transparent_72%)]" />
+      {/* 1. Base photo — doctor on the right, near-sharp and lightly toned (no blur on subject) */}
+      <div className="absolute inset-0 z-0">
+        <picture>
+          <source srcSet="/images/medical-hero-doctor.webp" type="image/webp" />
+          <img
+            src="/images/medical-hero-doctor.png"
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover object-right brightness-[0.9] saturate-[0.92] contrast-[1.02]"
+          />
+        </picture>
+      </div>
+      {/* 2. Dark overlay — strong left for text, steep falloff so right side opens up around the doctor */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#08111d]/92 from-0% via-[#0a1320]/65 via-38% to-[#0d1622]/22 to-100%"
+        aria-hidden="true"
+      />
+      {/* 3. Green orb — upper-right corner only, off the face (ambient corner light) */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(28%_28%_at_96%_4%,rgba(124,226,208,0.16)_0%,rgba(124,226,208,0.05)_50%,transparent_72%)]"
+        aria-hidden="true"
+      />
+      {/* 4. Subtle fill — lower-left soft light */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[3] bg-[radial-gradient(34%_34%_at_14%_72%,rgba(255,255,255,0.08)_0%,transparent_72%)]"
+        aria-hidden="true"
+      />
+      {/* 5. Vignette — left-weighted so doctor side stays clearer */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[4] bg-[radial-gradient(ellipse_70%_80%_at_32%_50%,transparent_35%,rgba(8,11,29,0.28)_100%)]"
+        aria-hidden="true"
+      />
 
       <div className="relative z-10 mx-auto flex w-[95%] max-w-7xl px-6 pb-16 pt-28 md:pb-24">
         <div className="max-w-3xl text-peach">
