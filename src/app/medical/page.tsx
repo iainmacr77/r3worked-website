@@ -15,13 +15,6 @@ import { RightSlideOverlayPair } from "@/components/medical/RightSlideOverlayPai
 import { MedicalConversationFeature } from "@/components/medical/MedicalConversationFeature";
 import { MedicalCapacityFeature } from "@/components/medical/MedicalCapacityFeature";
 
-const HERO_SIGNALS = [
-  "Works with existing scheduling systems",
-  "Google Calendar path for simpler clinics",
-  "After-hours booking demand captured",
-  "Clinical questions routed back to reception",
-];
-
 const POSITIONING_CARDS = [
   {
     title: "Voice booking layer",
@@ -196,147 +189,45 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="relative isolate overflow-hidden bg-ink px-6 pb-18 pt-28 md:px-16 md:pb-24 md:pt-34"
+      className="relative isolate flex min-h-[100svh] w-full items-end overflow-hidden bg-ink md:min-h-screen"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(140deg,#08111d_0%,#0f1b2d_38%,#0a1019_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(42%_44%_at_76%_20%,rgba(124,226,208,0.18)_0%,rgba(124,226,208,0.08)_42%,transparent_76%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(34%_34%_at_14%_72%,rgba(255,255,255,0.08)_0%,transparent_72%)]" />
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(140deg,#08111d_0%,#0f1b2d_38%,#0a1019_100%)]" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(42%_44%_at_76%_20%,rgba(124,226,208,0.18)_0%,rgba(124,226,208,0.08)_42%,transparent_76%)]" />
+      <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(34%_34%_at_14%_72%,rgba(255,255,255,0.08)_0%,transparent_72%)]" />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)] lg:items-end">
+      <div className="relative z-10 mx-auto flex w-[95%] max-w-7xl px-6 pb-16 pt-28 md:pb-24">
         <div className="max-w-3xl text-peach">
-          <p className="font-jetbrains text-[11px] uppercase tracking-[0.24em] text-[#8de5d5]">
+          <p className="font-jetbrains text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8de5d5]">
             FOR MEDICAL
           </p>
-          <h1 className="mt-5 max-w-[11ch] font-outfit text-[clamp(3.2rem,8vw,6.9rem)] font-semibold leading-[0.94] tracking-[-0.04em] text-white">
-            Reception pressure eases.
-            <span className="mt-3 block type-h2-serif text-[#9aeee0] md:mt-4">
-              Clinic control returns.
+          <h1 className="mt-5 flex flex-col gap-2 md:gap-2.5">
+            <span className="font-outfit text-4xl font-bold tracking-[-0.02em] text-white drop-shadow-[0_3px_14px_rgba(8,8,14,0.45)] md:text-6xl lg:text-7xl">
+              A quieter front desk
+            </span>
+            <span className="type-display text-[#9aeee0] drop-shadow-[0_5px_16px_rgba(8,8,14,0.42)]">
+              Starts with Lola
             </span>
           </h1>
-          <p className="type-lead mt-7 max-w-[58ch] text-peach/86">
-            Lola is the voice booking and front-desk overflow layer for clinics.
-            It handles new bookings, reschedules, cancellations, waitlist
-            callbacks, after-hours capture, and non-clinical questions, then
-            routes any clinical question straight back to reception.
+          <p className="type-lead mt-6 max-w-[56ch] text-peach/88">
+            Lola handles bookings, reschedules, cancellations, and non-clinical FAQs by voice — so reception can run the clinic.
           </p>
-
-          <div className="mt-9 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-4 md:mt-10 lg:mt-16">
             <Link
               href="/book"
-              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#80e4d2]/50 bg-[#9af0df]/12 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(23,162,140,0.2)] transition-transform duration-300 hover:-translate-y-0.5"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#69d9c3]/55 bg-ink px-7 py-3 text-sm font-semibold tracking-[0.08em] text-peach shadow-[0_0_0_1px_rgba(94,223,201,0.22),0_10px_26px_rgba(64,194,172,0.2)] transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_0_1px_rgba(94,223,201,0.35),0_14px_34px_rgba(64,194,172,0.28)] active:translate-y-0 active:scale-[0.98]"
             >
-              Book a medical demo
+              Book Demo
             </Link>
             <Link
               href="#framework"
-              className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/16 bg-white/[0.04] px-6 py-3 text-sm font-medium text-peach/88 transition-colors hover:bg-white/[0.08]"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#fff5f0]/45 bg-[rgba(255,245,240,0.12)] px-7 py-3 text-sm font-medium tracking-[0.04em] text-peach shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_8px_20px_rgba(16,16,28,0.28)] backdrop-saturate-150 transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[rgba(255,245,240,0.17)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.34),0_12px_28px_rgba(16,16,28,0.34)] active:translate-y-0 active:scale-[0.98]"
             >
-              See how it fits
+              See How It Works
             </Link>
           </div>
-
-          <div className="mt-10 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2">
-            {HERO_SIGNALS.map((signal) => (
-              <div
-                key={signal}
-                className="rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3 text-sm text-peach/82 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm"
-              >
-                <span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#82e7d5]" />
-                {signal}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="relative lg:pb-3">
-          <HeroSurface />
         </div>
       </div>
     </section>
-  );
-}
-
-function HeroSurface() {
-  const callRows = [
-    { time: "08:02", label: "New patient booking", status: "Booked" },
-    { time: "08:11", label: "Reschedule request", status: "Moved" },
-    { time: "08:19", label: "Clinical question", status: "Reception" },
-    { time: "18:42", label: "After-hours voicemail risk", status: "Captured" },
-  ];
-
-  return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-5 shadow-[0_28px_90px_rgba(0,0,0,0.36)] backdrop-blur-xl md:p-6">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(56%_48%_at_86%_12%,rgba(132,240,220,0.17)_0%,transparent_68%)]" />
-      <div className="pointer-events-none absolute -left-14 bottom-6 h-44 w-44 rounded-full bg-[#7ee4d2]/12 blur-3xl" />
-
-      <div className="relative z-10 flex items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <div>
-          <p className="font-jetbrains text-[10px] uppercase tracking-[0.18em] text-white/55">
-            MEDICAL FLOW SNAPSHOT
-          </p>
-          <p className="mt-2 text-xl font-semibold text-white">
-            Routine demand handled. Clinical boundary intact.
-          </p>
-        </div>
-        <div className="rounded-full border border-[#8fe9d8]/30 bg-[#8fe9d8]/10 px-3 py-1.5 font-jetbrains text-[10px] uppercase tracking-[0.14em] text-[#9df1e2]">
-          No medical advice
-        </div>
-      </div>
-
-      <div className="relative z-10 mt-5 grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
-        <div className="rounded-[1.6rem] border border-white/10 bg-[#0b1421]/72 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
-          <div className="mb-3 flex items-center justify-between">
-            <p className="font-jetbrains text-[10px] uppercase tracking-[0.14em] text-white/52">
-              Incoming day flow
-            </p>
-            <span className="text-xs text-white/42">Live handling lane</span>
-          </div>
-          <div className="space-y-2.5">
-            {callRows.map((row) => (
-              <div
-                key={`${row.time}-${row.label}`}
-                className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border border-white/8 bg-white/[0.04] px-3 py-3"
-              >
-                <span className="font-jetbrains text-[10px] text-white/48">{row.time}</span>
-                <span className="text-sm text-white/84">{row.label}</span>
-                <span className="rounded-full border border-white/10 bg-white/[0.08] px-2.5 py-1 text-[10px] uppercase tracking-[0.12em] text-[#97ecde]">
-                  {row.status}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid gap-4">
-          <div className="rounded-[1.6rem] border border-white/10 bg-white/[0.05] p-4">
-            <p className="font-jetbrains text-[10px] uppercase tracking-[0.14em] text-white/55">
-              Today
-            </p>
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <MetricTile value="94%" label="answered" />
-              <MetricTile value="7" label="after-hours captured" />
-              <MetricTile value="3" label="slots recovered" />
-              <MetricTile value="2" label="clinical escalations" />
-            </div>
-          </div>
-          <div className="rounded-[1.6rem] border border-[#8ae7d6]/18 bg-[#8ae7d6]/10 p-4 text-sm leading-relaxed text-peach/84">
-            Lola sits in front of routine scheduling demand, keeps the diary
-            moving, and leaves clinical judgment with the clinic team.
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MetricTile({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-[#09111b]/64 px-3 py-3">
-      <p className="text-2xl font-semibold tracking-tight text-white">{value}</p>
-      <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-white/42">
-        {label}
-      </p>
-    </div>
   );
 }
 
