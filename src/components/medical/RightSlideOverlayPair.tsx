@@ -140,15 +140,15 @@ export function RightSlideOverlayPair({
             <SectionHeading
               eyebrow="HOW IT CONNECTS"
               eyebrowClassName="text-[#156e60] tracking-[0.2em]"
-              title="Fits your clinic's scheduling reality."
+              title={heading}
               titleClassName="type-h2-serif text-charcoal max-w-[14ch]"
-              subtitle="Connect to what you already use — or start simple with Google Calendar."
+              subtitle={subheading}
               subtitleClassName="text-charcoal/88 max-w-[42ch] text-base md:text-lg leading-relaxed mt-2"
               className="flex flex-col"
             />
             <p className="mt-4 max-w-[42ch] font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">
               Lola plugs into your existing booking system and runs voice bookings, changes, cancellations, and non-clinical FAQs.
-              Clinical questions never get handled — they're routed safely back to reception, with audit trails and metrics built in.
+              Clinical questions never get handled — they are routed safely back to reception, with audit trails and metrics built in.
             </p>
           </div>
           <div className="min-w-0 lg:pl-2">
