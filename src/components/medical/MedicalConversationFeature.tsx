@@ -4,12 +4,12 @@ import { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 const TRANSCRIPT = [
-    { sender: "Patient", text: "Hi, I need to see Dr. Meyer this week." },
-    { sender: "Lola", text: "Dr. Meyer has an opening on Thursday at 9:00 AM or Friday at 11:30 AM. Which works best?" },
-    { sender: "Patient", text: "Let's do Thursday." },
-    { sender: "Lola", text: "Great, Thursday at 9:00 AM is booked. Could you briefly describe the reason for your visit so the practice is prepared?" },
-    { sender: "Patient", text: "Just a regular checkup and a small rash on my arm." },
-    { sender: "Lola", text: "Noted. Your appointment is confirmed and the notes are added. See you Thursday!" },
+    { sender: "Patient", text: "Hi, I need to move my Thursday appointment to next week." },
+    { sender: "Lola", text: "I can move that to Tuesday at 10:20 or Wednesday at 15:40. Which works better for you?" },
+    { sender: "Patient", text: "Wednesday please. It is for a follow-up on my shoulder." },
+    { sender: "Lola", text: "Done. I have moved the appointment and noted shoulder follow-up so the clinic is prepared." },
+    { sender: "Patient", text: "Should I be worried that it still hurts at night?" },
+    { sender: "Lola", text: "I cannot give medical advice, but I can route you to reception now so the clinic team can help." },
 ];
 
 export function MedicalConversationFeature() {
@@ -84,22 +84,26 @@ export function MedicalConversationFeature() {
     }, []);
 
     return (
-        <div className="relative flex h-[460px] flex-col overflow-hidden rounded-[2rem] bg-[#0B0E13] p-8 shadow-[0_26px_65px_rgba(2,6,23,0.55)] ring-1 ring-white/10 lg:h-full">
-            {/* Mint / Soft Blue glow elements instead of coral/emerald */}
-            <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full bg-[rgba(52,211,153,0.22)] blur-3xl" />
-            <div className="pointer-events-none absolute -left-14 -bottom-16 h-44 w-44 rounded-full bg-[rgba(64,194,172,0.18)] blur-3xl" />
+        <div className="relative flex h-[460px] flex-col overflow-hidden rounded-[2rem] bg-[#0a1018] p-6 shadow-[0_28px_72px_rgba(2,6,23,0.58)] ring-1 ring-white/10 lg:h-full lg:p-7">
+            <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full bg-[rgba(52,211,153,0.2)] blur-3xl" />
+            <div className="pointer-events-none absolute -left-14 -bottom-16 h-44 w-44 rounded-full bg-[rgba(64,194,172,0.16)] blur-3xl" />
             <div className="pointer-events-none absolute inset-0 bg-white/[0.04]" />
 
             <div className="relative z-10">
                 <div className="mb-3 flex items-start justify-between gap-4">
-                    <h3 className="font-outfit text-xl font-semibold text-white">Natural Conversation</h3>
+                    <div>
+                        <p className="font-jetbrains text-[10px] uppercase tracking-[0.16em] text-white/48">
+                            ROUTINE CALL FLOW
+                        </p>
+                        <h3 className="mt-2 font-outfit text-xl font-semibold text-white">Natural conversation with a visible boundary</h3>
+                    </div>
                     <div className="flex items-center space-x-2 rounded-full bg-charcoal/40 px-3 py-1.5 ring-1 ring-white/5">
                         <div className="h-2 w-2 rounded-full bg-mint animate-pulse" />
                         <span className="text-[10px] font-jetbrains uppercase tracking-widest text-[#FFF5F0]">Live</span>
                     </div>
                 </div>
-                <p className="max-w-[30ch] text-sm text-white/75">
-                    Understood naturally, confirmed accurately, and routed with the right visit context.
+                <p className="max-w-[34ch] text-sm leading-relaxed text-white/72">
+                    Scheduling gets completed cleanly. Visit context is captured at a high level. Clinical advice stays with staff.
                 </p>
             </div>
 
@@ -148,6 +152,21 @@ export function MedicalConversationFeature() {
                         )}
                     </div>
                 </div>
+            </div>
+
+            <div className="relative z-10 mt-4 grid gap-3 sm:grid-cols-3">
+                {[
+                    "Reschedule completed",
+                    "Visit context captured",
+                    "Clinical question escalated",
+                ].map((item) => (
+                    <div
+                        key={item}
+                        className="rounded-2xl border border-white/10 bg-white/[0.045] px-3 py-3 text-[11px] uppercase tracking-[0.12em] text-white/62"
+                    >
+                        {item}
+                    </div>
+                ))}
             </div>
         </div>
     );

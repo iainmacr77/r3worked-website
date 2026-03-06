@@ -12,20 +12,20 @@ export function MedicalCapacityFeature() {
     const tableRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
     const APPOINTMENTS = [
-        { id: "A1", type: "Consult", initialStatus: "filled" as const },
-        { id: "A2", type: "Follow-up", initialStatus: "available" as const },
-        { id: "A3", type: "Dental Cleaning", initialStatus: "filled" as const },
-        { id: "A4", type: "Derm Check", initialStatus: "waitlist" as const },
-        { id: "A5", type: "Chiro Adjustment", initialStatus: "filled" as const },
-        { id: "A6", type: "Consult", initialStatus: "available" as const },
-        { id: "A7", type: "Follow-up", initialStatus: "waitlist" as const },
-        { id: "A8", type: "Dental Cleaning", initialStatus: "filled" as const },
-        { id: "A9", type: "Derm Check", initialStatus: "available" as const },
-        { id: "A10", type: "Chiro Adjustment", initialStatus: "filled" as const },
-        { id: "A11", type: "Consult", initialStatus: "available" as const },
-        { id: "A12", type: "Follow-up", initialStatus: "filled" as const },
+        { id: "08:00", type: "Booked", initialStatus: "filled" as const },
+        { id: "08:40", type: "Open slot", initialStatus: "available" as const },
+        { id: "09:20", type: "Booked", initialStatus: "filled" as const },
+        { id: "10:00", type: "Waitlist", initialStatus: "waitlist" as const },
+        { id: "10:40", type: "Booked", initialStatus: "filled" as const },
+        { id: "11:20", type: "Open slot", initialStatus: "available" as const },
+        { id: "12:00", type: "Waitlist", initialStatus: "waitlist" as const },
+        { id: "13:20", type: "Booked", initialStatus: "filled" as const },
+        { id: "14:00", type: "Open slot", initialStatus: "available" as const },
+        { id: "14:40", type: "Booked", initialStatus: "filled" as const },
+        { id: "15:20", type: "Open slot", initialStatus: "available" as const },
+        { id: "16:00", type: "Booked", initialStatus: "filled" as const },
     ];
-    const BOOKING_SEQUENCE = ["A2", "A11", "A6", "A7", "A9"] as const;
+    const BOOKING_SEQUENCE = ["08:40", "15:20", "11:20", "12:00", "14:00"] as const;
 
     useGSAP(() => {
         if (!cursorRef.current || !planRef.current) return;
@@ -125,25 +125,54 @@ export function MedicalCapacityFeature() {
     }, []);
 
     return (
-        <div className="relative flex h-[460px] flex-col overflow-hidden rounded-[2rem] bg-[#0B0E13] p-8 shadow-[0_26px_65px_rgba(2,6,23,0.55)] ring-1 ring-white/10 lg:h-full">
+        <div className="relative flex h-[460px] flex-col overflow-hidden rounded-[2rem] bg-[#0a1018] p-6 shadow-[0_28px_72px_rgba(2,6,23,0.58)] ring-1 ring-white/10 lg:h-full lg:p-7">
             <div className="pointer-events-none absolute -left-14 -top-12 h-40 w-40 rounded-full bg-[rgba(52,211,153,0.22)] blur-3xl" />
             <div className="pointer-events-none absolute -right-14 -bottom-16 h-48 w-48 rounded-full bg-[rgba(100,220,180,0.18)] blur-3xl" />
             <div className="pointer-events-none absolute inset-0 bg-white/[0.04]" />
 
             <div className="relative z-10">
                 <div className="mb-3 flex items-start justify-between gap-4">
-                    <h3 className="font-outfit text-xl font-semibold text-white">Schedule Maximizer</h3>
+                    <div>
+                        <p className="font-jetbrains text-[10px] uppercase tracking-[0.16em] text-white/48">
+                            DIARY RECOVERY
+                        </p>
+                        <h3 className="mt-2 font-outfit text-xl font-semibold text-white">Recovered capacity without more chasing</h3>
+                    </div>
                     <div className="flex items-center space-x-2 rounded-full bg-charcoal/40 px-3 py-1.5 ring-1 ring-white/5">
                         <div className="h-2 w-2 rounded-full bg-mint animate-pulse" />
                         <span className="text-[10px] font-jetbrains uppercase tracking-widest text-[#FFF5F0]">Live</span>
                     </div>
                 </div>
+                <p className="max-w-[34ch] text-sm leading-relaxed text-white/72">
+                    Open slots and waitlist demand stay visible so the clinic can recover access instead of losing it quietly.
+                </p>
             </div>
 
             <div
                 ref={planRef}
                 className="relative mt-5 flex-1 rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.09] to-white/[0.03] p-4 shadow-inner shadow-black/25 ring-1 ring-white/10 backdrop-blur-md"
             >
+                <div className="mb-3 flex flex-wrap gap-2">
+                    {[
+                        "Open slot",
+                        "Booked",
+                        "Waitlist",
+                    ].map((item, index) => (
+                        <div
+                            key={item}
+                            className={cn(
+                                "rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.12em]",
+                                index === 0
+                                    ? "border border-white/14 bg-white/8 text-white/65"
+                                    : index === 1
+                                        ? "border border-mint/24 bg-mint/20 text-[#dcfff8]"
+                                        : "border border-[#89dbc9]/28 bg-[#89dbc9]/16 text-[#d9fff7]"
+                            )}
+                        >
+                            {item}
+                        </div>
+                    ))}
+                </div>
                 <div className="grid h-full grid-cols-3 gap-2">
                     {APPOINTMENTS.map((appt) => {
                         const isFilled = appt.initialStatus === "filled";
@@ -193,6 +222,22 @@ export function MedicalCapacityFeature() {
                 >
                     <Navigation size={24} className="text-ink fill-white -rotate-90" strokeWidth={1.5} />
                 </div>
+            </div>
+
+            <div className="relative z-10 mt-4 grid gap-3 sm:grid-cols-3">
+                {[
+                    { label: "Recovered today", value: "3" },
+                    { label: "Waitlist matches", value: "5" },
+                    { label: "After-hours captured", value: "7" },
+                ].map((item) => (
+                    <div
+                        key={item.label}
+                        className="rounded-2xl border border-white/10 bg-white/[0.045] px-3 py-3"
+                    >
+                        <p className="text-2xl font-semibold tracking-tight text-white">{item.value}</p>
+                        <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-white/50">{item.label}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
