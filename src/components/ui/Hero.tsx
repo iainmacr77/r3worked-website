@@ -24,9 +24,12 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto flex w-[95%] max-w-7xl px-6 pb-16 pt-28 md:pb-24">
         <div className="max-w-3xl text-peach">
-          <h1 className="flex flex-col gap-2 md:gap-2.5">
-            <span className="font-outfit text-4xl font-bold uppercase tracking-[0.18em] text-white drop-shadow-[0_3px_14px_rgba(8,8,14,0.45)] md:text-6xl lg:text-7xl">
-              SEAMLESS SERVICE
+          <p className="font-jetbrains text-[11px] font-semibold uppercase tracking-[0.2em] text-coral">
+            FOR RESTAURANTS
+          </p>
+          <h1 className="mt-5 flex flex-col gap-2 md:gap-2.5">
+            <span className="font-outfit text-4xl font-bold tracking-[-0.02em] text-white drop-shadow-[0_3px_14px_rgba(8,8,14,0.45)] md:text-6xl lg:text-7xl">
+              Seamless Service
             </span>
             <span className="type-display text-[#ff9b92] drop-shadow-[0_5px_16px_rgba(8,8,14,0.42)]">
               Starts with Lola
