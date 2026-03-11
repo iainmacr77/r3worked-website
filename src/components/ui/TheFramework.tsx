@@ -326,7 +326,7 @@ function OpsRow({
                 className={cn(
                     "mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl border text-coral transition-all duration-300",
                     active
-                        ? "border-coral/42 bg-coral/16 shadow-[0_0_0_1px_rgba(255,138,122,0.08),0_10px_20px_rgba(0,0,0,0.18)]"
+                        ? "border-coral/52 bg-coral/20 text-coral/95 shadow-[0_0_0_1px_rgba(255,138,122,0.12),0_12px_24px_rgba(0,0,0,0.2)]"
                         : "border-coral/32 bg-coral/14"
                 )}
             >
@@ -336,7 +336,7 @@ function OpsRow({
                 <p
                     className={cn(
                         "font-outfit text-sm font-medium md:text-base",
-                        active ? "text-peach/96" : "text-peach/92"
+                        active ? "text-peach" : "text-peach/92"
                     )}
                 >
                     {title}
@@ -344,7 +344,7 @@ function OpsRow({
                 <p
                     className={cn(
                         "font-outfit text-xs md:text-sm",
-                        active ? "text-peach/76" : "text-peach/66"
+                        active ? "text-peach/82" : "text-peach/66"
                     )}
                 >
                     {detail}
