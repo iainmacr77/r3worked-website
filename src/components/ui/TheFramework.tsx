@@ -354,12 +354,47 @@ function OpsRow({
     );
 }
 
-function OperationBentoVisual() {
-    const operationCardShellClassName = "h-full";
+const ACTIVE_OPS_ROW_CLASSNAME =
+    "ops-item--active -translate-y-px border-white/16 bg-[linear-gradient(135deg,rgba(18,23,35,0.94)_0%,rgba(31,26,45,0.9)_52%,rgba(46,32,52,0.78)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_16px_34px_rgba(0,0,0,0.32),0_0_0_1px_rgba(255,138,122,0.06)] ring-1 ring-coral/12";
+const INACTIVE_OPS_ROW_CLASSNAME = "translate-y-0 hover:border-white/20";
+
+function useCyclingActiveIndex(length: number) {
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(
         () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
     );
     const [activeIndex, setActiveIndex] = useState(0);
+
+    useEffect(() => {
+        const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const handleReducedMotionChange = (event: MediaQueryListEvent) => {
+            setPrefersReducedMotion(event.matches);
+        };
+
+        reducedMotionQuery.addEventListener("change", handleReducedMotionChange);
+
+        return () => {
+            reducedMotionQuery.removeEventListener("change", handleReducedMotionChange);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (prefersReducedMotion || length <= 1) {
+            return;
+        }
+        const intervalId = window.setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % length);
+        }, 3200);
+
+        return () => {
+            window.clearInterval(intervalId);
+        };
+    }, [length, prefersReducedMotion]);
+
+    return prefersReducedMotion ? 0 : activeIndex;
+}
+
+function OperationBentoVisual() {
+    const operationCardShellClassName = "h-full";
     const opsItems = [
         {
             icon: CalendarCheck2,
@@ -387,32 +422,7 @@ function OperationBentoVisual() {
             detail: "Guest requested a human • forwarded instantly"
         }
     ];
-
-    useEffect(() => {
-        const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const handleReducedMotionChange = (event: MediaQueryListEvent) => {
-            setPrefersReducedMotion(event.matches);
-        };
-
-        reducedMotionQuery.addEventListener("change", handleReducedMotionChange);
-
-        return () => {
-            reducedMotionQuery.removeEventListener("change", handleReducedMotionChange);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (prefersReducedMotion) {
-            return;
-        }
-        const intervalId = window.setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % opsItems.length);
-        }, 3200);
-
-        return () => {
-            window.clearInterval(intervalId);
-        };
-    }, [opsItems.length, prefersReducedMotion]);
+    const activeIndex = useCyclingActiveIndex(opsItems.length);
 
     return (
         <>
@@ -449,7 +459,7 @@ function OperationBentoVisual() {
                     <div className="space-y-3 pt-2">
                         {opsItems.map((item, index) => {
                             const Icon = item.icon;
-                            const isActive = prefersReducedMotion ? index === 0 : index === activeIndex;
+                            const isActive = index === activeIndex;
 
                             return (
                                 <OpsRow
@@ -458,8 +468,8 @@ function OperationBentoVisual() {
                                     className={cn(
                                         "transition-all duration-500 ease-out",
                                         isActive
-                                            ? "ops-item--active -translate-y-px border-white/16 bg-[linear-gradient(135deg,rgba(18,23,35,0.94)_0%,rgba(31,26,45,0.9)_52%,rgba(46,32,52,0.78)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_16px_34px_rgba(0,0,0,0.32),0_0_0_1px_rgba(255,138,122,0.06)] ring-1 ring-coral/12"
-                                            : "translate-y-0 hover:border-white/20"
+                                            ? ACTIVE_OPS_ROW_CLASSNAME
+                                            : INACTIVE_OPS_ROW_CLASSNAME
                                     )}
                                     icon={<Icon className="h-4 w-4" />}
                                     title={item.title}
@@ -513,6 +523,7 @@ function RulesRoutingBentoVisual() {
         { icon: PhoneForwarded, title: "Intent: Supplier", detail: "Route to back office" },
         { icon: AlertTriangle, title: "Intent: Complaint", detail: "Escalate immediately" }
     ];
+    const activeIndex = useCyclingActiveIndex(routingRules.length);
 
     return (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 md:gap-5">
@@ -537,12 +548,19 @@ function RulesRoutingBentoVisual() {
                     </span>
                 </div>
                 <div className="mt-3 space-y-2">
-                    {routingRules.map((rule) => {
+                    {routingRules.map((rule, index) => {
                         const Icon = rule.icon;
+                        const isActive = index === activeIndex;
                         return (
                             <OpsRow
                                 key={rule.title}
-                                className="px-3 py-2.5"
+                                active={isActive}
+                                className={cn(
+                                    "px-3 py-2.5 transition-all duration-500 ease-out",
+                                    isActive
+                                        ? ACTIVE_OPS_ROW_CLASSNAME
+                                        : INACTIVE_OPS_ROW_CLASSNAME
+                                )}
                                 icon={<Icon className="h-4 w-4" />}
                                 title={rule.title}
                                 detail={rule.detail}
