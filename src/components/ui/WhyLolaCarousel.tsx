@@ -7,7 +7,6 @@ import {
   useRef,
   useState,
   type PointerEvent as ReactPointerEvent,
-  type TransitionEvent,
 } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -57,142 +56,120 @@ const PAIN_SLIDES: PainSlide[] = [
   },
 ];
 
-const AUTOPLAY_MS = 4400;
-const AUTOPLAY_RESUME_DELAY_MS = 1800;
 const TOTAL_SLIDES = PAIN_SLIDES.length;
 
 export function WhyLolaCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [isAutoplayActive, setIsAutoplayActive] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [isInstantJump, setIsInstantJump] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [slideOffsets, setSlideOffsets] = useState<number[]>([]);
-  const resumeTimeoutRef = useRef<number | null>(null);
-  const hoverRef = useRef(false);
+  const [viewportWidth, setViewportWidth] = useState(0);
+  const [trackWidth, setTrackWidth] = useState(0);
   const isDraggingRef = useRef(false);
   const pointerIdRef = useRef<number | null>(null);
   const dragStartXRef = useRef(0);
   const dragOffsetRef = useRef(0);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLUListElement | null>(null);
   const slideRefs = useRef<Array<HTMLLIElement | null>>([]);
-  const loopedSlides = useMemo(
-    () => [PAIN_SLIDES[TOTAL_SLIDES - 1], ...PAIN_SLIDES, PAIN_SLIDES[0]],
-    []
-  );
-  const activeIndex = useMemo(
-    () => ((currentIndex - 1 + TOTAL_SLIDES) % TOTAL_SLIDES),
-    [currentIndex]
-  );
-
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setPrefersReducedMotion(query.matches);
-    update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
-  }, []);
-
-  useEffect(() => {
-    if (prefersReducedMotion || !isAutoplayActive) return;
-    const intervalId = window.setInterval(() => {
-      setCurrentIndex((prev) => prev + 1);
-    }, AUTOPLAY_MS);
-
-    return () => window.clearInterval(intervalId);
-  }, [isAutoplayActive, prefersReducedMotion]);
 
   const liveLabel = useMemo(() => {
-    const active = PAIN_SLIDES[activeIndex];
+    const active = PAIN_SLIDES[Math.min(currentIndex, TOTAL_SLIDES - 1)];
     return `${active.signal}. ${active.headline}`;
-  }, [activeIndex]);
-
-  useEffect(() => {
-    if (!isInstantJump) return;
-    const raf = window.requestAnimationFrame(() => setIsInstantJump(false));
-    return () => window.cancelAnimationFrame(raf);
-  }, [isInstantJump]);
-
-  useEffect(() => {
-    hoverRef.current = isHovered;
-  }, [isHovered]);
+  }, [currentIndex]);
 
   useEffect(() => {
     isDraggingRef.current = isDragging;
   }, [isDragging]);
 
-  useEffect(
-    () => () => {
-      if (resumeTimeoutRef.current !== null) {
-        window.clearTimeout(resumeTimeoutRef.current);
-      }
-    },
-    []
+  const measureLayout = useCallback(() => {
+    setSlideOffsets(slideRefs.current.map((slide) => slide?.offsetLeft ?? 0));
+    setViewportWidth(viewportRef.current?.clientWidth ?? 0);
+    setTrackWidth(trackRef.current?.scrollWidth ?? 0);
+  }, []);
+
+  useEffect(() => {
+    measureLayout();
+
+    const onResize = () => measureLayout();
+    window.addEventListener("resize", onResize);
+
+    if (typeof ResizeObserver === "undefined") {
+      return () => window.removeEventListener("resize", onResize);
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      measureLayout();
+    });
+
+    if (viewportRef.current) {
+      resizeObserver.observe(viewportRef.current);
+    }
+
+    if (trackRef.current) {
+      resizeObserver.observe(trackRef.current);
+    }
+
+    slideRefs.current.forEach((slide) => {
+      if (slide) resizeObserver.observe(slide);
+    });
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      resizeObserver.disconnect();
+    };
+  }, [measureLayout]);
+
+  const maxTranslate = useMemo(
+    () => Math.max(0, trackWidth - viewportWidth),
+    [trackWidth, viewportWidth]
   );
 
-  const goTo = (index: number) => {
-    setCurrentIndex((index + TOTAL_SLIDES) % TOTAL_SLIDES + 1);
-  };
+  const maxNavigableIndex = useMemo(() => {
+    if (slideOffsets.length === 0) return TOTAL_SLIDES - 1;
+
+    for (let index = slideOffsets.length - 1; index >= 0; index -= 1) {
+      if (slideOffsets[index] <= maxTranslate + 1) {
+        return index;
+      }
+    }
+
+    return 0;
+  }, [maxTranslate, slideOffsets]);
+
+  const activeIndex = Math.min(currentIndex, maxNavigableIndex);
+  const baseTranslate = Math.min(slideOffsets[activeIndex] ?? 0, maxTranslate);
+  const isAtStart = activeIndex === 0;
+  const isAtEnd = activeIndex >= maxNavigableIndex;
 
   const goPrev = useCallback(() => {
-    setCurrentIndex((prev) => prev - 1);
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
   }, []);
 
   const goNext = useCallback(() => {
-    setCurrentIndex((prev) => prev + 1);
-  }, []);
-
-  const clearResumeTimeout = useCallback(() => {
-    if (resumeTimeoutRef.current !== null) {
-      window.clearTimeout(resumeTimeoutRef.current);
-      resumeTimeoutRef.current = null;
-    }
-  }, []);
-
-  const scheduleResumeAutoplay = useCallback(() => {
-    clearResumeTimeout();
-    resumeTimeoutRef.current = window.setTimeout(() => {
-      if (!hoverRef.current && !isDraggingRef.current) {
-        setIsAutoplayActive(true);
-      }
-    }, AUTOPLAY_RESUME_DELAY_MS);
-  }, [clearResumeTimeout]);
-
-  const pauseAutoplayImmediately = useCallback(() => {
-    clearResumeTimeout();
-    setIsAutoplayActive(false);
-  }, [clearResumeTimeout]);
-
-  const handleViewportMouseEnter = () => {
-    setIsHovered(true);
-    pauseAutoplayImmediately();
-  };
-
-  const handleViewportMouseLeave = () => {
-    setIsHovered(false);
-    if (!isDraggingRef.current) {
-      scheduleResumeAutoplay();
-    }
-  };
+    setCurrentIndex((prev) => Math.min(maxNavigableIndex, prev + 1));
+  }, [maxNavigableIndex]);
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (event.pointerType === "mouse" && event.button !== 0) return;
+    if (event.pointerType === "mouse" || (event.pointerType === "pen" && event.button !== 0)) {
+      return;
+    }
 
     pointerIdRef.current = event.pointerId;
     dragStartXRef.current = event.clientX;
     dragOffsetRef.current = 0;
     setDragOffset(0);
     setIsDragging(true);
-    pauseAutoplayImmediately();
     event.currentTarget.setPointerCapture(event.pointerId);
   };
 
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (!isDraggingRef.current || pointerIdRef.current !== event.pointerId) return;
 
-    const nextOffset = event.clientX - dragStartXRef.current;
+    const rawOffset = event.clientX - dragStartXRef.current;
+    const resistingEdge =
+      (isAtStart && rawOffset > 0) || (isAtEnd && rawOffset < 0);
+    const nextOffset = resistingEdge ? rawOffset * 0.35 : rawOffset;
     dragOffsetRef.current = nextOffset;
     setDragOffset(nextOffset);
   };
@@ -212,70 +189,21 @@ export function WhyLolaCarousel() {
       }
 
       const stepSize =
-        Math.abs((slideOffsets[currentIndex + 1] ?? 0) - (slideOffsets[currentIndex] ?? 0)) ||
-        Math.abs((slideOffsets[currentIndex] ?? 0) - (slideOffsets[currentIndex - 1] ?? 0)) ||
+        Math.abs((slideOffsets[activeIndex + 1] ?? 0) - (slideOffsets[activeIndex] ?? 0)) ||
+        Math.abs((slideOffsets[activeIndex] ?? 0) - (slideOffsets[activeIndex - 1] ?? 0)) ||
         240;
-      const dragThreshold = stepSize * 0.18;
+      const dragThreshold = Math.min(Math.max(stepSize * 0.22, 44), 96);
 
-      if (dragDistance <= -dragThreshold) {
+      if (dragDistance <= -dragThreshold && !isAtEnd) {
         goNext();
-      } else if (dragDistance >= dragThreshold) {
+      } else if (dragDistance >= dragThreshold && !isAtStart) {
         goPrev();
       }
-
-      scheduleResumeAutoplay();
     },
-    [currentIndex, goNext, goPrev, scheduleResumeAutoplay, slideOffsets]
+    [activeIndex, goNext, goPrev, isAtEnd, isAtStart, slideOffsets]
   );
 
-  const handleTrackTransitionEnd = (event: TransitionEvent<HTMLUListElement>) => {
-    if (event.target !== event.currentTarget) return;
-
-    if (currentIndex <= 0) {
-      setIsInstantJump(true);
-      setCurrentIndex(TOTAL_SLIDES);
-      return;
-    }
-
-    if (currentIndex >= TOTAL_SLIDES + 1) {
-      setIsInstantJump(true);
-      setCurrentIndex(1);
-    }
-  };
-
-  const measureOffsets = useCallback(() => {
-    setSlideOffsets(slideRefs.current.map((slide) => slide?.offsetLeft ?? 0));
-  }, []);
-
-  useEffect(() => {
-    measureOffsets();
-
-    const onResize = () => measureOffsets();
-    window.addEventListener("resize", onResize);
-
-    if (typeof ResizeObserver === "undefined") {
-      return () => window.removeEventListener("resize", onResize);
-    }
-
-    const resizeObserver = new ResizeObserver(() => {
-      measureOffsets();
-    });
-
-    if (trackRef.current) {
-      resizeObserver.observe(trackRef.current);
-    }
-    slideRefs.current.forEach((slide) => {
-      if (slide) resizeObserver.observe(slide);
-    });
-
-    return () => {
-      window.removeEventListener("resize", onResize);
-      resizeObserver.disconnect();
-    };
-  }, [measureOffsets]);
-
-  const translateX = slideOffsets[currentIndex] ?? 0;
-  const trackTranslate = -translateX + dragOffset;
+  const trackTranslate = -baseTranslate + dragOffset;
 
   return (
     <div
@@ -283,14 +211,6 @@ export function WhyLolaCarousel() {
       aria-roledescription="carousel"
       aria-label="Operational pain points"
       tabIndex={0}
-      onFocusCapture={pauseAutoplayImmediately}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
-          if (!hoverRef.current && !isDraggingRef.current) {
-            scheduleResumeAutoplay();
-          }
-        }
-      }}
       onKeyDown={(event) => {
         if (event.key === "ArrowLeft") {
           event.preventDefault();
@@ -300,109 +220,115 @@ export function WhyLolaCarousel() {
           event.preventDefault();
           goNext();
         }
+        if (event.key === "Home") {
+          event.preventDefault();
+          setCurrentIndex(0);
+        }
+        if (event.key === "End") {
+          event.preventDefault();
+          setCurrentIndex(maxNavigableIndex);
+        }
       }}
       className="w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60"
     >
-      <div
-        className={cn(
-          "w-full overflow-hidden touch-pan-y select-none",
-          isDragging ? "cursor-grabbing" : "cursor-grab"
-        )}
-        onMouseEnter={handleViewportMouseEnter}
-        onMouseLeave={handleViewportMouseLeave}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={finishPointerDrag}
-        onPointerCancel={finishPointerDrag}
-      >
-        <ul
-          ref={trackRef}
-          onTransitionEnd={handleTrackTransitionEnd}
+      <div className="relative">
+        <div
+          ref={viewportRef}
           className={cn(
-            "flex gap-4 motion-reduce:transition-none md:gap-5",
-            isInstantJump || isDragging
-              ? "transition-none"
-              : "transition-transform duration-700 ease-out"
+            "w-full overflow-hidden touch-pan-y select-none",
+            isDragging ? "cursor-grabbing" : "cursor-default"
           )}
-          style={{ transform: `translateX(${trackTranslate}px)` }}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={finishPointerDrag}
+          onPointerCancel={finishPointerDrag}
         >
-          {loopedSlides.map((slide, index) => (
-            <li
-              key={`${slide.signal}-${index}`}
-              ref={(element) => {
-                slideRefs.current[index] = element;
-              }}
-              className="min-w-0 shrink-0 basis-[90%] md:basis-[62%] lg:basis-[40%]"
-            >
-              <article
-                className={cn(
-                  "relative h-[340px] overflow-hidden rounded-[2rem] border border-white/12 bg-[#0B0E13] p-6 ring-1 ring-white/6 sm:h-[390px] sm:p-7 lg:h-[430px]",
-                  currentIndex === index ? "opacity-100" : "opacity-90"
-                )}
+          <ul
+            ref={trackRef}
+            className={cn(
+              "flex gap-4 will-change-transform motion-reduce:transition-none md:gap-5",
+              isDragging
+                ? "transition-none"
+                : "transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+            )}
+            style={{ transform: `translate3d(${trackTranslate}px, 0, 0)` }}
+          >
+            {PAIN_SLIDES.map((slide, index) => (
+              <li
+                key={`${slide.signal}-${index}`}
+                ref={(element) => {
+                  slideRefs.current[index] = element;
+                }}
+                className="min-w-0 shrink-0 basis-[88%] sm:basis-[76%] md:basis-[58%] lg:basis-[39%]"
               >
-                <BokehBackground variant={(index + TOTAL_SLIDES - 1) % TOTAL_SLIDES} />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -inset-px rounded-[2rem] bg-[radial-gradient(130%_90%_at_50%_0%,rgba(255,255,255,0.12),rgba(255,255,255,0)_58%)]"
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 rounded-[2rem] border border-white/8"
-                />
-                <div className="relative z-10">
-                  <div className="mb-5 inline-flex w-fit items-center rounded-full border border-white/20 bg-white/10 px-3 py-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-mint" />
-                    <span className="ml-2 font-jetbrains text-[10px] uppercase tracking-[0.16em] text-peach/95">
-                      {slide.signal}
-                    </span>
+                <article
+                  className={cn(
+                    "relative flex h-[270px] flex-col overflow-hidden rounded-[2rem] border border-white/12 bg-[#0B0E13] p-6 ring-1 ring-white/6 [backface-visibility:hidden] [clip-path:inset(0_round_2rem)] [transform:translateZ(0)] sm:h-[286px] sm:p-7 lg:h-[312px]",
+                    activeIndex === index
+                      ? "opacity-100"
+                      : "opacity-88 lg:opacity-92"
+                  )}
+                >
+                  <BokehBackground variant={(index + TOTAL_SLIDES - 1) % TOTAL_SLIDES} />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute -inset-px rounded-[2rem] bg-[radial-gradient(130%_90%_at_50%_0%,rgba(255,255,255,0.12),rgba(255,255,255,0)_58%)]"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-[2rem] border border-white/8"
+                  />
+                  <div className="relative z-10 flex h-full flex-col items-start">
+                    <div className="mb-5 inline-flex w-fit items-center rounded-full border border-white/20 bg-white/10 px-3 py-1.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-mint" />
+                      <span className="ml-2 font-jetbrains text-[10px] uppercase tracking-[0.16em] text-peach/95">
+                        {slide.signal}
+                      </span>
+                    </div>
+                    <h3 className="max-w-[22ch] font-outfit text-[1.6rem] font-semibold leading-tight text-white sm:text-[1.85rem]">
+                      {slide.headline}
+                    </h3>
+                    <p className="mt-3 max-w-[46ch] font-outfit text-sm leading-relaxed text-white/80 sm:text-[0.98rem]">
+                      {slide.body}
+                    </p>
                   </div>
-                  <h3 className="max-w-[22ch] font-outfit text-2xl font-semibold leading-tight text-white sm:text-3xl">
-                    {slide.headline}
-                  </h3>
-                  <p className="mt-3 max-w-[48ch] font-outfit text-sm leading-relaxed text-white/80 sm:text-base">
-                    {slide.body}
-                  </p>
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
-      </div>
+                </article>
+              </li>
+            ))}
+          </ul>
 
-      <div className="mt-6 flex justify-center sm:mt-7">
-        <div className="inline-flex items-center gap-3">
+        </div>
+
+        <div className="pointer-events-none absolute inset-0">
           <button
             type="button"
             onClick={goPrev}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-charcoal/25 bg-white/70 text-ink transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60"
-            aria-label="Previous slide"
+            aria-label="Previous card"
+            aria-hidden={isAtStart}
+            tabIndex={isAtStart ? -1 : 0}
+            className={cn(
+              "pointer-events-auto absolute left-0 top-1/2 inline-flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border text-[#12181F] shadow-[0_14px_30px_rgba(8,12,18,0.18),0_2px_10px_rgba(8,12,18,0.08)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60 sm:h-12 sm:w-12",
+              isAtStart
+                ? "pointer-events-none opacity-0"
+                : "border-[#E5DBCF] bg-[#F4EEE5]/96 hover:bg-[#FBF7F1] hover:shadow-[0_18px_34px_rgba(8,12,18,0.22),0_4px_12px_rgba(8,12,18,0.08)]"
+            )}
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={18} strokeWidth={2.1} />
           </button>
-
-          <div className="flex items-center justify-center gap-2" aria-label="Slide pagination">
-            {PAIN_SLIDES.map((slide, index) => (
-              <button
-                key={slide.signal}
-                type="button"
-                onClick={() => goTo(index)}
-                aria-label={`Go to slide ${index + 1}`}
-                aria-current={activeIndex === index}
-                className={cn(
-                  "h-2.5 rounded-full transition-all duration-300",
-                  activeIndex === index ? "w-6 bg-coral" : "w-2.5 bg-charcoal/35 hover:bg-charcoal/55"
-                )}
-              />
-            ))}
-          </div>
 
           <button
             type="button"
             onClick={goNext}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-charcoal/25 bg-white/70 text-ink transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60"
-            aria-label="Next slide"
+            aria-label="Next card"
+            disabled={isAtEnd}
+            className={cn(
+              "pointer-events-auto absolute right-0 top-1/2 inline-flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border text-[#12181F] shadow-[0_14px_30px_rgba(8,12,18,0.18),0_2px_10px_rgba(8,12,18,0.08)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60 sm:h-12 sm:w-12",
+              isAtEnd
+                ? "cursor-not-allowed border-[#E9E0D5] bg-[#EFE7DD]/88 text-[#12181F]/38 shadow-[0_8px_20px_rgba(8,12,18,0.10)]"
+                : "border-[#E5DBCF] bg-[#F4EEE5]/96 hover:bg-[#FBF7F1] hover:shadow-[0_18px_34px_rgba(8,12,18,0.22),0_4px_12px_rgba(8,12,18,0.08)]"
+            )}
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={18} strokeWidth={2.1} />
           </button>
         </div>
       </div>

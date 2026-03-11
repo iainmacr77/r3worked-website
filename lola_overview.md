@@ -1,258 +1,290 @@
-Hey Lola — Product Overview (Restaurants + Medical)
+# Hey Lola — Product Overview (Restaurants + Medical)
 
-0) What Lola is (one-liner)
+## 0) What Lola is (one-liner)
 
-Lola is an always-on, conversational front desk that answers calls (and WhatsApp calls), handles the high-volume operational requests that steal staff time, books/reschedules/cancels inside your existing system, and escalates edge cases to humans—while producing a clean, queryable operational log of everything that happened.
+Lola is an always-on conversational front desk that answers calls (including WhatsApp calls), handles the high-volume operational requests that steal staff time, books/reschedules/cancels inside your existing systems, and escalates edge cases to humans—while producing a clean, queryable log of everything that happened.
 
-Lola is the “intake + execution layer” sitting between:
-	•	Guests/Patients (voice + WhatsApp calls),
-	•	Your booking/diary system (DinePlan / reservation system; Google Calendar / practice management calendar layer),
-	•	Your staff (escalations, approvals, and exceptions).
+Lola is the **intake + execution layer** sitting between:
+- Guests / Patients (voice + WhatsApp calls)
+- Your booking or diary system (restaurant reservation system, Google Calendar, or practice management scheduling layer)
+- Your staff (for escalations, approvals, and exceptions)
 
-⸻
+---
 
-1) Two products, same engine
+## 1) Two products, one core engine
 
-1.1 Lola Restaurants
+### 1.1 Lola Restaurants
 
-Job: convert inbound demand into confirmed covers without dragging staff off the floor.
+**Primary job:** convert inbound demand into confirmed covers without dragging staff off the floor.
 
-What she handles
-	•	Book / edit / cancel reservations
-	•	Seating preferences, dietary notes, birthdays, special occasions
-	•	Policy FAQs (corkage, kids, dress code, parking, deposits, late arrivals)
-	•	Waitlist handling + “call me back” options
-	•	After-hours capture (no more “call tomorrow”)
-	•	Escalation to host/manager when needed
+**What she handles**
+- Book, edit, and cancel reservations
+- Seating preferences, dietary notes, birthdays, and special occasions
+- Policy FAQs (corkage, kids, dress code, parking, deposits, late arrivals)
+- Waitlist handling and callback requests
+- After-hours demand capture
+- Escalation to a host or manager when needed
 
-Outcome
-	•	Fewer missed calls, fewer mistakes, more bookings, cleaner service.
+**Outcome**
+- Fewer missed calls
+- Fewer booking errors
+- More confirmed covers
+- Cleaner service during peak periods
 
-⸻
+---
 
-1.2 Lola Medical (Clinics + Dentists)
+### 1.2 Lola Medical (Clinics + Dentists)
 
-Job: protect clinic flow and reception sanity while capturing scheduling demand safely.
+**Primary job:** protect clinic flow and reception sanity while capturing scheduling demand safely.
 
-What she handles (strictly non-clinical)
-	•	Book / reschedule / cancel appointments
-	•	Appointment type routing (clean intake: “what are you booking for?” at a non-diagnostic level)
-	•	Policy FAQs (forms, arrival time, late policy, medical aid admin info, practice details)
-	•	After-hours capture and next-day scheduling
-	•	“Receptionist confirm mode” (optional): Lola proposes changes → reception approves → patient gets confirmation
+**What she handles (strictly non-clinical)**
+- Book, reschedule, and cancel appointments
+- Appointment-type routing at a non-diagnostic level
+- Policy FAQs (forms, arrival time, late policy, admin info, practice details)
+- After-hours capture and next-day scheduling
+- Optional **Receptionist Confirm Mode**: Lola proposes a change, reception approves it, the patient then receives confirmation
 
-Safety rail
-	•	No clinical decision-making. Any “medical advice” request is routed to reception immediately (or to a predefined safe instruction like “If emergency, seek urgent care now, otherwise we’ll have reception call you back”).
-	•	Audit trail by default: every step is logged.
+**Outcome**
+- Fewer calls interrupting reception
+- Cleaner scheduling flow
+- Better after-hours capture
+- Safer handling of non-clinical inbound demand
 
-⸻
+**Safety rail**
+- Lola does **not** provide clinical advice, diagnosis, or triage
+- Any request for medical advice is routed to reception immediately, or to a predefined safe instruction such as:  
+  *“If this is urgent, please seek urgent medical care now. Otherwise, reception will contact you as soon as possible.”*
+- Every step is logged by default
 
-2) The pain Lola removes (with evidence)
+---
 
-2.1 Restaurants: no-shows + late cancellations + chaos
-	•	Restaurants globally have been pushed to adopt deposits / no-show fees partly because no-shows and late cancellations are material; reported no-show rates can sit around high single digits in busy markets and have been described as worsening post-COVID in some reporting.
-	•	Even a “small” no-show rate hurts disproportionately because the revenue is tied to finite inventory (tables + time) and the missed cover can be impossible to replace in the moment.
+## 2) The pain Lola removes
 
-Operational reality Lola targets
-	•	Peak-hour phone pileups
-	•	Staff forced into mini call-centre mode
-	•	Lost bookings + lost data (“why did they call?”)
-	•	Human error under pressure (wrong time, wrong name, wrong party size)
+### 2.1 Restaurants: no-shows, late cancellations, and phone chaos
 
-⸻
+Restaurants globally have been pushed toward deposits and no-show fees because no-shows and late cancellations create real financial damage. Even a modest no-show rate hurts disproportionately because restaurant revenue depends on finite inventory: tables, covers, and time. Once a time slot is lost, it is often impossible to recover in the moment.
 
-2.2 Medical: no-shows + phone congestion + diary fragmentation
-	•	Appointment no-shows are a persistent healthcare problem; systematic and review-style literature commonly reports no-show rates across outpatient contexts spanning from low single digits into double digits depending on specialty and setting.  ￼
-	•	Large-scale healthcare call environments can see high abandonment when wait times spike (one reported example in Medicaid eligibility call centres cited ~29% abandonment in certain states under strain).  ￼
+**Operational pain Lola targets**
+- Peak-hour phone pileups
+- Staff dragged into mini call-centre mode
+- Lost bookings and lost caller intent data
+- Human error under pressure (wrong time, wrong name, wrong party size)
 
-Operational reality Lola targets
-	•	Reception juggling in-person patients + phones + admin
-	•	“8am rush” / Monday spikes (everyone calls at once)
-	•	After-hours demand leaks away
-	•	Multiple-provider complexity (who’s available for what type of visit)
-	•	Risk: callers drifting into “medical advice” territory that must be handled carefully
+---
 
-⸻
+### 2.2 Medical: no-shows, phone congestion, and diary fragmentation
 
-3) What Lola actually does (capabilities)
+Appointment no-shows are a persistent healthcare problem, and front desks are often forced to juggle in-person patients, telephones, and admin simultaneously. The result is a messy scheduling environment where demand spikes are hard to absorb and after-hours requests are often lost.
 
-3.1 Core interaction loop (voice/WhatsApp call)
-	1.	Answer instantly (no hold music, no voicemail default)
-	2.	Identify intent (book / change / cancel / policy / escalation)
-	3.	Collect minimum viable details (name, number, date/time preference, party size / appointment type)
-	4.	Check availability in the connected system
-	5.	Propose options conversationally (2–4 best matches)
-	6.	Confirm + write back to the system (reservation/appointment created/updated)
-	7.	Send confirmation (SMS/WhatsApp/email depending on setup)
-	8.	Log everything (intent, outcome, duration, timestamps, notes)
+**Operational pain Lola targets**
+- Reception handling patients, phones, and admin at the same time
+- “8am rush” and Monday spike behaviour
+- After-hours demand leaking away
+- Multi-provider diary complexity
+- Callers drifting into clinical territory that must be handled safely
 
-⸻
+---
 
-3.2 The “trust boundary” (especially medical)
+## 3) What Lola actually does
 
-Lola’s design assumes:
-	•	Scheduling + admin: OK for automation
-	•	Medical advice / triage / diagnosis: not OK — must route to humans
+### 3.1 Core interaction loop (voice or WhatsApp call)
+
+1. Answer instantly  
+2. Identify intent (book / change / cancel / policy / escalation)  
+3. Collect the minimum viable details  
+4. Check availability in the connected system  
+5. Propose suitable options conversationally  
+6. Confirm and write back to the system  
+7. Send confirmation (SMS / WhatsApp / email, depending on setup)  
+8. Log the full interaction (intent, timestamps, outcome, notes)
+
+---
+
+### 3.2 The trust boundary
+
+Lola is designed around a very clear boundary:
+
+**Safe for automation**
+- Scheduling
+- Rescheduling
+- Cancellations
+- Availability checks
+- Operational FAQs
+- Administrative information
+
+**Not safe for automation**
+- Clinical advice
+- Diagnosis
+- Triage
+- Symptom interpretation
 
 So Lola can say:
-	•	“I can help you book the soonest appointment. If you need medical advice, I’ll connect you to reception now.”
+- *“I can help you book the soonest available appointment. If you need medical advice, I’ll connect you to reception now.”*
 
-And she must avoid:
-	•	“Based on your symptoms, you should…”
+And Lola must never say:
+- *“Based on your symptoms, you should…”*
 
-⸻
+---
 
-3.3 Human override (restaurant + medical)
+### 3.3 Human override (both verticals)
 
-At any point Lola can:
-	•	Warm-transfer to a live line (host desk / reception)
-	•	Create a call-back task (“Reception will call you within X minutes”)
-	•	Push an approval request (Receptionist Confirm Mode) before finalizing changes
+At any point, Lola can:
+- Warm-transfer to a live person
+- Create a callback task
+- Push an approval request before finalising a change
+- Gracefully stop automation and defer to staff
 
-⸻
+---
 
-4) Setup: what a venue/practice actually does to go live
+## 4) Setup: what a client actually does to go live
 
-4.1 Day-0 prerequisites (both)
-	•	Confirm which number(s) Lola will answer
-	•	Decide escalation rules (who gets transferred to, when)
-	•	Provide policy info (hours, location, FAQs, rules)
-	•	Decide confirmation channel (SMS/WhatsApp/email) and messaging tone
+### 4.1 Day-0 prerequisites (both)
 
-⸻
+- Confirm which number(s) Lola will answer
+- Decide escalation rules
+- Provide policy information (hours, location, FAQs, rules)
+- Choose confirmation channels (SMS / WhatsApp / email)
+- Define tone of voice and brand behaviour
 
-4.2 Restaurants setup (practical)
+---
 
-Step 1 — Provision a dedicated “Lola Number”
-	•	One public number guests actually use.
-	•	Keep the existing direct line private (suppliers, VIPs, internal).
+### 4.2 Restaurant setup
 
-Step 2 — Route calls
-	•	Forward public-facing listings (Google, website, Instagram, menus) to the Lola Number.
+**Step 1 — Provision a dedicated Lola Number**
+- One public-facing number guests actually use
+- Existing direct lines can remain private for suppliers, VIPs, or internal use
 
-Step 3 — Connect booking system
-	•	DinePlan (or alternative): connect via API / integration layer.
-	•	Map: availability, table rules, seating areas, deposits, tags/notes fields.
+**Step 2 — Route calls**
+- Website, Google Business Profile, Instagram, and other public listings point to the Lola Number
 
-Step 4 — Teach house rules
-	•	Policy pack: corkage, kids, allergies workflow, late arrival rules, table turn times, deposits.
-	•	VIP handling rules + escalation triggers.
+**Step 3 — Connect the booking system**
+- DinePlan or alternative reservation system via API or integration layer
+- Map availability, seating rules, deposits, notes, tags, and table logic
 
-Step 5 — Go live with a “soft launch”
-	•	Start with after-hours + overflow first.
-	•	Expand to full coverage once staff trusts the flow.
+**Step 4 — Teach Lola the house rules**
+- Corkage, kids, allergies workflow, late arrivals, table turn times, deposits
+- VIP handling rules and escalation triggers
 
-⸻
+**Step 5 — Soft launch**
+- Start with after-hours and overflow
+- Expand to full coverage once trust is established
 
-4.3 Medical setup (practical)
+---
 
-Step 1 — Connect “calendar reality first”
-	•	Often fastest path: connect to Google Calendar / clinic calendar layer.
-	•	For deeper integrations later: connect practice management scheduling if available.
+### 4.3 Medical setup
 
-Step 2 — Define appointment types
-	•	Short list: “new patient”, “follow-up”, “procedure”, “hygiene”, etc.
-	•	Each type has duration + provider constraints + lead times.
+**Step 1 — Connect calendar reality first**
+- Fastest initial path is often Google Calendar or the clinic calendar layer
+- Deeper practice management integrations can come later
 
-Step 3 — Define safety rail + escalation
-	•	Any clinical question → route to reception immediately.
-	•	Set emergency wording (practice-approved).
+**Step 2 — Define appointment types**
+- Examples: new patient, follow-up, hygiene, procedure
+- Each type has a duration, provider constraint, and lead-time rule
 
-Step 4 — Choose operating mode
-	•	Autopilot: Lola books directly inside constraints.
-	•	Receptionist Confirm Mode: Lola drafts changes; staff approves.
+**Step 3 — Define safety rails and escalation**
+- Any clinical question routes to reception immediately
+- Emergency wording must be practice-approved
 
-Step 5 — Audit trail by default
-	•	Logging is non-negotiable (timestamp + caller + intent + outcome).
+**Step 4 — Choose operating mode**
+- **Autopilot:** Lola books directly within defined constraints
+- **Receptionist Confirm Mode:** Lola drafts the action, staff approves it
 
-⸻
+**Step 5 — Audit trail by default**
+- Every interaction is logged with caller, timestamp, intent, and outcome
 
-5) What Lola reports back (metrics & intelligence)
+---
 
-5.1 Shared metrics (both verticals)
+## 5) What Lola reports back
 
-Demand + access
-	•	Total inbound calls (by day/week)
-	•	Peak load windows (hour-of-day heatmap)
-	•	After-hours demand captured
-	•	Average time-to-answer (should be near instant)
-	•	Call abandonment proxies (hang-ups before resolution)
+### 5.1 Shared metrics (both verticals)
 
-Outcomes
-	•	Booked / rescheduled / cancelled counts
-	•	Resolution rate (% handled without staff)
-	•	Escalation rate (% forwarded to human)
-	•	Reasons for escalation (categorised)
+**Demand + access**
+- Total inbound calls
+- Peak load windows
+- After-hours demand captured
+- Average time to answer
+- Hang-ups before resolution
 
-Efficiency
-	•	Estimated staff minutes saved
-	•	Average handle time by intent
-	•	“Repeat callers” rate (friction indicator)
+**Outcomes**
+- Booked / rescheduled / cancelled volumes
+- Resolution rate
+- Escalation rate
+- Categorised reasons for escalation
 
-Conversation intelligence
-	•	Top caller intents (what people actually want)
-	•	Top FAQs (what your website/menu isn’t answering)
-	•	Sentiment / frustration markers (optional)
+**Efficiency**
+- Estimated staff minutes saved
+- Average handle time by intent
+- Repeat-caller rate
 
-⸻
+**Conversation intelligence**
+- Top caller intents
+- Top FAQs
+- Frustration or sentiment markers (optional)
 
-5.2 Restaurant-specific metrics
+---
 
-Revenue & inventory
-	•	Bookings captured that would otherwise be missed (proxy)
-	•	Covers booked via phone/WhatsApp
-	•	Late cancellation / no-show risk flags (if you use deposits/no-show rules)
-	•	Waitlist conversion rate
-	•	Seating preference distribution (inside/outside, terrace, bar)
+### 5.2 Restaurant-specific metrics
 
-Service quality
-	•	“Staff interruption load” (calls during peak service windows)
-	•	Mistake prevention: corrections detected (time, party size, name)
+**Revenue + inventory**
+- Bookings captured that may otherwise have been missed
+- Covers booked via phone or WhatsApp
+- Waitlist conversion rate
+- Late cancellation / no-show risk flags
+- Seating preference distribution
 
-⸻
+**Service quality**
+- Staff interruption load during service peaks
+- Mistake prevention and correction patterns
 
-5.3 Medical-specific metrics
+---
 
-Clinic flow
-	•	Appointment fill rate (per provider / per day)
-	•	Diary gap recovery (cancellations rebooked into newly opened slots)
-	•	No-show patterns (time/day/provider)
-	•	After-hours capture leading to next-day bookings
-	•	Reception escalation reasons (clinical question / complex case / insurance admin)
+### 5.3 Medical-specific metrics
 
-Safety + compliance
-	•	Count of “clinical advice” requests safely routed to reception
-	•	Response times for call-back tasks (if used)
-	•	Full audit trail export (for internal review)
+**Clinic flow**
+- Appointment fill rate by provider and day
+- Diary gap recovery
+- No-show pattern analysis
+- After-hours capture leading to next-day bookings
+- Escalation reasons (clinical query, complex case, insurance admin)
 
-⸻
+**Safety + compliance**
+- Count of clinical-advice requests safely routed away from automation
+- Callback response times
+- Full audit-trail export for internal review
 
-6) Why this is hard to copy (the “moat”)
+---
 
-Lola isn’t just a voice bot. The defensibility comes from:
-	•	Operational constraints mapping (rules, edge-cases, exceptions)
-	•	Tight system integration (booking/diary writes that don’t break reality)
-	•	Human escalation choreography (handoffs that feel seamless)
-	•	Continuous learning from transcripts + outcomes (what fails, what converts)
-	•	A metrics layer that becomes the manager’s “control surface” over time
+## 6) Why this is hard to copy
 
-⸻
+Lola is not just a voice bot. The defensibility comes from:
+- Operational constraint mapping
+- Tight booking and scheduling integrations
+- Human escalation choreography
+- Continuous learning from transcripts and outcomes
+- A growing metrics layer that becomes a management control surface over time
 
-7) The product promise (simple language)
+The hard part is not generating speech.  
+The hard part is making automation behave reliably inside messy real-world operations.
 
-Restaurants
+---
 
-“Zero missed calls. Clean bookings. Better service.”
+## 7) The product promise
 
-Medical
+### Restaurants
+**Zero missed calls. Clean bookings. Better service.**
 
-“Clinic calm. Clean scheduling. Safe escalation.”
+### Medical
+**Clinic calm. Clean scheduling. Safe escalation.**
 
-⸻
+---
 
-8) Notes for implementation (so Codex doesn’t do something dumb)
-	•	Never fabricate availability. If the system is unavailable, Lola must gracefully degrade (“I can take a request and have the team confirm shortly”).
-	•	Medical: never give clinical advice. Route it.
-	•	Always log: intent → action → outcome.
-	•	Always provide an escape hatch: transfer/callback.
-	•	Design principle: “Looks magical, behaves conservative.”
+## 8) Implementation notes (so Codex doesn’t do something stupid)
+
+- Never fabricate availability
+- If a connected system is unavailable, Lola must degrade gracefully:  
+  *“I can take your request and have the team confirm shortly.”*
+- Medical mode must never provide clinical advice, diagnosis, or triage
+- Always log: **intent → action → outcome**
+- Always provide an escape hatch: transfer, callback, or staff approval
+- Prefer conservative execution over impressive-looking guesswork
+- Design principle: **Looks magical, behaves conservative**
