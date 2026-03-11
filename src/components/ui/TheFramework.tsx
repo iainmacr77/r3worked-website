@@ -306,11 +306,13 @@ function OpsRow({
     icon,
     title,
     detail,
+    active = false,
     className
 }: {
     icon: React.ReactNode;
     title: string;
     detail: string;
+    active?: boolean;
     className?: string;
 }) {
     return (
@@ -320,12 +322,33 @@ function OpsRow({
                 className
             )}
         >
-            <span className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl border border-coral/32 bg-coral/14 text-coral">
+            <span
+                className={cn(
+                    "mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl border text-coral transition-all duration-300",
+                    active
+                        ? "border-coral/42 bg-coral/16 shadow-[0_0_0_1px_rgba(255,138,122,0.08),0_10px_20px_rgba(0,0,0,0.18)]"
+                        : "border-coral/32 bg-coral/14"
+                )}
+            >
                 {icon}
             </span>
             <div className="space-y-0.5">
-                <p className="font-outfit text-sm font-medium text-peach/92 md:text-base">{title}</p>
-                <p className="font-outfit text-xs text-peach/66 md:text-sm">{detail}</p>
+                <p
+                    className={cn(
+                        "font-outfit text-sm font-medium md:text-base",
+                        active ? "text-peach/96" : "text-peach/92"
+                    )}
+                >
+                    {title}
+                </p>
+                <p
+                    className={cn(
+                        "font-outfit text-xs md:text-sm",
+                        active ? "text-peach/76" : "text-peach/66"
+                    )}
+                >
+                    {detail}
+                </p>
             </div>
         </div>
     );
@@ -431,10 +454,11 @@ function OperationBentoVisual() {
                             return (
                                 <OpsRow
                                     key={item.title}
+                                    active={isActive}
                                     className={cn(
                                         "transition-all duration-500 ease-out",
                                         isActive
-                                            ? "ops-item--active -translate-y-px border-coral/35 bg-gradient-to-r from-coral/14 via-white/[0.1] to-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_14px_30px_rgba(0,0,0,0.35)]"
+                                            ? "ops-item--active -translate-y-px border-white/16 bg-[linear-gradient(135deg,rgba(18,23,35,0.94)_0%,rgba(31,26,45,0.9)_52%,rgba(46,32,52,0.78)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_16px_34px_rgba(0,0,0,0.32),0_0_0_1px_rgba(255,138,122,0.06)] ring-1 ring-coral/12"
                                             : "translate-y-0 hover:border-white/20"
                                     )}
                                     icon={<Icon className="h-4 w-4" />}
