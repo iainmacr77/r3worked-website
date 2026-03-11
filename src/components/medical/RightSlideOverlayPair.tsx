@@ -11,6 +11,51 @@ type OverlayCard = {
   badge?: string;
 };
 
+const CHAPTER_PHASES = [
+  {
+    label: "01",
+    title: "Operating model",
+    detail: "Where Lola sits around the clinic",
+  },
+  {
+    label: "02",
+    title: "Setup",
+    detail: "Connections, rules, and guardrails",
+  },
+  {
+    label: "03",
+    title: "Live operation",
+    detail: "Routine demand carried day to day",
+  },
+] as const;
+
+const OVERLAY_PHASE_STYLES = {
+  setup: {
+    shell:
+      "border-[#8addcc]/34 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(242,251,248,0.92))] shadow-[0_22px_52px_rgba(30,30,46,0.08)]",
+    glow: "bg-gradient-to-br from-[#8addcc]/12 via-transparent to-[#6ed4be]/06",
+    accent: "from-[#8addcc]/46 via-[#8addcc]/14 to-transparent",
+    chip: "border-[#8addcc]/34 bg-white/82 text-charcoal/56",
+    chipLabel: "Configuration layer",
+    card:
+      "border-[#83dcca]/34 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(248,253,251,0.88))] shadow-[0_14px_30px_rgba(30,30,46,0.07)]",
+    cardGlow: "bg-[linear-gradient(135deg,rgba(138,221,204,0.1),transparent_60%)]",
+    index: "text-charcoal/34",
+  },
+  operation: {
+    shell:
+      "border-[#72d6c3]/42 bg-[linear-gradient(180deg,rgba(238,251,248,0.98),rgba(226,247,242,0.95))] shadow-[0_28px_64px_rgba(24,78,69,0.15)]",
+    glow: "bg-[radial-gradient(circle_at_top_right,rgba(109,214,190,0.16),transparent_46%),linear-gradient(180deg,rgba(125,226,208,0.08),transparent_48%)]",
+    accent: "from-[#59cdb6]/70 via-[#8addcc]/28 to-transparent",
+    chip: "border-[#62cfba]/38 bg-[#effaf7]/84 text-[#156e60]",
+    chipLabel: "Live operating layer",
+    card:
+      "border-[#6fd3c0]/36 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(239,250,247,0.84))] shadow-[0_18px_38px_rgba(24,78,69,0.12)]",
+    cardGlow: "bg-[linear-gradient(135deg,rgba(109,214,190,0.14),transparent_62%)]",
+    index: "text-[#156e60]/40",
+  },
+} as const;
+
 function ConnectionMapCard() {
   const flowRows = [
     { label: "New booking", outcome: "Handled by Lola" },
@@ -118,42 +163,61 @@ function OverlayPanel({
   title,
   subtitle,
   cards,
+  phase,
 }: {
   title: string;
   subtitle: string;
   cards: OverlayCard[];
+  phase: keyof typeof OVERLAY_PHASE_STYLES;
 }) {
+  const styles = OVERLAY_PHASE_STYLES[phase];
+
   return (
-    <article className="w-full rounded-[2.1rem] border border-[#8addcc]/38 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(247,253,251,0.88))] p-6 shadow-[0_24px_58px_rgba(30,30,46,0.1)] md:p-8">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
+    <article
+      className={cn(
+        "relative w-full overflow-hidden rounded-[2.1rem] border p-6 md:p-8",
+        styles.shell
+      )}
+    >
+      <div className={cn("pointer-events-none absolute inset-0", styles.glow)} />
+      <div className={cn("pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b", styles.accent)} />
+      <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
+        <div className="max-w-[62ch]">
           <p className="font-jetbrains text-[11px] uppercase tracking-[0.14em] text-[#1e8a78]">
             {title}
           </p>
-          <p className="mt-3 max-w-[62ch] text-charcoal">{subtitle}</p>
+          <p className="mt-3 text-charcoal">{subtitle}</p>
         </div>
-        <div className="rounded-full border border-[#8addcc]/34 bg-white/80 px-3 py-1.5 font-jetbrains text-[10px] uppercase tracking-[0.12em] text-charcoal/56">
-          Clinic-safe workflow
+        <div
+          className={cn(
+            "rounded-full border px-3 py-1.5 font-jetbrains text-[10px] uppercase tracking-[0.12em]",
+            styles.chip
+          )}
+        >
+          {styles.chipLabel}
         </div>
       </div>
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="relative z-10 mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
         {cards.map((card, index) => (
           <div
             key={card.title}
-            className="rounded-[1.45rem] border border-[#83dcca]/42 bg-white/90 p-5 shadow-[0_16px_30px_rgba(30,30,46,0.08)]"
+            className={cn("relative overflow-hidden rounded-[1.45rem] border p-5", styles.card)}
           >
+            <div className={cn("pointer-events-none absolute inset-0", styles.cardGlow)} />
+            <div className="relative z-10">
             <div className="flex items-center justify-between gap-3">
               {card.badge ? (
                 <p className="font-jetbrains text-[10px] uppercase tracking-[0.12em] text-[#1e8a78]">
                   {card.badge}
                 </p>
               ) : <span />}
-              <span className="font-jetbrains text-[10px] uppercase tracking-[0.14em] text-charcoal/38">
+              <span className={cn("font-jetbrains text-[10px] uppercase tracking-[0.14em]", styles.index)}>
                 0{index + 1}
               </span>
             </div>
             <h3 className="mt-2 font-outfit text-2xl font-semibold text-ink">{card.title}</h3>
             <p className="mt-3 text-charcoal">{card.body}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -192,24 +256,57 @@ export function RightSlideOverlayPair({
   const baseBlur = useTransform(scrollYProgress, [0.14, 0.56], ["blur(0px)", "blur(2px)"]);
 
   return (
-    <section id={id} className="section-offset w-full bg-medical-soft-blue px-6 pt-12 pb-20 md:px-16 md:pt-16 md:pb-24">
+    <section
+      id={id}
+      className="section-offset w-full bg-[radial-gradient(circle_at_top,rgba(158,232,218,0.18),transparent_34%),linear-gradient(180deg,#eef8f5_0%,#e8f5f1_44%,#e3f1ed_100%)] px-6 pt-12 pb-20 md:px-16 md:pt-16 md:pb-24"
+    >
       <div className="mx-auto w-full max-w-7xl">
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-12">
           <div className="min-w-0">
-            <SectionHeading
-              eyebrow="HOW IT FITS"
-              eyebrowClassName="text-[#156e60] tracking-[0.2em]"
-              title={heading}
-              titleClassName="type-h2-serif text-charcoal max-w-[14ch]"
-              subtitle={subheading}
-              subtitleClassName="text-charcoal/88 max-w-[42ch] text-base md:text-lg leading-relaxed mt-2"
-              className="flex flex-col"
-            />
-            <p className="mt-4 max-w-[42ch] font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">
-              The setup layer decides how Lola should behave. The live operation
-              layer then carries the daily phone load, while clinical or
-              uncertain calls stay with the clinic team.
-            </p>
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/55 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(246,252,249,0.6))] p-6 shadow-[0_18px_44px_rgba(30,30,46,0.06)] backdrop-blur-md md:p-7">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(138,221,204,0.14),transparent_38%)]" />
+              <div className="pointer-events-none absolute inset-y-6 left-0 w-px bg-gradient-to-b from-transparent via-[#8addcc]/55 to-transparent" />
+              <div className="relative z-10">
+                <SectionHeading
+                  eyebrow="HOW IT FITS"
+                  eyebrowClassName="text-[#156e60] tracking-[0.2em]"
+                  title={heading}
+                  titleClassName="type-h2-serif text-charcoal max-w-[14ch]"
+                  subtitle={subheading}
+                  subtitleClassName="text-charcoal/88 max-w-[42ch] text-base md:text-lg leading-relaxed mt-2"
+                  className="flex flex-col"
+                />
+                <p className="mt-4 max-w-[42ch] font-outfit text-sm leading-relaxed text-charcoal/80 md:text-base">
+                  Start with the operating model: where Lola sits, what stays with
+                  reception, and how the diary remains the source of truth. Setup
+                  then defines the rules. Live operation is the outcome of that
+                  groundwork.
+                </p>
+                <div className="mt-5 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
+                  {CHAPTER_PHASES.map((phase, index) => (
+                    <div
+                      key={phase.label}
+                      className={cn(
+                        "rounded-[1.25rem] border px-4 py-3 backdrop-blur-sm",
+                        index === 0
+                          ? "border-white/70 bg-white/64 shadow-[0_10px_24px_rgba(30,30,46,0.04)]"
+                          : index === 1
+                            ? "border-[#8addcc]/34 bg-[linear-gradient(180deg,rgba(255,255,255,0.74),rgba(244,251,248,0.66))] shadow-[0_10px_24px_rgba(30,30,46,0.05)]"
+                            : "border-[#74d8c5]/36 bg-[linear-gradient(180deg,rgba(244,252,249,0.82),rgba(232,248,243,0.76))] shadow-[0_12px_28px_rgba(24,78,69,0.08)]"
+                      )}
+                    >
+                      <p className="font-jetbrains text-[10px] uppercase tracking-[0.14em] text-[#1e8a78]">
+                        {phase.label}
+                      </p>
+                      <p className="mt-1 text-sm font-semibold text-ink">{phase.title}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-charcoal/68">
+                        {phase.detail}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
           <div className="min-w-0 lg:pl-2">
             <ConnectionMapCard />
@@ -230,8 +327,9 @@ export function RightSlideOverlayPair({
           >
             <OverlayPanel
               title="Lola Setup"
-              subtitle="Connection, policies, and guardrails are established first."
+              subtitle="Configuration phase: connect the diary, define appointment logic, and set the rules Lola should follow before she goes live."
               cards={setupCards}
+              phase="setup"
             />
           </motion.div>
         </div>
@@ -245,8 +343,9 @@ export function RightSlideOverlayPair({
             <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 -translate-x-full bg-gradient-to-l from-white/52 via-white/14 to-transparent blur-sm" />
             <OverlayPanel
               title="Lola Operation"
-              subtitle="Once live, Lola becomes the working layer around the diary."
+              subtitle="Live phase: once active, Lola carries routine scheduling around the diary while the clinic stays in control of exceptions and clinical handoff."
               cards={operationCards}
+              phase="operation"
             />
           </motion.div>
         </div>
@@ -255,13 +354,15 @@ export function RightSlideOverlayPair({
       <div className="mx-auto mt-7 grid w-full max-w-7xl grid-cols-1 gap-5 md:hidden">
         <OverlayPanel
           title="Lola Setup"
-          subtitle="Connection, policies, and guardrails are established first."
+          subtitle="Configuration phase: connect the diary, define appointment logic, and set the rules Lola should follow before she goes live."
           cards={setupCards}
+          phase="setup"
         />
         <OverlayPanel
           title="Lola Operation"
-          subtitle="The live call-handling layer then takes over."
+          subtitle="Live phase: once active, Lola carries routine scheduling while the clinic keeps control of exceptions."
           cards={operationCards}
+          phase="operation"
         />
       </div>
     </section>

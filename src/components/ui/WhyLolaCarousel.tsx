@@ -12,7 +12,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BokehBackground } from "@/components/ui/BokehBackground";
 
-type PainSlide = {
+export type PainSlide = {
   signal: string;
   headline: string;
   body: string;
@@ -56,9 +56,82 @@ const PAIN_SLIDES: PainSlide[] = [
   },
 ];
 
-const TOTAL_SLIDES = PAIN_SLIDES.length;
+function MedicalGlowBackground({ variant }: { variant: number }) {
+  const glows = [
+    {
+      base: "linear-gradient(145deg, #07131a 0%, #0c1d24 46%, #071119 100%)",
+      orbA: "rgba(123, 227, 208, 0.22)",
+      orbB: "rgba(89, 205, 182, 0.16)",
+      orbC: "rgba(148, 233, 222, 0.12)",
+      aPos: "18% 18%",
+      bPos: "82% 24%",
+      cPos: "58% 78%",
+    },
+    {
+      base: "linear-gradient(145deg, #08141b 0%, #102028 44%, #081219 100%)",
+      orbA: "rgba(137, 219, 201, 0.2)",
+      orbB: "rgba(78, 197, 177, 0.18)",
+      orbC: "rgba(109, 214, 190, 0.12)",
+      aPos: "26% 16%",
+      bPos: "80% 20%",
+      cPos: "42% 80%",
+    },
+    {
+      base: "linear-gradient(145deg, #071219 0%, #0d1c23 42%, #071118 100%)",
+      orbA: "rgba(148, 233, 222, 0.18)",
+      orbB: "rgba(109, 214, 190, 0.16)",
+      orbC: "rgba(80, 196, 178, 0.12)",
+      aPos: "20% 20%",
+      bPos: "78% 18%",
+      cPos: "56% 80%",
+    },
+    {
+      base: "linear-gradient(145deg, #07131a 0%, #11232a 46%, #081118 100%)",
+      orbA: "rgba(126, 226, 208, 0.2)",
+      orbB: "rgba(92, 208, 187, 0.16)",
+      orbC: "rgba(170, 241, 230, 0.1)",
+      aPos: "24% 18%",
+      bPos: "82% 22%",
+      cPos: "52% 80%",
+    },
+  ] as const;
 
-export function WhyLolaCarousel() {
+  const current = glows[variant % glows.length];
+
+  return (
+    <div className="absolute inset-0 overflow-hidden" aria-hidden>
+      <div className="absolute inset-0" style={{ backgroundImage: current.base }} />
+      <div
+        className="absolute h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[72px] sm:h-72 sm:w-72 sm:blur-[92px]"
+        style={{ left: current.aPos.split(" ")[0], top: current.aPos.split(" ")[1], backgroundColor: current.orbA }}
+      />
+      <div
+        className="absolute h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[80px] sm:h-80 sm:w-80 sm:blur-[104px]"
+        style={{ left: current.bPos.split(" ")[0], top: current.bPos.split(" ")[1], backgroundColor: current.orbB }}
+      />
+      <div
+        className="absolute h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[76px] sm:h-[18rem] sm:w-[18rem] sm:blur-[96px]"
+        style={{ left: current.cPos.split(" ")[0], top: current.cPos.split(" ")[1], backgroundColor: current.orbC }}
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,11,15,0.08),rgba(4,11,15,0.4))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.54)_100%)]" />
+      <div className="absolute inset-0 opacity-[0.16] mix-blend-soft-light [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:26px_26px]" />
+    </div>
+  );
+}
+
+type WhyLolaCarouselProps = {
+  slides?: PainSlide[];
+  ariaLabel?: string;
+  variant?: "restaurant" | "medical";
+};
+
+export function WhyLolaCarousel({
+  slides = PAIN_SLIDES,
+  ariaLabel = "Operational pain points",
+  variant = "restaurant",
+}: WhyLolaCarouselProps) {
+  const totalSlides = slides.length;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
@@ -74,9 +147,9 @@ export function WhyLolaCarousel() {
   const slideRefs = useRef<Array<HTMLLIElement | null>>([]);
 
   const liveLabel = useMemo(() => {
-    const active = PAIN_SLIDES[Math.min(currentIndex, TOTAL_SLIDES - 1)];
+    const active = slides[Math.min(currentIndex, totalSlides - 1)];
     return `${active.signal}. ${active.headline}`;
-  }, [currentIndex]);
+  }, [currentIndex, slides, totalSlides]);
 
   useEffect(() => {
     isDraggingRef.current = isDragging;
@@ -126,7 +199,7 @@ export function WhyLolaCarousel() {
   );
 
   const maxNavigableIndex = useMemo(() => {
-    if (slideOffsets.length === 0) return TOTAL_SLIDES - 1;
+    if (slideOffsets.length === 0) return totalSlides - 1;
 
     for (let index = slideOffsets.length - 1; index >= 0; index -= 1) {
       if (slideOffsets[index] <= maxTranslate + 1) {
@@ -135,7 +208,7 @@ export function WhyLolaCarousel() {
     }
 
     return 0;
-  }, [maxTranslate, slideOffsets]);
+  }, [maxTranslate, slideOffsets, totalSlides]);
 
   const activeIndex = Math.min(currentIndex, maxNavigableIndex);
   const baseTranslate = Math.min(slideOffsets[activeIndex] ?? 0, maxTranslate);
@@ -204,12 +277,13 @@ export function WhyLolaCarousel() {
   );
 
   const trackTranslate = -baseTranslate + dragOffset;
+  const isMedical = variant === "medical";
 
   return (
     <div
       role="region"
       aria-roledescription="carousel"
-      aria-label="Operational pain points"
+      aria-label={ariaLabel}
       tabIndex={0}
       onKeyDown={(event) => {
         if (event.key === "ArrowLeft") {
@@ -229,7 +303,10 @@ export function WhyLolaCarousel() {
           setCurrentIndex(maxNavigableIndex);
         }
       }}
-      className="w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60"
+      className={cn(
+        "w-full focus:outline-none focus-visible:ring-2",
+        isMedical ? "focus-visible:ring-[#74d8c5]/55" : "focus-visible:ring-coral/60"
+      )}
     >
       <div className="relative">
         <div
@@ -253,7 +330,7 @@ export function WhyLolaCarousel() {
             )}
             style={{ transform: `translate3d(${trackTranslate}px, 0, 0)` }}
           >
-            {PAIN_SLIDES.map((slide, index) => (
+            {slides.map((slide, index) => (
               <li
                 key={`${slide.signal}-${index}`}
                 ref={(element) => {
@@ -263,32 +340,74 @@ export function WhyLolaCarousel() {
               >
                 <article
                   className={cn(
-                    "relative flex h-[270px] flex-col overflow-hidden rounded-[2rem] border border-white/12 bg-[#0B0E13] p-6 ring-1 ring-white/6 [backface-visibility:hidden] [clip-path:inset(0_round_2rem)] [transform:translateZ(0)] sm:h-[286px] sm:p-7 lg:h-[312px]",
+                    "relative flex h-[270px] flex-col overflow-hidden rounded-[2rem] border p-6 [backface-visibility:hidden] [clip-path:inset(0_round_2rem)] [transform:translateZ(0)] sm:h-[286px] sm:p-7 lg:h-[312px]",
+                    isMedical
+                      ? "border-[#8de5d5]/16 bg-[#08141b] ring-1 ring-[#8de5d5]/10 shadow-[0_22px_56px_rgba(4,18,24,0.34)]"
+                      : "border-white/12 bg-[#0B0E13] ring-1 ring-white/6",
                     activeIndex === index
                       ? "opacity-100"
                       : "opacity-88 lg:opacity-92"
                   )}
                 >
-                  <BokehBackground variant={(index + TOTAL_SLIDES - 1) % TOTAL_SLIDES} />
+                  {isMedical ? (
+                    <MedicalGlowBackground variant={index} />
+                  ) : (
+                    <BokehBackground variant={(index + totalSlides - 1) % totalSlides} />
+                  )}
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute -inset-px rounded-[2rem] bg-[radial-gradient(130%_90%_at_50%_0%,rgba(255,255,255,0.12),rgba(255,255,255,0)_58%)]"
+                    className={cn(
+                      "pointer-events-none absolute -inset-px rounded-[2rem]",
+                      isMedical
+                        ? "bg-[radial-gradient(130%_90%_at_50%_0%,rgba(255,255,255,0.08),rgba(255,255,255,0)_56%)]"
+                        : "bg-[radial-gradient(130%_90%_at_50%_0%,rgba(255,255,255,0.12),rgba(255,255,255,0)_58%)]"
+                    )}
                   />
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute inset-0 rounded-[2rem] border border-white/8"
+                    className={cn(
+                      "pointer-events-none absolute inset-0 rounded-[2rem] border",
+                      isMedical ? "border-[#c5fff3]/8" : "border-white/8"
+                    )}
                   />
                   <div className="relative z-10 flex h-full flex-col items-start">
-                    <div className="mb-5 inline-flex w-fit items-center rounded-full border border-white/20 bg-white/10 px-3 py-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-mint" />
-                      <span className="ml-2 font-jetbrains text-[10px] uppercase tracking-[0.16em] text-peach/95">
+                    <div
+                      className={cn(
+                        "mb-5 inline-flex w-fit items-center rounded-full border px-3 py-1.5",
+                        isMedical
+                          ? "border-[#8de5d5]/20 bg-[#dffbf4]/8 backdrop-blur-sm"
+                          : "border-white/20 bg-white/10"
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "h-1.5 w-1.5 rounded-full",
+                          isMedical ? "bg-[#8de5d5]" : "bg-mint"
+                        )}
+                      />
+                      <span
+                        className={cn(
+                          "ml-2 font-jetbrains text-[10px] uppercase tracking-[0.16em]",
+                          isMedical ? "text-[#dcfff7]" : "text-peach/95"
+                        )}
+                      >
                         {slide.signal}
                       </span>
                     </div>
-                    <h3 className="max-w-[22ch] font-outfit text-[1.6rem] font-semibold leading-tight text-white sm:text-[1.85rem]">
+                    <h3
+                      className={cn(
+                        "max-w-[22ch] font-outfit text-[1.6rem] font-semibold leading-tight sm:text-[1.85rem]",
+                        isMedical ? "text-white" : "text-white"
+                      )}
+                    >
                       {slide.headline}
                     </h3>
-                    <p className="mt-3 max-w-[46ch] font-outfit text-sm leading-relaxed text-white/80 sm:text-[0.98rem]">
+                    <p
+                      className={cn(
+                        "mt-3 max-w-[46ch] font-outfit text-sm leading-relaxed sm:text-[0.98rem]",
+                        isMedical ? "text-[#ebfffb]/76" : "text-white/80"
+                      )}
+                    >
                       {slide.body}
                     </p>
                   </div>
@@ -307,10 +426,15 @@ export function WhyLolaCarousel() {
             aria-hidden={isAtStart}
             tabIndex={isAtStart ? -1 : 0}
             className={cn(
-              "pointer-events-auto absolute left-0 top-1/2 inline-flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border text-[#12181F] shadow-[0_14px_30px_rgba(8,12,18,0.18),0_2px_10px_rgba(8,12,18,0.08)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60 sm:h-12 sm:w-12",
+              "pointer-events-auto absolute left-0 top-1/2 inline-flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border shadow-[0_14px_30px_rgba(8,12,18,0.18),0_2px_10px_rgba(8,12,18,0.08)] transition-all duration-300 focus:outline-none focus-visible:ring-2 sm:h-12 sm:w-12",
+              isMedical
+                ? "text-[#0f2a29] focus-visible:ring-[#74d8c5]/55"
+                : "text-[#12181F] focus-visible:ring-coral/60",
               isAtStart
                 ? "pointer-events-none opacity-0"
-                : "border-[#E5DBCF] bg-[#F4EEE5]/96 hover:bg-[#FBF7F1] hover:shadow-[0_18px_34px_rgba(8,12,18,0.22),0_4px_12px_rgba(8,12,18,0.08)]"
+                : isMedical
+                  ? "border-[#b9f3e8]/48 bg-[#ecfbf7]/92 hover:bg-[#f5fffc] hover:shadow-[0_18px_34px_rgba(8,28,26,0.22),0_4px_12px_rgba(8,28,26,0.08)]"
+                  : "border-[#E5DBCF] bg-[#F4EEE5]/96 hover:bg-[#FBF7F1] hover:shadow-[0_18px_34px_rgba(8,12,18,0.22),0_4px_12px_rgba(8,12,18,0.08)]"
             )}
           >
             <ChevronLeft size={18} strokeWidth={2.1} />
@@ -322,10 +446,17 @@ export function WhyLolaCarousel() {
             aria-label="Next card"
             disabled={isAtEnd}
             className={cn(
-              "pointer-events-auto absolute right-0 top-1/2 inline-flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border text-[#12181F] shadow-[0_14px_30px_rgba(8,12,18,0.18),0_2px_10px_rgba(8,12,18,0.08)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/60 sm:h-12 sm:w-12",
+              "pointer-events-auto absolute right-0 top-1/2 inline-flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border shadow-[0_14px_30px_rgba(8,12,18,0.18),0_2px_10px_rgba(8,12,18,0.08)] transition-all duration-300 focus:outline-none focus-visible:ring-2 sm:h-12 sm:w-12",
+              isMedical
+                ? "text-[#0f2a29] focus-visible:ring-[#74d8c5]/55"
+                : "text-[#12181F] focus-visible:ring-coral/60",
               isAtEnd
-                ? "cursor-not-allowed border-[#E9E0D5] bg-[#EFE7DD]/88 text-[#12181F]/38 shadow-[0_8px_20px_rgba(8,12,18,0.10)]"
-                : "border-[#E5DBCF] bg-[#F4EEE5]/96 hover:bg-[#FBF7F1] hover:shadow-[0_18px_34px_rgba(8,12,18,0.22),0_4px_12px_rgba(8,12,18,0.08)]"
+                ? isMedical
+                  ? "cursor-not-allowed border-[#d2f6ef]/32 bg-[#edf7f4]/78 text-[#0f2a29]/34 shadow-[0_8px_20px_rgba(8,28,26,0.10)]"
+                  : "cursor-not-allowed border-[#E9E0D5] bg-[#EFE7DD]/88 text-[#12181F]/38 shadow-[0_8px_20px_rgba(8,12,18,0.10)]"
+                : isMedical
+                  ? "border-[#b9f3e8]/48 bg-[#ecfbf7]/92 hover:bg-[#f5fffc] hover:shadow-[0_18px_34px_rgba(8,28,26,0.22),0_4px_12px_rgba(8,28,26,0.08)]"
+                  : "border-[#E5DBCF] bg-[#F4EEE5]/96 hover:bg-[#FBF7F1] hover:shadow-[0_18px_34px_rgba(8,12,18,0.22),0_4px_12px_rgba(8,12,18,0.08)]"
             )}
           >
             <ChevronRight size={18} strokeWidth={2.1} />

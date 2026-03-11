@@ -14,6 +14,7 @@ import { SectionHeading } from "@/components/typography/SectionHeading";
 import { RightSlideOverlayPair } from "@/components/medical/RightSlideOverlayPair";
 import { MedicalConversationFeature } from "@/components/medical/MedicalConversationFeature";
 import { MedicalCapacityFeature } from "@/components/medical/MedicalCapacityFeature";
+import { WhyLolaCarousel, type PainSlide } from "@/components/ui/WhyLolaCarousel";
 
 const POSITIONING_CARDS = [
   {
@@ -34,6 +35,29 @@ const POSITIONING_CARDS = [
   },
 ];
 
+const WHY_LOLA_SLIDES: PainSlide[] = [
+  {
+    signal: "Peak Load",
+    headline: "Routine calls still consume clinic capacity.",
+    body: "Bookings, reschedules, callbacks, and admin questions create a steady demand layer that keeps landing on reception.",
+  },
+  {
+    signal: "Front Desk Strain",
+    headline: "Reception is doing far more than answering the phone.",
+    body: "Check-ins, scheduling, messages, and patient flow all collide at the desk at the same time.",
+  },
+  {
+    signal: "Access Friction",
+    headline: "When the line clogs, access feels worse.",
+    body: "Patients wait longer, call back later, or drift elsewhere even when the clinic is technically open.",
+  },
+  {
+    signal: "Diary Leakage",
+    headline: "Open slots and late changes quietly erode the day.",
+    body: "Cancellations, missed callbacks, and unfilled gaps turn into avoidable waste and slower access.",
+  },
+];
+
 const HANDLED_ITEMS = [
   "New bookings, reschedules, and cancellations",
   "Waitlist and callback offers when slots reopen",
@@ -51,35 +75,35 @@ const ROUTED_ITEMS = [
 const CONNECT_SETUP = [
   {
     badge: "Connection path",
-    title: "Fit the current diary first",
-    body: "Lola connects around the scheduling reality you already have. Existing booking systems remain the primary path, while simpler clinics can start cleanly with Google Calendar.",
+    title: "Map the clinic's scheduling reality",
+    body: "Lola is fitted around the diary you already run. Existing booking systems stay central, while simpler clinics can start cleanly with Google Calendar.",
   },
   {
     badge: "Clinic rules",
-    title: "Hours, policies, and appointment logic",
-    body: "Booking types, provider rules, buffers, FAQs, and handoff conditions are configured up front so routine calls can be handled consistently.",
+    title: "Configure hours, policies, and appointment logic",
+    body: "Booking types, provider rules, buffers, FAQs, and handoff conditions are set up first so routine calls can be handled consistently.",
   },
   {
     badge: "Safety option",
-    title: "Receptionist confirm mode",
-    body: "If you want tighter control, Lola can capture intent and proposed changes, then hold final confirmation until reception approves.",
+    title: "Choose the clinic's approval mode",
+    body: "If you want tighter control, Lola can capture intent and proposed changes, then pause final confirmation until reception approves.",
   },
 ];
 
 const CONNECT_OPERATION = [
   {
     badge: "Live handling",
-    title: "Routine calls stop bottlenecking reception",
-    body: "The front desk can focus on patients in front of them while Lola absorbs the repeat scheduling traffic that usually fractures the day.",
+    title: "Reception stays with the patient in front of them",
+    body: "Once live, Lola absorbs the repeat scheduling traffic that usually fractures the day, so the front desk can stay focused on the clinic floor.",
   },
   {
     badge: "Access",
-    title: "Diary gaps get recovered faster",
-    body: "When a slot opens, Lola can work the waitlist and callback layer quickly instead of leaving recovery dependent on outbound chasing.",
+    title: "Diary gaps get recovered while they still matter",
+    body: "When a slot opens, Lola can work the waitlist and callback layer quickly instead of leaving recovery dependent on manual outbound chasing.",
   },
   {
     badge: "Auditability",
-    title: "Every action leaves a record",
+    title: "Live actions stay visible and auditable",
     body: "Bookings, changes, cancellations, notes, and escalations are logged with timestamps and outcomes so the clinic can verify exactly what happened.",
   },
 ];
@@ -304,6 +328,36 @@ function PositioningSection() {
             items={ROUTED_ITEMS}
             accent
           />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhyLolaSection() {
+  return (
+    <section className="w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24">
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="mx-auto max-w-4xl">
+          <SectionHeading
+            eyebrow="WHY LOLA"
+            eyebrowClassName="text-[#156e60] tracking-[0.2em]"
+            title="The phone keeps pulling reception away from the clinic."
+            subtitle="Bookings, changes, FAQs, and callbacks all compete with the patient standing in front of the desk."
+            className="justify-items-center text-center"
+            titleClassName="type-h2-serif max-w-[18ch] text-center text-charcoal"
+            subtitleClassName="max-w-[42ch] text-center text-charcoal/82"
+          />
+        </div>
+
+        <div className="relative left-1/2 mt-10 w-screen min-w-0 -translate-x-1/2 px-6 md:px-16">
+          <div className="w-full">
+            <WhyLolaCarousel
+              slides={WHY_LOLA_SLIDES}
+              ariaLabel="Medical front desk pain points"
+              variant="medical"
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -726,6 +780,7 @@ export default function MedicalPage() {
     >
       <Navbar />
       <Hero />
+      <WhyLolaSection />
       <PositioningSection />
 
       {STORY_SECTIONS.map((section) => (
@@ -743,8 +798,8 @@ export default function MedicalPage() {
 
       <RightSlideOverlayPair
         id="framework"
-        heading="Fits the clinic you already run."
-        subheading="Setup is about connection, rules, and guardrails. Once that is in place, Lola becomes a calm operational layer around the diary rather than another system the team has to fight."
+        heading="How Lola fits your clinic."
+        subheading="First define the operating model: where Lola sits, where reception stays in control, and how the diary remains the source of truth. Then configure the connections, rules, and guardrails so live operation feels calm rather than disruptive."
         setupCards={CONNECT_SETUP}
         operationCards={CONNECT_OPERATION}
       />
