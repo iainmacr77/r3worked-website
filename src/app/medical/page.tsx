@@ -11,7 +11,7 @@ import {
 import { Footer } from "@/components/ui/Footer";
 import { Navbar } from "@/components/ui/Navbar";
 import { SectionHeading } from "@/components/typography/SectionHeading";
-import { RightSlideOverlayPair } from "@/components/medical/RightSlideOverlayPair";
+import { ClinicOperationsFlow } from "@/components/medical/ClinicOperationsFlow";
 import { MedicalConversationFeature } from "@/components/medical/MedicalConversationFeature";
 import { MedicalCapacityFeature } from "@/components/medical/MedicalCapacityFeature";
 import { WhyLolaCarousel, type PainSlide } from "@/components/ui/WhyLolaCarousel";
@@ -71,42 +71,6 @@ const ROUTED_ITEMS = [
   "Anything that needs staff judgment or clinical interpretation",
   "Receptionist-confirm workflows when your team wants final approval before confirmation",
   "Escalations that should remain with the clinic team",
-];
-
-const CONNECT_SETUP = [
-  {
-    badge: "Connection path",
-    title: "Map the clinic's scheduling reality",
-    body: "Lola is fitted around the diary you already run. Existing booking systems stay central, while simpler clinics can start cleanly with Google Calendar.",
-  },
-  {
-    badge: "Clinic rules",
-    title: "Configure hours, policies, and appointment logic",
-    body: "Booking types, provider rules, buffers, FAQs, and handoff conditions are set up first so routine calls can be handled consistently.",
-  },
-  {
-    badge: "Safety option",
-    title: "Choose the clinic's approval mode",
-    body: "If you want tighter control, Lola can capture intent and proposed changes, then pause final confirmation until reception approves.",
-  },
-];
-
-const CONNECT_OPERATION = [
-  {
-    badge: "Live handling",
-    title: "Reception stays with the patient in front of them",
-    body: "Once live, Lola absorbs the repeat scheduling traffic that usually fractures the day, so the front desk can stay focused on the clinic floor.",
-  },
-  {
-    badge: "Access",
-    title: "Diary gaps get recovered while they still matter",
-    body: "When a slot opens, Lola can work the waitlist and callback layer quickly instead of leaving recovery dependent on manual outbound chasing.",
-  },
-  {
-    badge: "Auditability",
-    title: "Live actions stay visible and auditable",
-    body: "Bookings, changes, cancellations, notes, and escalations are logged with timestamps and outcomes so the clinic can verify exactly what happened.",
-  },
 ];
 
 const STORY_SECTIONS = [
@@ -574,11 +538,10 @@ function TranscriptBubble({
   return (
     <div className={`flex ${patient ? "justify-end" : "justify-start"}`}>
       <div
-        className={`max-w-[90%] rounded-[1.5rem] border px-4 py-3 ${
-          patient
+        className={`max-w-[90%] rounded-[1.5rem] border px-4 py-3 ${patient
             ? "border-[#8de5d5]/16 bg-[#8de5d5]/10 text-peach"
             : "border-white/10 bg-white/[0.055] text-white"
-        }`}
+          }`}
       >
         <p className="font-jetbrains text-[10px] uppercase tracking-[0.14em] text-white/48">
           {speaker}
@@ -713,11 +676,10 @@ function PricingSection() {
           {PLANS.map((plan) => (
             <article
               key={plan.name}
-              className={`rounded-[2rem] border p-6 shadow-[0_22px_62px_rgba(0,0,0,0.28)] ${
-                plan.featured
+              className={`rounded-[2rem] border p-6 shadow-[0_22px_62px_rgba(0,0,0,0.28)] ${plan.featured
                   ? "border-[#92eadb]/34 bg-[linear-gradient(180deg,rgba(144,232,216,0.14),rgba(255,255,255,0.06))]"
                   : "border-white/10 bg-white/[0.045]"
-              }`}
+                }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -749,11 +711,10 @@ function PricingSection() {
 
               <Link
                 href="/book"
-                className={`mt-8 inline-flex min-h-11 items-center rounded-full px-5 py-2.5 text-sm font-semibold transition-transform duration-300 hover:-translate-y-0.5 ${
-                  plan.featured
+                className={`mt-8 inline-flex min-h-11 items-center rounded-full px-5 py-2.5 text-sm font-semibold transition-transform duration-300 hover:-translate-y-0.5 ${plan.featured
                     ? "bg-[#92eadb] text-ink"
                     : "border border-white/14 bg-white/[0.06] text-white"
-                }`}
+                  }`}
               >
                 Book a demo
               </Link>
@@ -814,13 +775,7 @@ export default function MedicalPage() {
         </StoryFeatureSection>
       ))}
 
-      <RightSlideOverlayPair
-        id="framework"
-        heading="How Lola fits your clinic."
-        subheading="First define the operating model: where Lola sits, where reception stays in control, and how the diary remains the source of truth. Then configure the connections, rules, and guardrails so live operation feels calm rather than disruptive."
-        setupCards={CONNECT_SETUP}
-        operationCards={CONNECT_OPERATION}
-      />
+      <ClinicOperationsFlow />
 
       <ProofSection />
       <ControlRoomSection />
