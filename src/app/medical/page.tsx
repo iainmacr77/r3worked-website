@@ -448,7 +448,7 @@ function StoryFeatureSection({
     <section className="w-full bg-white px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className={cardOnLeft ? "order-1" : "order-2"}>
-          <div className="mx-auto h-[460px] w-full max-w-[580px] min-w-0 sm:h-[520px] lg:h-[560px] [&>*]:h-full [&>*]:min-h-0 [&>*]:w-full [&>*]:flex-shrink-0">
+          <div className="mx-auto h-[520px] w-full max-w-[580px] min-w-0 sm:h-[580px] lg:h-[620px] [&>*]:h-full [&>*]:min-h-0 [&>*]:w-full [&>*]:flex-shrink-0">
             {children}
           </div>
         </div>

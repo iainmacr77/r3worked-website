@@ -4,13 +4,45 @@ import { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 const TRANSCRIPT = [
-    { sender: "Patient", text: "Hi, I need to move my Thursday appointment to next week." },
-    { sender: "Lola", text: "I can move that to Tuesday at 10:20 or Wednesday at 15:40. Which works better for you?" },
-    { sender: "Patient", text: "Wednesday please. It is for a follow-up on my shoulder." },
-    { sender: "Lola", text: "Done. I have moved the appointment and noted shoulder follow-up so the clinic is prepared." },
-    { sender: "Patient", text: "Should I be worried that it still hurts at night?" },
-    { sender: "Lola", text: "I cannot give medical advice, but I can route you to reception now so the clinic team can help." },
+    {
+        sender: "Lola",
+        text: "Good morning David, welcome back to Dr Moore's practice reception. How may I assist you today?",
+    },
+    { sender: "Patient", text: "I need to move my appointment tomorrow." },
+    {
+        sender: "Lola",
+        text: "I see your appointment is scheduled for 3pm. When would you like to move it to?",
+    },
+    { sender: "Patient", text: "Is there any space on Wednesday morning?" },
+    {
+        sender: "Lola",
+        text: "Let me check. Yes, I can see the doctor has space at 9.30am and 11am. Would either of these suit?",
+    },
+    { sender: "Patient", text: "Please book me in for 11am." },
+    {
+        sender: "Lola",
+        text: "Certainly, that's done. Is there anything else I can help with?",
+    },
+    {
+        sender: "Patient",
+        text: "I just need to know if I should continue taking my tablets until I see the doctor.",
+    },
+    {
+        sender: "Lola",
+        text: "Certainly, as this is a medically related question I will pass you straight through to Dr Moore's assistant.",
+    },
 ];
+
+function getTypingDelay(text: string) {
+    const wordCount = text.trim().split(/\s+/).length;
+    return Math.min(2200, 900 + wordCount * 55);
+}
+
+function getPauseAfterMessage(text: string, sender: string) {
+    const wordCount = text.trim().split(/\s+/).length;
+    const baseDelay = sender === "Lola" ? 900 : 700;
+    return Math.min(2000, baseDelay + wordCount * 35);
+}
 
 export function MedicalConversationFeature() {
     const [messages, setMessages] = useState<typeof TRANSCRIPT>([]);
@@ -52,7 +84,7 @@ export function MedicalConversationFeature() {
                     setCurrentIndex(0);
                     setIsTyping(false);
                     playSequence(0);
-                }, 3000);
+                }, 4200);
                 return;
             }
 
@@ -64,15 +96,15 @@ export function MedicalConversationFeature() {
                 schedule(() => {
                     setMessages((prev) => [...prev, nextMessage]);
                     setIsTyping(false);
-                    playSequence(index + 1);
-                }, 700);
+                    schedule(() => playSequence(index + 1), getPauseAfterMessage(nextMessage.text, nextMessage.sender));
+                }, getTypingDelay(nextMessage.text));
                 return;
             }
 
             schedule(() => {
                 setMessages((prev) => [...prev, nextMessage]);
-                playSequence(index + 1);
-            }, 1200);
+                schedule(() => playSequence(index + 1), getPauseAfterMessage(nextMessage.text, nextMessage.sender));
+            }, 1350);
         };
 
         playSequence(0);
@@ -84,7 +116,7 @@ export function MedicalConversationFeature() {
     }, []);
 
     return (
-        <div className="relative flex h-[460px] flex-col overflow-hidden rounded-[2rem] bg-[#0a1018] p-6 shadow-[0_28px_72px_rgba(2,6,23,0.58)] ring-1 ring-white/10 lg:h-full lg:p-7">
+        <div className="relative flex h-[520px] flex-col overflow-hidden rounded-[2rem] bg-[#0a1018] p-6 shadow-[0_28px_72px_rgba(2,6,23,0.58)] ring-1 ring-white/10 lg:h-full lg:p-7">
             <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full bg-[rgba(52,211,153,0.2)] blur-3xl" />
             <div className="pointer-events-none absolute -left-14 -bottom-16 h-44 w-44 rounded-full bg-[rgba(64,194,172,0.16)] blur-3xl" />
             <div className="pointer-events-none absolute inset-0 bg-white/[0.04]" />
@@ -121,7 +153,7 @@ export function MedicalConversationFeature() {
                                 <div
                                     key={`${msg.sender}-${i}-${msg.text.slice(0, 14)}`}
                                     className={cn(
-                                        "flex max-w-[88%] flex-col animate-in fade-in slide-in-from-bottom-2 duration-500 ease-out",
+                                        "flex max-w-[88%] flex-col animate-in fade-in slide-in-from-bottom-2 duration-700 ease-out",
                                         isLola ? "self-start" : "self-end items-end"
                                     )}
                                 >
@@ -141,7 +173,7 @@ export function MedicalConversationFeature() {
                         })}
 
                         {isTyping && TRANSCRIPT[currentIndex]?.sender === "Lola" && (
-                            <div className="flex max-w-[88%] flex-col self-start animate-in fade-in slide-in-from-bottom-2 duration-300">
+                            <div className="flex max-w-[88%] flex-col self-start animate-in fade-in slide-in-from-bottom-2 duration-500">
                                 <span className="mb-1 text-[10px] uppercase tracking-widest text-[#FFF5F0]/60">Lola</span>
                                 <div className="inline-flex w-fit items-center gap-1 rounded-2xl rounded-tl-sm border border-white/10 bg-charcoal/55 px-4 py-3">
                                     <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#FFF5F0]/80 [animation-delay:0ms]" />
