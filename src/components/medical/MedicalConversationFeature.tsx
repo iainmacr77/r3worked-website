@@ -6,30 +6,30 @@ import { cn } from "@/lib/utils";
 const TRANSCRIPT = [
     {
         sender: "Lola",
-        text: "Good morning David, welcome back to Dr Moore's practice reception. How may I assist you today?",
+        text: "Good morning David, welcome back to Dr Moore's practice. How can I help today?",
     },
     { sender: "Patient", text: "I need to move my appointment tomorrow." },
     {
         sender: "Lola",
-        text: "I see your appointment is scheduled for 3pm. When would you like to move it to?",
+        text: "Of course. I can see you're booked for 3:00 pm. What day would you like to move it to?",
     },
-    { sender: "Patient", text: "Is there any space on Wednesday morning?" },
+    { sender: "Patient", text: "Is there anything on Wednesday morning?" },
     {
         sender: "Lola",
-        text: "Let me check. Yes, I can see the doctor has space at 9.30am and 11am. Would either of these suit?",
+        text: "Let me check. Yes - I can offer 9:30 am or 11:00 am on Wednesday. Would either of those work?",
     },
-    { sender: "Patient", text: "Please book me in for 11am." },
+    { sender: "Patient", text: "Please book the 11:00 am slot." },
     {
         sender: "Lola",
-        text: "Certainly, that's done. Is there anything else I can help with?",
+        text: "Done - you're now booked for Wednesday at 11:00 am. Is there anything else I can help with?",
     },
     {
         sender: "Patient",
-        text: "I just need to know if I should continue taking my tablets until I see the doctor.",
+        text: "Should I keep taking my tablets until I see the doctor?",
     },
     {
         sender: "Lola",
-        text: "Certainly, as this is a medically related question I will pass you straight through to Dr Moore's assistant.",
+        text: "That's something the clinic team should advise on. I'll pass you through to reception now.",
     },
 ];
 
