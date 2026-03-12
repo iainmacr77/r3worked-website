@@ -211,9 +211,11 @@ export function WhyLolaCarousel({
   }, [maxTranslate, slideOffsets, totalSlides]);
 
   const activeIndex = Math.min(currentIndex, maxNavigableIndex);
-  const baseTranslate = Math.min(slideOffsets[activeIndex] ?? 0, maxTranslate);
   const isAtStart = activeIndex === 0;
   const isAtEnd = activeIndex >= maxNavigableIndex;
+  const baseTranslate = isAtEnd
+    ? maxTranslate
+    : Math.min(slideOffsets[activeIndex] ?? 0, maxTranslate);
 
   const goPrev = useCallback(() => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
@@ -444,6 +446,8 @@ export function WhyLolaCarousel({
             type="button"
             onClick={goNext}
             aria-label="Next card"
+            aria-hidden={isAtEnd}
+            tabIndex={isAtEnd ? -1 : 0}
             disabled={isAtEnd}
             className={cn(
               "pointer-events-auto absolute right-0 top-1/2 inline-flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border shadow-[0_14px_30px_rgba(8,12,18,0.18),0_2px_10px_rgba(8,12,18,0.08)] transition-all duration-300 focus:outline-none focus-visible:ring-2 sm:h-12 sm:w-12",
@@ -451,9 +455,7 @@ export function WhyLolaCarousel({
                 ? "text-[#0f2a29] focus-visible:ring-[#74d8c5]/55"
                 : "text-[#12181F] focus-visible:ring-coral/60",
               isAtEnd
-                ? isMedical
-                  ? "cursor-not-allowed border-[#d2f6ef]/32 bg-[#edf7f4]/78 text-[#0f2a29]/34 shadow-[0_8px_20px_rgba(8,28,26,0.10)]"
-                  : "cursor-not-allowed border-[#E9E0D5] bg-[#EFE7DD]/88 text-[#12181F]/38 shadow-[0_8px_20px_rgba(8,12,18,0.10)]"
+                ? "pointer-events-none opacity-0"
                 : isMedical
                   ? "border-[#b9f3e8]/48 bg-[#ecfbf7]/92 hover:bg-[#f5fffc] hover:shadow-[0_18px_34px_rgba(8,28,26,0.22),0_4px_12px_rgba(8,28,26,0.08)]"
                   : "border-[#E5DBCF] bg-[#F4EEE5]/96 hover:bg-[#FBF7F1] hover:shadow-[0_18px_34px_rgba(8,12,18,0.22),0_4px_12px_rgba(8,12,18,0.08)]"
