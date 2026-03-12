@@ -309,7 +309,7 @@ function PositioningSection() {
 
 function WhyLolaSection() {
   return (
-    <section className="w-full bg-white px-6 py-20 md:px-16 md:py-24">
+    <section className="medical-light-section w-full px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto w-full max-w-7xl">
         <div className="mx-auto max-w-4xl">
           <SectionHeading
@@ -409,7 +409,7 @@ function StoryFeatureSection({
   children: ReactNode;
 }) {
   return (
-    <section className="w-full bg-white px-6 py-20 md:px-16 md:py-24">
+    <section className="medical-light-section w-full px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className={cardOnLeft ? "order-1" : "order-2"}>
           <div className="mx-auto h-[520px] w-full max-w-[580px] min-w-0 sm:h-[580px] lg:h-[620px] [&>*]:h-full [&>*]:min-h-0 [&>*]:w-full [&>*]:flex-shrink-0">

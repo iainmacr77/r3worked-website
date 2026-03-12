@@ -307,6 +307,36 @@
     background-color: #effcf8;
   }
 
+  /* Medical page: unified light-section background (cool-clinical mint wash) */
+  .medical-light-section {
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(
+      180deg,
+      #f8fafc 0%,
+      #f2f9f7 45%,
+      #f4faf9 100%
+    );
+  }
+
+  .medical-light-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 140% 90% at 50% 10%,
+      rgba(190, 230, 218, 0.14) 0%,
+      transparent 55%
+    );
+  }
+
+  .medical-light-section > * {
+    position: relative;
+    z-index: 1;
+  }
+
   .magnetic-button {
     @apply relative overflow-hidden transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98];
   }

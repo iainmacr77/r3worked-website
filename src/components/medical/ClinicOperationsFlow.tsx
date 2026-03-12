@@ -353,7 +353,7 @@ export function ClinicOperationsFlow() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section className="relative w-full bg-slate-50 px-6 py-24 md:px-16 lg:py-32">
+    <section className="medical-light-section relative w-full px-6 py-24 md:px-16 lg:py-32">
       <div className="mx-auto w-full max-w-7xl">
         {/* Top Level Context */}
         <div className="mb-16 max-w-2xl lg:mb-24">
