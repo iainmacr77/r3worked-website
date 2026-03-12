@@ -65,17 +65,56 @@ function DiaryVisual() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="relative flex h-full w-full flex-col items-center justify-center p-8"
         >
-            <div className="flex flex-col gap-3 w-64 rounded-xl border border-slate-200/60 bg-white p-4 shadow-sm">
-                <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-                    <Calendar className="h-4 w-4 text-slate-400" />
-                    <div className="h-3 w-24 rounded bg-slate-100" />
+            <div className="relative flex w-full max-w-sm flex-col items-center justify-center gap-8">
+                {/* Top Sources */}
+                <div className="flex w-full justify-between px-4 z-10">
+                    <div className="flex flex-col items-center gap-2">
+                        <div className="flex h-12 w-24 items-center justify-center rounded-xl border border-slate-200 bg-white text-xs font-medium text-slate-600 shadow-sm">
+                            PMS Layer
+                        </div>
+                        <div className="h-4 w-px bg-slate-200" />
+                    </div>
+
+                    <div className="flex flex-col items-center gap-2">
+                        <div className="flex h-12 w-28 items-center justify-center rounded-xl border border-slate-200 bg-white text-xs font-medium text-slate-600 shadow-sm">
+                            <Calendar className="mr-2 h-3.5 w-3.5 text-blue-500" /> G-Cal
+                        </div>
+                        <div className="h-4 w-px bg-slate-200" />
+                    </div>
+
+                    <div className="flex flex-col items-center gap-2">
+                        <div className="flex h-12 w-24 flex-col items-center justify-center rounded-xl border border-slate-200 bg-white text-xs font-medium leading-tight text-slate-600 shadow-sm">
+                            <span>Paper</span>
+                            <span className="text-[9px] text-slate-400">Digital bridge</span>
+                        </div>
+                        <div className="h-4 w-px bg-slate-200" />
+                    </div>
                 </div>
-                <div className="flex flex-col gap-2 pt-1">
-                    <div className="h-8 w-full rounded bg-slate-50 border border-slate-100" />
-                    <div className="h-8 w-3/4 rounded bg-slate-50 border border-slate-100" />
-                    <div className="h-8 w-full rounded bg-slate-50 border border-slate-100" />
-                    <div className="h-8 w-5/6 rounded bg-slate-50 border border-slate-100" />
+
+                {/* Central Diary */}
+                <div className="relative z-20 flex w-64 flex-col gap-3 rounded-2xl border border-teal-100 bg-white p-5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] ring-1 ring-slate-900/5">
+                    <div className="absolute -top-3 left-1/2 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-teal-200 bg-teal-50 px-3 py-1 shadow-sm">
+                        <div className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                        <span className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-wider text-teal-700">Source Connected</span>
+                    </div>
+
+                    <div className="mt-2 flex items-center justify-between border-b border-slate-100 pb-3">
+                        <div className="flex items-center gap-2">
+                            <Calendar className="h-4 w-4 text-slate-400" />
+                            <div className="h-3 w-20 rounded bg-slate-100" />
+                        </div>
+                        <div className="h-5 w-12 rounded-full bg-teal-50" />
+                    </div>
+                    <div className="flex flex-col gap-2 pt-1">
+                        <div className="h-8 w-full rounded border border-slate-100 bg-slate-50" />
+                        <div className="h-8 w-3/4 rounded border border-slate-100 bg-slate-50" />
+                        <div className="h-8 w-full rounded border border-slate-100 bg-slate-50" />
+                    </div>
                 </div>
+
+                {/* Connecting Lines Behind */}
+                <div className="absolute top-12 left-1/2 -z-10 -ml-[1px] h-20 w-px bg-slate-200" />
+                <div className="absolute top-16 left-1/4 -z-10 h-px w-1/2 bg-slate-200" />
             </div>
         </motion.div>
     );
@@ -90,36 +129,45 @@ function ConfigLayerVisual() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="relative flex h-full w-full flex-col items-center justify-center p-8"
         >
-            {/* Background Diary (dimmed) */}
-            <div className="absolute flex flex-col gap-3 w-64 rounded-xl border border-slate-200/50 bg-white/50 p-4 opacity-50 blur-[2px]">
-                <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-                    <Calendar className="h-4 w-4 text-slate-400" />
-                    <div className="h-3 w-24 rounded bg-slate-100" />
+            <div className="relative z-10 flex w-80 flex-col items-center justify-center rounded-2xl border border-teal-200/40 bg-white/60 p-6 shadow-xl ring-1 ring-slate-900/5 backdrop-blur-xl">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-teal-200 bg-teal-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal-800 shadow-sm whitespace-nowrap">
+                    Clinic Rules Engine
                 </div>
-                <div className="flex flex-col gap-2 pt-1">
-                    <div className="h-8 w-full rounded bg-slate-50" />
-                    <div className="h-8 w-3/4 rounded bg-slate-50" />
-                    <div className="h-8 w-full rounded bg-slate-50" />
-                </div>
-            </div>
 
-            {/* Glassmorphic Lola Layer */}
-            <div className="relative z-10 flex w-72 flex-col items-center justify-center rounded-2xl border border-teal-200/40 bg-teal-50/60 p-6 shadow-lg backdrop-blur-md">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-teal-200 bg-teal-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal-700">
-                    Lola Rules Engine
-                </div>
-                <div className="mt-4 flex w-full flex-col gap-3">
-                    <div className="flex items-center justify-between rounded-lg border border-white/60 bg-white/80 px-3 py-2 text-sm text-slate-700 shadow-sm">
-                        <span className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-teal-600" /> Buffer</span>
-                        <span className="font-medium text-teal-700">15 mins</span>
+                <div className="mt-3 grid w-full grid-cols-2 gap-2">
+                    {/* Left Column */}
+                    <div className="flex flex-col gap-2">
+                        <div className="flex flex-col rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                            <span className="text-[10px] uppercase tracking-wider text-slate-500">Booking Hours</span>
+                            <span className="text-sm font-medium text-slate-700">8am - 6pm</span>
+                        </div>
+                        <div className="flex flex-col rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                            <span className="text-[10px] uppercase tracking-wider text-slate-500">Buffer</span>
+                            <span className="text-sm font-medium text-slate-700">15 mins</span>
+                        </div>
+                        <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                            <Settings className="h-3.5 w-3.5 text-slate-400" />
+                            <span className="text-xs font-medium text-slate-700">Appt. Types</span>
+                        </div>
                     </div>
-                    <div className="flex items-center justify-between rounded-lg border border-white/60 bg-white/80 px-3 py-2 text-sm text-slate-700 shadow-sm">
-                        <span className="flex items-center gap-2"><Settings className="h-3.5 w-3.5 text-teal-600" /> Confirm Mode</span>
-                        <span className="font-medium text-teal-700">ON</span>
-                    </div>
-                    <div className="flex items-center justify-between rounded-lg border border-white/60 bg-white/80 px-3 py-2 text-sm text-slate-700 shadow-sm">
-                        <span className="flex items-center gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-teal-600" /> Approved FAQs</span>
-                        <span className="font-medium text-teal-700">Loaded</span>
+
+                    {/* Right Column */}
+                    <div className="flex flex-col gap-2">
+                        <div className="flex flex-col rounded-lg border border-teal-200 bg-teal-50/50 px-3 py-2 shadow-sm">
+                            <span className="text-[10px] uppercase tracking-wider text-teal-600">Reception Approval</span>
+                            <div className="mt-0.5 flex items-center justify-between">
+                                <span className="text-sm font-medium text-teal-800">ON</span>
+                                <div className="h-2 w-2 rounded-full bg-teal-500" />
+                            </div>
+                        </div>
+                        <div className="flex flex-col rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                            <span className="text-[10px] uppercase tracking-wider text-slate-500">Handoff Rule</span>
+                            <span className="truncate text-xs font-medium text-slate-700">Strict Clinical</span>
+                        </div>
+                        <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                            <CheckCircle2 className="h-3.5 w-3.5 text-teal-500" />
+                            <span className="text-xs font-medium text-slate-700">Loaded FAQs</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -134,38 +182,63 @@ function LiveOperationVisual() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex h-full w-full flex-col items-center justify-center gap-6 p-8"
+            className="relative flex h-full w-full flex-col items-center justify-center p-8"
         >
-            {/* Top Demand Source */}
-            <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm">
-                <PhoneCall className="h-4 w-4 text-slate-400" />
-                Incoming Call
+            {/* Top Demand Sources Container */}
+            <div className="flex flex-wrap justify-center gap-2">
+                <div className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 shadow-sm">
+                    <PhoneCall className="h-3.5 w-3.5 text-slate-400" /> New booking
+                </div>
+                <div className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 shadow-sm">
+                    <RefreshCw className="h-3.5 w-3.5 text-slate-400" /> Reschedule
+                </div>
+                <div className="flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm">
+                    <ShieldCheck className="h-3.5 w-3.5 text-rose-500" /> Clinical question
+                </div>
             </div>
 
-            <div className="relative flex w-full justify-center">
-                {/* Branching paths */}
-                <div className="absolute top-0 left-1/2 h-8 w-px -translate-x-1/2 bg-slate-200" />
-                <div className="absolute top-8 left-[30%] h-px w-[40%] bg-slate-200" />
+            {/* Processing Layer */}
+            <div className="relative my-6 flex w-full max-w-[280px] justify-center">
+                <div className="absolute top-0 left-[15%] h-6 w-px bg-slate-200" />
+                <div className="absolute top-0 left-1/2 h-6 w-px bg-slate-200" />
+                <div className="absolute top-0 right-[15%] h-6 w-px bg-slate-200" />
 
-                <div className="absolute top-8 left-[30%] h-6 w-px bg-slate-200" />
-                <div className="absolute top-8 right-[30%] h-6 w-px bg-slate-200" />
+                <div className="relative z-10 mt-6 flex w-full items-center justify-center rounded-xl border border-teal-200/50 bg-teal-50/80 py-3 shadow-sm backdrop-blur-sm">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-teal-800">Lola Handling</span>
+                </div>
 
-                <div className="mt-14 flex w-full justify-center gap-8">
-                    {/* Routine Path */}
-                    <div className="flex flex-col items-center gap-3">
-                        <div className="flex flex-col items-center rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 shadow-sm">
-                            <Zap className="mb-1 h-5 w-5 text-teal-600" />
-                            <span className="text-xs font-semibold text-teal-800 uppercase tracking-wider">Routine</span>
-                            <span className="mt-1 text-xs text-teal-600 text-center max-w-[10ch]">Auto-booked</span>
+                <div className="absolute bottom-[-24px] left-[25%] h-6 w-px bg-teal-200" />
+                <div className="absolute bottom-[-24px] right-[25%] h-6 w-px bg-amber-200" />
+            </div>
+
+            {/* Outcomes */}
+            <div className="flex w-full max-w-[300px] justify-between pt-6">
+                {/* Routine Outcomes */}
+                <div className="flex flex-col items-center gap-2">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-teal-700">Routine Output</span>
+                    <div className="flex w-[130px] flex-col gap-1.5">
+                        <div className="flex items-center justify-between rounded-md border border-slate-200 bg-white px-2.5 py-1.5 shadow-sm">
+                            <span className="text-[10px] font-medium text-slate-600">Appt Booked</span>
+                            <CheckCircle2 className="h-3 w-3 text-teal-500" />
+                        </div>
+                        <div className="flex items-center justify-between rounded-md border border-slate-200 bg-white px-2.5 py-1.5 shadow-sm">
+                            <span className="text-[10px] font-medium text-slate-600">Slot Reopened</span>
+                            <RefreshCw className="h-3 w-3 text-teal-500" />
                         </div>
                     </div>
+                </div>
 
-                    {/* Clinical Path */}
-                    <div className="flex flex-col items-center gap-3">
-                        <div className="flex flex-col items-center rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 shadow-sm">
-                            <ShieldCheck className="mb-1 h-5 w-5 text-amber-600" />
-                            <span className="text-xs font-semibold text-amber-800 uppercase tracking-wider">Clinical</span>
-                            <span className="mt-1 text-xs text-amber-600 text-center max-w-[10ch]">Staff Handoff</span>
+                {/* Exceptions */}
+                <div className="flex flex-col items-center gap-2">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-700">Exceptions</span>
+                    <div className="flex w-[130px] flex-col gap-1.5">
+                        <div className="flex items-center justify-between rounded-md border border-amber-200 bg-amber-50 px-2.5 py-1.5 shadow-sm">
+                            <span className="text-[10px] font-medium text-amber-800">Staff Handoff</span>
+                            <CornerDownRight className="h-3 w-3 text-amber-600" />
+                        </div>
+                        <div className="flex items-center justify-between rounded-md border border-amber-200 bg-amber-50 px-2.5 py-1.5 shadow-sm">
+                            <span className="text-[10px] font-medium text-amber-800">Reception Ring</span>
+                            <PhoneCall className="h-3 w-3 text-amber-600" />
                         </div>
                     </div>
                 </div>
@@ -186,8 +259,8 @@ export function ClinicOperationsFlow() {
                         eyebrow="HOW LOLA ATTACHES AND OPERATES"
                         eyebrowClassName="text-teal-600 font-semibold tracking-[0.16em]"
                         title="An intelligent layer around your existing practice."
-                        subtitle="Lola isn’t a rip-and-replace system. She fits seamlessly over your current diary, governed entirely by the rules your clinic sets."
-                        titleClassName="type-h2-serif text-slate-900"
+                        subtitle="Lola fits around the diary you already run. Your clinic sets the rules, approvals, and clinical boundaries — then Lola carries the routine booking load around them."
+                        titleClassName="text-3xl md:text-4xl lg:text-[2.75rem] font-semibold leading-[1.1] tracking-tight text-slate-900"
                         subtitleClassName="type-lead mt-5 text-slate-600"
                     />
                 </div>
