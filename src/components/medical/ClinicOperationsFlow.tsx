@@ -162,63 +162,70 @@ function ConfigLayerVisual() {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 1.05 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="relative flex h-full w-full flex-col items-center justify-center p-8"
+      className="relative flex h-full w-full flex-col items-center justify-center p-8 lg:p-12"
     >
-      <div className="relative z-10 flex w-80 flex-col items-center justify-center rounded-2xl border border-teal-200/40 bg-white/60 p-6 shadow-xl ring-1 ring-slate-900/5 backdrop-blur-xl">
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-teal-200 bg-teal-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal-800 shadow-sm whitespace-nowrap">
+      <div className="relative z-10 flex w-full max-w-[400px] flex-col items-center justify-center rounded-[1.5rem] border border-teal-200/40 bg-white/70 p-6 shadow-xl ring-1 ring-slate-900/5 backdrop-blur-xl">
+        <div className="absolute -top-[14px] left-1/2 -translate-x-1/2 rounded-full border border-teal-200 bg-teal-100 px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-teal-800 shadow-sm whitespace-nowrap">
           Clinic Rules Engine
         </div>
 
-        <div className="mt-3 grid w-full grid-cols-2 gap-2">
+        <div className="mt-4 grid w-full grid-cols-2 gap-3">
           {/* Left Column */}
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
-              <span className="text-[10px] uppercase tracking-wider text-slate-500">
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col justify-center rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm min-h-[76px]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
                 Booking Hours
               </span>
-              <span className="text-sm font-medium text-slate-700">
+              <span className="mt-1 text-[15px] font-semibold text-slate-800">
                 8am - 6pm
               </span>
             </div>
-            <div className="flex flex-col rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
-              <span className="text-[10px] uppercase tracking-wider text-slate-500">
+            <div className="flex flex-col justify-center rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm min-h-[76px]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
                 Buffer
               </span>
-              <span className="text-sm font-medium text-slate-700">
+              <span className="mt-1 text-[15px] font-semibold text-slate-800">
                 15 mins
               </span>
             </div>
-            <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
-              <Settings className="h-3.5 w-3.5 text-slate-400" />
-              <span className="text-xs font-medium text-slate-700">
-                Appt. Types
+            <div className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm min-h-[56px] mt-auto">
+              <Settings className="h-4 w-4 text-slate-400" />
+              <span className="text-sm font-semibold text-slate-700">
+                Appointment types
               </span>
             </div>
           </div>
 
           {/* Right Column */}
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col rounded-lg border border-teal-200 bg-teal-50/50 px-3 py-2 shadow-sm">
-              <span className="text-[10px] uppercase tracking-wider text-teal-600">
-                Reception Approval
-              </span>
-              <div className="mt-0.5 flex items-center justify-between">
-                <span className="text-sm font-medium text-teal-800">ON</span>
-                <div className="h-2 w-2 rounded-full bg-teal-500" />
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col justify-center rounded-xl border-[1.5px] border-teal-300 bg-teal-50 p-3.5 shadow-md min-h-[86px]">
+              <div className="flex items-center gap-1.5">
+                <div className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700">
+                  Reception Approval
+                </span>
+              </div>
+              <div className="mt-2.5 flex items-center justify-between">
+                <span className="text-lg font-bold tracking-tight text-teal-900">
+                  ON
+                </span>
+                <div className="flex h-5 w-8 items-center rounded-full bg-teal-200 p-0.5 shadow-inner">
+                  <div className="h-4 w-4 translate-x-3 rounded-full bg-white shadow-sm" />
+                </div>
               </div>
             </div>
-            <div className="flex flex-col rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
-              <span className="text-[10px] uppercase tracking-wider text-slate-500">
+            <div className="flex flex-col justify-center rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm min-h-[76px]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
                 Handoff Rule
               </span>
-              <span className="truncate text-xs font-medium text-slate-700">
+              <span className="mt-1 text-[13px] font-semibold leading-tight text-slate-800">
                 Strict Clinical
               </span>
             </div>
-            <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
-              <CheckCircle2 className="h-3.5 w-3.5 text-teal-500" />
-              <span className="text-xs font-medium text-slate-700">
-                Loaded FAQs
+            <div className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm min-h-[56px] mt-auto">
+              <CheckCircle2 className="h-4 w-4 text-teal-500" />
+              <span className="text-sm font-semibold text-slate-700">
+                Approved FAQs
               </span>
             </div>
           </div>
@@ -339,7 +346,7 @@ export function ClinicOperationsFlow() {
 
           {/* Left Column (Sticky Visual) */}
           <div className="hidden lg:block lg:relative">
-            <div className="sticky top-1/4 h-[50vh] w-full rounded-[2.5rem] border border-slate-200/60 bg-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-900/5 backdrop-blur-2xl">
+            <div className="sticky top-1/4 h-[55vh] w-full rounded-[2.5rem] border border-slate-200/60 bg-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-900/5 backdrop-blur-2xl">
               <AnimatePresence mode="wait">
                 {activeStep === 0 && <DiaryVisual key="diary" />}
                 {activeStep === 1 && <ConfigLayerVisual key="config" />}
