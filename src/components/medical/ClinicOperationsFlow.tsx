@@ -242,78 +242,105 @@ function LiveOperationVisual() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="relative flex h-full w-full flex-col items-center justify-center p-8"
+      className="relative flex h-full w-full flex-col items-center justify-center p-8 lg:p-12"
     >
-      {/* Top Demand Sources Container */}
-      <div className="flex flex-wrap justify-center gap-2">
-        <div className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 shadow-sm">
-          <PhoneCall className="h-3.5 w-3.5 text-slate-400" /> New booking
-        </div>
-        <div className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 shadow-sm">
-          <RefreshCw className="h-3.5 w-3.5 text-slate-400" /> Reschedule
-        </div>
-        <div className="flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm">
-          <ShieldCheck className="h-3.5 w-3.5 text-rose-500" /> Clinical
-          question
-        </div>
-      </div>
-
-      {/* Processing Layer */}
-      <div className="relative my-6 flex w-full max-w-[280px] justify-center">
-        <div className="absolute top-0 left-[15%] h-6 w-px bg-slate-200" />
-        <div className="absolute top-0 left-1/2 h-6 w-px bg-slate-200" />
-        <div className="absolute top-0 right-[15%] h-6 w-px bg-slate-200" />
-
-        <div className="relative z-10 mt-6 flex w-full items-center justify-center rounded-xl border border-teal-200/50 bg-teal-50/80 py-3 shadow-sm backdrop-blur-sm">
-          <span className="text-xs font-semibold uppercase tracking-widest text-teal-800">
-            Lola Handling
-          </span>
+      <div className="relative flex w-full max-w-[360px] flex-col items-center justify-center pt-2 gap-10">
+        {/* Top Demand Sources Container (All Neutral, 2x2 Grid) */}
+        <div className="grid grid-cols-2 gap-3 w-full max-w-[320px] z-10">
+          <div className="flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-2.5 text-[11px] font-semibold text-slate-700 shadow-sm transition-transform hover:scale-105">
+            <PhoneCall className="h-3.5 w-3.5 text-slate-400" /> New booking
+          </div>
+          <div className="flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-2.5 text-[11px] font-semibold text-slate-700 shadow-sm transition-transform hover:scale-105">
+            <RefreshCw className="h-3.5 w-3.5 text-slate-400" /> Reschedule
+          </div>
+          <div className="flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-2.5 text-[11px] font-semibold text-slate-700 shadow-sm transition-transform hover:scale-105">
+            <Calendar className="h-3.5 w-3.5 text-slate-400" /> Cancellation
+          </div>
+          <div className="flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-2.5 text-[11px] font-semibold text-slate-700 shadow-sm transition-transform hover:scale-105">
+            <ShieldCheck className="h-3.5 w-3.5 text-slate-400" /> Clinical
+            question
+          </div>
         </div>
 
-        <div className="absolute bottom-[-24px] left-[25%] h-6 w-px bg-teal-200" />
-        <div className="absolute bottom-[-24px] right-[25%] h-6 w-px bg-amber-200" />
-      </div>
+        {/* Processing Layer */}
+        <div className="relative flex w-full justify-center">
+          {/* Single Top Intake Line */}
+          <div className="absolute -top-10 left-1/2 flex h-10 w-px -translate-x-1/2 flex-col items-center bg-slate-200">
+            <div className="absolute -bottom-[1px] h-1.5 w-1.5 rotate-45 border-b border-r border-slate-300" />
+          </div>
 
-      {/* Outcomes */}
-      <div className="flex w-full max-w-[300px] justify-between pt-6">
-        {/* Routine Outcomes */}
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-teal-700">
-            Routine Output
-          </span>
-          <div className="flex w-[130px] flex-col gap-1.5">
-            <div className="flex items-center justify-between rounded-md border border-slate-200 bg-white px-2.5 py-1.5 shadow-sm">
-              <span className="text-[10px] font-medium text-slate-600">
-                Appt Booked
-              </span>
-              <CheckCircle2 className="h-3 w-3 text-teal-500" />
+          {/* Core Routing Layer */}
+          <div className="relative z-10 flex w-[90%] items-center justify-center rounded-xl border-[1.5px] border-teal-300 bg-teal-50/90 py-3.5 shadow-md backdrop-blur-sm">
+            <div className="absolute -left-2 top-1/2 -translate-y-1/2">
+              <Zap className="h-4 w-4 text-teal-400" />
             </div>
-            <div className="flex items-center justify-between rounded-md border border-slate-200 bg-white px-2.5 py-1.5 shadow-sm">
-              <span className="text-[10px] font-medium text-slate-600">
-                Slot Reopened
-              </span>
-              <RefreshCw className="h-3 w-3 text-teal-500" />
+            <div className="absolute -right-2 top-1/2 -translate-y-1/2">
+              <Zap className="h-4 w-4 text-teal-400" />
+            </div>
+            <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-teal-900">
+              Lola Routing Layer
+            </span>
+          </div>
+
+          {/* Split Bottom Output Lines */}
+          <div className="absolute -bottom-10 left-1/2 flex h-10 w-[215px] -translate-x-1/2 flex-col items-center pointer-events-none">
+            {/* Trunk */}
+            <div className="h-4 w-px bg-slate-200" />
+            {/* Branches container */}
+            <div className="flex w-full flex-1">
+              {/* Left Branch */}
+              <div className="relative w-1/2 rounded-tl-lg border-l border-t border-slate-200">
+                <div className="absolute -bottom-[2px] -left-[3.5px] h-1.5 w-1.5 rotate-45 border-b border-r border-slate-300" />
+              </div>
+              {/* Right Branch */}
+              <div className="relative w-1/2 rounded-tr-lg border-r border-t border-slate-200">
+                <div className="absolute -bottom-[2px] -right-[3.5px] h-1.5 w-1.5 rotate-45 border-b border-r border-slate-300" />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Exceptions */}
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-700">
-            Exceptions
-          </span>
-          <div className="flex w-[130px] flex-col gap-1.5">
-            <div className="flex items-center justify-between rounded-md border border-amber-200 bg-amber-50 px-2.5 py-1.5 shadow-sm">
-              <span className="text-[10px] font-medium text-amber-800">
-                Staff Handoff
-              </span>
-              <CornerDownRight className="h-3 w-3 text-amber-600" />
+        {/* Outcomes */}
+        <div className="flex w-full justify-between z-10">
+          {/* Routine Outcomes (3 outputs) */}
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700">
+              Routine Logic
+            </span>
+            <div className="flex flex-col gap-2 w-[150px]">
+              <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-2.5 shadow-sm min-h-[44px]">
+                <span className="text-[11px] font-semibold text-slate-700 leading-tight">
+                  Appt booked
+                </span>
+                <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-teal-500" />
+              </div>
+              <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-2.5 shadow-sm min-h-[44px]">
+                <span className="text-[11px] font-semibold text-slate-700 leading-tight">
+                  Appt rescheduled
+                </span>
+                <RefreshCw className="h-3.5 w-3.5 shrink-0 text-teal-500" />
+              </div>
+              <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-2.5 shadow-sm min-h-[44px]">
+                <span className="text-[11px] font-semibold text-slate-700 leading-tight">
+                  Slot reopened
+                </span>
+                <Calendar className="h-3.5 w-3.5 shrink-0 text-teal-500" />
+              </div>
             </div>
-            <div className="flex items-center justify-between rounded-md border border-amber-200 bg-amber-50 px-2.5 py-1.5 shadow-sm">
-              <span className="text-[10px] font-medium text-amber-800">
-                Reception Ring
-              </span>
-              <PhoneCall className="h-3 w-3 text-amber-600" />
+          </div>
+
+          {/* Exceptions (1 output) */}
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700">
+              Exceptions
+            </span>
+            <div className="flex flex-col gap-2 w-[140px]">
+              <div className="flex items-center justify-between rounded-lg border border-amber-200 bg-amber-50 p-2.5 shadow-sm min-h-[44px]">
+                <span className="text-[11px] font-semibold text-amber-900 leading-tight">
+                  Staff handoff
+                </span>
+                <CornerDownRight className="h-3.5 w-3.5 shrink-0 text-amber-600" />
+              </div>
             </div>
           </div>
         </div>
