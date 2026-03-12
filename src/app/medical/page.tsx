@@ -15,6 +15,7 @@ import { RightSlideOverlayPair } from "@/components/medical/RightSlideOverlayPai
 import { MedicalConversationFeature } from "@/components/medical/MedicalConversationFeature";
 import { MedicalCapacityFeature } from "@/components/medical/MedicalCapacityFeature";
 import { WhyLolaCarousel, type PainSlide } from "@/components/ui/WhyLolaCarousel";
+import { NarrativeBreaker } from "@/components/ui/NarrativeBreaker";
 
 const POSITIONING_CARDS = [
   {
@@ -288,28 +289,36 @@ function PositioningSection() {
   return (
     <section
       id="features"
-      className="section-offset w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24"
+      className="section-offset relative -mt-24 w-full overflow-hidden bg-[#08111b] px-6 pb-20 pt-44 md:-mt-28 md:px-16 md:pb-24 md:pt-52"
     >
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-x-0 top-0 h-64 bg-[linear-gradient(180deg,#070A10_0%,rgba(7,10,16,0.98)_24%,rgba(7,11,18,0.9)_48%,rgba(8,17,27,0.6)_78%,rgba(8,17,27,0)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.008),rgba(255,255,255,0.035)_34%,rgba(255,255,255,0.02)_100%)]" />
+        <div className="absolute left-[-6%] top-28 h-64 w-64 rounded-full bg-[#8de5d5]/10 blur-[120px]" />
+        <div className="absolute right-[-4%] top-[34%] h-80 w-80 rounded-full bg-[#8de5d5]/8 blur-[150px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(141,229,213,0.05),transparent_36%)]" />
+      </div>
+
+      <div className="relative z-10 mx-auto w-full max-w-7xl">
         <SectionHeading
           eyebrow="WHAT LOLA IS"
-          eyebrowClassName="text-[#156e60] tracking-[0.2em]"
+          eyebrowClassName="text-[#8de5d5] tracking-[0.2em]"
           title="A voice booking layer added to the clinic you already run."
           subtitle="This is not a clinical AI assistant and it is not a rip-and-replace project. Lola sits around real clinic operations, takes routine phone pressure off the desk, and makes the outcome measurable."
-          titleClassName="type-h2-serif max-w-[14ch] text-charcoal"
-          subtitleClassName="max-w-[58ch] text-charcoal/84"
+          titleClassName="type-h2 max-w-[14ch] text-peach"
+          subtitleClassName="max-w-[58ch] text-peach/80"
         />
 
         <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {POSITIONING_CARDS.map((card) => (
             <article
               key={card.title}
-              className="rounded-[1.75rem] border border-[#8addcc]/35 bg-white/78 p-6 shadow-[0_18px_48px_rgba(18,28,40,0.08)] backdrop-blur-md"
+              className="rounded-[1.75rem] border border-white/10 bg-white/[0.045] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.28)] backdrop-blur-md transition-[border-color,box-shadow,transform,background-color] duration-300 ease-out hover:border-white/20 hover:-translate-y-0.5 hover:bg-white/[0.055] hover:shadow-[0_28px_64px_rgba(0,0,0,0.32),0_0_0_1px_rgba(255,255,255,0.06)]"
             >
-              <h3 className="text-2xl font-semibold tracking-tight text-ink">
+              <h3 className="text-2xl font-semibold tracking-tight text-white">
                 {card.title}
               </h3>
-              <p className="mt-3 text-charcoal/82">{card.body}</p>
+              <p className="mt-3 text-peach/76">{card.body}</p>
             </article>
           ))}
         </div>
@@ -336,11 +345,10 @@ function PositioningSection() {
 
 function WhyLolaSection() {
   return (
-    <section className="w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24">
+    <section className="w-full bg-white px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto w-full max-w-7xl">
         <div className="mx-auto max-w-4xl">
           <SectionHeading
-            eyebrow="WHY LOLA"
             eyebrowClassName="text-[#156e60] tracking-[0.2em]"
             title="The phone keeps pulling reception away from the clinic."
             subtitle="Bookings, changes, FAQs, and callbacks all compete with the patient standing in front of the desk."
@@ -364,6 +372,20 @@ function WhyLolaSection() {
   );
 }
 
+function MedicalNarrativeBreaker() {
+  return (
+    <NarrativeBreaker
+      headline="Lola books, reschedules, routes — and respects the clinical line."
+      subheadlinePrefix="The "
+      subheadlineHighlight="booking layer that protects reception"
+      subheadlineSuffix=" without crossing into clinical advice."
+      eyebrowDotClassName="bg-mint"
+      subheadlineHighlightClassName="text-[#9aeee0]"
+      ariaLabel="Medical narrative transition"
+    />
+  );
+}
+
 function BoundaryLane({
   eyebrow,
   title,
@@ -379,30 +401,25 @@ function BoundaryLane({
 }) {
   return (
     <article
-      className={[
-        "rounded-[2rem] border p-6 shadow-[0_20px_54px_rgba(18,28,40,0.08)] md:p-7",
-        accent
-          ? "border-[#9ae4d6]/46 bg-[linear-gradient(180deg,rgba(233,253,247,0.96),rgba(219,247,239,0.88))]"
-          : "border-[#d8ddd7] bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(248,250,248,0.92))]",
-      ].join(" ")}
+      className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] p-6 shadow-[0_26px_74px_rgba(0,0,0,0.3)] backdrop-blur-md transition-[border-color,box-shadow,transform,background-color] duration-300 ease-out hover:border-white/20 hover:-translate-y-0.5 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.04))] hover:shadow-[0_28px_64px_rgba(0,0,0,0.32),0_0_0_1px_rgba(255,255,255,0.06)] md:p-7"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="font-jetbrains text-[10px] uppercase tracking-[0.16em] text-[#156e60]">
+          <p className="font-jetbrains text-[10px] uppercase tracking-[0.16em] text-[#8de5d5]">
             {eyebrow}
           </p>
-          <h3 className="mt-3 max-w-[18ch] text-3xl font-semibold tracking-tight text-ink">
+          <h3 className="mt-3 max-w-[18ch] text-3xl font-semibold tracking-tight text-white">
             {title}
           </h3>
         </div>
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#8ee6d5]/45 bg-white/75 text-[#156e60]">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.055] text-[#8de5d5]">
           {icon}
         </div>
       </div>
 
       <ul className="mt-6 space-y-3">
         {items.map((item) => (
-          <li key={item} className="flex items-start gap-3 text-charcoal/84">
+          <li key={item} className="flex items-start gap-3 text-peach/78">
             <span className="mt-1.5 inline-block h-2 w-2 rounded-full bg-[#30c0a5]" />
             <span>{item}</span>
           </li>
@@ -428,7 +445,7 @@ function StoryFeatureSection({
   children: ReactNode;
 }) {
   return (
-    <section className="w-full bg-medical-soft-blue px-6 py-20 md:px-16 md:py-24">
+    <section className="w-full bg-white px-6 py-20 md:px-16 md:py-24">
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className={cardOnLeft ? "order-1" : "order-2"}>
           <div className="mx-auto h-[460px] w-full max-w-[580px] min-w-0 sm:h-[520px] lg:h-[560px] [&>*]:h-full [&>*]:min-h-0 [&>*]:w-full [&>*]:flex-shrink-0">
@@ -781,6 +798,7 @@ export default function MedicalPage() {
       <Navbar />
       <Hero />
       <WhyLolaSection />
+      <MedicalNarrativeBreaker />
       <PositioningSection />
 
       {STORY_SECTIONS.map((section) => (

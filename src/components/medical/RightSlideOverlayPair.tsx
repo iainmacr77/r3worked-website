@@ -258,7 +258,7 @@ export function RightSlideOverlayPair({
   return (
     <section
       id={id}
-      className="section-offset w-full bg-[radial-gradient(circle_at_top,rgba(158,232,218,0.18),transparent_34%),linear-gradient(180deg,#eef8f5_0%,#e8f5f1_44%,#e3f1ed_100%)] px-6 pt-12 pb-20 md:px-16 md:pt-16 md:pb-24"
+      className="section-offset w-full bg-white px-6 pt-12 pb-20 md:px-16 md:pt-16 md:pb-24"
     >
       <div className="mx-auto w-full max-w-7xl">
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-12">

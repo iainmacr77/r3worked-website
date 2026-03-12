@@ -59,40 +59,40 @@ const PAIN_SLIDES: PainSlide[] = [
 function MedicalGlowBackground({ variant }: { variant: number }) {
   const glows = [
     {
-      base: "linear-gradient(145deg, #07131a 0%, #0c1d24 46%, #071119 100%)",
-      orbA: "rgba(123, 227, 208, 0.22)",
-      orbB: "rgba(89, 205, 182, 0.16)",
-      orbC: "rgba(148, 233, 222, 0.12)",
-      aPos: "18% 18%",
-      bPos: "82% 24%",
-      cPos: "58% 78%",
+      base: "linear-gradient(150deg, rgba(6,17,24,0.98) 0%, rgba(10,24,31,0.94) 48%, rgba(6,14,20,0.98) 100%)",
+      orbA: "rgba(140, 232, 216, 0.12)",
+      orbB: "rgba(86, 203, 181, 0.09)",
+      orbC: "rgba(214, 255, 245, 0.06)",
+      aPos: "16% 22%",
+      bPos: "86% 18%",
+      cPos: "54% 84%",
     },
     {
-      base: "linear-gradient(145deg, #08141b 0%, #102028 44%, #081219 100%)",
-      orbA: "rgba(137, 219, 201, 0.2)",
-      orbB: "rgba(78, 197, 177, 0.18)",
-      orbC: "rgba(109, 214, 190, 0.12)",
-      aPos: "26% 16%",
-      bPos: "80% 20%",
-      cPos: "42% 80%",
+      base: "linear-gradient(150deg, rgba(5,15,21,0.992) 0%, rgba(8,20,27,0.968) 46%, rgba(5,12,18,0.992) 100%)",
+      orbA: "rgba(137, 219, 201, 0.075)",
+      orbB: "rgba(78, 197, 177, 0.055)",
+      orbC: "rgba(109, 214, 190, 0.03)",
+      aPos: "28% 14%",
+      bPos: "78% 30%",
+      cPos: "22% 82%",
     },
     {
-      base: "linear-gradient(145deg, #071219 0%, #0d1c23 42%, #071118 100%)",
-      orbA: "rgba(148, 233, 222, 0.18)",
-      orbB: "rgba(109, 214, 190, 0.16)",
-      orbC: "rgba(80, 196, 178, 0.12)",
-      aPos: "20% 20%",
-      bPos: "78% 18%",
-      cPos: "56% 80%",
+      base: "linear-gradient(149deg, rgba(4,14,20,0.992) 0%, rgba(8,19,26,0.966) 42%, rgba(5,12,17,0.992) 100%)",
+      orbA: "rgba(148, 233, 222, 0.07)",
+      orbB: "rgba(109, 214, 190, 0.05)",
+      orbC: "rgba(80, 196, 178, 0.028)",
+      aPos: "18% 70%",
+      bPos: "80% 16%",
+      cPos: "60% 54%",
     },
     {
-      base: "linear-gradient(145deg, #07131a 0%, #11232a 46%, #081118 100%)",
-      orbA: "rgba(126, 226, 208, 0.2)",
-      orbB: "rgba(92, 208, 187, 0.16)",
-      orbC: "rgba(170, 241, 230, 0.1)",
-      aPos: "24% 18%",
-      bPos: "82% 22%",
-      cPos: "52% 80%",
+      base: "linear-gradient(151deg, rgba(5,15,21,0.992) 0%, rgba(8,20,27,0.968) 45%, rgba(5,13,18,0.992) 100%)",
+      orbA: "rgba(126, 226, 208, 0.075)",
+      orbB: "rgba(92, 208, 187, 0.055)",
+      orbC: "rgba(170, 241, 230, 0.03)",
+      aPos: "82% 22%",
+      bPos: "20% 26%",
+      cPos: "72% 82%",
     },
   ] as const;
 
@@ -113,9 +113,9 @@ function MedicalGlowBackground({ variant }: { variant: number }) {
         className="absolute h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[76px] sm:h-[18rem] sm:w-[18rem] sm:blur-[96px]"
         style={{ left: current.cPos.split(" ")[0], top: current.cPos.split(" ")[1], backgroundColor: current.orbC }}
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,11,15,0.08),rgba(4,11,15,0.4))]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.54)_100%)]" />
-      <div className="absolute inset-0 opacity-[0.16] mix-blend-soft-light [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:26px_26px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,10,14,0.12),rgba(3,10,14,0.44))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_22%,rgba(0,0,0,0.62)_100%)]" />
+      <div className="absolute inset-0 opacity-[0.12] mix-blend-soft-light [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:26px_26px]" />
     </div>
   );
 }
@@ -344,7 +344,7 @@ export function WhyLolaCarousel({
                   className={cn(
                     "relative flex h-[270px] flex-col overflow-hidden rounded-[2rem] border p-6 [backface-visibility:hidden] [clip-path:inset(0_round_2rem)] [transform:translateZ(0)] sm:h-[286px] sm:p-7 lg:h-[312px]",
                     isMedical
-                      ? "border-[#8de5d5]/16 bg-[#08141b] ring-1 ring-[#8de5d5]/10 shadow-[0_22px_56px_rgba(4,18,24,0.34)]"
+                      ? "border-white/12 bg-[rgba(7,18,24,0.72)] ring-1 ring-white/8 shadow-[0_24px_60px_rgba(4,18,24,0.42),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-2xl"
                       : "border-white/12 bg-[#0B0E13] ring-1 ring-white/6",
                     activeIndex === index
                       ? "opacity-100"
@@ -361,7 +361,7 @@ export function WhyLolaCarousel({
                     className={cn(
                       "pointer-events-none absolute -inset-px rounded-[2rem]",
                       isMedical
-                        ? "bg-[radial-gradient(130%_90%_at_50%_0%,rgba(255,255,255,0.08),rgba(255,255,255,0)_56%)]"
+                        ? "bg-[radial-gradient(130%_90%_at_50%_0%,rgba(255,255,255,0.12),rgba(255,255,255,0)_54%)]"
                         : "bg-[radial-gradient(130%_90%_at_50%_0%,rgba(255,255,255,0.12),rgba(255,255,255,0)_58%)]"
                     )}
                   />
@@ -369,28 +369,34 @@ export function WhyLolaCarousel({
                     aria-hidden
                     className={cn(
                       "pointer-events-none absolute inset-0 rounded-[2rem] border",
-                      isMedical ? "border-[#c5fff3]/8" : "border-white/8"
+                      isMedical ? "border-white/10" : "border-white/8"
                     )}
                   />
+                  {isMedical ? (
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute inset-[1px] rounded-[calc(2rem-1px)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02)_28%,rgba(255,255,255,0.015)_100%)]"
+                    />
+                  ) : null}
                   <div className="relative z-10 flex h-full flex-col items-start">
                     <div
                       className={cn(
                         "mb-5 inline-flex w-fit items-center rounded-full border px-3 py-1.5",
                         isMedical
-                          ? "border-[#8de5d5]/20 bg-[#dffbf4]/8 backdrop-blur-sm"
+                          ? "border-white/10 bg-white/[0.055] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md"
                           : "border-white/20 bg-white/10"
                       )}
                     >
                       <span
                         className={cn(
                           "h-1.5 w-1.5 rounded-full",
-                          isMedical ? "bg-[#8de5d5]" : "bg-mint"
+                          isMedical ? "bg-mint" : "bg-mint"
                         )}
                       />
                       <span
                         className={cn(
                           "ml-2 font-jetbrains text-[10px] uppercase tracking-[0.16em]",
-                          isMedical ? "text-[#dcfff7]" : "text-peach/95"
+                          isMedical ? "text-[#f3ece3]" : "text-peach/95"
                         )}
                       >
                         {slide.signal}

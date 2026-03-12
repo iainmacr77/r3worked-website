@@ -3,11 +3,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-const HEADLINE =
+const DEFAULT_HEADLINE =
   "Lola answers, understands, confirms — and logs everything.";
-const SUBHEADLINE_PREFIX = "Your voice concierge that ";
-const SUBHEADLINE_HIGHLIGHT = "turns calls into bookings";
-const SUBHEADLINE_SUFFIX = " and everything in between.";
+const DEFAULT_SUBHEADLINE_PREFIX = "Your voice concierge that ";
+const DEFAULT_SUBHEADLINE_HIGHLIGHT = "turns calls into bookings";
+const DEFAULT_SUBHEADLINE_SUFFIX = " and everything in between.";
 const WORD_STAGGER_MS = 120;
 const WORD_TRANSITION_MS = 900;
 
@@ -58,7 +58,27 @@ function AnimatedWords({
   );
 }
 
-export function NarrativeBreaker() {
+type NarrativeBreakerProps = {
+  headline?: string;
+  subheadline?: string;
+  subheadlinePrefix?: string;
+  subheadlineHighlight?: string;
+  subheadlineSuffix?: string;
+  eyebrowDotClassName?: string;
+  subheadlineHighlightClassName?: string;
+  ariaLabel?: string;
+};
+
+export function NarrativeBreaker({
+  headline = DEFAULT_HEADLINE,
+  subheadline,
+  subheadlinePrefix,
+  subheadlineHighlight,
+  subheadlineSuffix,
+  eyebrowDotClassName = "bg-coral/80",
+  subheadlineHighlightClassName = "text-coral",
+  ariaLabel = "Narrative transition",
+}: NarrativeBreakerProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -91,13 +111,13 @@ export function NarrativeBreaker() {
     return () => observer.disconnect();
   }, []);
 
-  const headlineWordCount = HEADLINE.split(" ").length;
+  const headlineWordCount = headline.split(" ").length;
   const subheadlineDelay = headlineWordCount * WORD_STAGGER_MS + 320;
 
   return (
     <section
       ref={sectionRef}
-      aria-label="Narrative transition"
+      aria-label={ariaLabel}
       className="relative w-full overflow-hidden bg-[#070A10] px-6 py-20 md:px-16 md:py-24"
     >
       <div className="pointer-events-none absolute inset-0">
@@ -114,47 +134,95 @@ export function NarrativeBreaker() {
       </div>
 
       <div className="relative mx-auto w-full max-w-7xl">
-        <div className="rounded-[2rem] border border-white/12 bg-white/[0.03] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_34px_70px_rgba(0,0,0,0.5)] backdrop-blur-sm md:p-10">
+        <div className="rounded-[2rem] border border-white/[0.15] bg-white/[0.03] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_34px_70px_rgba(0,0,0,0.5)] backdrop-blur-sm md:p-10">
           <p className="mb-4 inline-flex items-center gap-2 whitespace-nowrap font-jetbrains text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-white/60">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-coral/80" aria-hidden />
+            <span className={cn("inline-block h-1.5 w-1.5 rounded-full", eyebrowDotClassName)} aria-hidden />
             <span>WHAT LOLA DOES</span>
           </p>
           <h2 className="max-w-[26ch] font-outfit text-3xl font-semibold leading-tight text-white md:text-5xl">
             <AnimatedWords
-              text={HEADLINE}
+              text={headline}
               isVisible={isVisible}
               reducedMotion={reducedMotion}
             />
           </h2>
           <p className="mt-6 max-w-[56ch] font-outfit text-lg leading-relaxed text-white/88 md:text-2xl">
-            <AnimatedWords
-              text={SUBHEADLINE_PREFIX}
-              isVisible={isVisible}
-              startDelay={subheadlineDelay}
-              reducedMotion={reducedMotion}
-            />
-            <span className="font-medium text-coral">
+            {subheadline ? (
               <AnimatedWords
-                text={SUBHEADLINE_HIGHLIGHT}
+                text={subheadline}
                 isVisible={isVisible}
-                startDelay={
-                  subheadlineDelay +
-                  SUBHEADLINE_PREFIX.split(" ").length * WORD_STAGGER_MS
-                }
+                startDelay={subheadlineDelay}
                 reducedMotion={reducedMotion}
               />
-            </span>
-            <AnimatedWords
-              text={SUBHEADLINE_SUFFIX}
-              isVisible={isVisible}
-              startDelay={
-                subheadlineDelay +
-                (SUBHEADLINE_PREFIX.split(" ").length +
-                  SUBHEADLINE_HIGHLIGHT.split(" ").length) *
-                  WORD_STAGGER_MS
-              }
-              reducedMotion={reducedMotion}
-            />
+            ) : subheadlinePrefix || subheadlineHighlight || subheadlineSuffix ? (
+              <>
+                {subheadlinePrefix ? (
+                  <AnimatedWords
+                    text={subheadlinePrefix}
+                    isVisible={isVisible}
+                    startDelay={subheadlineDelay}
+                    reducedMotion={reducedMotion}
+                  />
+                ) : null}
+                {subheadlineHighlight ? (
+                  <span className={cn("font-medium", subheadlineHighlightClassName)}>
+                    <AnimatedWords
+                      text={subheadlineHighlight}
+                      isVisible={isVisible}
+                      startDelay={
+                        subheadlineDelay +
+                        (subheadlinePrefix?.split(" ").length ?? 0) * WORD_STAGGER_MS
+                      }
+                      reducedMotion={reducedMotion}
+                    />
+                  </span>
+                ) : null}
+                {subheadlineSuffix ? (
+                  <AnimatedWords
+                    text={subheadlineSuffix}
+                    isVisible={isVisible}
+                    startDelay={
+                      subheadlineDelay +
+                      ((subheadlinePrefix?.split(" ").length ?? 0) +
+                        (subheadlineHighlight?.split(" ").length ?? 0)) *
+                        WORD_STAGGER_MS
+                    }
+                    reducedMotion={reducedMotion}
+                  />
+                ) : null}
+              </>
+            ) : (
+              <>
+                <AnimatedWords
+                  text={DEFAULT_SUBHEADLINE_PREFIX}
+                  isVisible={isVisible}
+                  startDelay={subheadlineDelay}
+                  reducedMotion={reducedMotion}
+                />
+                <span className="font-medium text-coral">
+                  <AnimatedWords
+                    text={DEFAULT_SUBHEADLINE_HIGHLIGHT}
+                    isVisible={isVisible}
+                    startDelay={
+                      subheadlineDelay +
+                      DEFAULT_SUBHEADLINE_PREFIX.split(" ").length * WORD_STAGGER_MS
+                    }
+                    reducedMotion={reducedMotion}
+                  />
+                </span>
+                <AnimatedWords
+                  text={DEFAULT_SUBHEADLINE_SUFFIX}
+                  isVisible={isVisible}
+                  startDelay={
+                    subheadlineDelay +
+                    (DEFAULT_SUBHEADLINE_PREFIX.split(" ").length +
+                      DEFAULT_SUBHEADLINE_HIGHLIGHT.split(" ").length) *
+                      WORD_STAGGER_MS
+                  }
+                  reducedMotion={reducedMotion}
+                />
+              </>
+            )}
           </p>
         </div>
       </div>
