@@ -2,11 +2,9 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  CalendarSync,
   Clock3,
   PhoneCall,
   ShieldCheck,
-  Stethoscope,
 } from "lucide-react";
 import { Footer } from "@/components/ui/Footer";
 import { Navbar } from "@/components/ui/Navbar";
@@ -99,24 +97,6 @@ const STORY_SECTIONS = [
     ],
     cardOnLeft: true,
     graphic: <MedicalCapacityFeature />,
-  },
-];
-
-const PROOF_STEPS = [
-  {
-    label: "01",
-    title: "Routine handled cleanly",
-    body: "A patient asks to move an appointment. Lola offers the next available times, confirms the new slot, and updates the booking.",
-  },
-  {
-    label: "02",
-    title: "Context captured at the right level",
-    body: "Lola asks for a short reason for visit so the team is prepared, without attempting to interpret symptoms or advise the patient.",
-  },
-  {
-    label: "03",
-    title: "Clinical boundary stays with the clinic",
-    body: "If the caller asks for medical advice or anything clinical, Lola stops there and routes the call to reception or staff.",
   },
 ];
 
@@ -436,137 +416,6 @@ function StoryFeatureSection({
   );
 }
 
-function ProofSection() {
-  return (
-    <section className="w-full bg-[#08111b] px-6 py-20 md:px-16 md:py-24">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-7 shadow-[0_26px_74px_rgba(0,0,0,0.32)] backdrop-blur-md">
-          <SectionHeading
-            eyebrow="PROOF OF BEHAVIOUR"
-            eyebrowClassName="text-[#8de5d5] tracking-[0.2em]"
-            title="How Lola sounds on the line."
-            subtitle="The point is not theatrical AI conversation. The point is a calm, useful call that gets the booking work done and stops at the clinical boundary."
-            titleClassName="type-h2-serif max-w-[11ch] text-peach"
-            subtitleClassName="max-w-[46ch] text-peach/80"
-          />
-
-          <div className="mt-8 space-y-4">
-            {PROOF_STEPS.map((step) => (
-              <article
-                key={step.label}
-                className="rounded-[1.5rem] border border-white/10 bg-[#0d1825]/80 p-5"
-              >
-                <p className="font-jetbrains text-[10px] uppercase tracking-[0.16em] text-[#8de5d5]">
-                  {step.label}
-                </p>
-                <h3 className="mt-3 text-2xl font-semibold text-white">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-peach/76">
-                  {step.body}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] p-6 shadow-[0_26px_74px_rgba(0,0,0,0.3)] backdrop-blur-md">
-          <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
-            <div>
-              <p className="font-jetbrains text-[10px] uppercase tracking-[0.16em] text-white/52">
-                SAMPLE CALL SHAPE
-              </p>
-              <p className="mt-2 text-xl font-semibold text-white">
-                Booking completed. Clinical advice deferred to staff.
-              </p>
-            </div>
-            <div className="rounded-full border border-[#90e8d8]/28 bg-[#90e8d8]/10 px-3 py-1.5 text-[10px] uppercase tracking-[0.14em] text-[#9df2e4]">
-              Safe routing
-            </div>
-          </div>
-
-          <div className="mt-5 space-y-4">
-            <TranscriptBubble
-              speaker="Patient"
-              text="Hi, I need to move my Thursday appointment to next week."
-              patient
-            />
-            <TranscriptBubble
-              speaker="Lola"
-              text="I can move that to Tuesday at 10:20 or Wednesday at 15:40. Which would you prefer?"
-            />
-            <TranscriptBubble
-              speaker="Patient"
-              text="Wednesday please. It is for a follow-up on my shoulder."
-              patient
-            />
-            <TranscriptBubble
-              speaker="Lola"
-              text="Done. I have moved the appointment and noted shoulder follow-up so the clinic is prepared."
-            />
-            <TranscriptBubble
-              speaker="Patient"
-              text="Should I be worried that it still hurts at night?"
-              patient
-            />
-            <TranscriptBubble
-              speaker="Lola"
-              text="I cannot give medical advice, but I can route you to reception now so the clinic team can help."
-            />
-          </div>
-
-          <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            <ProofChip icon={<CalendarSync className="h-4 w-4" />} label="Reschedule completed" />
-            <ProofChip icon={<Stethoscope className="h-4 w-4" />} label="Clinical question escalated" />
-            <ProofChip icon={<ShieldCheck className="h-4 w-4" />} label="Boundary respected" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TranscriptBubble({
-  speaker,
-  text,
-  patient = false,
-}: {
-  speaker: string;
-  text: string;
-  patient?: boolean;
-}) {
-  return (
-    <div className={`flex ${patient ? "justify-end" : "justify-start"}`}>
-      <div
-        className={`max-w-[90%] rounded-[1.5rem] border px-4 py-3 ${patient
-            ? "border-[#8de5d5]/16 bg-[#8de5d5]/10 text-peach"
-            : "border-white/10 bg-white/[0.055] text-white"
-          }`}
-      >
-        <p className="font-jetbrains text-[10px] uppercase tracking-[0.14em] text-white/48">
-          {speaker}
-        </p>
-        <p className="mt-2 text-sm leading-relaxed">{text}</p>
-      </div>
-    </div>
-  );
-}
-
-function ProofChip({
-  icon,
-  label,
-}: {
-  icon: ReactNode;
-  label: string;
-}) {
-  return (
-    <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.045] px-3 py-3 text-sm text-peach/78">
-      <span className="text-[#8fe8d8]">{icon}</span>
-      <span>{label}</span>
-    </div>
-  );
-}
-
 function ControlRoomSection() {
   return (
     <section
@@ -777,7 +626,6 @@ export default function MedicalPage() {
 
       <ClinicOperationsFlow />
 
-      <ProofSection />
       <ControlRoomSection />
       <PricingSection />
       <Footer />
