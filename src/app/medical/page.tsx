@@ -104,15 +104,15 @@ const METRIC_CARDS = [
   { label: "Routine demand captured", value: "97%", detail: "Booking demand answered across open and after-hours, without stretching the day." },
   { label: "After-hours intents", value: "26", detail: "Booking intents captured that would otherwise have hit voicemail or been lost." },
   { label: "Slots refilled", value: "38", detail: "Cancelled appointments rebooked into live capacity this period." },
-  { label: "Handoff to staff", value: "11%", detail: "Calls handed to reception or clinical staff. The boundary working as intended." },
+  { label: "Handoff to staff", value: "11%", detail: "Calls handed to reception or clinical staff. The boundary worked as intended." },
   { label: "Reception time returned", value: "19h", detail: "Time returned to the front desk from routine phone handling." },
 ];
 
 const OUTCOME_LOG = [
   "08:14 Reschedule completed · Dr Shah · caller confirmed",
-  "10:05 Clinical question escalated · handed to reception, 14s",
-  "12:42 Slot refilled · waitlist patient into cancelled slot",
-  "18:26 After-hours intent captured · queued for tomorrow",
+  "10:05 Clinical question escalated · handed to reception in 14s",
+  "12:42 Cancelled slot refilled · waitlist patient booked in",
+  "18:26 After-hours intent captured · queued into tomorrow's diary",
 ];
 
 const PLANS = [
@@ -431,7 +431,7 @@ function ControlRoomSection() {
               eyebrow="CLINIC CONTROL ROOM"
               eyebrowClassName="text-[#8de5d5] tracking-[0.2em]"
               title="A calm picture of access, pressure, and handoff."
-              subtitle="What was absorbed, what capacity was recovered, and whether the clinical boundary held. The readout that actually matters."
+              subtitle="What was absorbed, where capacity was recovered, and whether the clinical boundary held. That is the readout that matters."
               titleClassName="type-h2 max-w-[12ch] text-peach"
               subtitleClassName="max-w-[40ch] text-peach/80"
             />
@@ -441,7 +441,7 @@ function ControlRoomSection() {
                 Leadership readout
               </p>
               <p className="mt-3 text-sm leading-relaxed text-peach/82">
-                Escalation here isn’t failure — it’s proof the boundary held. Clinical and uncertain calls stayed with staff.
+                Escalation here is not failure. It is proof the boundary held. Clinical and uncertain calls stayed with staff.
               </p>
             </div>
           </div>
@@ -455,7 +455,7 @@ function ControlRoomSection() {
                 97%
               </p>
               <p className="mt-3 text-sm leading-relaxed text-peach/74">
-                Booking demand answered across open and after-hours, without stretching the day.
+                Routine booking demand captured across open hours and after-hours, without stretching the day.
               </p>
             </article>
 
