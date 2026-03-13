@@ -337,6 +337,44 @@
     z-index: 1;
   }
 
+  /* Medical positioning cards: dark glass with subtle mint glows */
+  .positioning-card-glow-1 {
+    background:
+      radial-gradient(420px 260px at 8% 0%, rgba(154, 240, 225, 0.14), transparent 60%),
+      linear-gradient(180deg, rgba(7, 10, 16, 0.98), rgba(7, 10, 16, 0.94));
+  }
+
+  .positioning-card-glow-2 {
+    background:
+      radial-gradient(420px 260px at 92% 6%, rgba(154, 240, 225, 0.14), transparent 62%),
+      linear-gradient(180deg, rgba(7, 10, 16, 0.98), rgba(7, 10, 16, 0.94));
+  }
+
+  .positioning-card-glow-3 {
+    background:
+      radial-gradient(420px 260px at 18% 100%, rgba(154, 240, 225, 0.12), transparent 60%),
+      linear-gradient(180deg, rgba(7, 10, 16, 0.98), rgba(7, 10, 16, 0.94));
+  }
+
+  .positioning-card-glow-4 {
+    background:
+      radial-gradient(420px 260px at 88% 96%, rgba(154, 240, 225, 0.12), transparent 60%),
+      linear-gradient(180deg, rgba(7, 10, 16, 0.98), rgba(7, 10, 16, 0.94));
+  }
+
+  /* Medical boundary cards: offset mint washes so left/right differ */
+  .boundary-lane-glow-left {
+    background:
+      radial-gradient(520px 320px at 6% 0%, rgba(154, 240, 225, 0.14), transparent 65%),
+      linear-gradient(180deg, rgba(7, 10, 16, 0.98), rgba(7, 10, 16, 0.94));
+  }
+
+  .boundary-lane-glow-right {
+    background:
+      radial-gradient(520px 320px at 96% 0%, rgba(154, 240, 225, 0.14), transparent 65%),
+      linear-gradient(180deg, rgba(7, 10, 16, 0.98), rgba(7, 10, 16, 0.94));
+  }
+
   .magnetic-button {
     @apply relative overflow-hidden transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98];
   }

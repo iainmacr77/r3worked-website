@@ -233,31 +233,31 @@ function PositioningSection() {
   return (
     <section
       id="features"
-      className="section-offset relative -mt-24 w-full overflow-hidden bg-[#08111b] px-6 pb-20 pt-44 md:-mt-28 md:px-16 md:pb-24 md:pt-52"
+      className="section-offset medical-light-section relative mt-0 w-full overflow-hidden px-6 pb-20 pt-44 md:mt-0 md:px-16 md:pb-24 md:pt-52"
     >
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-x-0 top-0 h-64 bg-[linear-gradient(180deg,#070A10_0%,rgba(7,10,16,0.98)_24%,rgba(7,11,18,0.9)_48%,rgba(8,17,27,0.6)_78%,rgba(8,17,27,0)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.008),rgba(255,255,255,0.035)_34%,rgba(255,255,255,0.02)_100%)]" />
-        <div className="absolute left-[-6%] top-28 h-64 w-64 rounded-full bg-[#8de5d5]/10 blur-[120px]" />
-        <div className="absolute right-[-4%] top-[34%] h-80 w-80 rounded-full bg-[#8de5d5]/8 blur-[150px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(141,229,213,0.05),transparent_36%)]" />
-      </div>
-
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         <SectionHeading
           eyebrow="WHAT LOLA IS"
           eyebrowClassName="text-[#8de5d5] tracking-[0.2em]"
           title="A voice booking layer added to the clinic you already run."
           subtitle="This is not a clinical AI assistant and it is not a rip-and-replace project. Lola sits around real clinic operations, takes routine phone pressure off the desk, and makes the outcome measurable."
-          titleClassName="type-h2 max-w-[14ch] text-peach"
-          subtitleClassName="max-w-[58ch] text-peach/80"
+          titleClassName="type-h2 max-w-[14ch] text-ink"
+          subtitleClassName="max-w-[58ch] text-charcoal/90"
         />
 
         <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {POSITIONING_CARDS.map((card) => (
+          {POSITIONING_CARDS.map((card, index) => (
             <article
               key={card.title}
-              className="rounded-[1.75rem] border border-white/10 bg-white/[0.045] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.28)] backdrop-blur-md transition-[border-color,box-shadow,transform,background-color] duration-300 ease-out hover:border-white/20 hover:-translate-y-0.5 hover:bg-white/[0.055] hover:shadow-[0_28px_64px_rgba(0,0,0,0.32),0_0_0_1px_rgba(255,255,255,0.06)]"
+              className={`rounded-[1.75rem] border border-white/12 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.4)] backdrop-blur-md transition-[border-color,box-shadow,transform,background-color] duration-300 ease-out hover:border-white/20 hover:-translate-y-0.5 hover:shadow-[0_28px_64px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.06)] ${
+                index === 0
+                  ? "positioning-card-glow-1"
+                  : index === 1
+                  ? "positioning-card-glow-2"
+                  : index === 2
+                  ? "positioning-card-glow-3"
+                  : "positioning-card-glow-4"
+              }`}
             >
               <h3 className="text-2xl font-semibold tracking-tight text-white">
                 {card.title}
@@ -294,10 +294,10 @@ function WhyLolaSection() {
         <div className="mx-auto max-w-4xl">
           <SectionHeading
             eyebrowClassName="text-[#156e60] tracking-[0.2em]"
-            title="The phone keeps pulling reception away from the clinic."
+            title="Routine calls keep breaking your reception's flow."
             subtitle="Bookings, changes, FAQs, and callbacks all compete with the patient standing in front of the desk."
             className="justify-items-center text-center"
-            titleClassName="type-h2-serif max-w-[18ch] text-center text-charcoal"
+            titleClassName="type-h2-serif text-center text-charcoal max-w-[18ch] md:max-w-[22ch]"
             subtitleClassName="max-w-[42ch] text-center text-charcoal/82"
           />
         </div>
@@ -345,7 +345,9 @@ function BoundaryLane({
 }) {
   return (
     <article
-      className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] p-6 shadow-[0_26px_74px_rgba(0,0,0,0.3)] backdrop-blur-md transition-[border-color,box-shadow,transform,background-color] duration-300 ease-out hover:border-white/20 hover:-translate-y-0.5 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.04))] hover:shadow-[0_28px_64px_rgba(0,0,0,0.32),0_0_0_1px_rgba(255,255,255,0.06)] md:p-7"
+      className={`rounded-[2rem] border border-white/12 p-6 shadow-[0_26px_74px_rgba(0,0,0,0.45)] backdrop-blur-md transition-[border-color,box-shadow,transform,background-color] duration-300 ease-out hover:border-white/20 hover:-translate-y-0.5 hover:shadow-[0_28px_64px_rgba(0,0,0,0.55),0_0_0_1px_rgba(255,255,255,0.06)] md:p-7 ${
+        accent ? "boundary-lane-glow-right" : "boundary-lane-glow-left"
+      }`}
     >
       <div className="flex items-start justify-between gap-4">
         <div>

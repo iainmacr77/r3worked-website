@@ -71,7 +71,11 @@ export function Navbar() {
       >
         <Link href="/" className="flex-shrink-0">
           <div className="hidden md:block">
-            <Logo theme="light" className="w-32 text-white lg:w-40" />
+            <Logo
+              theme="light"
+              className="w-32 text-white lg:w-40"
+              accentColor={isMedical ? "#9aeee0" : "#FF6B6B"}
+            />
           </div>
           <div className="md:hidden">
             <BrandMark className="h-10 w-10" />
@@ -105,7 +109,7 @@ export function Navbar() {
               href="/medical"
               className={cn(
                 "rounded-full px-3 py-1.5 transition-colors",
-                isMedical ? "bg-coral text-white" : "text-peach/85 hover:text-peach"
+                isMedical ? "bg-[#9aeee0] text-ink" : "text-peach/85 hover:text-peach"
               )}
             >
               For Medical
@@ -113,7 +117,12 @@ export function Navbar() {
           </div>
           <Link
             href="/book"
-            className="magnetic-button rounded-full bg-coral px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-coral/20 hover:bg-coral/90"
+            className={cn(
+              "magnetic-button rounded-full px-6 py-2.5 text-sm font-semibold shadow-lg transition-colors",
+              isMedical
+                ? "bg-[#9aeee0] text-ink shadow-[0_10px_24px_rgba(154,238,224,0.35)] hover:bg-[#8ae5d6]"
+                : "bg-coral text-white shadow-coral/20 hover:bg-coral/90"
+            )}
           >
             Book Demo
           </Link>
@@ -130,7 +139,11 @@ export function Navbar() {
       >
         <Link href="/" className="flex-shrink-0">
           <div className="hidden md:block">
-            <Logo theme="light" className="w-32 text-white lg:w-40" />
+            <Logo
+              theme="light"
+              className="w-32 text-white lg:w-40"
+              accentColor={isMedical ? "#9aeee0" : "#FF6B6B"}
+            />
           </div>
           <div className="md:hidden">
             <BrandMark className="h-10 w-10" />
@@ -164,7 +177,7 @@ export function Navbar() {
               href="/medical"
               className={cn(
                 "rounded-full px-3 py-1.5 transition-colors",
-                isMedical ? "bg-coral text-white" : "text-peach/85 hover:text-peach"
+                isMedical ? "bg-[#9aeee0] text-ink" : "text-peach/85 hover:text-peach"
               )}
             >
               For Medical
@@ -172,7 +185,12 @@ export function Navbar() {
           </div>
           <Link
             href="/book"
-            className="magnetic-button rounded-full bg-coral px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-coral/20 hover:bg-coral/90"
+            className={cn(
+              "magnetic-button rounded-full px-6 py-2.5 text-sm font-semibold shadow-lg transition-colors",
+              isMedical
+                ? "bg-[#9aeee0] text-ink shadow-[0_10px_24px_rgba(154,238,224,0.35)] hover:bg-[#8ae5d6]"
+                : "bg-coral text-white shadow-coral/20 hover:bg-coral/90"
+            )}
           >
             Book Demo
           </Link>
@@ -193,7 +211,11 @@ export function Navbar() {
             className="inline-flex h-12 items-center rounded-full border border-charcoal bg-ink/88 px-4 text-peach shadow-[0_10px_24px_rgba(10,10,18,0.35)] backdrop-blur-md"
           >
             <div className="hidden md:block">
-              <Logo theme="light" className="w-28 text-white lg:w-32" />
+              <Logo
+                theme="light"
+                className="w-28 text-white lg:w-32"
+                accentColor={isMedical ? "#9aeee0" : "#FF6B6B"}
+              />
             </div>
             <div className="md:hidden">
               <BrandMark className="h-10 w-10" />
