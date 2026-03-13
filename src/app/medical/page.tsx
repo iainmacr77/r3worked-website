@@ -117,38 +117,38 @@ const OUTCOME_LOG = [
 
 const PLANS = [
   {
-    name: "Starter",
-    audience: "For solo or lower-complexity clinics",
-    accent: "Google Calendar path",
+    name: "Solo",
+    audience: "For single-provider or lower-complexity clinics",
+    accent: "Single provider",
     items: [
-      "Voice handling for bookings, reschedules, and cancellations",
-      "Non-clinical FAQ coverage",
-      "High-level reason-for-visit capture",
+      "Routine booking and rescheduling by voice",
+      "Non-clinical handling; clinical boundary held",
+      "Reason-for-visit capture so the clinic is prepared",
       "Fastest path to a live booking layer",
     ],
     featured: false,
   },
   {
     name: "Practice",
-    audience: "For established clinics and busy reception teams",
-    accent: "Most clinics start here",
+    audience: "For established clinics with busy reception flow",
+    accent: "Busy reception",
     items: [
-      "Existing scheduling system compatibility",
-      "Receptionist confirm mode",
+      "Fits your existing scheduling system",
+      "Receptionist confirm mode when you need it",
       "After-hours capture and waitlist recovery",
-      "Audit trail plus operational metrics",
+      "Audit trail and operational visibility",
     ],
     featured: true,
   },
   {
     name: "Multi-Provider",
-    audience: "For larger diaries, providers, and service lines",
-    accent: "Richer routing and reporting",
+    audience: "For larger diaries, provider groups, and service lines",
+    accent: "Multi-provider",
     items: [
-      "Multi-provider booking logic",
-      "Advanced call outcome segmentation",
-      "Expanded metrics and exports",
-      "Implementation scoped to more complex operations",
+      "Multi-provider booking and routing logic",
+      "Richer call outcome and handoff visibility",
+      "Expanded reporting for complex operations",
+      "Scoped for larger diaries and service lines",
     ],
     featured: false,
   },
@@ -511,16 +511,17 @@ function PricingSection() {
       className="section-offset w-full bg-[#08111b] px-6 py-20 md:px-16 md:py-24"
     >
       <div className="mx-auto w-full max-w-7xl">
-        <SectionHeading
-          eyebrow="PRICING"
-          eyebrowClassName="text-[#8de5d5] tracking-[0.2em]"
-          title="Clinic plans shaped around operational complexity."
-          subtitle="The difference between tiers is not marketing fluff. It is scheduling complexity, routing depth, and how much control and reporting your clinic needs."
-          titleClassName="type-h2-serif max-w-[12ch] text-peach"
-          subtitleClassName="max-w-[54ch] text-peach/80"
-        />
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionHeading
+            title="No two clinics carry the same load."
+            subtitle="Lola is scoped around operational complexity — from simpler single-provider setups to busier reception teams and more complex multi-provider environments."
+            className="justify-items-center text-center"
+            titleClassName="type-h2-serif text-center text-peach max-w-[14ch] md:max-w-[18ch] mx-auto"
+            subtitleClassName="max-w-[48ch] text-center text-peach/80 mx-auto"
+          />
+        </div>
 
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 lg:grid-cols-3">
           {PLANS.map((plan) => (
             <article
               key={plan.name}
