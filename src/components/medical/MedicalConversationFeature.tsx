@@ -124,7 +124,7 @@ export function MedicalConversationFeature() {
             <div className="relative z-10">
                 <div className="mb-3 flex items-start justify-between gap-4">
                     <div>
-                        <p className="font-jetbrains text-[10px] uppercase tracking-[0.16em] text-white/48">
+                        <p className="type-eyebrow font-semibold tracking-[0.16em] text-white/75">
                             ROUTINE CALL FLOW
                         </p>
                         <h3 className="mt-2 font-outfit text-xl font-semibold text-white">Natural conversation with a visible boundary</h3>

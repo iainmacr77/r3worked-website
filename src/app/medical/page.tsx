@@ -101,18 +101,18 @@ const STORY_SECTIONS = [
 ];
 
 const METRIC_CARDS = [
-  { label: "Call answer rate", value: "97%", detail: "Routine booking demand answered across open and after-hours windows." },
-  { label: "After-hours capture", value: "26", detail: "Booking intents that would otherwise have landed in voicemail or nowhere." },
-  { label: "Recovered slots", value: "38", detail: "Cancelled appointments rebooked into live capacity this month." },
-  { label: "Escalation rate", value: "11%", detail: "A visible handoff measure that proves clinical questions stayed with staff." },
-  { label: "Reception minutes saved", value: "19h", detail: "Time returned to the front desk from routine phone handling." },
+  { label: "Routine demand captured", value: "97%", detail: "Booking demand answered across open and after-hours, without stretching the day." },
+  { label: "After-hours intents", value: "26", detail: "Booking intents captured that would otherwise have hit voicemail or been lost." },
+  { label: "Slots refilled", value: "38", detail: "Cancelled appointments rebooked into live capacity this period." },
+  { label: "Handoff to staff", value: "11%", detail: "Calls handed to reception or clinical staff. The boundary working as intended." },
+  { label: "Reception time returned", value: "19h", detail: "Time returned to the front desk from routine phone handling." },
 ];
 
 const OUTCOME_LOG = [
-  "08:14 Reschedule completed · Dr Shah · confirmed by caller",
-  "10:05 Clinical question escalated · routed to reception in 14s",
-  "12:42 Cancellation recovered · waitlist patient booked into open slot",
-  "18:26 After-hours booking captured · queued into tomorrow's diary",
+  "08:14 Reschedule completed · Dr Shah · caller confirmed",
+  "10:05 Clinical question escalated · handed to reception, 14s",
+  "12:42 Slot refilled · waitlist patient into cancelled slot",
+  "18:26 After-hours intent captured · queued for tomorrow",
 ];
 
 const PLANS = [
@@ -237,6 +237,8 @@ function PositioningSection() {
     >
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         <SectionHeading
+          eyebrow="PRACTICE OPERATIONS, NOT MEDICAL AI"
+          eyebrowClassName="text-teal-600 font-semibold tracking-[0.16em]"
           title="A voice booking layer added to the clinic you already run."
           subtitle="This is not a clinical AI assistant and it is not a rip-and-replace project. Lola sits around real clinic operations, takes routine phone pressure off the desk, and makes the outcome measurable."
           titleClassName="type-h2 max-w-[14ch] text-ink"
@@ -397,7 +399,7 @@ function StoryFeatureSection({
           </div>
         </div>
         <div className={`${cardOnLeft ? "order-2" : "order-1"} section-header`}>
-          <p className="font-jetbrains text-[10px] uppercase tracking-[0.18em] text-[#156e60]">
+          <p className="type-eyebrow font-semibold tracking-[0.16em] text-teal-600">
             {eyebrow}
           </p>
           <h2 className="type-h2 max-w-[13ch] text-ink">{title}</h2>
@@ -429,7 +431,7 @@ function ControlRoomSection() {
               eyebrow="CLINIC CONTROL ROOM"
               eyebrowClassName="text-[#8de5d5] tracking-[0.2em]"
               title="A calm picture of access, pressure, and handoff."
-              subtitle="Clinic owners should be able to see whether the phone was answered, whether lost capacity was recovered, and whether the clinical boundary held. That is the value layer."
+              subtitle="What was absorbed, what capacity was recovered, and whether the clinical boundary held. The readout that actually matters."
               titleClassName="type-h2 max-w-[12ch] text-peach"
               subtitleClassName="max-w-[40ch] text-peach/80"
             />
@@ -439,9 +441,7 @@ function ControlRoomSection() {
                 Leadership readout
               </p>
               <p className="mt-3 text-sm leading-relaxed text-peach/82">
-                A healthy escalation rate is not a failure signal here. It is
-                proof that clinical and uncertain calls stayed with staff rather
-                than drifting into automation.
+                Escalation here isn’t failure — it’s proof the boundary held. Clinical and uncertain calls stayed with staff.
               </p>
             </div>
           </div>
@@ -449,14 +449,13 @@ function ControlRoomSection() {
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             <article className="rounded-[1.6rem] border border-white/10 bg-[#0c1621]/84 p-5 md:col-span-2 xl:col-span-1">
               <p className="font-jetbrains text-[10px] uppercase tracking-[0.14em] text-white/52">
-                Answer rate
+                Routine demand captured
               </p>
               <p className="mt-3 text-6xl font-semibold tracking-[-0.05em] text-white">
                 97%
               </p>
               <p className="mt-3 text-sm leading-relaxed text-peach/74">
-                Routine booking demand captured across open and after-hours
-                windows, without asking staff to stretch the day further.
+                Booking demand answered across open and after-hours, without stretching the day.
               </p>
             </article>
 
@@ -486,7 +485,7 @@ function ControlRoomSection() {
             </p>
             <div className="flex items-center gap-2 text-sm text-peach/64">
               <Clock3 className="h-4 w-4 text-[#8ee7d7]" />
-              Timestamped actions and escalation tags
+              Timestamped actions and handoff tags
             </div>
           </div>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
