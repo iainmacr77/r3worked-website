@@ -233,12 +233,10 @@ function PositioningSection() {
   return (
     <section
       id="features"
-      className="section-offset medical-light-section relative mt-0 w-full overflow-hidden px-6 pb-20 pt-44 md:mt-0 md:px-16 md:pb-24 md:pt-52"
+      className="section-offset medical-light-section relative mt-0 w-full overflow-hidden px-6 pb-20 pt-20 md:mt-0 md:px-16 md:pb-24 md:pt-24"
     >
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         <SectionHeading
-          eyebrow="WHAT LOLA IS"
-          eyebrowClassName="text-[#8de5d5] tracking-[0.2em]"
           title="A voice booking layer added to the clinic you already run."
           subtitle="This is not a clinical AI assistant and it is not a rip-and-replace project. Lola sits around real clinic operations, takes routine phone pressure off the desk, and makes the outcome measurable."
           titleClassName="type-h2 max-w-[14ch] text-ink"

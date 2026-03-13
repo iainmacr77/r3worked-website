@@ -135,10 +135,15 @@ export function NarrativeBreaker({
 
       <div className="relative mx-auto w-full max-w-7xl">
         <div className="rounded-[2rem] border border-white/[0.15] bg-white/[0.03] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_34px_70px_rgba(0,0,0,0.5)] backdrop-blur-sm md:p-10">
-          <p className="mb-4 inline-flex items-center gap-2 whitespace-nowrap font-jetbrains text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-white/60">
-            <span className={cn("inline-block h-1.5 w-1.5 rounded-full", eyebrowDotClassName)} aria-hidden />
-            <span>WHAT LOLA DOES</span>
-          </p>
+          <div
+            className="mb-5 inline-flex w-fit items-center rounded-full border border-white/10 bg-white/[0.055] px-3 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md"
+            aria-hidden
+          >
+            <span className={cn("h-1.5 w-1.5 shrink-0 rounded-full", eyebrowDotClassName)} />
+            <span className="ml-2 font-jetbrains text-[10px] font-semibold uppercase tracking-[0.16em] text-[#f3ece3]">
+              WHAT LOLA DOES
+            </span>
+          </div>
           <h2 className="max-w-[26ch] font-outfit text-3xl font-semibold leading-tight text-white md:text-5xl">
             <AnimatedWords
               text={headline}
