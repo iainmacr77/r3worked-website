@@ -27,12 +27,12 @@ const TOP_INTENTS = [
 ] as const;
 
 const SIGNAL_TILES = [
-  { value: "312", label: "Calls received", detail: "Peak-hour demand, measured." },
-  { value: "97%", label: "Calls answered", detail: "No voicemail. No missed revenue." },
-  { value: "32", label: "Bookings created", detail: "Captured instantly, confirmed." },
-  { value: "18", label: "Amendments handled", detail: "Time + party changes resolved." },
-  { value: "7", label: "Running-late updates", detail: "Guests keep you informed." },
-  { value: "12", label: "FAQs resolved", detail: "Staff uninterrupted." },
+  { value: "312", label: "Demand logged", detail: "Peak-hour volume, fully captured." },
+  { value: "97%", label: "Answer rate", detail: "No voicemail. No missed revenue." },
+  { value: "32", label: "Covers confirmed", detail: "Bookings captured and confirmed in real time." },
+  { value: "18", label: "Amendments resolved", detail: "Time and party changes without staff." },
+  { value: "7", label: "Late notices", detail: "Guests kept you informed." },
+  { value: "12", label: "FAQs resolved", detail: "Handled without pulling staff off the floor." },
 ] as const;
 
 const TICKER_ITEMS = [
@@ -97,7 +97,7 @@ export function ControlRoomMetrics() {
           data-control-reveal
           className="control-reveal space-y-4 lg:col-span-5 lg:space-y-5"
         >
-          <p className="type-eyebrow text-peach/70">PHASE 03</p>
+          <p className="type-eyebrow text-coral">PHASE 03</p>
           <h2 className="type-h2 text-peach">The Control Room</h2>
           <p className="type-lead max-w-[34ch] text-peach/82">
             Your phone becomes a dataset. Not just answered — understood.
