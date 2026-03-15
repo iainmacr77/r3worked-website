@@ -1,294 +1,131 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Logo, BrandMark } from "./Logo";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-
-type NavMode = "top" | "hero" | "compact";
-
-const HERO_PILL_START_PX = 56;
-const HERO_EXIT_OFFSET_PX = 0;
+import {
+  NavbarLogoLink,
+  NavbarPrimaryCta,
+  NavbarVerticalSwitcher,
+} from "./navbar-system";
+import { useNavbarVisibility } from "./useNavbarVisibility";
 
 export function Navbar() {
-  const [navMode, setNavMode] = useState<NavMode>("top");
-  const [compactMenuOpen, setCompactMenuOpen] = useState(false);
-  const latestModeRef = useRef<NavMode>("top");
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const isMedical = pathname === "/medical";
+  const { isVisible, isAtTop } = useNavbarVisibility({
+    topOffset: 28,
+    hideAfter: 120,
+    forceVisible: menuOpen,
+  });
+  const accentColor = isMedical ? "#8DE5D5" : "#FF6B6B";
 
   const scrollToAnchor = (id: "#features" | "#framework" | "#pricing") => {
-    setCompactMenuOpen(false);
+    setMenuOpen(false);
     const target = document.querySelector(id);
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
-  useEffect(() => {
-    const updateNavMode = () => {
-      const y = window.scrollY;
-      const heroEl = document.getElementById("hero");
-      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : Number.MAX_SAFE_INTEGER;
-
-      let targetMode: NavMode = "top";
-      if (y > HERO_PILL_START_PX && y < heroBottom + HERO_EXIT_OFFSET_PX) {
-        targetMode = "hero";
-      } else if (y >= heroBottom + HERO_EXIT_OFFSET_PX) {
-        targetMode = "compact";
-      }
-
-      if (latestModeRef.current !== targetMode) {
-        latestModeRef.current = targetMode;
-        if (targetMode !== "compact") {
-          setCompactMenuOpen(false);
-        }
-        setNavMode(targetMode);
-      }
-    };
-
-    updateNavMode();
-    window.addEventListener("scroll", updateNavMode, { passive: true });
-    window.addEventListener("resize", updateNavMode);
-
-    return () => {
-      window.removeEventListener("scroll", updateNavMode);
-      window.removeEventListener("resize", updateNavMode);
-    };
-  }, []);
-
   return (
-    <div className="fixed left-1/2 top-6 z-50 h-[76px] w-[95%] max-w-7xl -translate-x-1/2">
-      <nav
-        className={cn(
-          "absolute inset-0 flex items-center justify-between px-6 py-4 text-peach/95 transition-all duration-200 ease-out",
-          navMode === "top"
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-2 opacity-0"
-        )}
-      >
-        <Link href="/" className="flex-shrink-0">
-          <div className="hidden md:block">
-            <Logo
-              theme="light"
-              className="w-32 text-white lg:w-40"
-              accentColor={isMedical ? "#9aeee0" : "#FF6B6B"}
-            />
-          </div>
-          <div className="md:hidden">
-            <BrandMark className="h-10 w-10" />
-          </div>
-        </Link>
-
-        <div className="hidden items-center space-x-8 text-sm font-medium tracking-wide md:flex">
-          <Link href="#features" className="transition-colors hover:text-peach">
-            Features
-          </Link>
-          <Link href="#framework" className="transition-colors hover:text-peach">
-            Framework
-          </Link>
-          <Link href="#pricing" className="transition-colors hover:text-peach">
-            Pricing
-          </Link>
-        </div>
-
-        <div className="hidden items-center gap-3 md:flex">
-          <div className="inline-flex items-center rounded-full border border-charcoal/30 bg-ink/45 p-1 text-xs font-medium">
-            <Link
-              href="/restaurants"
-              className={cn(
-                "rounded-full px-3 py-1.5 transition-colors",
-                !isMedical ? "bg-coral text-white" : "text-peach/85 hover:text-peach"
-              )}
-            >
-              For Restaurants
-            </Link>
-            <Link
-              href="/medical"
-              className={cn(
-                "rounded-full px-3 py-1.5 transition-colors",
-                isMedical ? "bg-[#9aeee0] text-ink" : "text-peach/85 hover:text-peach"
-              )}
-            >
-              For Medical
-            </Link>
-          </div>
-          <Link
-            href="/book"
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        isVisible ? "translate-y-0 opacity-100" : "-translate-y-[105%] opacity-0"
+      )}
+    >
+      <div className="mx-auto mt-4 w-[95%] max-w-7xl">
+        <div className="relative">
+          <nav
             className={cn(
-              "magnetic-button rounded-full px-6 py-2.5 text-sm font-semibold shadow-lg transition-colors",
-              isMedical
-                ? "bg-[#9aeee0] text-ink shadow-[0_10px_24px_rgba(154,238,224,0.35)] hover:bg-[#8ae5d6]"
-                : "bg-coral text-white shadow-coral/20 hover:bg-coral/90"
+              "flex h-[70px] items-center justify-between rounded-full border px-5 text-peach backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-500 md:px-6",
+              isAtTop
+                ? "border-white/10 bg-[rgba(17,20,30,0.58)] shadow-[0_12px_26px_rgba(10,10,18,0.18)]"
+                : "border-white/12 bg-[rgba(17,20,30,0.82)] shadow-[0_16px_34px_rgba(10,10,18,0.28)]"
             )}
           >
-            Book Demo
-          </Link>
-        </div>
-      </nav>
-
-      <nav
-        className={cn(
-          "absolute inset-0 flex items-center justify-between rounded-full border border-charcoal bg-ink/80 px-6 py-4 text-white shadow-[0_10px_30px_rgba(10,10,18,0.35)] backdrop-blur-md transition-all duration-200 ease-out",
-          navMode === "hero"
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-2 opacity-0 bg-ink/80 border-charcoal"
-        )}
-      >
-        <Link href="/" className="flex-shrink-0">
-          <div className="hidden md:block">
-            <Logo
+            <NavbarLogoLink
               theme="light"
-              className="w-32 text-white lg:w-40"
-              accentColor={isMedical ? "#9aeee0" : "#FF6B6B"}
+              accentColor={accentColor}
+              desktopLogoClassName="w-28 text-white lg:w-32"
+              mobileMarkClassName="h-9 w-9"
             />
-          </div>
-          <div className="md:hidden">
-            <BrandMark className="h-10 w-10" />
-          </div>
-        </Link>
 
-        <div className="hidden items-center space-x-8 text-sm font-medium tracking-wide md:flex">
-          <Link href="#features" className="transition-colors hover:text-coral">
-            Features
-          </Link>
-          <Link href="#framework" className="transition-colors hover:text-coral">
-            Framework
-          </Link>
-          <Link href="#pricing" className="transition-colors hover:text-coral">
-            Pricing
-          </Link>
-        </div>
+            <div className="hidden items-center gap-8 text-[13px] font-medium tracking-wide md:flex">
+              <Link href="#features" className="transition-colors hover:text-peach">
+                Features
+              </Link>
+              <Link href="#framework" className="transition-colors hover:text-peach">
+                Framework
+              </Link>
+              <Link href="#pricing" className="transition-colors hover:text-peach">
+                Pricing
+              </Link>
+            </div>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <div className="inline-flex items-center rounded-full border border-charcoal/50 bg-ink/70 p-1 text-xs font-medium text-peach">
-            <Link
-              href="/restaurants"
-              className={cn(
-                "rounded-full px-3 py-1.5 transition-colors",
-                !isMedical ? "bg-coral text-white" : "text-peach/85 hover:text-peach"
-              )}
-            >
-              For Restaurants
-            </Link>
-            <Link
-              href="/medical"
-              className={cn(
-                "rounded-full px-3 py-1.5 transition-colors",
-                isMedical ? "bg-[#9aeee0] text-ink" : "text-peach/85 hover:text-peach"
-              )}
-            >
-              For Medical
-            </Link>
-          </div>
-          <Link
-            href="/book"
+            <div className="hidden items-center gap-3 md:flex">
+              <NavbarVerticalSwitcher
+                activeVertical={isMedical ? "medical" : "restaurants"}
+              />
+              <NavbarPrimaryCta href="/book">Book Demo</NavbarPrimaryCta>
+            </div>
+
+            <div className="flex items-center gap-2 md:hidden">
+              <NavbarPrimaryCta href="/book" className="min-h-10 px-4 py-2 text-sm">
+                Book Demo
+              </NavbarPrimaryCta>
+              <button
+                aria-label="Toggle navigation menu"
+                aria-expanded={menuOpen}
+                onClick={() => setMenuOpen((prev) => !prev)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-peach transition-colors hover:bg-white/[0.08]"
+              >
+                {menuOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
+          </nav>
+
+          <div
             className={cn(
-              "magnetic-button rounded-full px-6 py-2.5 text-sm font-semibold shadow-lg transition-colors",
-              isMedical
-                ? "bg-[#9aeee0] text-ink shadow-[0_10px_24px_rgba(154,238,224,0.35)] hover:bg-[#8ae5d6]"
-                : "bg-coral text-white shadow-coral/20 hover:bg-coral/90"
+              "absolute inset-x-0 top-[calc(100%+0.7rem)] rounded-[1.5rem] border border-white/10 bg-[rgba(17,20,30,0.95)] p-3 text-peach shadow-[0_18px_36px_rgba(10,10,18,0.34)] backdrop-blur-xl transition-all duration-300 ease-out md:hidden",
+              menuOpen
+                ? "pointer-events-auto translate-y-0 opacity-100"
+                : "pointer-events-none -translate-y-2 opacity-0"
             )}
           >
-            Book Demo
-          </Link>
-        </div>
-      </nav>
-
-      <div
-        className={cn(
-          "absolute inset-0 transition-all duration-200 ease-out",
-          navMode === "compact"
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none translate-y-2 opacity-0"
-        )}
-      >
-        <div className="flex h-full items-center justify-between gap-3">
-          <Link
-            href="/"
-            className="inline-flex h-12 items-center rounded-full border border-charcoal bg-ink/88 px-4 text-peach shadow-[0_10px_24px_rgba(10,10,18,0.35)] backdrop-blur-md"
-          >
-            <div className="hidden md:block">
-              <Logo
-                theme="light"
-                className="w-28 text-white lg:w-32"
-                accentColor={isMedical ? "#9aeee0" : "#FF6B6B"}
+            <div className="mb-3">
+              <NavbarVerticalSwitcher
+                activeVertical={isMedical ? "medical" : "restaurants"}
+                compact
+                onNavigate={() => setMenuOpen(false)}
               />
             </div>
-            <div className="md:hidden">
-              <BrandMark className="h-10 w-10" />
-            </div>
-          </Link>
 
-          <div className="relative flex items-center gap-2 md:gap-3">
-            <Link
-              href="/book"
-              className="magnetic-button inline-flex h-12 items-center rounded-full border border-charcoal bg-ink/88 px-4 text-sm font-semibold text-peach shadow-[0_10px_24px_rgba(10,10,18,0.35)] backdrop-blur-md transition-colors hover:bg-ink/95 md:px-5"
-            >
-              Book Demo
-            </Link>
             <button
-              aria-label="Toggle navigation menu"
-              aria-expanded={compactMenuOpen}
-              onClick={() => setCompactMenuOpen((prev) => !prev)}
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-charcoal bg-ink/88 text-peach shadow-[0_10px_24px_rgba(10,10,18,0.35)] backdrop-blur-md transition-colors hover:bg-ink/95"
+              onClick={() => scrollToAnchor("#features")}
+              className="w-full rounded-xl px-3 py-2 text-left text-sm font-medium transition-colors hover:bg-white/[0.06]"
             >
-              {compactMenuOpen ? <X size={18} /> : <Menu size={18} />}
+              Features
             </button>
-            <div
-              className={cn(
-                "absolute right-0 top-[calc(100%+0.65rem)] w-56 rounded-2xl border border-charcoal bg-ink/95 p-2 text-peach shadow-[0_16px_34px_rgba(10,10,18,0.45)] transition-all duration-200 ease-out",
-                compactMenuOpen
-                  ? "translate-y-0 pointer-events-auto opacity-100"
-                  : "-translate-y-2 pointer-events-none opacity-0"
-              )}
+            <button
+              onClick={() => scrollToAnchor("#framework")}
+              className="w-full rounded-xl px-3 py-2 text-left text-sm font-medium transition-colors hover:bg-white/[0.06]"
             >
-              <div className="mb-2 inline-flex w-full items-center rounded-xl border border-charcoal/80 bg-ink/80 p-1 text-[11px]">
-                <Link
-                  href="/restaurants"
-                  onClick={() => setCompactMenuOpen(false)}
-                  className={cn(
-                    "flex-1 rounded-lg px-2 py-1.5 text-center transition-colors",
-                    !isMedical ? "bg-coral text-white" : "text-peach/85"
-                  )}
-                >
-                  For Restaurants
-                </Link>
-                <Link
-                  href="/medical"
-                  onClick={() => setCompactMenuOpen(false)}
-                  className={cn(
-                    "flex-1 rounded-lg px-2 py-1.5 text-center transition-colors",
-                    isMedical ? "bg-coral text-white" : "text-peach/85"
-                  )}
-                >
-                  For Medical
-                </Link>
-              </div>
-              <button
-                onClick={() => scrollToAnchor("#features")}
-                className="w-full rounded-xl px-3 py-2 text-left text-sm font-medium transition-colors hover:bg-peach/10"
-              >
-                Features
-              </button>
-              <button
-                onClick={() => scrollToAnchor("#framework")}
-                className="w-full rounded-xl px-3 py-2 text-left text-sm font-medium transition-colors hover:bg-peach/10"
-              >
-                Framework
-              </button>
-              <button
-                onClick={() => scrollToAnchor("#pricing")}
-                className="w-full rounded-xl px-3 py-2 text-left text-sm font-medium transition-colors hover:bg-peach/10"
-              >
-                Pricing
-              </button>
-            </div>
+              Framework
+            </button>
+            <button
+              onClick={() => scrollToAnchor("#pricing")}
+              className="w-full rounded-xl px-3 py-2 text-left text-sm font-medium transition-colors hover:bg-white/[0.06]"
+            >
+              Pricing
+            </button>
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
