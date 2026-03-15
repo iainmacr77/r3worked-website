@@ -30,11 +30,6 @@ const PAIN_SLIDES: PainSlide[] = [
     body: "Hosts leave guests waiting, pace slows, and service quality drops during your busiest windows.",
   },
   {
-    signal: "Human Error",
-    headline: "Even answered calls still create avoidable mistakes.",
-    body: "Wrong times, misspelled names, and table-size mixups create friction before guests even arrive.",
-  },
-  {
     signal: "Time Drain",
     headline: "FAQ calls consume hours with no upside.",
     body: "Parking, corkage, kids, and dress code questions repeat daily while your team should be focused on service.",
@@ -48,11 +43,6 @@ const PAIN_SLIDES: PainSlide[] = [
     signal: "No Visibility",
     headline: "No call intelligence means no improvement loop.",
     body: "Without tags, patterns, and transcripts, there is nothing to coach, fix, or optimize week over week.",
-  },
-  {
-    signal: "Guest Risk",
-    headline: "VIP and dietary notes still get lost in transit.",
-    body: "Missed preferences lead to weaker guest experiences and erode trust with your most valuable regulars.",
   },
 ];
 

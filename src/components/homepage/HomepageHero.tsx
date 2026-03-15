@@ -191,7 +191,7 @@ export function HomepageHero() {
 
         {/* Subcopy */}
         <p className="type-lead mx-auto mt-8 max-w-[48ch] text-charcoal/66 md:mt-9">
-          Lola answers naturally, captures intent, and moves bookings, questions, and service requests into the right business flow — starting with restaurants and clinics.
+          Lola answers naturally, captures intent, and moves bookings, questions, and service requests into the right business flow — starting with restaurants and medical.
         </p>
 
         {/* CTAs */}

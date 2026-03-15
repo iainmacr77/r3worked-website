@@ -9,7 +9,7 @@ export function HomepageFooter() {
         <div className="flex max-w-xs flex-col gap-6">
           <Logo theme="dark" className="w-32" accentColor="#FF6B6B" />
           <p className="font-outfit text-sm leading-relaxed text-charcoal/50">
-            One voice layer for the real world. Starting with restaurants and clinics.
+            One voice layer for real-world operations. Starting with restaurants and medical.
           </p>
         </div>
 

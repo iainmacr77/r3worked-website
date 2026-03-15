@@ -9,9 +9,9 @@ import { LatestNews } from "@/components/homepage/LatestNews";
 import { HomepageFooter } from "@/components/homepage/HomepageFooter";
 
 export const metadata: Metadata = {
-  title: "Hey Lola | One Voice Layer for the Real World",
+  title: "Hey Lola | One Voice Layer for Real-World Operations",
   description:
-    "Lola answers naturally, captures intent, routes exceptions, and moves bookings, questions, and service requests into the right business flow — starting with restaurants and clinics.",
+    "Lola answers naturally, captures demand, routes exceptions, and moves service requests into the right business flow, with restaurants and medical live today.",
 };
 
 export default function HomePage() {

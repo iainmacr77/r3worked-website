@@ -36,7 +36,7 @@ export function BroaderVision() {
         </h2>
 
         <p className="type-lead mx-auto mt-6 max-w-[50ch] text-charcoal/55">
-          The same voice layer that powers restaurants and clinics today is built to sit across any service that depends on bookings, scheduling, and voice-based demand.
+          The same voice layer that powers restaurants and medical today is built to sit across any service that depends on bookings, scheduling, and voice-based demand.
         </p>
 
         {/* Future category pills with blue accent */}

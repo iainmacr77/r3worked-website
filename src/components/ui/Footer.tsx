@@ -9,7 +9,7 @@ export function Footer() {
                 <div className="flex flex-col gap-8 max-w-sm">
                     <Logo theme="light" className="w-40" />
                     <p className="font-outfit text-charcoal/80 text-lg">
-                        The invisible orchestrator for the world&apos;s finest service teams.
+                        One voice layer for operations that can&apos;t afford to miss a call.
                     </p>
                     <div className="flex items-center gap-3">
                         <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10">
