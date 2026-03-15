@@ -47,7 +47,7 @@ function LolaLayerStage() {
         <div className="relative z-10 flex flex-col gap-6">
           <div className="flex flex-col gap-4 border-b border-black/6 pb-6 md:flex-row md:items-end md:justify-between">
             <div className="max-w-3xl">
-              <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.22em] text-charcoal/42">
+              <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.22em] text-charcoal/48">
                 Lola Layer
               </p>
               <h2 className="mt-3 max-w-[18ch] text-2xl font-semibold tracking-[-0.03em] text-ink md:text-[2.55rem]">
@@ -66,98 +66,97 @@ function LolaLayerStage() {
           <div className="grid gap-4">
             {HERO_LANES.map((lane, index) => {
               const isPrimary = index === 0;
-              const isSecondary = index === 1;
               const isTertiary = index === 2;
 
               return (
-              <div
-                key={lane.id}
-                className={`grid gap-4 overflow-hidden rounded-[1.75rem] border border-white/12 p-5 text-white shadow-[0_26px_74px_rgba(0,0,0,0.45)] backdrop-blur-md md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] md:items-center ${lane.surfaceClass} ${
-                  isPrimary
-                    ? "md:p-7"
-                    : isSecondary
-                    ? "md:p-6"
-                    : "opacity-[0.9] md:p-5"
-                }`}
-              >
-                <div className="flex min-w-0 gap-4">
-                  <div className="flex w-8 shrink-0 flex-col items-center gap-3 pt-1">
-                    <span
-                      className={`h-2.5 w-2.5 rounded-full ${lane.accent}`}
-                    />
-                    <span className="h-full w-px bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0))]" />
+                <div
+                  key={lane.id}
+                  className={`grid gap-4 overflow-hidden rounded-[1.75rem] border border-white/12 p-5 text-white shadow-[0_26px_74px_rgba(0,0,0,0.45)] backdrop-blur-md md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] md:items-center ${lane.surfaceClass} ${
+                    isPrimary ? "md:p-7" : isTertiary ? "opacity-[0.9] md:p-5" : "md:p-6"
+                  }`}
+                >
+                  <div className="flex min-w-0 gap-4">
+                    <div className="flex w-8 shrink-0 flex-col items-center gap-3 pt-1">
+                      <span
+                        className={`h-2.5 w-2.5 rounded-full ${lane.accent}`}
+                      />
+                      <span className="h-full w-px bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0))]" />
+                    </div>
+                    <div className="relative z-10 min-w-0">
+                      <p className="font-jetbrains text-[10px] uppercase tracking-[0.18em] text-white/42">
+                        {lane.label}
+                      </p>
+                      <p
+                        className={`mt-3 font-semibold tracking-[-0.025em] text-white ${
+                          isPrimary
+                            ? "text-[1.45rem] md:text-[1.72rem]"
+                            : isTertiary
+                              ? "text-lg md:text-[1.18rem]"
+                              : "text-xl md:text-[1.38rem]"
+                        }`}
+                      >
+                        {lane.incoming}
+                      </p>
+                      <p
+                        className={`mt-2 leading-relaxed ${
+                          isTertiary
+                            ? "text-[13px] text-white/52"
+                            : "text-sm text-white/62"
+                        }`}
+                      >
+                        {lane.context}
+                      </p>
+                    </div>
                   </div>
-                  <div className="min-w-0 relative z-10">
-                    <p className="font-jetbrains text-[10px] uppercase tracking-[0.18em] text-white/42">
-                      {lane.label}
-                    </p>
-                    <p
-                      className={`mt-3 font-semibold tracking-[-0.025em] text-white ${
-                        isPrimary
-                          ? "text-[1.45rem] md:text-[1.72rem]"
-                          : isTertiary
-                          ? "text-lg md:text-[1.18rem]"
-                          : "text-xl md:text-[1.38rem]"
-                      }`}
-                    >
-                      {lane.incoming}
-                    </p>
-                    <p
-                      className={`mt-2 leading-relaxed ${
-                        isTertiary ? "text-[13px] text-white/52" : "text-sm text-white/62"
-                      }`}
-                    >
-                      {lane.context}
-                    </p>
-                  </div>
-                </div>
 
-                <div className="relative z-10 border-l border-white/10 pl-4 text-left md:pl-6">
-                  <p
-                    className={`font-jetbrains text-[10px] uppercase tracking-[0.18em] ${
-                      isTertiary ? "text-white/36" : "text-white/45"
-                    }`}
-                  >
-                    {lane.state}
-                  </p>
-                  <p
-                    className={`mt-3 max-w-[22ch] font-semibold tracking-[-0.02em] text-white ${
-                      isPrimary
-                        ? "text-[1.18rem] md:text-[1.28rem]"
-                        : isTertiary
-                        ? "text-base text-white/82"
-                        : "text-lg"
-                    }`}
-                  >
-                    {lane.resolution}
-                  </p>
-                  <div className="mt-4 flex items-center justify-between gap-3">
-                    <span
-                      className={`${
-                        isTertiary ? "text-[13px] text-white/48" : "text-sm text-white/62"
+                  <div className="relative z-10 border-l border-white/10 pl-4 text-left md:pl-6">
+                    <p
+                      className={`font-jetbrains text-[10px] uppercase tracking-[0.18em] ${
+                        isTertiary ? "text-white/36" : "text-white/45"
                       }`}
                     >
-                      Logged end to end
-                    </span>
-                    <span
-                      className={`rounded-full ${lane.accent} ${
+                      {lane.state}
+                    </p>
+                    <p
+                      className={`mt-3 max-w-[22ch] font-semibold tracking-[-0.02em] text-white ${
                         isPrimary
-                          ? "h-2 w-16 opacity-82"
+                          ? "text-[1.18rem] md:text-[1.28rem]"
                           : isTertiary
-                          ? "h-1.5 w-10 opacity-60"
-                          : "h-2 w-14 opacity-78"
+                            ? "text-base text-white/82"
+                            : "text-lg"
                       }`}
-                    />
+                    >
+                      {lane.resolution}
+                    </p>
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <span
+                        className={`${
+                          isTertiary
+                            ? "text-[13px] text-white/48"
+                            : "text-sm text-white/62"
+                        }`}
+                      >
+                        Logged end to end
+                      </span>
+                      <span
+                        className={`rounded-full ${lane.accent} ${
+                          isPrimary
+                            ? "h-2 w-16 opacity-82"
+                            : isTertiary
+                              ? "h-1.5 w-10 opacity-60"
+                              : "h-2 w-14 opacity-78"
+                        }`}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
               );
             })}
           </div>
 
           <div className="rounded-[1.6rem] border border-black/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.74),rgba(248,244,238,0.92))] px-4 py-4 md:px-5">
-            <p className="max-w-[56ch] text-sm leading-relaxed text-charcoal/56">
-              Not a dashboard. Just a cleaner route from request to outcome.
+            <p className="max-w-[52ch] text-sm leading-relaxed text-charcoal/58">
+              A cleaner route from request to outcome.
             </p>
           </div>
         </div>
@@ -176,7 +175,7 @@ export function HomepageHero() {
       {/* Content */}
       <div className="relative z-10 mx-auto flex w-[95%] max-w-6xl flex-col items-center px-6 pt-32 pb-20 text-center md:pt-40 md:pb-28">
         {/* Eyebrow */}
-        <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.25em] text-charcoal/40">
+        <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.25em] text-charcoal/46">
           The Voice Operating Layer
         </p>
 
@@ -191,26 +190,26 @@ export function HomepageHero() {
         </h1>
 
         {/* Subcopy */}
-        <p className="type-lead mx-auto mt-8 max-w-[50ch] text-charcoal/65 md:mt-10">
+        <p className="type-lead mx-auto mt-8 max-w-[48ch] text-charcoal/66 md:mt-9">
           Lola answers naturally, captures intent, and moves bookings, questions, and service requests into the right business flow — starting with restaurants and clinics.
         </p>
 
         {/* CTAs */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4 md:mt-12">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4 md:mt-11">
           <Link
             href="/restaurants"
-            className="shell-glass-btn shell-glass-btn--coral group inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold tracking-wide text-ink"
+            className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#E77F74]/26 bg-[linear-gradient(135deg,rgba(255,255,255,0.84)_0%,rgba(255,245,240,0.72)_100%)] px-7 py-3 text-sm font-semibold tracking-[0.04em] text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_8px_18px_rgba(45,34,17,0.05)] transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[#E77F74]/34 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.76),0_12px_24px_rgba(45,34,17,0.07)] active:translate-y-0 active:scale-[0.98]"
           >
             <span className="h-2 w-2 rounded-full bg-coral/60 transition-colors group-hover:bg-coral" />
             Explore Restaurants
           </Link>
           <Link
             href="/medical"
-            className="shell-glass-btn shell-glass-btn--mint group inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold tracking-wide text-ink"
+            className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-7 py-3 text-sm font-semibold tracking-[0.04em] text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_8px_18px_rgba(45,34,17,0.05)] transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.76),0_12px_24px_rgba(45,34,17,0.07)] active:translate-y-0 active:scale-[0.98]"
             style={{
               borderColor: "rgba(141, 229, 213, 0.24)",
               background:
-                "linear-gradient(135deg, rgba(255,255,255,0.70) 0%, rgba(240,252,249,0.56) 100%)",
+                "linear-gradient(135deg, rgba(255,255,255,0.84) 0%, rgba(240,252,249,0.72) 100%)",
             }}
           >
             <span
@@ -222,7 +221,7 @@ export function HomepageHero() {
         </div>
 
         {/* Tertiary */}
-        <p className="mt-6 font-jetbrains text-[10px] uppercase tracking-[0.18em] text-charcoal/25">
+        <p className="mt-6 font-jetbrains text-[10px] uppercase tracking-[0.18em] text-charcoal/30">
           More verticals ahead. Same Lola.
         </p>
 
