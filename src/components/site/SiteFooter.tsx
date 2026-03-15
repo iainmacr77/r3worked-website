@@ -25,7 +25,7 @@ export function SiteFooter() {
         <div className="flex max-w-sm flex-col gap-6">
           <Logo theme="dark" className="w-32" accentColor="#FF6B6B" />
           <p className="font-outfit text-sm leading-relaxed text-charcoal/52">
-            One voice layer for real-world operations, live today in restaurants
+            One voice layer for real-world operations. Starting with restaurants
             and medical.
           </p>
         </div>
