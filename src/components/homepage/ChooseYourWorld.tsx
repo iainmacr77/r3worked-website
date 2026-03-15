@@ -1,48 +1,37 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-const VERTICALS = [
+const SECTIONS = [
   {
     name: "Restaurants",
     href: "/restaurants",
     eyebrow: "For Restaurants",
-    headline: "Every call answered. Every booking captured.",
+    title: "Bookings caught. Service protected.",
     description:
-      "Lola takes reservations, handles changes, answers policy questions, and protects service — so your team stays on the floor.",
-    points: [
-      "Capture bookings by voice, naturally",
-      "Handle changes and cancellations",
-      "Protect staff time during service",
-      "Recover demand after hours",
-    ],
-    accent: {
-      cardClass: "shell-glass-card shell-glass-card--coral",
-      dot: "bg-coral",
-      eyebrow: "text-coral/70",
-      ctaClass: "shell-glass-btn shell-glass-btn--coral",
-      glow: "bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(255,107,107,0.06),transparent_70%)]",
-    },
+      "Lola handles bookings and changes without pulling the floor back into phone duty.",
+    accentDot: "bg-coral",
+    accentText: "text-[#E77F74]",
+    ctaLabel: "Explore Restaurants",
   },
   {
     name: "Medical",
     href: "/medical",
     eyebrow: "For Medical",
-    headline: "Routine calls handled. Clinical line held.",
+    title: "Reception lighter. Boundary intact.",
     description:
-      "Lola manages bookings, reschedules, and non-clinical FAQs — while routing anything clinical safely back to reception.",
-    points: [
-      "Manage bookings and reschedules",
-      "Reduce reception pressure",
-      "Route clinical exceptions safely",
-      "Improve access and after-hours capture",
-    ],
-    accent: {
-      cardClass: "shell-glass-card shell-glass-card--mint",
-      dot: "bg-[#34D399]",
-      eyebrow: "text-[#34D399]/70",
-      ctaClass: "shell-glass-btn shell-glass-btn--mint",
-      glow: "bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(52,211,153,0.06),transparent_70%)]",
-    },
+      "Routine admin demand moves cleanly, while anything clinical stays clearly with staff.",
+    accentDot: "bg-[#8DE5D5]",
+    accentText: "text-[#74D8C5]",
+    ctaLabel: "Explore Medical",
+  },
+  {
+    name: "The Real World",
+    eyebrow: "For The Real World",
+    title: "A wider voice layer for service businesses.",
+    description:
+      "Restaurants and medical are the first expressions of a broader operating layer for real-world demand.",
+    accentDot: "bg-[#6C84C4]",
+    accentText: "text-[#6C84C4]",
   },
 ];
 
@@ -50,65 +39,80 @@ export function ChooseYourWorld() {
   return (
     <section className="w-full bg-[#FAFAF8] px-6 py-24 md:px-16 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        {/* Section heading */}
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.22em] text-charcoal/35">
             Choose Your World
           </p>
           <h2 className="type-h2-serif mt-4 text-ink">
-            Two industries. One voice layer.
+            Three directions. One parent brand.
           </h2>
+          <p className="mx-auto mt-6 max-w-[44ch] text-sm leading-relaxed text-charcoal/54 md:text-[15px]">
+            Start where the pressure is already obvious. The wider platform stays
+            implied.
+          </p>
         </div>
 
-        {/* Vertical cards */}
-        <div className="grid gap-6 lg:grid-cols-2">
-          {VERTICALS.map((v) => (
-            <Link
-              key={v.name}
-              href={v.href}
-              className={`group relative overflow-hidden rounded-[2rem] ${v.accent.cardClass} p-8 md:p-10`}
-            >
-              {/* Subtle accent glow at top */}
-              <div
-                className={`pointer-events-none absolute inset-0 ${v.accent.glow} opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
-              />
+        <div className="border-y border-black/8 lg:grid lg:grid-cols-[1fr_1fr_1.06fr]">
+          {SECTIONS.map((section) => {
+            const content = (
+              <article
+                className={`group flex h-full flex-col bg-transparent px-0 py-9 md:py-11 lg:px-9 ${section.href ? "transition-opacity duration-300 hover:opacity-88" : ""}`}
+              >
+                <div className="flex h-full flex-col">
+                  <div className="flex items-center gap-3">
+                    <span className={`h-2.5 w-2.5 rounded-full ${section.accentDot}`} />
+                    <span className="h-px w-12 bg-black/12" />
+                  </div>
+                  <p className={`font-jetbrains text-[10px] font-semibold uppercase tracking-[0.18em] ${section.accentText}`}>
+                    <span className="sr-only">{section.name}</span>
+                    <span className="mt-4 inline-block">{section.eyebrow}</span>
+                  </p>
+                  <h3 className="mt-5 max-w-[13ch] text-[1.95rem] font-semibold tracking-[-0.035em] text-ink md:text-[2.12rem]">
+                    {section.title}
+                  </h3>
+                  <p className="mt-4 max-w-[31ch] text-sm leading-relaxed text-charcoal/60 md:text-[15px]">
+                    {section.description}
+                  </p>
 
-              <div className="relative z-10">
-                <p
-                  className={`font-jetbrains text-[10px] font-semibold uppercase tracking-[0.18em] ${v.accent.eyebrow}`}
-                >
-                  {v.eyebrow}
-                </p>
-                <h3 className="mt-5 max-w-[18ch] text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-                  {v.headline}
-                </h3>
-                <p className="mt-4 max-w-[42ch] text-sm leading-relaxed text-charcoal/60">
-                  {v.description}
-                </p>
+                  <div className="mt-auto pt-12">
+                    <div className="h-px bg-[linear-gradient(90deg,rgba(30,30,46,0.14),rgba(30,30,46,0.03))]" />
+                  </div>
 
-                <ul className="mt-8 space-y-3">
-                  {v.points.map((point) => (
-                    <li
-                      key={point}
-                      className="flex items-start gap-3 text-charcoal/70"
-                    >
-                      <span
-                        className={`mt-1.5 inline-block h-1.5 w-1.5 rounded-full ${v.accent.dot}`}
-                      />
-                      <span className="text-sm">{point}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div
-                  className={`mt-10 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-ink ${v.accent.ctaClass}`}
-                >
-                  Explore {v.name}
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  {section.href ? (
+                    <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink">
+                      <span>{section.ctaLabel}</span>
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                    </div>
+                  ) : (
+                    <p className="mt-5 text-sm font-medium text-charcoal/52">
+                      Built to extend beyond the first two categories.
+                    </p>
+                  )}
                 </div>
+              </article>
+            );
+
+            if (section.href) {
+              return (
+                <Link
+                  key={section.name}
+                  href={section.href}
+                  className="block border-t border-black/8 first:border-t-0 lg:border-t-0 lg:border-l lg:first:border-l-0 lg:border-black/8"
+                >
+                  {content}
+                </Link>
+              );
+            }
+
+            return (
+              <div
+                key={section.name}
+                className="border-t border-black/8 lg:border-t-0 lg:border-l lg:border-black/8"
+              >
+                {content}
               </div>
-            </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

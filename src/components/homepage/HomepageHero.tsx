@@ -1,72 +1,167 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
-/* ─── Floating intent fragments — sparse, editorial, not diagrammatic ─── */
-const INTENT_FRAGMENTS = [
-  { text: "Book dinner for four", accent: "coral" },
-  { text: "Move my appointment to Friday", accent: "mint" },
-  { text: "Table at 8?", accent: "coral" },
-  { text: "Any openings this week?", accent: "mint" },
-  { text: "Find me a good salon nearby", accent: "blue" },
-  { text: "Cancel tomorrow morning", accent: "mint" },
+const MEDICAL_MINT = "#8DE5D5";
+
+const HERO_LANES = [
+  {
+    id: "01",
+    accent: "bg-coral",
+    surfaceClass: "boundary-lane-glow-left",
+    label: "Restaurant demand",
+    incoming: "Dinner for four at 8",
+    context: "Availability, notes, and house rules checked in one pass.",
+    state: "Intent understood",
+    resolution: "Confirmed into tonight's service flow",
+  },
+  {
+    id: "02",
+    accent: "bg-[#8DE5D5]",
+    surfaceClass: "boundary-lane-glow-right",
+    label: "Medical admin",
+    incoming: "Move my appointment to Friday",
+    context: "Scheduling logic handled cleanly while clinical questions stay with staff.",
+    state: "Safely routed",
+    resolution: "Rescheduled with the right boundary intact",
+  },
+  {
+    id: "03",
+    accent: "bg-[#6C84C4]",
+    surfaceClass:
+      "bg-[linear-gradient(180deg,rgba(7,10,16,0.98),rgba(7,10,16,0.94))]",
+    label: "Broader platform",
+    incoming: "After-hours demand captured",
+    context: "The same layer receives requests, resolves the routine ones, and surfaces exceptions.",
+    state: "Always on",
+    resolution: "Logged, routed, and ready for the next workflow",
+  },
 ];
 
-function FloatingFragments() {
-  const [visibleSet, setVisibleSet] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setVisibleSet((prev) => (prev + 1) % 3);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const accentMap: Record<string, string> = {
-    coral: "border-coral/25 text-charcoal/50",
-    mint: "border-[#34D399]/25 text-charcoal/50",
-    blue: "border-[#1081F2]/25 text-charcoal/50",
-  };
-
+function LolaLayerStage() {
   return (
-    <div className="mx-auto mt-20 flex max-w-3xl flex-wrap items-center justify-center gap-3 md:mt-24">
-      {INTENT_FRAGMENTS.map((frag, i) => {
-        const groupIndex = Math.floor(i / 2);
-        const isVisible = groupIndex === visibleSet;
-        return (
-          <span
-            key={frag.text}
-            className={`rounded-full border px-5 py-2.5 font-outfit text-[13px] tracking-wide transition-all duration-[1200ms] ease-out ${
-              accentMap[frag.accent]
-            } ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-2"
-            }`}
-          >
-            &ldquo;{frag.text}&rdquo;
-          </span>
-        );
-      })}
-    </div>
-  );
-}
+    <div className="relative mt-14 w-full max-w-6xl md:mt-20">
+      <div className="pointer-events-none absolute inset-x-0 top-12 h-px bg-[linear-gradient(90deg,transparent,rgba(30,30,46,0.08),transparent)]" />
 
-/* ─── Subtle routing traces — thin horizontal lines implying flow ─── */
-function RoutingTraces() {
-  return (
-    <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 overflow-hidden opacity-[0.07]">
-      {[20, 35, 55, 70, 85].map((top) => (
-        <div
-          key={top}
-          className="absolute h-px w-full"
-          style={{
-            top: `${top}%`,
-            background: `linear-gradient(90deg, transparent 0%, rgba(16,129,242,0.5) ${15 + top * 0.3}%, rgba(255,107,107,0.3) 50%, rgba(52,211,153,0.4) ${70 + top * 0.2}%, transparent 100%)`,
-          }}
-        />
-      ))}
+      <div className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-[linear-gradient(180deg,rgba(252,251,248,0.96),rgba(246,242,236,0.98))] p-5 shadow-[0_26px_80px_rgba(56,45,28,0.08),0_10px_28px_rgba(56,45,28,0.05),inset_0_1px_0_rgba(255,255,255,0.82)] md:rounded-[2.5rem] md:p-7">
+        <div className="pointer-events-none absolute inset-[1px] rounded-[calc(2rem-1px)] border border-white/40 md:rounded-[calc(2.5rem-1px)]" />
+
+        <div className="relative z-10 flex flex-col gap-6">
+          <div className="flex flex-col gap-4 border-b border-black/6 pb-6 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.22em] text-charcoal/42">
+                Lola Layer
+              </p>
+              <h2 className="mt-3 max-w-[18ch] text-2xl font-semibold tracking-[-0.03em] text-ink md:text-[2.55rem]">
+                One surface receiving live demand across real operations.
+              </h2>
+              <p className="mt-3 max-w-[44ch] text-sm leading-relaxed text-charcoal/58 md:text-[15px]">
+                A calmer place for live demand to land.
+              </p>
+            </div>
+
+            <p className="font-jetbrains text-[10px] uppercase tracking-[0.18em] text-charcoal/34 md:text-right">
+              Live now. Built wider.
+            </p>
+          </div>
+
+          <div className="grid gap-4">
+            {HERO_LANES.map((lane, index) => {
+              const isPrimary = index === 0;
+              const isSecondary = index === 1;
+              const isTertiary = index === 2;
+
+              return (
+              <div
+                key={lane.id}
+                className={`grid gap-4 overflow-hidden rounded-[1.75rem] border border-white/12 p-5 text-white shadow-[0_26px_74px_rgba(0,0,0,0.45)] backdrop-blur-md md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] md:items-center ${lane.surfaceClass} ${
+                  isPrimary
+                    ? "md:p-7"
+                    : isSecondary
+                    ? "md:p-6"
+                    : "opacity-[0.9] md:p-5"
+                }`}
+              >
+                <div className="flex min-w-0 gap-4">
+                  <div className="flex w-8 shrink-0 flex-col items-center gap-3 pt-1">
+                    <span
+                      className={`h-2.5 w-2.5 rounded-full ${lane.accent}`}
+                    />
+                    <span className="h-full w-px bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0))]" />
+                  </div>
+                  <div className="min-w-0 relative z-10">
+                    <p className="font-jetbrains text-[10px] uppercase tracking-[0.18em] text-white/42">
+                      {lane.label}
+                    </p>
+                    <p
+                      className={`mt-3 font-semibold tracking-[-0.025em] text-white ${
+                        isPrimary
+                          ? "text-[1.45rem] md:text-[1.72rem]"
+                          : isTertiary
+                          ? "text-lg md:text-[1.18rem]"
+                          : "text-xl md:text-[1.38rem]"
+                      }`}
+                    >
+                      {lane.incoming}
+                    </p>
+                    <p
+                      className={`mt-2 leading-relaxed ${
+                        isTertiary ? "text-[13px] text-white/52" : "text-sm text-white/62"
+                      }`}
+                    >
+                      {lane.context}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="relative z-10 border-l border-white/10 pl-4 text-left md:pl-6">
+                  <p
+                    className={`font-jetbrains text-[10px] uppercase tracking-[0.18em] ${
+                      isTertiary ? "text-white/36" : "text-white/45"
+                    }`}
+                  >
+                    {lane.state}
+                  </p>
+                  <p
+                    className={`mt-3 max-w-[22ch] font-semibold tracking-[-0.02em] text-white ${
+                      isPrimary
+                        ? "text-[1.18rem] md:text-[1.28rem]"
+                        : isTertiary
+                        ? "text-base text-white/82"
+                        : "text-lg"
+                    }`}
+                  >
+                    {lane.resolution}
+                  </p>
+                  <div className="mt-4 flex items-center justify-between gap-3">
+                    <span
+                      className={`${
+                        isTertiary ? "text-[13px] text-white/48" : "text-sm text-white/62"
+                      }`}
+                    >
+                      Logged end to end
+                    </span>
+                    <span
+                      className={`rounded-full ${lane.accent} ${
+                        isPrimary
+                          ? "h-2 w-16 opacity-82"
+                          : isTertiary
+                          ? "h-1.5 w-10 opacity-60"
+                          : "h-2 w-14 opacity-78"
+                      }`}
+                    />
+                  </div>
+                </div>
+              </div>
+              );
+            })}
+          </div>
+
+          <div className="rounded-[1.6rem] border border-black/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.74),rgba(248,244,238,0.92))] px-4 py-4 md:px-5">
+            <p className="max-w-[56ch] text-sm leading-relaxed text-charcoal/56">
+              Not a dashboard. Just a cleaner route from request to outcome.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -78,11 +173,8 @@ export function HomepageHero() {
       id="hero"
       className="relative isolate flex w-full min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#FAFAF8] md:min-h-screen"
     >
-      {/* Very subtle warm tint */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(255,245,240,0.5)_0%,transparent_70%)]" />
-
       {/* Content */}
-      <div className="relative z-10 mx-auto flex w-[95%] max-w-5xl flex-col items-center px-6 pt-32 pb-16 text-center md:pt-40 md:pb-24">
+      <div className="relative z-10 mx-auto flex w-[95%] max-w-6xl flex-col items-center px-6 pt-32 pb-20 text-center md:pt-40 md:pb-28">
         {/* Eyebrow */}
         <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.25em] text-charcoal/40">
           The Voice Operating Layer
@@ -115,8 +207,16 @@ export function HomepageHero() {
           <Link
             href="/medical"
             className="shell-glass-btn shell-glass-btn--mint group inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold tracking-wide text-ink"
+            style={{
+              borderColor: "rgba(141, 229, 213, 0.24)",
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.70) 0%, rgba(240,252,249,0.56) 100%)",
+            }}
           >
-            <span className="h-2 w-2 rounded-full bg-[#34D399]/60 transition-colors group-hover:bg-[#34D399]" />
+            <span
+              className="h-2 w-2 rounded-full transition-colors"
+              style={{ backgroundColor: `${MEDICAL_MINT}99` }}
+            />
             Explore Medical
           </Link>
         </div>
@@ -126,12 +226,8 @@ export function HomepageHero() {
           More verticals ahead. Same Lola.
         </p>
 
-        {/* Floating intent fragments */}
-        <FloatingFragments />
+        <LolaLayerStage />
       </div>
-
-      {/* Subtle routing traces at bottom of hero */}
-      <RoutingTraces />
     </section>
   );
 }
