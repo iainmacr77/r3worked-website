@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Navbar } from "@/components/ui/Navbar";
+import { SiteNavbar } from "@/components/site/SiteNavbar";
 import { Hero } from "@/components/ui/Hero";
 import {
   TranscriptTypewriter,
@@ -9,7 +9,7 @@ import {
 import { Philosophy } from "@/components/ui/Philosophy";
 import { TheFramework } from "@/components/ui/TheFramework";
 import { PricingControlRoom } from "@/components/sections/PricingControlRoom";
-import { Footer } from "@/components/ui/Footer";
+import { SiteFooter } from "@/components/site/SiteFooter";
 import { WhyLolaCarousel } from "@/components/ui/WhyLolaCarousel";
 import { NarrativeBreaker } from "@/components/ui/NarrativeBreaker";
 import { SectionHeading } from "@/components/typography/SectionHeading";
@@ -125,7 +125,7 @@ function HearLolaSection({ audioSrc }: { audioSrc: string }) {
 export default function RestaurantsPage() {
   return (
     <main className="flex min-h-screen w-full flex-col bg-ink scroll-smooth">
-      <Navbar />
+      <SiteNavbar tone="dark" />
       <Hero />
       <WhyLolaSection />
       <NarrativeBreaker />
@@ -172,7 +172,7 @@ export default function RestaurantsPage() {
       <Philosophy />
       <TheFramework />
       <PricingControlRoom />
-      <Footer />
+      <SiteFooter />
     </main>
   );
 }

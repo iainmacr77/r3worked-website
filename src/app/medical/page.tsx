@@ -7,8 +7,8 @@ import {
   PhoneCall,
   ShieldCheck,
 } from "lucide-react";
-import { Footer } from "@/components/ui/Footer";
-import { Navbar } from "@/components/ui/Navbar";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteNavbar } from "@/components/site/SiteNavbar";
 import { SectionHeading } from "@/components/typography/SectionHeading";
 import { ClinicOperationsFlow } from "@/components/medical/ClinicOperationsFlow";
 import { MedicalConversationFeature } from "@/components/medical/MedicalConversationFeature";
@@ -613,7 +613,7 @@ export default function MedicalPage() {
       data-vertical="medical"
       className="flex min-h-screen w-full scroll-smooth flex-col bg-ink"
     >
-      <Navbar />
+      <SiteNavbar tone="dark" />
       <Hero />
       <WhyLolaSection />
       <MedicalNarrativeBreaker />
@@ -636,7 +636,7 @@ export default function MedicalPage() {
 
       <ControlRoomSection />
       <PricingSection />
-      <Footer />
+      <SiteFooter />
     </main>
   );
 }
