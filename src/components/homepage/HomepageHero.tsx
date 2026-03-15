@@ -107,14 +107,14 @@ export function HomepageHero() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4 md:mt-12">
           <Link
             href="/restaurants"
-            className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-coral/30 bg-coral/[0.06] px-7 py-3 text-sm font-semibold tracking-wide text-ink transition-all duration-300 hover:border-coral/50 hover:bg-coral/[0.1] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
+            className="shell-glass-btn shell-glass-btn--coral group inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold tracking-wide text-ink"
           >
             <span className="h-2 w-2 rounded-full bg-coral/60 transition-colors group-hover:bg-coral" />
             Explore Restaurants
           </Link>
           <Link
             href="/medical"
-            className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#34D399]/30 bg-[#34D399]/[0.06] px-7 py-3 text-sm font-semibold tracking-wide text-ink transition-all duration-300 hover:border-[#34D399]/50 hover:bg-[#34D399]/[0.1] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
+            className="shell-glass-btn shell-glass-btn--mint group inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold tracking-wide text-ink"
           >
             <span className="h-2 w-2 rounded-full bg-[#34D399]/60 transition-colors group-hover:bg-[#34D399]" />
             Explore Medical

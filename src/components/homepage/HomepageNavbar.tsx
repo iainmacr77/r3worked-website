@@ -38,7 +38,7 @@ export function HomepageNavbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         navMode === "scrolled"
-          ? "bg-[#FAFAF8]/80 backdrop-blur-xl border-b border-ink/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+          ? "shell-glass-nav"
           : "bg-transparent"
       )}
     >

@@ -16,10 +16,10 @@ const VERTICALS = [
       "Recover demand after hours",
     ],
     accent: {
-      border: "border-coral/20 hover:border-coral/30",
+      cardClass: "shell-glass-card shell-glass-card--coral",
       dot: "bg-coral",
       eyebrow: "text-coral/70",
-      cta: "bg-coral text-white hover:bg-coral/90",
+      ctaClass: "shell-glass-btn shell-glass-btn--coral",
       glow: "bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(255,107,107,0.06),transparent_70%)]",
     },
   },
@@ -37,10 +37,10 @@ const VERTICALS = [
       "Improve access and after-hours capture",
     ],
     accent: {
-      border: "border-[#34D399]/20 hover:border-[#34D399]/30",
+      cardClass: "shell-glass-card shell-glass-card--mint",
       dot: "bg-[#34D399]",
       eyebrow: "text-[#34D399]/70",
-      cta: "bg-[#34D399] text-ink hover:bg-[#34D399]/90",
+      ctaClass: "shell-glass-btn shell-glass-btn--mint",
       glow: "bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(52,211,153,0.06),transparent_70%)]",
     },
   },
@@ -66,7 +66,7 @@ export function ChooseYourWorld() {
             <Link
               key={v.name}
               href={v.href}
-              className={`group relative overflow-hidden rounded-[2rem] border ${v.accent.border} bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] md:p-10`}
+              className={`group relative overflow-hidden rounded-[2rem] ${v.accent.cardClass} p-8 md:p-10`}
             >
               {/* Subtle accent glow at top */}
               <div
@@ -101,7 +101,7 @@ export function ChooseYourWorld() {
                 </ul>
 
                 <div
-                  className={`mt-10 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 ${v.accent.cta}`}
+                  className={`mt-10 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-ink ${v.accent.ctaClass}`}
                 >
                   Explore {v.name}
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
