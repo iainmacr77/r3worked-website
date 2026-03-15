@@ -1,32 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-
-const NEWS_ITEMS = [
-  {
-    category: "Product",
-    date: "March 2026",
-    title: "Introducing Lola Medical: voice scheduling built for clinics",
-    excerpt:
-      "The same engine that handles restaurant bookings now manages appointments, reschedules, and clinical escalation flows for medical practices.",
-    href: "/news",
-  },
-  {
-    category: "Operations",
-    date: "February 2026",
-    title: "How after-hours capture recovers demand you never see",
-    excerpt:
-      "Most businesses lose booking intent outside office hours. We measured what Lola catches — and how much of it converts.",
-    href: "/news",
-  },
-  {
-    category: "Platform",
-    date: "January 2026",
-    title: "The voice layer thesis: why we started with restaurants",
-    excerpt:
-      "Before Lola was a platform, it was a conviction: that high-volume, high-stakes voice demand deserved a better operating layer.",
-    href: "/news",
-  },
-];
+import { newsArticles } from "@/content/news";
 
 export function LatestNews() {
   return (
@@ -51,10 +25,10 @@ export function LatestNews() {
 
         {/* News cards */}
         <div className="grid gap-px overflow-hidden rounded-[2rem] border border-ink/[0.06] bg-ink/[0.04] md:grid-cols-3">
-          {NEWS_ITEMS.map((item) => (
+          {newsArticles.map((item) => (
             <Link
               key={item.title}
-              href={item.href}
+              href={`/news/${item.slug}`}
               className="group bg-white p-8 transition-colors duration-300 hover:bg-[#FAFAF8] md:p-9"
             >
               {/* Category + date */}

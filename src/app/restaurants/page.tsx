@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/components/ui/Navbar";
 import { Hero } from "@/components/ui/Hero";
 import {
@@ -13,6 +14,13 @@ import { WhyLolaCarousel } from "@/components/ui/WhyLolaCarousel";
 import { NarrativeBreaker } from "@/components/ui/NarrativeBreaker";
 import { SectionHeading } from "@/components/typography/SectionHeading";
 import Link from "next/link";
+import { createSiteMetadata } from "@/lib/site-metadata";
+
+export const metadata: Metadata = createSiteMetadata({
+  title: "Hey Lola Restaurants | Voice Operations for Restaurants",
+  description:
+    "Lola handles restaurant bookings, changes, and policy questions by voice so service teams stay on the floor and demand gets captured cleanly.",
+});
 
 type StorySectionProps = {
   title: string;

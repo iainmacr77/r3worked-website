@@ -91,7 +91,7 @@ export function NavbarVerticalSwitcher({
             : "text-peach/82 hover:text-peach"
         )}
       >
-        For Restaurants
+        Restaurants
       </Link>
       <Link
         href="/medical"
@@ -103,7 +103,7 @@ export function NavbarVerticalSwitcher({
             : "text-peach/82 hover:text-peach"
         )}
       >
-        For Medical
+        Medical
       </Link>
     </div>
   );

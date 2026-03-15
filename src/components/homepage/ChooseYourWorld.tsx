@@ -5,7 +5,7 @@ const SECTIONS = [
   {
     name: "Restaurants",
     href: "/restaurants",
-    eyebrow: "For Restaurants",
+    eyebrow: "Restaurants",
     title: "Bookings caught. Service protected.",
     description:
       "Lola handles bookings and changes without pulling the floor back into phone duty.",
@@ -16,22 +16,13 @@ const SECTIONS = [
   {
     name: "Medical",
     href: "/medical",
-    eyebrow: "For Medical",
+    eyebrow: "Medical",
     title: "Reception lighter. Boundary intact.",
     description:
       "Routine admin demand moves cleanly, while anything clinical stays clearly with staff.",
     accentDot: "bg-[#8DE5D5]",
     accentText: "text-[#74D8C5]",
     ctaLabel: "Explore Medical",
-  },
-  {
-    name: "The Real World",
-    eyebrow: "For The Real World",
-    title: "A wider voice layer for service businesses.",
-    description:
-      "Restaurants and medical are the first expressions of a broader operating layer for real-world demand.",
-    accentDot: "bg-[#6C84C4]",
-    accentText: "text-[#6C84C4]",
   },
 ];
 
@@ -41,25 +32,21 @@ export function ChooseYourWorld() {
       <div className="mx-auto w-full max-w-7xl">
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.22em] text-charcoal/42">
-            Choose Your World
+            Live today
           </p>
           <h2 className="type-h2-serif mt-4 text-ink">
-            Three directions. One parent brand.
+            Where Lola is already working.
           </h2>
           <p className="mx-auto mt-5 max-w-[40ch] text-sm leading-relaxed text-charcoal/56 md:text-[15px]">
-            Start where the pressure is already obvious. The wider platform stays
-            implied.
+            Two live operating environments, one shared voice layer.
           </p>
         </div>
 
-        <div className="border-y border-black/8 lg:grid lg:grid-cols-[1fr_1fr_1.06fr]">
+        <div className="border-y border-black/8 lg:grid lg:grid-cols-2">
           {SECTIONS.map((section) => {
-            const isInteractive = Boolean(section.href);
             const content = (
               <article
-                className={`group relative flex h-full flex-col px-0 py-9 transition-colors duration-300 md:py-11 lg:px-9 ${
-                  isInteractive ? "bg-transparent hover:bg-[#F7F5F0]" : "bg-transparent"
-                }`}
+                className="group relative flex h-full flex-col bg-transparent px-0 py-9 transition-colors duration-300 hover:bg-[#F7F5F0] md:py-11 lg:px-9"
               >
                 <div className="flex h-full flex-col">
                   <div className="flex items-center gap-3">
@@ -78,42 +65,25 @@ export function ChooseYourWorld() {
                   </p>
 
                   <div className="mt-auto pt-12">
-                    <div className="h-px bg-[linear-gradient(90deg,rgba(30,30,46,0.14),rgba(30,30,46,0.03))] transition-opacity duration-300 group-hover:opacity-100 opacity-80" />
+                    <div className="h-px bg-[linear-gradient(90deg,rgba(30,30,46,0.14),rgba(30,30,46,0.03))] opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
 
-                  {isInteractive ? (
-                    <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink">
-                      <span>{section.ctaLabel}</span>
-                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                    </div>
-                  ) : (
-                    <p className="mt-5 text-sm font-medium text-charcoal/52">
-                      Built to extend beyond the first two categories.
-                    </p>
-                  )}
+                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink">
+                    <span>{section.ctaLabel}</span>
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </div>
                 </div>
               </article>
             );
 
-            if (section.href) {
-              return (
-                <Link
-                  key={section.name}
-                  href={section.href}
-                  className="block border-t border-black/8 first:border-t-0 lg:border-t-0 lg:border-l lg:first:border-l-0 lg:border-black/8"
-                >
-                  {content}
-                </Link>
-              );
-            }
-
             return (
-              <div
+              <Link
                 key={section.name}
-                className="border-t border-black/8 lg:border-t-0 lg:border-l lg:border-black/8"
+                href={section.href}
+                className="block border-t border-black/8 first:border-t-0 lg:border-t-0 lg:border-l lg:first:border-l-0 lg:border-black/8"
               >
                 {content}
-              </div>
+              </Link>
             );
           })}
         </div>

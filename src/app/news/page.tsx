@@ -1,35 +1,72 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { Logo } from "@/components/ui/Logo";
-import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
+import { ArrowRight } from "lucide-react";
+import { HomepageFooter } from "@/components/homepage/HomepageFooter";
+import { HomepageNavbar } from "@/components/homepage/HomepageNavbar";
+import { newsArticles } from "@/content/news";
+import { createSiteMetadata } from "@/lib/site-metadata";
 
-export const metadata: Metadata = {
-  title: "News | Hey Lola",
-  description: "The latest updates, insights, and announcements from Hey Lola.",
-};
+export const metadata: Metadata = createSiteMetadata({
+  title: "Hey Lola News | Product Notes and Operating Insights",
+  description:
+    "Updates, product notes, and operating insights from Hey Lola across restaurants, medical, and the broader voice layer.",
+});
 
 export default function NewsPage() {
   return (
-    <main className="flex min-h-screen w-full flex-col bg-ink">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-6 py-32 text-center md:py-48">
-        <Logo theme="light" className="w-36 text-white" accentColor="#FF6B6B" />
-        <p className="mt-8 font-jetbrains text-[11px] font-semibold uppercase tracking-[0.2em] text-coral">
-          Coming Soon
-        </p>
-        <h1 className="type-h2 mt-4 max-w-[16ch] text-peach">
-          News &amp; Updates
-        </h1>
-        <p className="type-lead mt-4 max-w-[42ch] text-peach/70">
-          We&apos;re preparing our newsroom. Check back soon for the latest from Hey Lola.
-        </p>
-        <Link
-          href="/"
-          className="mt-10 inline-flex items-center gap-2 rounded-full border border-peach/20 bg-peach/8 px-6 py-3 text-sm font-medium text-peach transition-colors hover:bg-peach/14"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to homepage
-        </Link>
-      </div>
+    <main className="flex min-h-screen w-full flex-col bg-[#FAFAF8]">
+      <HomepageNavbar />
+
+      <section className="w-full border-b border-ink/[0.06] px-6 pb-16 pt-32 md:px-16 md:pb-20 md:pt-40">
+        <div className="mx-auto max-w-7xl">
+          <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.22em] text-charcoal/42">
+            News
+          </p>
+          <h1 className="type-h2-serif mt-4 max-w-[12ch] text-ink">
+            Notes from the operating layer.
+          </h1>
+          <p className="type-lead mt-6 max-w-[42ch] text-charcoal/60">
+            Product updates, field observations, and platform thinking from Hey
+            Lola.
+          </p>
+        </div>
+      </section>
+
+      <section className="w-full bg-white px-6 py-20 md:px-16 md:py-24">
+        <div className="mx-auto grid max-w-7xl gap-px overflow-hidden rounded-[2rem] border border-ink/[0.06] bg-ink/[0.04] md:grid-cols-3">
+          {newsArticles.map((article) => (
+            <Link
+              key={article.slug}
+              href={`/news/${article.slug}`}
+              className="group flex h-full flex-col bg-white p-8 transition-colors duration-300 hover:bg-[#FAFAF8] md:p-9"
+            >
+              <div className="flex items-center gap-3">
+                <span className="rounded-full bg-ink/[0.04] px-3 py-1 font-jetbrains text-[9px] font-bold uppercase tracking-[0.14em] text-charcoal/50">
+                  {article.category}
+                </span>
+                <span className="font-jetbrains text-[10px] tracking-[0.1em] text-charcoal/25">
+                  {article.date}
+                </span>
+              </div>
+
+              <h2 className="mt-5 text-xl font-semibold leading-snug tracking-tight text-ink">
+                {article.title}
+              </h2>
+
+              <p className="mt-3 text-sm leading-relaxed text-charcoal/56">
+                {article.excerpt}
+              </p>
+
+              <p className="mt-8 flex items-center gap-2 text-sm font-medium text-charcoal/42 transition-colors group-hover:text-ink">
+                Read article
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <HomepageFooter />
     </main>
   );
 }

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import {
@@ -14,6 +15,13 @@ import { MedicalConversationFeature } from "@/components/medical/MedicalConversa
 import { MedicalCapacityFeature } from "@/components/medical/MedicalCapacityFeature";
 import { WhyLolaCarousel, type PainSlide } from "@/components/ui/WhyLolaCarousel";
 import { NarrativeBreaker } from "@/components/ui/NarrativeBreaker";
+import { createSiteMetadata } from "@/lib/site-metadata";
+
+export const metadata: Metadata = createSiteMetadata({
+  title: "Hey Lola Medical | Voice Booking for Medical Practices",
+  description:
+    "Lola handles bookings, reschedules, cancellations, and non-clinical questions for medical practices while keeping clinical matters with staff.",
+});
 
 const POSITIONING_CARDS = [
   {

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { createSiteMetadata } from "@/lib/site-metadata";
 
-export const metadata: Metadata = {
-  title: "Hey Lola | Voice Layer for Real-World Operations",
+export const metadata: Metadata = createSiteMetadata({
+  title: "Hey Lola | One Voice Layer for Real-World Operations",
   description:
-    "Hey Lola is the voice operating layer for real-world operations, starting with restaurants and medical.",
-};
+    "Hey Lola is the voice operating layer for real-world operations, live today in restaurants and medical.",
+});
 
 export default function RootLayout({
   children,
