@@ -35,7 +35,7 @@ export function HomepageSectionShell({
             <p
               className={cn(
                 "text-[11px] font-semibold uppercase tracking-[0.22em]",
-                dark ? "text-[#E7DED2]/64" : "text-[#7E3F35]/72"
+                dark ? "text-[#E7DED2]/64" : "text-[#B86B5C]/90"
               )}
             >
               {eyebrow}

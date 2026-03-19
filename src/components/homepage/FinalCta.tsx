@@ -1,47 +1,78 @@
+"use client";
+
 import Link from "next/link";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 export function FinalCta() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
   return (
-    <section
-      id="final-cta"
-      className="bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32"
-    >
-      <div className="mx-auto max-w-[78rem]">
-        <div className="relative overflow-hidden rounded-[2.25rem] border border-[#161616]/7 bg-[linear-gradient(180deg,rgba(255,255,255,0.74),rgba(250,246,240,0.96))] px-6 py-10 shadow-[0_30px_90px_rgba(68,47,33,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] md:px-10 md:py-14">
-          <div className="pointer-events-none absolute -right-12 top-0 h-40 w-40 rounded-full bg-[#D96B4F]/10 blur-3xl" />
-          <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-32 rounded-full bg-white/70 blur-3xl" />
+    <section id="final-cta" className="bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 border-t border-[#161616]/5">
+      <div className="mx-auto max-w-[84rem]" ref={ref}>
+        {/* The Premium CTA Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="relative overflow-hidden rounded-[2.5rem] bg-[#161616] p-10 md:p-16 lg:p-24 premium-border shadow-[0_24px_64px_rgba(22,22,22,0.12)]"
+        >
+          {/* Subtle architectural lines inside */}
+          <div className="absolute inset-0 opacity-[0.2] bg-[linear-gradient(rgba(247,243,238,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(247,243,238,0.08)_1px,transparent_1px)] bg-[size:64px_64px]" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_top,rgba(217,107,79,0.1),transparent_60%)]" />
 
-          <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-            <div className="space-y-5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7E3F35]/72">
-                Final CTA
-              </p>
-              <h2 className="max-w-[11ch] text-4xl font-semibold tracking-[-0.05em] text-[#161616] md:text-5xl">
-                Start with a homepage review.
-              </h2>
-              <p className="max-w-[39rem] text-base leading-8 text-[#2A2A2A]/72 md:text-lg">
-                Send over the current site and get a clear view of what should
-                be reworked first, where leads are being lost, and what a
-                sharper front could look like.
-              </p>
-            </div>
+          {/* Core Content */}
+          <div className="relative z-10 flex flex-col items-center text-center max-w-[48rem] mx-auto">
+            <motion.p 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="type-eyebrow text-[#D96B4F] mb-6 inline-flex px-4 py-1.5 rounded-full border border-[#D96B4F]/20 bg-[#D96B4F]/5"
+            >
+              The Next Step
+            </motion.p>
+            
+            <motion.h2 
+              initial={{ opacity: 0, y: 15 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="type-h2 text-[#F7F3EE] mb-8"
+            >
+              Start with a homepage review.
+            </motion.h2>
 
-            <div className="flex flex-wrap gap-4">
+            <motion.p 
+              initial={{ opacity: 0, y: 15 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="type-body text-[#F7F3EE]/70 max-w-[36rem] mb-12"
+            >
+              Send over your current site and get a clear view of what should be reworked first, where leads are leaking, and what a sharper commercial front could look like.
+            </motion.p>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
+            >
               <Link
-                href="#hero"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#D96B4F]/24 bg-[linear-gradient(135deg,rgba(255,255,255,0.86)_0%,rgba(245,236,230,0.94)_100%)] px-6 py-3 text-sm font-semibold tracking-[0.04em] text-[#161616] shadow-[inset_0_1px_0_rgba(255,255,255,0.78),0_12px_28px_rgba(90,60,42,0.09)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-[#D96B4F]/34"
+                href="#"
+                className="w-full sm:w-auto inline-flex items-center justify-center bg-[#F7F3EE] text-[#161616] px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:bg-white hover:-translate-y-0.5 shadow-[0_12px_24px_rgba(247,243,238,0.1)]"
               >
-                Get a homepage review
+                Submit site for review
               </Link>
+
               <Link
-                href="#before-after-showcase"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#161616]/10 bg-white/56 px-6 py-3 text-sm font-semibold tracking-[0.04em] text-[#161616] shadow-[inset_0_1px_0_rgba(255,255,255,0.62),0_10px_24px_rgba(90,60,42,0.05)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-[#161616]/16"
+                href="#"
+                className="w-full sm:w-auto inline-flex items-center justify-center border border-[#F7F3EE]/20 bg-transparent text-[#F7F3EE] px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:bg-[#F7F3EE]/10 hover:-translate-y-0.5"
               >
-                See a rework example
+                Request a rework concept
               </Link>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

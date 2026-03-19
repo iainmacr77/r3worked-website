@@ -2,7 +2,7 @@
 
 ## 0) What R3WORKED is (one-liner)
 
-R3WORKED is a premium website uplift and lead capture service for underperforming service-business websites — reworking weak digital fronts into sharper, more credible, more conversion-aware commercial assets, with cleaner enquiry handling behind the scenes.
+R3WORKED is a premium website uplift, enquiry-capture, and lead-handling service for underperforming service-business websites — reworking weak digital fronts into sharper, more credible, more conversion-aware commercial assets, with cleaner handling behind the scenes once a prospect takes action.
 
 R3WORKED sits between:
 - the existing business and its current online presence
@@ -14,14 +14,14 @@ It is not a broad automation consultancy.
 It is a focused, repeatable commercial rework system built around three practical layers:
 
 1. Website uplift  
-2. Lead capture  
-3. Smarter follow-up
+2. Enquiry capture  
+3. Lead handling  
 
 ---
 
 ## 1) What the business actually is
 
-R3WORKED is a narrow, premium service business designed to improve the front-end commercial performance of service companies, initially focused on UK roofers.
+R3WORKED is a narrow, premium service business designed to improve the front-end commercial performance of service companies, initially focused on UK roofers and other service businesses with more value than their current website suggests.
 
 The core thesis is simple:
 
@@ -44,6 +44,13 @@ The service is deliberately constrained so that it can be:
 - repeatable in delivery
 - sellable at volume
 - maintainable over time
+
+The real offer is not just “make the website look better.”
+
+It is:
+- improve the shopfront
+- improve the route to enquire
+- improve what happens once buying intent lands
 
 ---
 
@@ -82,7 +89,7 @@ This is the front-end rework layer.
 
 ---
 
-## 2.2 Lead capture
+## 2.2 Enquiry capture
 
 **Primary job:** create cleaner, clearer paths for a prospect to enquire or request a quote.
 
@@ -94,6 +101,8 @@ This is the capture layer.
 - stronger CTA logic
 - cleaner button hierarchy
 - reduced friction in contact paths
+- more prominent contact routes
+- optional WhatsApp contact path where appropriate
 - structured form fields where needed
 - clearer service-request routes
 - better contact UX on desktop and mobile
@@ -113,7 +122,7 @@ This is the capture layer.
 
 ---
 
-## 2.3 Smarter follow-up
+## 2.3 Lead handling
 
 **Primary job:** make sure the lead does not vanish into a black hole after submission.
 
@@ -163,7 +172,7 @@ It may use code, automation, and better systems behind the scenes, but the custo
 The offer is:
 - rework the website
 - improve enquiry capture
-- make follow-up cleaner
+- make lead handling cleaner
 
 That is the lane.
 
@@ -206,6 +215,7 @@ Once proven, the same model can extend into other service categories such as:
 - removals
 - cleaning companies
 - other local trade or service businesses
+- premium hidden-gem businesses with weak digital fronts
 
 The system is meant to be sector-portable, but the starting point must remain narrow enough to sell and deliver cleanly.
 
@@ -293,7 +303,7 @@ R3WORKED is not selling “design” in isolation.
 
 It is selling:
 - a better first impression
-- a cleaner route to enquiry
+- a cleaner route to enquire
 - a more reliable handoff once interest is expressed
 
 The website is the visible front.
@@ -324,7 +334,7 @@ R3WORKED should remain disciplined about what it promises.
 - “AI will run your business”
 - enterprise workflow orchestration out of the box
 
-R3WORKED can improve the website and the mechanics around capture and follow-up.
+R3WORKED can improve the website and the mechanics around capture and follow-through.
 
 It should not sound like it is promising miracles.
 
@@ -332,16 +342,20 @@ It should not sound like it is promising miracles.
 
 ## 7) What a client actually buys
 
-## 7.1 Core offer
+## 7.1 Core v1 offer
 
 At minimum, a client is buying:
 - a reworked website or homepage
 - stronger enquiry pathways
 - cleaner quote or contact capture
+- optional WhatsApp contact route where relevant
 - lead acknowledgement to the prospect
 - lead notification to the business
-- basic structured lead logging
+- basic structured lead logging in Google Sheets
 - a more modern and commercially credible digital front
+
+This is the practical v1 offer:
+**a sharper website, clearer enquiry capture, and better lead handling behind the scenes.**
 
 ---
 
@@ -359,18 +373,56 @@ This recurring layer matters commercially, but it should remain simple and belie
 
 ---
 
+## 7.3 v2 layer: smarter workflow follow-through
+
+Once the front-end and lead capture layer are working properly, R3WORKED can offer a stronger second layer built around lightweight automation and follow-through.
+
+This is **not** the core v1 promise, but it is an important future direction.
+
+### Possible v2 capabilities
+- missed-call text back
+- automated quote follow-up
+- reminder sequences
+- lead routing rules
+- review request flows
+- consultation or booking workflows
+- simple CRM pipeline visibility
+- WhatsApp or SMS follow-up flows
+- GoHighLevel-based lightweight automations
+
+### What v2 is trying to achieve
+- reduce lead leakage after first contact
+- create more consistent follow-up
+- improve speed-to-response
+- make it easier for small businesses to manage inbound demand
+- extend the value of the website beyond the form submission itself
+
+### Positioning note
+v2 should be framed as:
+**the next layer once the shopfront, enquiry capture, and lead handling are working properly.**
+
+It should not overshadow the simpler and more believable v1 offer.
+
+---
+
 ## 8) Delivery model
 
 ## 8.1 Planned stack
 
 The current intended stack is:
 
+### v1 stack
 - Cursor
 - Next.js
 - Tailwind
 - Vercel
 - Resend
 - Google Sheets
+
+### v2 / workflow layer
+- GoHighLevel
+- optional WhatsApp / SMS integrations
+- lightweight follow-up and pipeline automations where appropriate
 
 This is a practical stack, not a vanity stack.
 
@@ -381,6 +433,7 @@ This is a practical stack, not a vanity stack.
 - coded forms instead of brittle plugin dependence
 - straightforward transactional email setup
 - simple logging layer that is easy to inspect and explain
+- a credible path into smarter follow-through without requiring a giant custom build
 
 ---
 
@@ -395,6 +448,7 @@ The intended operating model is:
 - email notifications are handled through Resend
 - leads are logged into Google Sheets in the initial version
 - R3WORKED can charge a monthly support/hosting fee
+- future follow-up workflows can sit on top once needed
 
 This model gives:
 - speed
@@ -422,8 +476,11 @@ The design exists to improve trust, hierarchy, and conversion.
 ### 9.3 Focused offer
 Visitors should quickly understand that this is a clear, narrow service:
 - website uplift
-- lead capture
-- smarter follow-up
+- enquiry capture
+- lead handling
+
+And that there is a credible next layer available later:
+- smarter workflow follow-through
 
 ### 9.4 Before-and-after intelligence
 The site should show that R3WORKED can see what is wrong with a weak site and improve it meaningfully.
@@ -454,8 +511,8 @@ This section explains the three-part system behind the name R3WORKED.
 
 The three layers are:
 1. Website uplift
-2. Lead capture
-3. Smarter follow-up
+2. Enquiry capture
+3. Lead handling
 
 This section should make the brand logic feel intentional and easy to understand.
 
@@ -475,7 +532,7 @@ It is proof of judgment.
 
 ---
 
-## 10.4 Lead-capture / behind-the-scenes layer
+## 10.4 Lead-handling / behind-the-scenes layer
 This section should show that the front-end website is only part of the job.
 
 Behind it sits:
@@ -489,7 +546,21 @@ This turns the offer from “design service” into “working commercial front.
 
 ---
 
-## 10.5 Mock-up previews / example concepts
+## 10.5 v2 / smarter workflow layer
+This section can introduce the idea that once the front-end and lead-handling basics are in place, R3WORKED can also support a stronger follow-through layer.
+
+This can include:
+- reminders
+- follow-up flows
+- missed-call recovery
+- simple pipeline handling
+- lightweight CRM or GoHighLevel-based workflows
+
+This should be positioned as an expansion layer, not the core promise.
+
+---
+
+## 10.6 Mock-up previews / example concepts
 This section supports the outbound sales model.
 
 It suggests that R3WORKED can create preview homepage concepts for real businesses and rework what already exists.
@@ -500,7 +571,7 @@ This is useful both for:
 
 ---
 
-## 10.6 Final CTA
+## 10.7 Final CTA
 The close should be restrained but confident.
 
 Likely angles:
@@ -541,10 +612,13 @@ The real edge comes from:
 ## 12) The product promise
 
 ### Core promise
-**A sharper website. Better enquiry capture. Cleaner follow-up.**
+**A sharper website. Clearer enquiry capture. Better lead handling.**
 
 ### Expanded promise
 R3WORKED helps service businesses present themselves better online, capture serious enquiries more clearly, and handle those leads more cleanly once they arrive.
+
+### Future-layer promise
+Once that foundation is in place, R3WORKED can also help extend the follow-through with smarter workflow, reminder, and lead-management layers.
 
 That is the promise.
 No fantasy. No fluff.
@@ -561,8 +635,10 @@ No fantasy. No fluff.
 - Do not drift into broad strategy-consulting language
 - Do not design the brand like a trade-logo business with hammers or roofs
 - Do not make the site feel cheap, noisy, or over-animated
-- Preserve the premium spacing and structure inherited from the Hey Lola build
+- Preserve the premium spacing and structure inherited from the Hey Lola build where useful, but keep stripping inherited Lola baggage out of the project
 - The “3” is a key identity device, but use it with restraint
+- v1 must remain the main commercial promise
+- v2 should be visible as an intelligent next layer, but not overpower the clarity of v1
 - The design principle is:
 
 **Looks premium. Feels credible. Behaves practically.**

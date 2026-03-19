@@ -22,7 +22,7 @@ export function HomepageFooter() {
           </div>
 
           <div className="grid gap-3 text-sm">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#7E3F35]/72">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#B86B5C]/80">
               Navigate
             </p>
             {FOOTER_LINKS.map((link) => (
