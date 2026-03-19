@@ -1,231 +1,248 @@
+"use client";
+
 import Link from "next/link";
+import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 
-const MEDICAL_MINT = "#8DE5D5";
+function HeroVisualFlow() {
+  const visualRef = useRef<HTMLDivElement | null>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: visualRef,
+    offset: ["start start", "end start"],
+  });
 
-const HERO_LANES = [
-  {
-    id: "01",
-    accent: "bg-coral",
-    surfaceClass: "boundary-lane-glow-left",
-    label: "Restaurant demand",
-    incoming: "Dinner for four at 8",
-    context: "Availability, notes, and house rules checked in one pass.",
-    state: "Intent understood",
-    resolution: "Confirmed into tonight's service flow",
-  },
-  {
-    id: "02",
-    accent: "bg-[#8DE5D5]",
-    surfaceClass: "boundary-lane-glow-right",
-    label: "Medical admin",
-    incoming: "Move my appointment to Friday",
-    context: "Scheduling logic handled cleanly while clinical questions stay with staff.",
-    state: "Safely routed",
-    resolution: "Rescheduled with the right boundary intact",
-  },
-  {
-    id: "03",
-    accent: "bg-[#6C84C4]",
-    surfaceClass:
-      "bg-[linear-gradient(180deg,rgba(7,10,16,0.98),rgba(7,10,16,0.94))]",
-    label: "Broader platform",
-    incoming: "After-hours demand captured",
-    context: "The same layer receives requests, resolves the routine ones, and surfaces exceptions.",
-    state: "Always on",
-    resolution: "Logged, routed, and ready for the next workflow",
-  },
-];
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 24,
+    mass: 0.32,
+  });
 
-function LolaLayerStage() {
+  const mainY = useTransform(smoothProgress, [0, 1], [24, -18]);
+  const mainRotate = useTransform(smoothProgress, [0, 1], [1.2, -1.4]);
+  const insetY = useTransform(smoothProgress, [0, 1], [14, -16]);
+  const chipY = useTransform(smoothProgress, [0, 1], [20, -12]);
+  const gridShift = useTransform(smoothProgress, [0, 1], [0, 56]);
+  const drawProgress = useTransform(smoothProgress, [0, 1], [0.05, 1]);
+
   return (
-    <div className="relative mt-14 w-full max-w-6xl md:mt-20">
-      <div className="pointer-events-none absolute inset-x-0 top-12 h-px bg-[linear-gradient(90deg,transparent,rgba(30,30,46,0.08),transparent)]" />
+    <div ref={visualRef} className="relative w-full max-w-[34rem] lg:justify-self-end">
+      <div className="pointer-events-none absolute -left-10 top-10 h-36 w-36 rounded-full bg-[#D96B4F]/10 blur-3xl" />
+      <div className="pointer-events-none absolute right-4 top-2 h-24 w-24 rounded-full bg-white/60 blur-2xl" />
+      <div className="pointer-events-none absolute bottom-6 right-10 h-28 w-28 rounded-full bg-[#A94F3D]/8 blur-3xl" />
 
-      <div className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-[linear-gradient(180deg,rgba(252,251,248,0.96),rgba(246,242,236,0.98))] p-5 shadow-[0_26px_80px_rgba(56,45,28,0.08),0_10px_28px_rgba(56,45,28,0.05),inset_0_1px_0_rgba(255,255,255,0.82)] md:rounded-[2.5rem] md:p-7">
-        <div className="pointer-events-none absolute inset-[1px] rounded-[calc(2rem-1px)] border border-white/40 md:rounded-[calc(2.5rem-1px)]" />
+      <motion.div
+        style={{
+          y: reduceMotion ? 0 : mainY,
+          rotate: reduceMotion ? 0 : mainRotate,
+        }}
+        className="relative overflow-hidden rounded-[2.4rem] border border-[#161616]/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.8),rgba(247,243,238,0.96))] p-5 shadow-[0_34px_90px_rgba(72,50,37,0.12),0_12px_28px_rgba(72,50,37,0.06),inset_0_1px_0_rgba(255,255,255,0.82)] md:p-6"
+      >
+        <div className="absolute inset-[1px] rounded-[calc(2.4rem-1px)] border border-white/60" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(217,107,79,0.14),transparent_36%),linear-gradient(180deg,rgba(255,255,255,0.32),rgba(255,255,255,0))]" />
 
-        <div className="relative z-10 flex flex-col gap-6">
-          <div className="flex flex-col gap-4 border-b border-black/6 pb-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-3xl">
-              <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.22em] text-charcoal/48">
-                Lola Layer
-              </p>
-              <h2 className="mt-3 max-w-[18ch] text-2xl font-semibold tracking-[-0.03em] text-ink md:text-[2.55rem]">
-                One surface receiving live demand across real operations.
-              </h2>
-              <p className="mt-3 max-w-[44ch] text-sm leading-relaxed text-charcoal/58 md:text-[15px]">
-                A calmer place for live demand to land.
-              </p>
+        <motion.div
+          className="absolute inset-0 opacity-[0.18]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(22,22,22,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(22,22,22,0.08) 1px, transparent 1px)",
+            backgroundSize: "44px 44px",
+            backgroundPositionY: reduceMotion ? 0 : gridShift,
+          }}
+        />
+
+        <div className="relative aspect-[0.92]">
+          <div className="absolute inset-x-7 top-6 flex items-center justify-between text-[10px] uppercase tracking-[0.18em] text-[#2A2A2A]/46">
+            <span>Front-end rework</span>
+            <span>Intent flow</span>
+          </div>
+
+          <div className="absolute left-[7%] top-[14%] h-[14%] w-[34%] rounded-[1.2rem] border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(243,236,228,0.88))] shadow-[0_16px_34px_rgba(73,50,36,0.08)]">
+            <div className="flex items-center gap-2 border-b border-[#161616]/6 px-4 py-3">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#D96B4F]/78" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#A94F3D]/36" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#161616]/14" />
+              <div className="ml-2 h-2 w-[58%] rounded-full bg-[#161616]/8" />
             </div>
-
-            <p className="font-jetbrains text-[10px] uppercase tracking-[0.18em] text-charcoal/34 md:text-right">
-              Live now. Built wider.
-            </p>
+            <div className="px-4 pt-4">
+              <div className="h-2.5 w-[52%] rounded-full bg-[#161616]/10" />
+              <div className="mt-3 h-10 rounded-[0.95rem] bg-[linear-gradient(135deg,rgba(169,79,61,0.18),rgba(126,63,53,0.08))]" />
+            </div>
           </div>
 
-          <div className="grid gap-4">
-            {HERO_LANES.map((lane, index) => {
-              const isPrimary = index === 0;
-              const isTertiary = index === 2;
-
-              return (
-                <div
-                  key={lane.id}
-                  className={`grid gap-4 overflow-hidden rounded-[1.75rem] border border-white/12 p-5 text-white shadow-[0_26px_74px_rgba(0,0,0,0.45)] backdrop-blur-md md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] md:items-center ${lane.surfaceClass} ${
-                    isPrimary ? "md:p-7" : isTertiary ? "opacity-[0.9] md:p-5" : "md:p-6"
-                  }`}
-                >
-                  <div className="flex min-w-0 gap-4">
-                    <div className="flex w-8 shrink-0 flex-col items-center gap-3 pt-1">
-                      <span
-                        className={`h-2.5 w-2.5 rounded-full ${lane.accent}`}
-                      />
-                      <span className="h-full w-px bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0))]" />
-                    </div>
-                    <div className="relative z-10 min-w-0">
-                      <p className="font-jetbrains text-[10px] uppercase tracking-[0.18em] text-white/42">
-                        {lane.label}
-                      </p>
-                      <p
-                        className={`mt-3 font-semibold tracking-[-0.025em] text-white ${
-                          isPrimary
-                            ? "text-[1.45rem] md:text-[1.72rem]"
-                            : isTertiary
-                              ? "text-lg md:text-[1.18rem]"
-                              : "text-xl md:text-[1.38rem]"
-                        }`}
-                      >
-                        {lane.incoming}
-                      </p>
-                      <p
-                        className={`mt-2 leading-relaxed ${
-                          isTertiary
-                            ? "text-[13px] text-white/52"
-                            : "text-sm text-white/62"
-                        }`}
-                      >
-                        {lane.context}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="relative z-10 border-l border-white/10 pl-4 text-left md:pl-6">
-                    <p
-                      className={`font-jetbrains text-[10px] uppercase tracking-[0.18em] ${
-                        isTertiary ? "text-white/36" : "text-white/45"
-                      }`}
-                    >
-                      {lane.state}
-                    </p>
-                    <p
-                      className={`mt-3 max-w-[22ch] font-semibold tracking-[-0.02em] text-white ${
-                        isPrimary
-                          ? "text-[1.18rem] md:text-[1.28rem]"
-                          : isTertiary
-                            ? "text-base text-white/82"
-                            : "text-lg"
-                      }`}
-                    >
-                      {lane.resolution}
-                    </p>
-                    <div className="mt-4 flex items-center justify-between gap-3">
-                      <span
-                        className={`${
-                          isTertiary
-                            ? "text-[13px] text-white/48"
-                            : "text-sm text-white/62"
-                        }`}
-                      >
-                        Logged end to end
-                      </span>
-                      <span
-                        className={`rounded-full ${lane.accent} ${
-                          isPrimary
-                            ? "h-2 w-16 opacity-82"
-                            : isTertiary
-                              ? "h-1.5 w-10 opacity-60"
-                              : "h-2 w-14 opacity-78"
-                        }`}
-                      />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="absolute right-[7%] top-[18%] h-[48%] w-[58%] overflow-hidden rounded-[1.9rem] border border-white/70 bg-[linear-gradient(145deg,rgba(231,222,210,0.86),rgba(247,243,238,0.92))] shadow-[0_24px_54px_rgba(73,50,36,0.1)]">
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.26),transparent_46%)]" />
+            <div className="absolute inset-x-0 top-0 h-[38%] bg-[radial-gradient(circle_at_top_left,rgba(126,63,53,0.22),transparent_55%),linear-gradient(180deg,rgba(169,79,61,0.22),rgba(169,79,61,0.04))]" />
+            <div className="absolute inset-x-[12%] top-[17%] h-px bg-[#161616]/10" />
+            <div className="absolute inset-x-[18%] top-[28%] h-px bg-[#161616]/10" />
+            <div className="absolute left-[12%] right-[12%] top-[28%] h-[34%] rounded-[1.3rem] border border-[#161616]/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.42),rgba(255,255,255,0.12))]" />
+            <div className="absolute left-[18%] top-[42%] h-px w-[28%] bg-[#161616]/16" />
+            <div className="absolute left-[18%] top-[48%] h-px w-[38%] bg-[#161616]/10" />
+            <div className="absolute right-[18%] top-[42%] h-[16%] w-[22%] rounded-[1rem] border border-[#161616]/8 bg-white/24" />
+            <svg
+              viewBox="0 0 300 220"
+              className="absolute inset-0 h-full w-full opacity-[0.28]"
+              aria-hidden="true"
+            >
+              <path
+                d="M44 78 L110 40 L168 40 L228 72 L250 72"
+                fill="none"
+                stroke="rgba(22,22,22,0.26)"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+              />
+              <path
+                d="M56 88 L100 58 L176 58 L210 88"
+                fill="none"
+                stroke="rgba(22,22,22,0.18)"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+              />
+            </svg>
           </div>
 
-          <div className="rounded-[1.6rem] border border-black/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.74),rgba(248,244,238,0.92))] px-4 py-4 md:px-5">
-            <p className="max-w-[52ch] text-sm leading-relaxed text-charcoal/58">
-              A cleaner route from request to outcome.
-            </p>
-          </div>
+          <motion.div
+            style={{ y: reduceMotion ? 0 : insetY }}
+            className="absolute bottom-[13%] left-[3%] w-[44%] overflow-hidden rounded-[1.55rem] border border-[#161616]/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(247,243,238,0.96))] p-4 shadow-[0_24px_52px_rgba(73,50,36,0.12)]"
+          >
+            <div className="flex items-center justify-between">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7E3F35]/72">
+                Enquiry path
+              </p>
+              <span className="h-2 w-2 rounded-full bg-[#D96B4F]/72" />
+            </div>
+            <div className="mt-4 space-y-3">
+              <div className="h-9 rounded-[0.9rem] border border-[#161616]/8 bg-white/64" />
+              <div className="h-9 rounded-[0.9rem] border border-[#161616]/8 bg-white/64" />
+              <div className="flex items-center justify-between rounded-[1rem] border border-[#D96B4F]/14 bg-[linear-gradient(135deg,rgba(245,236,230,0.9),rgba(255,255,255,0.74))] px-3 py-3">
+                <span className="text-[11px] font-medium text-[#161616]/82">
+                  Request a quote
+                </span>
+                <span className="h-2 w-8 rounded-full bg-[#D96B4F]/68" />
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            style={{ y: reduceMotion ? 0 : chipY }}
+            className="absolute bottom-[12%] right-[4%] rounded-[1.25rem] border border-[#161616]/8 bg-[rgba(22,22,22,0.92)] px-4 py-3 text-[#F7F3EE] shadow-[0_22px_42px_rgba(22,22,22,0.22)]"
+          >
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-[#F7F3EE]/54">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#D96B4F]" />
+                <span>Enquiry received</span>
+              </div>
+              <div className="text-[10px] uppercase tracking-[0.16em] text-[#F7F3EE]/54">
+                Client notified
+              </div>
+              <div className="text-[10px] uppercase tracking-[0.16em] text-[#F7F3EE]/54">
+                Logged cleanly
+              </div>
+            </div>
+          </motion.div>
+
+          <svg
+            viewBox="0 0 520 620"
+            className="pointer-events-none absolute inset-0 h-full w-full"
+            aria-hidden="true"
+          >
+            <motion.path
+              d="M102 120 C132 122 168 132 198 156 C236 186 248 218 278 226 C322 238 346 232 370 250 C402 274 398 324 354 356 C322 380 254 382 210 418 C176 446 164 482 176 528"
+              fill="none"
+              stroke="rgba(169,79,61,0.34)"
+              strokeWidth="18"
+              strokeLinecap="round"
+              style={{ pathLength: reduceMotion ? 1 : drawProgress }}
+            />
+            <motion.path
+              d="M102 120 C132 122 168 132 198 156 C236 186 248 218 278 226 C322 238 346 232 370 250 C402 274 398 324 354 356 C322 380 254 382 210 418 C176 446 164 482 176 528"
+              fill="none"
+              stroke="rgba(217,107,79,0.9)"
+              strokeWidth="2.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ pathLength: reduceMotion ? 1 : drawProgress }}
+            />
+            <circle
+              cx="102"
+              cy="120"
+              r="7"
+              fill="rgba(217,107,79,0.9)"
+              opacity="0.82"
+            />
+            <circle
+              cx="176"
+              cy="528"
+              r="7"
+              fill="rgba(217,107,79,0.9)"
+              opacity="0.82"
+            />
+          </svg>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
 
-/* ─── HERO ─── */
 export function HomepageHero() {
   return (
     <section
       id="hero"
-      className="relative isolate flex w-full min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#FAFAF8] md:min-h-screen"
+      className="relative isolate overflow-hidden bg-[#F7F3EE]"
     >
-      {/* Content */}
-      <div className="relative z-10 mx-auto flex w-[95%] max-w-6xl flex-col items-center px-6 pt-32 pb-20 text-center md:pt-40 md:pb-28">
-        {/* Eyebrow */}
-        <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.25em] text-charcoal/46">
-          The Voice Operating Layer
-        </p>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(217,107,79,0.1),transparent_30%),radial-gradient(circle_at_82%_14%,rgba(169,79,61,0.08),transparent_24%),radial-gradient(circle_at_62%_74%,rgba(231,222,210,0.7),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.68),rgba(247,243,238,0.42)_34%,rgba(247,243,238,0.96)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.18] [background-image:linear-gradient(rgba(22,22,22,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(22,22,22,0.04)_1px,transparent_1px)] [background-size:72px_72px]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(255,255,255,0))]" />
 
-        {/* Headline — editorial scale */}
-        <h1 className="mt-8 md:mt-10">
-          <span className="block font-outfit text-5xl font-bold tracking-[-0.03em] text-ink md:text-7xl lg:text-8xl">
-            One voice layer
-          </span>
-          <span className="mt-1 block type-display text-ink/80 md:mt-2">
-            for the real world.
-          </span>
-        </h1>
+      <div className="relative z-10 mx-auto grid min-h-[100svh] w-full max-w-[78rem] items-center gap-18 px-6 pb-24 pt-32 md:px-10 md:pb-28 md:pt-40 lg:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] lg:gap-20">
+        <div className="max-w-[45rem]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#7E3F35]/76">
+            Sharper commercial fronts
+          </p>
 
-        {/* Subcopy */}
-        <p className="type-lead mx-auto mt-8 max-w-[48ch] text-charcoal/66 md:mt-9">
-          Lola answers naturally, captures intent, and moves bookings, questions, and service requests into the right business flow — starting with restaurants and medical.
-        </p>
+          <h1 className="mt-7 max-w-[10.5ch] text-[3.2rem] font-semibold leading-[0.94] tracking-[-0.07em] text-[#161616] md:text-[4.9rem] lg:text-[6.2rem]">
+            Sharper websites.
+            <br />
+            Clearer enquiries.
+            <br />
+            Better lead handling.
+          </h1>
 
-        {/* CTAs */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4 md:mt-11">
-          <Link
-            href="/restaurants"
-            className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#E77F74]/26 bg-[linear-gradient(135deg,rgba(255,255,255,0.84)_0%,rgba(255,245,240,0.72)_100%)] px-7 py-3 text-sm font-semibold tracking-[0.04em] text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_8px_18px_rgba(45,34,17,0.05)] transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[#E77F74]/34 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.76),0_12px_24px_rgba(45,34,17,0.07)] active:translate-y-0 active:scale-[0.98]"
-          >
-            <span className="h-2 w-2 rounded-full bg-coral/60 transition-colors group-hover:bg-coral" />
-            Explore Restaurants
-          </Link>
-          <Link
-            href="/medical"
-            className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-7 py-3 text-sm font-semibold tracking-[0.04em] text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_8px_18px_rgba(45,34,17,0.05)] transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.76),0_12px_24px_rgba(45,34,17,0.07)] active:translate-y-0 active:scale-[0.98]"
-            style={{
-              borderColor: "rgba(141, 229, 213, 0.24)",
-              background:
-                "linear-gradient(135deg, rgba(255,255,255,0.84) 0%, rgba(240,252,249,0.72) 100%)",
-            }}
-          >
-            <span
-              className="h-2 w-2 rounded-full transition-colors"
-              style={{ backgroundColor: `${MEDICAL_MINT}99` }}
-            />
-            Explore Medical
-          </Link>
+          <p className="mt-8 max-w-[41rem] text-lg leading-8 text-[#2A2A2A]/76 md:text-xl md:leading-9">
+            R3WORKED reworks underperforming websites into sharper commercial
+            fronts — with clearer enquiry paths and better lead handling behind
+            the scenes.
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Link
+              href="#final-cta"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#D96B4F]/24 bg-[linear-gradient(135deg,rgba(255,255,255,0.86)_0%,rgba(245,236,230,0.94)_100%)] px-6 py-3 text-sm font-semibold tracking-[0.04em] text-[#161616] shadow-[inset_0_1px_0_rgba(255,255,255,0.78),0_12px_28px_rgba(90,60,42,0.09)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-[#D96B4F]/34 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_16px_32px_rgba(90,60,42,0.12)]"
+            >
+              Get a homepage review
+            </Link>
+
+            <Link
+              href="#before-after-showcase"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#161616]/10 bg-white/55 px-6 py-3 text-sm font-semibold tracking-[0.04em] text-[#161616] shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_10px_24px_rgba(90,60,42,0.05)] transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[#161616]/16 hover:bg-white/72 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.68),0_14px_28px_rgba(90,60,42,0.08)]"
+            >
+              See a rework example
+            </Link>
+          </div>
+
+          <p className="mt-7 max-w-[42rem] text-[11px] uppercase tracking-[0.18em] text-[#2A2A2A]/44">
+            Initially focused on UK roofers. Built for service businesses with
+            more value than their current website suggests.
+          </p>
         </div>
 
-        {/* Tertiary */}
-        <p className="mt-6 font-jetbrains text-[10px] uppercase tracking-[0.18em] text-charcoal/30">
-          More verticals ahead. Same Lola.
-        </p>
-
-        <LolaLayerStage />
+        <HeroVisualFlow />
       </div>
     </section>
   );

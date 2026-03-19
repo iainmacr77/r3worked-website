@@ -15,7 +15,7 @@ export function createSiteMetadata({
     openGraph: {
       title,
       description,
-      siteName: "Hey Lola",
+      siteName: "R3WORKED",
       type: "website",
     },
     twitter: {

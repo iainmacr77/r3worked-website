@@ -40,7 +40,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   /* Local font stacks (offline-safe) */
-  --font-outfit: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-outfit: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-playfair: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-jetbrains: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
 

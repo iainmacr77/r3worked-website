@@ -1,30 +1,30 @@
 import type { Metadata } from "next";
 import { HomepageNavbar } from "@/components/homepage/HomepageNavbar";
 import { HomepageHero } from "@/components/homepage/HomepageHero";
-import { ChooseYourWorld } from "@/components/homepage/ChooseYourWorld";
-import { HowLolaWorks } from "@/components/homepage/HowLolaWorks";
-import { OperationalValue } from "@/components/homepage/OperationalValue";
-import { BroaderVision } from "@/components/homepage/BroaderVision";
-import { LatestNews } from "@/components/homepage/LatestNews";
+import { TheThreeInR3Worked } from "@/components/homepage/TheThreeInR3Worked";
+import { BeforeAfterShowcase } from "@/components/homepage/BeforeAfterShowcase";
+import { LeadCaptureLayer } from "@/components/homepage/LeadCaptureLayer";
+import { PreviewExamples } from "@/components/homepage/PreviewExamples";
+import { FinalCta } from "@/components/homepage/FinalCta";
 import { HomepageFooter } from "@/components/homepage/HomepageFooter";
 import { createSiteMetadata } from "@/lib/site-metadata";
 
 export const metadata: Metadata = createSiteMetadata({
-  title: "Hey Lola | One Voice Layer for Real-World Operations",
+  title: "R3WORKED | Website Uplift, Lead Capture, Smarter Follow-Up",
   description:
-    "Lola answers naturally, captures demand, routes exceptions, and moves service requests into the right business flow, with restaurants and medical live today.",
+    "R3WORKED helps service businesses turn dated digital fronts into sharper websites with clearer enquiries, better lead handling, and cleaner follow-up.",
 });
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen w-full flex-col bg-ink scroll-smooth">
+    <main className="flex min-h-screen w-full flex-col bg-[#F7F3EE] text-[#161616] scroll-smooth">
       <HomepageNavbar />
       <HomepageHero />
-      <ChooseYourWorld />
-      <HowLolaWorks />
-      <OperationalValue />
-      <BroaderVision />
-      <LatestNews />
+      <TheThreeInR3Worked />
+      <BeforeAfterShowcase />
+      <LeadCaptureLayer />
+      <PreviewExamples />
+      <FinalCta />
       <HomepageFooter />
     </main>
   );
