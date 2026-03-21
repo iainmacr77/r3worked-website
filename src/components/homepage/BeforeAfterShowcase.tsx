@@ -3,11 +3,13 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "lucide-react";
+import { HomepagePreviewModal } from "./HomepagePreviewModal";
 
 export function BeforeAfterShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   const [isShowingAfter, setIsShowingAfter] = useState(false);
+  const [previewVariant, setPreviewVariant] = useState<"before" | "after" | null>(null);
 
   return (
     <section id="before-after-showcase" className="bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 border-t border-[#161616]/5">
@@ -92,9 +94,13 @@ export function BeforeAfterShowcase() {
                         <div className="px-8 py-4 rounded-full bg-[#161616] text-white text-[13px] font-bold uppercase tracking-[0.1em] shadow-[0_8px_24px_rgba(22,22,22,0.2)]">
                           Request an inspection
                         </div>
-                        <div className="px-8 py-4 rounded-full border border-[#161616]/15 text-[#161616] text-[13px] font-bold uppercase tracking-[0.1em]">
-                          View latest projects
-                        </div>
+                        <button 
+                          onClick={() => setPreviewVariant("after")}
+                          className="px-8 py-4 rounded-full border border-[#161616]/15 hover:border-[#161616]/30 hover:bg-[#161616]/5 transition-colors text-[#161616] text-[13px] font-bold uppercase tracking-[0.1em] flex items-center gap-2 group outline-none focus-visible:ring-2 focus-visible:ring-[#161616]/20"
+                        >
+                          View full homepage
+                          <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+                        </button>
                       </div>
                    </div>
                 </div>
@@ -143,12 +149,15 @@ export function BeforeAfterShowcase() {
                         We do all types of roofs. Flat roofs, pitched roofs, repairs and emergency callouts. Our team is fully qualified and ready to help you with your next project. Call us now for a free quote.
                       </p>
                       <div className="flex gap-4">
-                        <div className="px-6 py-3 bg-blue-600 text-white font-bold rounded shadow">
+                        <div className="px-6 py-3 bg-blue-600 text-white font-bold rounded shadow cursor-pointer">
                           Click Here For Quote
                         </div>
-                        <div className="px-6 py-3 bg-gray-200 text-gray-800 font-bold rounded border border-gray-300">
-                          Read More
-                        </div>
+                        <button 
+                          onClick={() => setPreviewVariant("before")}
+                          className="px-6 py-3 bg-gray-200 hover:bg-gray-300 transition-colors text-gray-800 font-bold rounded border border-gray-300 outline-none"
+                        >
+                          View full homepage
+                        </button>
                       </div>
                    </div>
                 </div>
@@ -220,6 +229,13 @@ export function BeforeAfterShowcase() {
             )}
           </AnimatePresence>
         </motion.div>
+
+        {/* Deep View Modal overlay */}
+        <HomepagePreviewModal 
+           isOpen={!!previewVariant} 
+           variant={previewVariant} 
+           onClose={() => setPreviewVariant(null)} 
+        />
 
       </div>
     </section>
