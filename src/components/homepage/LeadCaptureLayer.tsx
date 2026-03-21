@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { ArrowRight, CheckCircle2, Bell, Database } from "lucide-react";
+import { CheckCircle2, Bell, Database } from "lucide-react";
 
 const FLOW_STEPS = [
   {

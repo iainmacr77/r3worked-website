@@ -7,12 +7,10 @@ import {
   Settings,
   ShieldCheck,
   PhoneCall,
-  ArrowRight,
   CornerDownRight,
   Zap,
   RefreshCw,
   CheckCircle2,
-  Clock,
 } from "lucide-react";
 import { SectionHeading } from "@/components/typography/SectionHeading";
 
