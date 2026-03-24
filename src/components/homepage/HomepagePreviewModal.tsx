@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink } from "lucide-react";
 
+import { CollinsAfterFullPreview } from "./CollinsAfterFullPreview";
 import { CollinsBeforeFullPreview } from "./CollinsBeforeFullPreview";
 
 interface HomepagePreviewModalProps {
@@ -90,7 +91,7 @@ export function HomepagePreviewModal({ isOpen, onClose, variant }: HomepagePrevi
               {variant === "before" ? (
                 <CollinsBeforeModalContent />
               ) : (
-                <PlaceholderAfterContent />
+                <CollinsAfterModalContent />
               )}
             </div>
           </motion.div>
@@ -108,34 +109,6 @@ function CollinsBeforeModalContent() {
   return <CollinsBeforeFullPreview />;
 }
 
-function PlaceholderAfterContent() {
-  return (
-    <div className="min-h-[150vh] flex flex-col bg-[#F7F3EE]">
-      {/* 
-        TODO: Swap this entire component later for:
-        <AfterHomepagePreview /> (The actual polished R3WORKED Collins page structure)
-      */}
-      <div className="p-20 border-b border-[#161616]/5 flex flex-col justify-center min-h-[60vh] relative">
-        <div className="absolute top-0 right-0 w-[50%] h-[100%] bg-[radial-gradient(ellipse_at_top_right,rgba(184,107,92,0.08),transparent_60%)] pointer-events-none" />
-        <div className="max-w-3xl relative z-10">
-          <h1 className="text-5xl lg:text-7xl font-sans font-bold tracking-tight text-[#161616] leading-[1.0] mb-8">
-            Precision building.<br />Engineered for scale.
-          </h1>
-          <p className="text-xl text-[#2A2A2A]/80 font-medium leading-[1.6] max-w-xl mb-12">
-            A premium demonstration of architectural intent, sharp typography, and effortless modern layout designed to convert high-value prospects.
-          </p>
-          <div className="px-8 py-4 rounded-full bg-[#161616] text-white text-[13px] font-bold uppercase tracking-[0.1em] shadow-[0_8px_24px_rgba(22,22,22,0.2)] inline-block">
-            Start a project
-          </div>
-        </div>
-      </div>
-      <div className="flex-1 p-20 flex flex-col gap-16">
-        <div className="w-full h-80 rounded-[2rem] bg-[#161616]/5 border border-[#161616]/5" />
-        <div className="grid grid-cols-2 gap-10">
-          <div className="w-full h-64 rounded-[2rem] bg-white border border-[#161616]/5 shadow-sm" />
-          <div className="w-full h-64 rounded-[2rem] bg-white border border-[#161616]/5 shadow-sm" />
-        </div>
-      </div>
-    </div>
-  );
+function CollinsAfterModalContent() {
+  return <CollinsAfterFullPreview />;
 }

@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { HomepagePreviewModal } from "./HomepagePreviewModal";
+import { CollinsBeforeFullPreview } from "./CollinsBeforeFullPreview";
+import { BrowserPreviewFrame } from "./BrowserPreviewFrame";
 
 export function BeforeAfterShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -60,50 +62,21 @@ export function BeforeAfterShowcase() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="absolute inset-0 bg-[#F7F3EE] flex flex-col pt-8"
+                className="absolute inset-0 bg-[#F7F3EE]"
               >
-                {/* Minimal Premium Header */}
-                <div className="absolute top-0 left-0 right-0 h-20 border-b border-[#161616]/5 flex items-center justify-between px-8 bg-white/40 backdrop-blur-md">
-                  <div className="font-sans font-bold text-xl tracking-tight text-[#161616]">Apex Roofing.</div>
-                  <div className="hidden lg:flex gap-8 text-[13px] font-semibold tracking-wide text-[#2A2A2A]">
-                    <span>Services</span>
-                    <span>Our Work</span>
-                    <span>About Us</span>
-                  </div>
-                  <div className="px-5 py-2.5 bg-[#161616] text-[#F7F3EE] rounded-full text-xs font-bold uppercase tracking-[0.1em] shadow-md">
-                    Get a Quote
-                  </div>
-                </div>
-
-                <div className="flex-1 w-full h-full flex flex-col justify-center px-12 lg:px-24 mt-16 pb-12 relative overflow-hidden">
-                   {/* Elegant Background Lighting */}
-                   <div className="absolute top-0 right-0 w-[50%] h-[100%] bg-[radial-gradient(ellipse_at_top_right,rgba(184,107,92,0.08),transparent_60%)] pointer-events-none" />
-
-                   <div className="max-w-2xl relative z-10">
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#B86B5C]/20 bg-[#B86B5C]/5 mb-6">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#B86B5C]" />
-                        <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#B86B5C]">Established 1998</span>
-                      </div>
-                      <h1 className="text-5xl lg:text-7xl font-sans font-bold tracking-tight text-[#161616] leading-[1.0] mb-6">
-                        Precision roofing.<br />Built to endure.
-                      </h1>
-                      <p className="text-xl text-[#2A2A2A]/80 font-medium leading-[1.6] max-w-lg mb-10">
-                        Delivering architectural-grade roofing solutions across the South East. Specializing in heritage slate and modern flat systems.
-                      </p>
-                      <div className="flex gap-4">
-                        <div className="px-8 py-4 rounded-full bg-[#161616] text-white text-[13px] font-bold uppercase tracking-[0.1em] shadow-[0_8px_24px_rgba(22,22,22,0.2)]">
-                          Request an inspection
-                        </div>
-                        <button 
-                          onClick={() => setPreviewVariant("after")}
-                          className="px-8 py-4 rounded-full border border-[#161616]/15 hover:border-[#161616]/30 hover:bg-[#161616]/5 transition-colors text-[#161616] text-[13px] font-bold uppercase tracking-[0.1em] flex items-center gap-2 group outline-none focus-visible:ring-2 focus-visible:ring-[#161616]/20"
-                        >
-                          View full homepage
-                          <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-                        </button>
-                      </div>
-                   </div>
-                </div>
+                <BrowserPreviewFrame
+                  title="Apex Roofing homepage"
+                  url="https://apexroofing.co.uk"
+                  footerOverlay={
+                    <PreviewFooterCta
+                      tone="after"
+                      label="View full homepage"
+                      onClick={() => setPreviewVariant("after")}
+                    />
+                  }
+                >
+                  <CollinsAfterCollapsedPreviewPage />
+                </BrowserPreviewFrame>
               </motion.div>
             ) : (
               <motion.div
@@ -112,61 +85,21 @@ export function BeforeAfterShowcase() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="absolute inset-0 bg-[#F8FAFC] flex flex-col border-none"
+                className="absolute inset-0 bg-[#F8FAFC]"
               >
-                {/* Generic/Dated Header */}
-                <div className="absolute top-0 left-0 right-0 h-[90px] bg-white border-b border-gray-200 flex items-center justify-between px-6 shadow-sm">
-                  <div className="flex items-center gap-3">
-                     <div className="w-10 h-10 bg-blue-600 rounded flex items-center justify-center text-white font-serif italic font-bold">A</div>
-                     <div>
-                        <div className="font-serif italic text-2xl text-gray-800 leading-none">Apex Roofing</div>
-                        <div className="text-[10px] text-gray-500 uppercase tracking-wide mt-1">Roofing services Ltd</div>
-                     </div>
-                  </div>
-                  <div className="hidden lg:flex gap-6 text-[15px] font-sans text-gray-600">
-                    <span className="text-blue-600">Home</span>
-                    <span>Services</span>
-                    <span>About</span>
-                    <span>Contact</span>
-                  </div>
-                  <div className="flex flex-col items-end">
-                     <span className="text-xs text-gray-500">Call us today!</span>
-                     <span className="text-lg font-bold text-gray-900">01234 567 890</span>
-                  </div>
-                </div>
-
-                {/* Grayish bland hero background */}
-                <div className="flex-1 w-full bg-[#E2E8F0]/50 mt-[90px] flex items-center px-10 relative overflow-hidden">
-                   {/* Faux generic stock-photo like overlay block */}
-                   <div className="absolute right-0 top-0 bottom-0 w-[40%] bg-blue-900/10 pointer-events-none" />
-                   
-                   <div className="max-w-xl bg-white/80 backdrop-blur p-8 lg:p-10 border border-gray-200 shadow-sm">
-                      <div className="text-blue-600 font-bold tracking-wider text-sm mb-2 uppercase">Welcome to our website</div>
-                      <h1 className="text-4xl font-serif font-bold text-gray-900 leading-tight mb-4">
-                        The best roofers in town since 1998
-                      </h1>
-                      <p className="text-gray-600 text-base leading-relaxed mb-6 font-sans">
-                        We do all types of roofs. Flat roofs, pitched roofs, repairs and emergency callouts. Our team is fully qualified and ready to help you with your next project. Call us now for a free quote.
-                      </p>
-                      <div className="flex gap-4">
-                        <div className="px-6 py-3 bg-blue-600 text-white font-bold rounded shadow cursor-pointer">
-                          Click Here For Quote
-                        </div>
-                        <button 
-                          onClick={() => setPreviewVariant("before")}
-                          className="px-6 py-3 bg-gray-200 hover:bg-gray-300 transition-colors text-gray-800 font-bold rounded border border-gray-300 outline-none"
-                        >
-                          View full homepage
-                        </button>
-                      </div>
-                   </div>
-                </div>
-                {/* Cluttered trust badges */}
-                <div className="absolute bottom-6 left-10 flex gap-4 opacity-70">
-                   <div className="w-[100px] h-[40px] bg-gray-300 rounded" />
-                   <div className="w-[80px] h-[40px] bg-gray-300 rounded" />
-                   <div className="w-[90px] h-[40px] bg-gray-300 rounded" />
-                </div>
+                <BrowserPreviewFrame
+                  title="Collins Construction homepage"
+                  url="https://collinsconstruction.co.uk"
+                  footerOverlay={
+                    <PreviewFooterCta
+                      tone="before"
+                      label="View full homepage"
+                      onClick={() => setPreviewVariant("before")}
+                    />
+                  }
+                >
+                  <CollinsBeforeFullPreview />
+                </BrowserPreviewFrame>
               </motion.div>
             )}
           </AnimatePresence>
@@ -239,5 +172,105 @@ export function BeforeAfterShowcase() {
 
       </div>
     </section>
+  );
+}
+
+type PreviewFooterCtaProps = {
+  tone: "before" | "after";
+  label: string;
+  onClick: () => void;
+};
+
+function PreviewFooterCta({ tone, label, onClick }: PreviewFooterCtaProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={
+        tone === "after"
+          ? "absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-[#161616]/12 bg-white/92 px-5 py-3 text-[12px] font-bold uppercase tracking-[0.12em] text-[#161616] shadow-[0_12px_24px_rgba(22,22,22,0.12)] backdrop-blur-sm transition-colors hover:border-[#161616]/20 hover:bg-white focus-visible:ring-2 focus-visible:ring-[#161616]/20"
+          : "absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-[#D0D7E2] bg-white/96 px-5 py-3 text-[12px] font-bold uppercase tracking-[0.12em] text-[#334155] shadow-[0_12px_24px_rgba(15,23,42,0.1)] backdrop-blur-sm transition-colors hover:border-[#B9C4D5] hover:bg-white focus-visible:ring-2 focus-visible:ring-[#94A3B8]/30"
+      }
+    >
+      <span>{label}</span>
+      <ArrowRight size={14} aria-hidden="true" />
+    </button>
+  );
+}
+
+function CollinsAfterCollapsedPreviewPage() {
+  return (
+    <div className="min-h-[1200px] bg-[#F7F3EE] text-[#161616]">
+      <header className="flex h-20 items-center justify-between border-b border-[#161616]/5 bg-white/70 px-12 backdrop-blur-md">
+        <div className="font-sans text-xl font-bold tracking-tight text-[#161616]">
+          Apex Roofing.
+        </div>
+        <div className="flex items-center gap-8 text-[13px] font-semibold tracking-wide text-[#2A2A2A]">
+          <span>Services</span>
+          <span>Our Work</span>
+          <span>About Us</span>
+        </div>
+        <div className="rounded-full bg-[#161616] px-5 py-2.5 text-xs font-bold uppercase tracking-[0.1em] text-[#F7F3EE] shadow-md">
+          Get a Quote
+        </div>
+      </header>
+
+      <section className="relative min-h-[calc(100vh-5rem)] overflow-hidden px-20 py-20">
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-[48%] bg-[radial-gradient(ellipse_at_top_right,rgba(184,107,92,0.08),transparent_60%)]" />
+        <div className="relative z-10 flex min-h-[36rem] max-w-3xl flex-col justify-center">
+          <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-[#B86B5C]/20 bg-[#B86B5C]/5 px-3 py-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#B86B5C]" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#B86B5C]">
+              Established 1998
+            </span>
+          </div>
+          <h1 className="mb-6 text-7xl font-sans font-bold leading-[0.98] tracking-[-0.04em] text-[#161616]">
+            Precision roofing.
+            <br />
+            Built to endure.
+          </h1>
+          <p className="mb-10 max-w-xl text-xl font-medium leading-[1.6] text-[#2A2A2A]/80">
+            Delivering architectural-grade roofing solutions across the South East.
+            Specializing in heritage slate and modern flat systems.
+          </p>
+          <div className="flex gap-4">
+            <div className="rounded-full bg-[#161616] px-8 py-4 text-[13px] font-bold uppercase tracking-[0.1em] text-white shadow-[0_8px_24px_rgba(22,22,22,0.2)]">
+              Request an inspection
+            </div>
+            <div className="rounded-full border border-[#161616]/15 px-8 py-4 text-[13px] font-bold uppercase tracking-[0.1em] text-[#161616]">
+              View project gallery
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-[#161616]/6 bg-white px-20 py-16">
+        <div className="grid grid-cols-3 gap-8">
+          <div className="rounded-[1.5rem] border border-[#161616]/8 bg-[#F8F3EC] p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B86B5C]">
+              Domestic
+            </p>
+            <p className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-[#161616]">
+              Slate, tile, and flat roofing systems.
+            </p>
+          </div>
+          <div className="rounded-[1.5rem] border border-[#161616]/8 bg-white p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#161616]/45">
+              Response
+            </p>
+            <p className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-[#161616]">
+              Structured inspections and clearer quote capture.
+            </p>
+          </div>
+          <div className="rounded-[1.5rem] border border-[#161616]/8 bg-white p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#161616]/45">
+              Heritage
+            </p>
+            <p className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-[#161616]">
+              Detail-led presentation with a stronger first impression.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
