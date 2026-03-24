@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { HomepagePreviewModal } from "./HomepagePreviewModal";
+import { CollinsAfterFullPreview } from "./CollinsAfterFullPreview";
 import { CollinsBeforeFullPreview } from "./CollinsBeforeFullPreview";
 import { BrowserPreviewFrame } from "./BrowserPreviewFrame";
 
@@ -65,8 +66,8 @@ export function BeforeAfterShowcase() {
                 className="absolute inset-0 bg-[#F7F3EE]"
               >
                 <BrowserPreviewFrame
-                  title="Apex Roofing homepage"
-                  url="https://apexroofing.co.uk"
+                  title="Collins Construction homepage"
+                  url="https://collinsconstruction.co.uk"
                   footerOverlay={
                     <PreviewFooterCta
                       tone="after"
@@ -75,7 +76,7 @@ export function BeforeAfterShowcase() {
                     />
                   }
                 >
-                  <CollinsAfterCollapsedPreviewPage />
+                  <CollinsAfterFullPreview />
                 </BrowserPreviewFrame>
               </motion.div>
             ) : (
@@ -194,83 +195,5 @@ function PreviewFooterCta({ tone, label, onClick }: PreviewFooterCtaProps) {
       <span>{label}</span>
       <ArrowRight size={14} aria-hidden="true" />
     </button>
-  );
-}
-
-function CollinsAfterCollapsedPreviewPage() {
-  return (
-    <div className="min-h-[1200px] bg-[#F7F3EE] text-[#161616]">
-      <header className="flex h-20 items-center justify-between border-b border-[#161616]/5 bg-white/70 px-12 backdrop-blur-md">
-        <div className="font-sans text-xl font-bold tracking-tight text-[#161616]">
-          Apex Roofing.
-        </div>
-        <div className="flex items-center gap-8 text-[13px] font-semibold tracking-wide text-[#2A2A2A]">
-          <span>Services</span>
-          <span>Our Work</span>
-          <span>About Us</span>
-        </div>
-        <div className="rounded-full bg-[#161616] px-5 py-2.5 text-xs font-bold uppercase tracking-[0.1em] text-[#F7F3EE] shadow-md">
-          Get a Quote
-        </div>
-      </header>
-
-      <section className="relative min-h-[calc(100vh-5rem)] overflow-hidden px-20 py-20">
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-[48%] bg-[radial-gradient(ellipse_at_top_right,rgba(184,107,92,0.08),transparent_60%)]" />
-        <div className="relative z-10 flex min-h-[36rem] max-w-3xl flex-col justify-center">
-          <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-[#B86B5C]/20 bg-[#B86B5C]/5 px-3 py-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#B86B5C]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#B86B5C]">
-              Established 1998
-            </span>
-          </div>
-          <h1 className="mb-6 text-7xl font-sans font-bold leading-[0.98] tracking-[-0.04em] text-[#161616]">
-            Precision roofing.
-            <br />
-            Built to endure.
-          </h1>
-          <p className="mb-10 max-w-xl text-xl font-medium leading-[1.6] text-[#2A2A2A]/80">
-            Delivering architectural-grade roofing solutions across the South East.
-            Specializing in heritage slate and modern flat systems.
-          </p>
-          <div className="flex gap-4">
-            <div className="rounded-full bg-[#161616] px-8 py-4 text-[13px] font-bold uppercase tracking-[0.1em] text-white shadow-[0_8px_24px_rgba(22,22,22,0.2)]">
-              Request an inspection
-            </div>
-            <div className="rounded-full border border-[#161616]/15 px-8 py-4 text-[13px] font-bold uppercase tracking-[0.1em] text-[#161616]">
-              View project gallery
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-[#161616]/6 bg-white px-20 py-16">
-        <div className="grid grid-cols-3 gap-8">
-          <div className="rounded-[1.5rem] border border-[#161616]/8 bg-[#F8F3EC] p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B86B5C]">
-              Domestic
-            </p>
-            <p className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-[#161616]">
-              Slate, tile, and flat roofing systems.
-            </p>
-          </div>
-          <div className="rounded-[1.5rem] border border-[#161616]/8 bg-white p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#161616]/45">
-              Response
-            </p>
-            <p className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-[#161616]">
-              Structured inspections and clearer quote capture.
-            </p>
-          </div>
-          <div className="rounded-[1.5rem] border border-[#161616]/8 bg-white p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#161616]/45">
-              Heritage
-            </p>
-            <p className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-[#161616]">
-              Detail-led presentation with a stronger first impression.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
   );
 }
