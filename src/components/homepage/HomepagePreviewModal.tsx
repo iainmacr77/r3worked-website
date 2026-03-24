@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink } from "lucide-react";
 
+import { CollinsBeforeFullPreview } from "./CollinsBeforeFullPreview";
+
 interface HomepagePreviewModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -86,7 +88,7 @@ export function HomepagePreviewModal({ isOpen, onClose, variant }: HomepagePrevi
             {/* Scrollable Sub-Viewport */}
             <div className="flex-1 w-full bg-[#F8FAFC] overflow-y-auto overflow-x-hidden relative scroll-smooth scrollbar-hide">
               {variant === "before" ? (
-                <PlaceholderBeforeContent />
+                <CollinsBeforeModalContent />
               ) : (
                 <PlaceholderAfterContent />
               )}
@@ -99,36 +101,11 @@ export function HomepagePreviewModal({ isOpen, onClose, variant }: HomepagePrevi
 }
 
 // ==========================================
-// PLACEHOLDERS: Swap these out later
+// PREVIEW CONTENT: Swap these out incrementally
 // ==========================================
-// NOTE: When the final Collins Before/After homepages are ready, you can simply
-// import those specific components and replace these two placeholder functions.
 
-function PlaceholderBeforeContent() {
-  return (
-    <div className="min-h-[150vh] flex flex-col bg-white">
-      {/* 
-        TODO: Swap this entire component later for:
-        <BeforeHomepagePreview /> (The actual ugly/broken before page component)
-      */}
-      <div className="flex items-center justify-center p-20 border-b border-gray-100 bg-gray-50">
-        <div className="text-center max-w-lg">
-          <h2 className="text-3xl font-serif text-gray-800 mb-6 font-bold">Generic Web Solutions</h2>
-          <p className="text-gray-500 mb-8 whitespace-pre-wrap">
-            {"Welcome to our website.\n\nWe provide services to clients in the local area. Please browse our pages to find what you are looking for.\n\nCall us today!"}
-          </p>
-          <div className="inline-block px-6 py-3 bg-blue-600 text-white font-bold rounded">
-            Click Here
-          </div>
-        </div>
-      </div>
-      <div className="flex-1 p-20 flex flex-col gap-10 items-center opacity-40">
-        <div className="w-full max-w-4xl h-64 bg-gray-200 rounded" />
-        <div className="w-full max-w-4xl h-64 bg-gray-200 rounded" />
-        <div className="w-full max-w-4xl h-64 bg-gray-200 rounded" />
-      </div>
-    </div>
-  );
+function CollinsBeforeModalContent() {
+  return <CollinsBeforeFullPreview />;
 }
 
 function PlaceholderAfterContent() {
