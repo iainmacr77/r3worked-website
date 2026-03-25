@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { HomepagePreviewModal } from "./HomepagePreviewModal";
 import { CollinsAfterFullPreview } from "./CollinsAfterFullPreview";
 import { CollinsBeforeFullPreview } from "./CollinsBeforeFullPreview";
@@ -19,23 +19,23 @@ export function BeforeAfterShowcase() {
       <div className="mx-auto max-w-[84rem]" ref={containerRef}>
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-          <div className="max-w-[42rem]">
+        <div className="mb-16 max-w-[42rem]">
+          <div>
             <motion.p 
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ duration: 0.6 }}
               className="type-eyebrow text-[#B86B5C]"
             >
-              The Transformation
+              BEFORE / AFTER
             </motion.p>
             <motion.h2 
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-6 font-sans font-bold text-[#161616] text-[clamp(2.5rem,4vw+1rem,4.5rem)] leading-tight tracking-[-0.03em]"
+              className="mt-6 max-w-[13ch] font-sans font-bold text-[#161616] text-[clamp(2.5rem,4vw+1rem,4.5rem)] leading-[0.94] tracking-[-0.045em] text-balance"
             >
-              From ordinary surface<br />to commercial asset.
+              From dated and unclear<br />to sharp and credible.
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, y: 10 }}
@@ -43,7 +43,7 @@ export function BeforeAfterShowcase() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="type-support mt-6 max-w-[38rem] text-[#2A2A2A]/80"
             >
-              Many perfectly good businesses are heavily undervalued by their websites. We take standard, cluttered interfaces and rebuild them into clear, high-trust digital environments.
+              Same business. Better structure, better trust, and a homepage that gives people a stronger reason to stay and enquire.
             </motion.p>
           </div>
         </div>
@@ -106,62 +106,55 @@ export function BeforeAfterShowcase() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Dynamic Controls Below */}
+        {/* Centered Before / After Toggle */}
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-8 relative h-[60px]"
+          className="mt-8 flex justify-center"
         >
-          <AnimatePresence mode="wait">
-            {isShowingAfter ? (
-              <motion.div
-                key="controls-after"
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -5 }}
-                transition={{ duration: 0.4 }}
-                className="flex items-center justify-between"
-              >
-                <div className="flex flex-col">
-                  <span className="text-xs font-bold uppercase tracking-[0.1em] text-[#B86B5C] mb-1">After R3WORKED</span>
-                  <span className="text-[15px] font-medium text-[#161616]">Sharp, premium, high-trust asset</span>
-                </div>
-                
-                <button 
-                  onClick={() => setIsShowingAfter(false)}
-                  className="group flex items-center gap-3 px-6 py-3 rounded-full border border-[#161616]/10 bg-white hover:border-[#161616]/20 transition-all duration-300 shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-[#161616]/20"
-                  aria-label="View Before variant"
-                >
-                  <ArrowLeft size={16} className="text-[#161616] transition-transform group-hover:-translate-x-1" />
-                  <span className="text-[13px] font-bold uppercase tracking-[0.1em] text-[#161616]">View Before</span>
-                </button>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="controls-before"
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -5 }}
-                transition={{ duration: 0.4 }}
-                className="flex items-center justify-between"
-              >
-                <div className="flex flex-col">
-                  <span className="text-xs font-bold uppercase tracking-[0.1em] text-[#2A2A2A]/40 mb-1">Before R3WORKED</span>
-                  <span className="text-[15px] font-medium text-[#161616]">Generic, dated, low-conversion trace</span>
-                </div>
-
-                <button 
-                  onClick={() => setIsShowingAfter(true)}
-                  className="group flex items-center gap-3 px-6 py-3 rounded-full bg-[#161616] hover:bg-[#2A2A2A] transition-all duration-300 shadow-md outline-none focus-visible:ring-2 focus-visible:ring-[#161616]/20 focus-visible:ring-offset-2"
-                  aria-label="View After variant"
-                >
-                  <span className="text-[13px] font-bold uppercase tracking-[0.1em] text-white">See the rebuild</span>
-                  <ArrowRight size={16} className="text-white transition-transform group-hover:translate-x-1" />
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div
+            className="relative inline-grid grid-cols-2 items-center rounded-full border border-[#161616]/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(247,243,238,0.96))] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_14px_36px_rgba(22,22,22,0.08)] backdrop-blur-sm"
+            role="tablist"
+            aria-label="Homepage transformation view"
+          >
+            <div
+              aria-hidden="true"
+              className={
+                isShowingAfter
+                  ? "absolute inset-y-1.5 left-[calc(50%+0.25rem)] right-1.5 rounded-full border border-[#161616]/10 bg-[#161616] shadow-[0_10px_24px_rgba(22,22,22,0.16),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 ease-out"
+                  : "absolute inset-y-1.5 left-1.5 right-[calc(50%+0.25rem)] rounded-full border border-[#161616]/10 bg-[#161616] shadow-[0_10px_24px_rgba(22,22,22,0.16),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 ease-out"
+              }
+            />
+            <button
+              type="button"
+              role="tab"
+              aria-selected={!isShowingAfter}
+              aria-label="Show before homepage"
+              onClick={() => setIsShowingAfter(false)}
+              className={
+                isShowingAfter
+                  ? "relative z-10 min-w-[7.75rem] rounded-full px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.16em] text-[#161616]/45 transition-colors duration-300 hover:text-[#161616]/75 focus-visible:text-[#161616]"
+                  : "relative z-10 min-w-[7.75rem] rounded-full px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.16em] text-[#F7F3EE] transition-colors duration-300"
+              }
+            >
+              BEFORE
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={isShowingAfter}
+              aria-label="Show after homepage"
+              onClick={() => setIsShowingAfter(true)}
+              className={
+                isShowingAfter
+                  ? "relative z-10 min-w-[7.75rem] rounded-full px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.16em] text-[#F7F3EE] transition-colors duration-300"
+                  : "relative z-10 min-w-[7.75rem] rounded-full px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.16em] text-[#161616]/45 transition-colors duration-300 hover:text-[#161616]/75 focus-visible:text-[#161616]"
+              }
+            >
+              AFTER
+            </button>
+          </div>
         </motion.div>
 
         {/* Deep View Modal overlay */}
@@ -188,8 +181,8 @@ function PreviewFooterCta({ tone, label, onClick }: PreviewFooterCtaProps) {
       onClick={onClick}
       className={
         tone === "after"
-          ? "absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-[#161616]/12 bg-white/92 px-5 py-3 text-[12px] font-bold uppercase tracking-[0.12em] text-[#161616] shadow-[0_12px_24px_rgba(22,22,22,0.12)] backdrop-blur-sm transition-colors hover:border-[#161616]/20 hover:bg-white focus-visible:ring-2 focus-visible:ring-[#161616]/20"
-          : "absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-[#D0D7E2] bg-white/96 px-5 py-3 text-[12px] font-bold uppercase tracking-[0.12em] text-[#334155] shadow-[0_12px_24px_rgba(15,23,42,0.1)] backdrop-blur-sm transition-colors hover:border-[#B9C4D5] hover:bg-white focus-visible:ring-2 focus-visible:ring-[#94A3B8]/30"
+          ? "absolute bottom-4 right-4 inline-flex items-center gap-2.5 rounded-full border border-[#161616]/16 bg-white px-5 py-3 text-[12px] font-bold uppercase tracking-[0.13em] text-[#161616] shadow-[0_16px_34px_rgba(22,22,22,0.16),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#161616]/28 hover:shadow-[0_20px_40px_rgba(22,22,22,0.2),inset_0_1px_0_rgba(255,255,255,0.92)] focus-visible:ring-2 focus-visible:ring-[#161616]/20"
+          : "absolute bottom-4 right-4 inline-flex items-center gap-2.5 rounded-full border border-[#CBD5E1] bg-white px-5 py-3 text-[12px] font-bold uppercase tracking-[0.13em] text-[#1E293B] shadow-[0_16px_34px_rgba(15,23,42,0.14),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#94A3B8] hover:shadow-[0_20px_40px_rgba(15,23,42,0.18),inset_0_1px_0_rgba(255,255,255,0.96)] focus-visible:ring-2 focus-visible:ring-[#94A3B8]/30"
       }
     >
       <span>{label}</span>
