@@ -16,11 +16,10 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-
-export type CollinsBeforePreviewImages = {
-  hero: string;
-  feature: string;
-};
+import {
+  collinsBeforePreviewImagePaths,
+  type CollinsBeforePreviewImages,
+} from "./collinsPreviewImages";
 
 type CollinsBeforeFullPreviewProps = {
   className?: string;
@@ -31,12 +30,6 @@ type ServiceCard = {
   title: string;
   description: string;
   icon: LucideIcon;
-};
-
-const DEFAULT_IMAGE_PATHS: CollinsBeforePreviewImages = {
-  hero: "https://lh3.googleusercontent.com/aida-public/AB6AXuAAtoh68krDILBiHaMENykkxI4tVxpQbSP6mlc9YEefSnKXcb6rSzNp1l0Ifjrt8AOYAmjnO1aNUnkplmBvf1Rp2qYt0whfyXhgndcV6dtwJyLIIoMA16DLSoq3kOt3rtKgVziX5VHN4ee00FhrbbPXTN4rIxIbVALLwcfkO3pRdogtpz5BbX8hd7vghxQ2lSTy7hDtrRY5TxmH-_tLdJktOwPC_drAAOVoXQbzJxKy7ZXr1qGfvUCdnLn5wAmriBOfcMrYPY4dzt2w",
-  feature:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuAUI3eFEC0yunULb3aDbyXpkxsemb_QIo0sdryCLpuXe6LQC7i6VTS2MHGq1DwZBoZi1e7sgbC-WasD_YG4uSYc8TLd04o_KsCjsx9VOrXiPvkClHWgXV4bErGY6BRVgiZBb-7zwLvUhjxFxjX05u_HRdUKGO8C9AwFR944xfCkN9wd1xK8LX8pWWFMtKfujdRhdR2HodQzNt4gC_MTI20JcgGG6vYmHiQlMxpv-c-NbH3pQ4TsRsDRgK3EzINUTzv5yuKn8KlFNsXD",
 };
 
 const services: ServiceCard[] = [
@@ -116,7 +109,7 @@ export function CollinsBeforeFullPreview({
   className,
   imagePaths,
 }: CollinsBeforeFullPreviewProps) {
-  const images = { ...DEFAULT_IMAGE_PATHS, ...imagePaths };
+  const images = { ...collinsBeforePreviewImagePaths, ...imagePaths };
 
   return (
     <div
@@ -579,5 +572,3 @@ function FooterHeading({ children }: FooterHeadingProps) {
     </h4>
   );
 }
-
-export { DEFAULT_IMAGE_PATHS as collinsBeforePreviewImagePaths };

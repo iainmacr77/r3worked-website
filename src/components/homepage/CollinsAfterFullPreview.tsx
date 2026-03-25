@@ -12,15 +12,10 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-
-export type CollinsAfterPreviewImages = {
-  hero: string;
-  craftsmanship: string;
-  projectGlassPavilion: string;
-  projectVictorian: string;
-  projectModernist: string;
-  projectOpenPlan: string;
-};
+import {
+  collinsAfterPreviewImagePaths,
+  type CollinsAfterPreviewImages,
+} from "./collinsPreviewImages";
 
 type CollinsAfterFullPreviewProps = {
   className?: string;
@@ -53,20 +48,6 @@ type QuoteFeature = {
   icon: LucideIcon;
   accent?: "whatsapp";
   linkLabel?: string;
-};
-
-const DEFAULT_IMAGE_PATHS: CollinsAfterPreviewImages = {
-  hero: "https://lh3.googleusercontent.com/aida-public/AB6AXuARnqWL6kF6R3hSca1wHH-AxDZaPWIRl2xcsi-jR_LlZ_ZjQ9cVKM3dqAjZJM6peHNU6ii44_wr-chvXGE5D1YSdPO7aaITWXwEU6crVYC1M1nnhYCJ1PZNy5IOKu_HlTOL7MeY--Chx8MVXCe4USJw6lQk9wiUjzebU6cvOf691zmXKWYYTW9OCydwiQpb4JX2e3YoY6IvA5g3GmZhpcqMsh6iWRc1Bk_ve1dYQ8b8ygWzEiKaEuGqb_qcSmEc3FS6T8YMD5L8-bKy",
-  craftsmanship:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuB4Wj1ZS3V_VoBfa_sXFE12nJdOMUAu3BXONBECyB_uJ0KR3yK2LaJ-bNhjJOPOio7dZtQ-XxUxJ_Q0E4ilILnNE8z62wcz9Gw6JZuHgV6IFIqs_2K_Geqzikm4_Lqa0N9iSDfqVuYdMXs4FNUD_6WwUzqDxi7Pmr4yNs2naxsHuyQXuIzZG2BE6U8U4dAY0NAhxXqubJjSK6MEoB4ia2Co47AoiFQrJBqLmRpx0hWW11u55a1CXgk4pFFcF_N9WhVoKUS4KcRUinJP",
-  projectGlassPavilion:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuBlOmDMyT0rLWniBeACoQPAXO3bC2klD9tTSkQDGb44bMg-SaDQBsAoVxyIWTQ97tyMfbntoNCbkeqOZHuHMzkLmDklPzeTRIgRQSJLR-IvcGa7fR1jh8zpXuRID8Zod5hQALDXnSUcStYwAyG59laXKkQiZHiOKf5Q-M_YQLwQt-V0lEH0w97JWrAYdbDhwO6eVXIPYHcuCBa1V3Nq7wNLrWj6xvAxKJaP_-Mmic2--vM2QwBeDJmKK4y3tNvBujOth0hrMgFlVIK1",
-  projectVictorian:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuCzY_kZaVyhDy4zLcuai23KaWe1CxUD7fEIM9d23T9EpUFHgXV4xWjbUS4wEvUJ-J3dXWjnuwiV-0K36wScOW6J7ZIO9Aj7o9kwvEGgn2finiRXXTLkbxQFuqh7HRigGZxmAr65CfDbORm-Hvx1JIvZzur4opi_hjKFu7JwN-t9DkJ_pvfu3ygqdBAvPN3Ku9K5YCVNyarmiK-dBiCxPRk9GFiQUMKgpKPsFl9UjLqdvc19TP4Swqt_RWtzKYDKz0D5EPFaeG9GzPEO",
-  projectModernist:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuCjsRzZsXiFhi-mxrIaIns6eXVMzjYw1R-fRC9UygaQRm5HODRRJL1sn_xjbt0crU8HSigNfIm10mGqFDeze1IWveP3hzYFpx2968Hsd3KviVtE00oFiLDtOaA_KH-UGFroGjgH9sWIfpBnT9IHOjAvgbih3hVzteZ2IyG1TaM5NRvJiQ7JcISMGWZrL3NCtO0QQpY4tq6xQ6xORUt1uPpBVzYwtDgTrdXJVIAidz7Ukq6Vy7aMNuM4T8ekfh1Upe5YcjSs2HcHzgb3",
-  projectOpenPlan:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuBDM1YA7l0DUO3Jwx54VN5nXuAXd0jo2d4qHWJz9wywIg8VrtA62q3iAxTuEdchPCrXNRWFJ01G98xxlT88NtmR3w4s8rhSkBFtk3gOUXlHDjHJFo-X3KGbDxyS-dx3_AI7p9EKRVgy3g_WrS-3lBpQrMGu74YVEaHPsp7u9r3tv9GUijaZKKY03SvCsFOqCtnH3GbsIMukfajMgUtbleT048gak056EKGX717DbTjJNfqaRdM-AxDF174VdvgMPnydSMZ5c3Y-vIMq",
 };
 
 const navLinks = ["Services", "Projects", "Process", "About"];
@@ -199,7 +180,7 @@ export function CollinsAfterFullPreview({
   className,
   imagePaths,
 }: CollinsAfterFullPreviewProps) {
-  const images = { ...DEFAULT_IMAGE_PATHS, ...imagePaths };
+  const images = { ...collinsAfterPreviewImagePaths, ...imagePaths };
 
   return (
     <div
@@ -775,5 +756,3 @@ function FooterHeading({ children }: FooterHeadingProps) {
     </h4>
   );
 }
-
-export { DEFAULT_IMAGE_PATHS as collinsAfterPreviewImagePaths };
