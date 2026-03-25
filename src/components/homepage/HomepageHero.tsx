@@ -47,14 +47,29 @@ function EditorialVisual({ scrollProgress }: { scrollProgress: MotionValue<numbe
         className="absolute w-[85%] sm:w-[80%] aspect-[4/3] bg-[#F7F3EE] border border-[#161616] p-6 sm:p-8 shadow-[8px_8px_0px_#161616] flex flex-col"
       >
         <div className="flex justify-between items-center mb-10 border-b border-[#161616] pb-4">
-          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#161616]">Audit</div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#161616]">FREE REVIEW</div>
           <div className="w-2.5 h-2.5 rounded-full bg-[#161616]" />
         </div>
-        <div className="space-y-4">
-          <div className="w-full h-1.5 bg-[#161616]/20" />
-          <div className="w-4/5 h-1.5 bg-[#161616]/20" />
-          <div className="w-2/3 h-1.5 bg-[#161616]/20" />
-          <div className="w-1/2 h-1.5 bg-[#161616]/20" />
+        <div className="flex-1 border border-[#161616]/10 bg-white relative overflow-hidden flex flex-col p-4 shadow-sm">
+           <div className="w-full flex justify-between items-end mb-4">
+             <div className="space-y-1.5">
+               <div className="w-12 h-1 bg-[#161616]/20" />
+               <div className="w-8 h-1 bg-[#161616]/20" />
+             </div>
+             <div className="text-[10px] font-mono font-bold text-[#161616]/40 tracking-widest">SCAN IN PROGRESS</div>
+           </div>
+           
+           <div className="flex-1 border border-[#161616]/10 relative group bg-[#FAFAFA]">
+              {/* Scanning reticle / grid effect */}
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(22,22,22,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(22,22,22,0.03)_1px,transparent_1px)] bg-[size:12px_12px]" />
+              
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 border border-[#161616]/20 rounded-full flex items-center justify-center">
+                 <div className="w-1 h-1 bg-[#161616]/40 rounded-full" />
+                 {/* Crosshairs */}
+                 <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-[#161616]/10" />
+                 <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-[#161616]/10" />
+              </div>
+           </div>
         </div>
       </motion.div>
 
@@ -64,17 +79,29 @@ function EditorialVisual({ scrollProgress }: { scrollProgress: MotionValue<numbe
         className="absolute w-[85%] sm:w-[80%] aspect-[4/3] bg-[#F7F3EE] border border-[#161616] p-6 sm:p-8 shadow-[8px_8px_0px_#B86B5C] flex flex-col z-10"
       >
         <div className="flex justify-between items-center mb-8 border-b border-[#161616] pb-4">
-          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#161616]">Reworking</div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#161616]">FRICTION-FREE DESIGN & REBUILD</div>
           <div className="animate-pulse w-2.5 h-2.5 rounded-full bg-[#B86B5C]" />
         </div>
-        <div className="flex-1 flex flex-col gap-5">
-           <div className="w-1/2 h-6 bg-[#161616]/10 border border-[#161616]/20" />
-           <div className="flex-1 w-full bg-[#B86B5C]/5 border border-[#B86B5C]/30 flex p-3 items-center justify-center">
-              <div className="flex gap-2 w-full">
-                <div className="w-1/3 h-8 bg-white border border-[#161616]/10 shadow-sm" />
-                <div className="w-1/3 h-8 bg-white border border-[#161616]/10 shadow-sm" />
-                <div className="w-1/3 h-8 bg-[#B86B5C]/20 border border-[#B86B5C]/50 shadow-inner" />
-              </div>
+        <div className="flex-1 flex flex-col gap-4">
+           {/* Abstract input state (cluttered/messy) */}
+           <div className="flex gap-2 opacity-40 px-2 pt-2">
+              <div className="w-1/4 h-8 border border-[#161616]/20 bg-white" />
+              <div className="w-1/2 h-8 border border-[#161616]/20 bg-[#161616]/5" />
+              <div className="w-1/4 h-8 border border-[#161616]/20 bg-white" />
+           </div>
+           
+           {/* Transformation arrow/divider */}
+           <div className="flex justify-center -my-1">
+              <div className="w-px h-6 bg-[#B86B5C]/40" />
+           </div>
+
+           {/* Abstract output state (clean/structured) */}
+           <div className="flex-1 border border-[#B86B5C]/30 bg-[#B86B5C]/5 p-3 flex flex-col gap-2 shadow-inner">
+             <div className="w-full h-3 bg-white border border-[#161616]/10 shadow-sm rounded-[1px]" />
+             <div className="flex gap-2 flex-1">
+               <div className="w-2/3 h-full bg-white border border-[#161616]/10 shadow-sm rounded-[1px]" />
+               <div className="w-1/3 h-full bg-[#B86B5C]/15 border border-[#B86B5C]/20 shadow-sm rounded-[1px]" />
+             </div>
            </div>
         </div>
       </motion.div>
@@ -85,30 +112,40 @@ function EditorialVisual({ scrollProgress }: { scrollProgress: MotionValue<numbe
         className="absolute w-[85%] sm:w-[80%] aspect-[4/3] bg-[#F7F3EE] border border-[#161616] p-6 sm:p-8 shadow-[8px_8px_0px_#D96B4F] flex flex-col z-20"
       >
         <div className="flex justify-between items-center mb-8 border-b border-[#161616] pb-4">
-          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#161616]">System Active</div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#161616]">ONGOING SUPPORT</div>
           <div className="w-2.5 h-2.5 rounded-full bg-[#D96B4F]" />
         </div>
-        <div className="flex-1 flex flex-col gap-3">
-           <div className="flex justify-between items-center p-3 border border-[#161616]/10 bg-white shadow-sm">
+        <div className="flex-1 flex flex-col justify-between border border-[#161616]/10 bg-white p-4 shadow-sm relative overflow-hidden">
+           {/* Top nav abstract */}
+           <div className="flex justify-between items-center pb-3 border-b border-[#161616]/5">
              <div className="flex items-center gap-2">
-               <div className="w-1.5 h-1.5 rounded-full bg-[#D96B4F]" />
-               <div className="h-1.5 w-16 bg-[#161616]/20" />
+                <div className="animate-pulse w-1.5 h-1.5 rounded-full bg-[#D96B4F]" />
+                <div className="text-[9px] font-mono font-bold tracking-widest text-[#161616]/60">SYS_OPS</div>
              </div>
-             <div className="text-[9px] font-mono font-bold tracking-widest text-[#161616]/80 text-[10px] sm:text-[11px]">LOG 4920</div>
+             <div className="w-8 h-1 bg-[#161616]/10" />
            </div>
-           <div className="flex justify-between items-center p-3 border border-[#161616]/10 bg-white shadow-sm">
-             <div className="flex items-center gap-2">
-               <div className="w-1.5 h-1.5 rounded-full bg-[#D96B4F]" />
-               <div className="h-1.5 w-20 bg-[#161616]/20" />
+           
+           {/* Server/metrics rows */}
+           <div className="space-y-4 mt-4 mb-2">
+             <div className="space-y-1.5">
+               <div className="flex justify-between items-end">
+                 <div className="w-10 h-1 bg-[#161616]/20" />
+                 <div className="text-[8px] font-mono text-[#161616]/40">UPTIME</div>
+               </div>
+               <div className="w-full h-1.5 bg-[#161616]/5 overflow-hidden">
+                 <div className="w-full h-full bg-[#161616]/20" />
+               </div>
              </div>
-             <div className="text-[9px] font-mono font-bold tracking-widest text-[#161616]/80 text-[10px] sm:text-[11px]">LOG 4921</div>
-           </div>
-           <div className="flex justify-between items-center p-3 border border-[#161616]/10 bg-white shadow-sm opacity-50">
-             <div className="flex items-center gap-2">
-               <div className="w-1.5 h-1.5 rounded-full bg-[#161616]/20" />
-               <div className="h-1.5 w-12 bg-[#161616]/10" />
+
+             <div className="space-y-1.5">
+               <div className="flex justify-between items-end">
+                 <div className="w-14 h-1 bg-[#161616]/20" />
+                 <div className="text-[8px] font-mono text-[#D96B4F]/80">ROUTING</div>
+               </div>
+               <div className="w-full h-1.5 bg-[#161616]/5 overflow-hidden">
+                 <div className="w-[85%] h-full bg-[#D96B4F]/50" />
+               </div>
              </div>
-             <div className="text-[9px] font-mono font-bold tracking-widest text-[#161616]/40 text-[10px] sm:text-[11px]">EXPECT</div>
            </div>
         </div>
       </motion.div>
