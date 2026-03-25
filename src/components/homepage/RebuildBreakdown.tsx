@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const REBUILD_MOVES = [
   {
@@ -18,7 +19,7 @@ const REBUILD_MOVES = [
     category: "HIERARCHY",
     title: "A clear reading path",
     weak: "Everything on the page competes for attention. The eye has nowhere to settle.",
-    strong: "A deliberate visual flow — headline to proof to action — so visitors always know where to look next.",
+    strong: "A deliberate visual flow \u2014 headline to proof to action \u2014 so visitors always know where to look next.",
     signalBefore: 1,
     signalAfter: 5,
   },
@@ -69,131 +70,186 @@ const REBUILD_MOVES = [
   },
 ];
 
-export function RebuildBreakdown() {
-  return (
-    <section
-      id="the-rework"
-      className="bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 border-t border-[#161616]/5"
-    >
-      <div className="mx-auto max-w-[84rem]">
-        {/* Header */}
-        <div className="mb-16 md:mb-20">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="type-eyebrow text-[#B86B5C]"
-          >
-            The Rework
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.1 }}
-            className="mt-6 type-h2 text-[#161616]"
-          >
-            Weak signal to strong.
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.2 }}
-            className="type-support mt-6 max-w-[38rem] text-[#2A2A2A]/70"
-          >
-            Seven strategic moves behind the transformation. Not
-            cosmetics&nbsp;&mdash; commercial architecture.
-          </motion.p>
-        </div>
+const slideVariants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? 50 : -50,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (dir: number) => ({
+    x: dir > 0 ? -50 : 50,
+    opacity: 0,
+  }),
+};
 
-        {/* Moves */}
-        <div>
-          {REBUILD_MOVES.map((move, index) => (
-            <MoveRow
-              key={move.number}
-              move={move}
-              isLast={index === REBUILD_MOVES.length - 1}
+export function RebuildBreakdown() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const move = REBUILD_MOVES[currentIndex];
+  const isFirst = currentIndex === 0;
+  const isLast = currentIndex === REBUILD_MOVES.length - 1;
+
+  const goNext = useCallback(() => {
+    if (currentIndex < REBUILD_MOVES.length - 1) {
+      setDirection(1);
+      setCurrentIndex((i) => i + 1);
+    }
+  }, [currentIndex]);
+
+  const goPrev = useCallback(() => {
+    if (currentIndex > 0) {
+      setDirection(-1);
+      setCurrentIndex((i) => i - 1);
+    }
+  }, [currentIndex]);
+
+  return (
+    <div className="bg-[#F7F3EE] px-6 pb-24 md:px-10 md:pb-32">
+      <div className="mx-auto max-w-[84rem]">
+        <div
+          className="relative overflow-hidden rounded-[2rem] border border-[#161616]/[0.06] bg-[linear-gradient(135deg,rgba(255,255,255,0.88),rgba(247,243,238,0.82))] p-8 shadow-[0_20px_60px_rgba(72,50,37,0.06),0_8px_20px_rgba(72,50,37,0.03),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-[12px] md:p-12 lg:p-16"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Transformation analysis"
+        >
+          {/* Slide area */}
+          <div className="relative min-h-[22rem] md:min-h-[16rem]">
+            <AnimatePresence mode="wait" initial={false} custom={direction}>
+              <motion.div
+                key={currentIndex}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 320, damping: 32 },
+                  opacity: { duration: 0.2 },
+                }}
+                className="absolute inset-0"
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`Move ${currentIndex + 1} of ${REBUILD_MOVES.length}: ${move.category}`}
+              >
+                {/* Large watermark number */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -top-4 right-0 select-none text-[8rem] font-bold tabular-nums leading-none tracking-[-0.06em] text-[#161616]/[0.025] md:text-[12rem]"
+                >
+                  {move.number}
+                </div>
+
+                <div className="relative z-10">
+                  {/* Number + category badge */}
+                  <div className="mb-5 flex items-center gap-4">
+                    <span className="text-[1.4rem] font-bold tabular-nums leading-none tracking-[-0.04em] text-[#161616]/[0.14] md:text-[1.8rem]">
+                      {move.number}
+                    </span>
+                    <span className="type-eyebrow rounded-full border border-[#D96B4F]/15 bg-[#D96B4F]/5 px-3.5 py-1.5 text-[#D96B4F]">
+                      {move.category}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="type-h3 mb-8 text-[#161616]">
+                    {move.title}
+                  </h3>
+
+                  {/* Signal pair */}
+                  <div className="grid gap-6 md:grid-cols-2 md:gap-14">
+                    {/* Weak signal */}
+                    <div className="border-l-2 border-[#161616]/8 pl-5">
+                      <div className="mb-2.5 flex items-center gap-3">
+                        <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#161616]/25">
+                          Weak signal
+                        </span>
+                        <SignalMeter
+                          level={move.signalBefore}
+                          variant="weak"
+                        />
+                      </div>
+                      <p className="type-body-sm max-w-[34ch] text-[#2A2A2A]/40">
+                        {move.weak}
+                      </p>
+                    </div>
+
+                    {/* Strong signal */}
+                    <div className="border-l-2 border-[#D96B4F] pl-5">
+                      <div className="mb-2.5 flex items-center gap-3">
+                        <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#D96B4F]/70">
+                          Strong signal
+                        </span>
+                        <SignalMeter
+                          level={move.signalAfter}
+                          variant="strong"
+                        />
+                      </div>
+                      <p className="type-body-sm max-w-[34ch] text-[#161616]">
+                        {move.strong}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Navigation controls */}
+          <div className="relative z-20 mt-10 flex items-center justify-center gap-5">
+            <NavArrow
+              direction="prev"
+              onClick={goPrev}
+              disabled={isFirst}
             />
-          ))}
+            <span className="min-w-[4.5rem] select-none text-center text-[0.7rem] font-semibold tabular-nums uppercase tracking-[0.2em] text-[#161616]/25">
+              {String(currentIndex + 1).padStart(2, "0")}
+              <span className="mx-1 text-[#161616]/12">/</span>
+              {String(REBUILD_MOVES.length).padStart(2, "0")}
+            </span>
+            <NavArrow
+              direction="next"
+              onClick={goNext}
+              disabled={isLast}
+            />
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Single move row                                                    */
+/*  Arrow button                                                       */
 /* ------------------------------------------------------------------ */
 
-type Move = (typeof REBUILD_MOVES)[number];
-
-function MoveRow({ move, isLast }: { move: Move; isLast: boolean }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-12%" });
-
+function NavArrow({
+  direction,
+  onClick,
+  disabled,
+}: {
+  direction: "prev" | "next";
+  onClick: () => void;
+  disabled: boolean;
+}) {
+  const Icon = direction === "prev" ? ChevronLeft : ChevronRight;
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 28 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
-      transition={{ duration: 0.7, ease: [0.2, 0.65, 0.3, 0.9] }}
-      className={`relative py-10 md:py-14 ${
-        !isLast ? "border-b border-[#161616]/6" : ""
-      }`}
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={direction === "prev" ? "Previous move" : "Next move"}
+      className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-[#C8BFB1]/40 bg-gradient-to-b from-white to-[#F3ECE1] shadow-[0_1px_3px_rgba(22,22,22,0.05),0_4px_10px_rgba(22,22,22,0.04),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-300 hover:border-[#161616]/16 hover:shadow-[0_2px_6px_rgba(22,22,22,0.08),0_8px_18px_rgba(22,22,22,0.05)] disabled:pointer-events-none disabled:opacity-25"
     >
-      {/* Large watermark number */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-4 select-none text-[7rem] md:text-[10rem] font-bold tabular-nums leading-none tracking-[-0.06em] text-[#161616]/[0.025]"
-      >
-        {move.number}
-      </div>
-
-      <div className="relative z-10">
-        {/* Number + category badge */}
-        <div className="mb-6 flex items-center gap-4">
-          <span className="text-[1.6rem] md:text-[2rem] font-bold tabular-nums leading-none tracking-[-0.04em] text-[#161616]/[0.14]">
-            {move.number}
-          </span>
-          <span className="type-eyebrow rounded-full border border-[#D96B4F]/15 bg-[#D96B4F]/5 px-3.5 py-1.5 text-[#D96B4F]">
-            {move.category}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h3 className="type-h3 mb-8 text-[#161616] md:mb-10">{move.title}</h3>
-
-        {/* Signal pair — side-by-side on desktop, stacked on mobile */}
-        <div className="grid gap-8 md:grid-cols-2 md:gap-16">
-          {/* Weak signal */}
-          <div className="border-l-2 border-[#161616]/8 pl-5 md:pl-6">
-            <div className="mb-3 flex items-center gap-3">
-              <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#161616]/25">
-                Weak signal
-              </span>
-              <SignalMeter level={move.signalBefore} variant="weak" />
-            </div>
-            <p className="type-body-sm max-w-[34ch] text-[#2A2A2A]/40">
-              {move.weak}
-            </p>
-          </div>
-
-          {/* Strong signal */}
-          <div className="border-l-2 border-[#D96B4F] pl-5 md:pl-6">
-            <div className="mb-3 flex items-center gap-3">
-              <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#D96B4F]/70">
-                Strong signal
-              </span>
-              <SignalMeter level={move.signalAfter} variant="strong" />
-            </div>
-            <p className="type-body-sm max-w-[34ch] text-[#161616]">
-              {move.strong}
-            </p>
-          </div>
-        </div>
-      </div>
-    </motion.div>
+      <Icon
+        size={16}
+        strokeWidth={2}
+        className="text-[#161616]/50 transition-colors group-hover:text-[#161616]/80"
+      />
+    </button>
   );
 }
 
