@@ -138,65 +138,69 @@ export function HomepageHero() {
         {/* Premium ambient grid wrapper so it stays fixed relative to the screen content */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.04] bg-[linear-gradient(rgba(22,22,22,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(22,22,22,0.1)_1px,transparent_1px)] bg-[size:64px_64px] bg-center" />
 
-        <div className="relative z-10 w-full max-w-[84rem] mx-auto grid lg:grid-cols-2 gap-12 px-6 md:px-10 h-full max-h-[900px] items-center">
-          
-          {/* Left: Text Content (Static) */}
-          <div className="flex flex-col justify-center max-w-[44rem] relative">
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <p className="type-eyebrow text-[#B86B5C]">
-                Commercial Website Architecture
-              </p>
-            </motion.div>
-
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.1, ease: [0.2, 0.65, 0.3, 0.9] }}
-              className="mt-6 font-sans font-bold text-[#161616] text-[clamp(2.5rem,5vw+1rem,5rem)] xl:text-[5.5rem] leading-[0.95] tracking-[-0.05em] text-balance"
-            >
-              Sharper fronts.<br />
-              Clearer intent.<br />
-              Better systems.
-            </motion.h1>
-
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.2, 0.65, 0.3, 0.9] }}
-              className="mt-8 text-[clamp(1.125rem,1.5vw+0.5rem,1.375rem)] leading-[1.5] tracking-[-0.01em] text-[#2A2A2A]/80 max-w-[34rem] font-medium"
-            >
-              We rebuild underperforming service websites into precision digital assets. Capturing intent with absolute clarity and logging it directly into your workflow.
-            </motion.p>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3, ease: [0.2, 0.65, 0.3, 0.9] }}
-              className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-4"
-            >
-              <Link
-                href="#final-cta"
-                className="inline-flex h-14 items-center justify-center bg-[#161616] text-[#F7F3EE] px-8 rounded-full text-[13px] font-bold uppercase tracking-[0.1em] transition-[transform,background] duration-300 hover:bg-[#2A2A2A] hover:-translate-y-0.5 shadow-[0_12px_24px_rgba(22,22,22,0.12)]"
+        <div className="w-full px-6 md:px-10">
+          <div className="relative z-10 mx-auto grid h-full w-full max-w-[84rem] max-h-[900px] items-center gap-8 lg:grid-cols-[minmax(0,1.14fr)_minmax(22rem,0.86fr)] lg:gap-10 xl:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] xl:gap-12">
+            
+            {/* Left: Text Content (Static) */}
+            <div className="relative flex w-full max-w-[42rem] flex-col justify-center md:max-w-[44rem] lg:max-w-[41rem] lg:pr-4 xl:max-w-[43rem]">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                Start a review
-              </Link>
+                <p className="type-eyebrow text-[#B86B5C]">
+                  COMMERCIAL REWORK FOR SERVICE BRANDS
+                </p>
+              </motion.div>
 
-              <Link
-                href="#before-after-showcase"
-                className="group inline-flex h-14 items-center justify-center bg-transparent text-[#161616] px-8 rounded-full text-[13px] font-bold uppercase tracking-[0.1em] transition-[transform,background] duration-300 hover:bg-[#161616]/5 border border-[#161616]/10"
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.1, ease: [0.2, 0.65, 0.3, 0.9] }}
+                className="mt-7 max-w-[12.5ch] font-sans font-bold text-[#161616] text-[clamp(3.1rem,10.5vw,4.2rem)] md:mt-8 md:text-[clamp(3.8rem,7.4vw,4.95rem)] xl:text-[5.1rem] leading-[0.99] tracking-[-0.055em] text-balance"
               >
-                See the work
-                <span className="ml-3 block transform transition-transform group-hover:translate-x-1">→</span>
-              </Link>
-            </motion.div>
+                <span className="block">Sharper websites.</span>
+                <span className="block">
+                  Better lead <span className="inline-block">capture.</span>
+                </span>
+                <span className="block">Automated flows.</span>
+              </motion.h1>
+
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.2, ease: [0.2, 0.65, 0.3, 0.9] }}
+                className="mt-7 max-w-[32rem] text-[clamp(1rem,1vw+0.68rem,1.22rem)] font-medium leading-[1.55] tracking-[-0.01em] text-[#2A2A2A]/80 md:mt-8 md:max-w-[34rem] lg:max-w-[32rem] xl:max-w-[34rem]"
+              >
+                We rebuild underperforming service websites into commercial systems that look sharper, capture better leads and move enquiries straight into your existing workflow.
+              </motion.p>
+
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.3, ease: [0.2, 0.65, 0.3, 0.9] }}
+                className="mt-14 flex flex-col sm:flex-row items-start sm:items-center gap-4 md:mt-16"
+              >
+                <Link
+                  href="#final-cta"
+                  className="inline-flex h-14 items-center justify-center bg-[#161616] text-[#F7F3EE] px-8 rounded-full text-[13px] font-bold uppercase tracking-[0.1em] transition-[transform,background] duration-300 hover:bg-[#2A2A2A] hover:-translate-y-0.5 shadow-[0_12px_24px_rgba(22,22,22,0.12)]"
+                >
+                  GET A REVIEW
+                </Link>
+
+                <Link
+                  href="#before-after-showcase"
+                  className="group inline-flex h-14 items-center justify-center bg-transparent text-[#161616] px-8 rounded-full text-[13px] font-bold uppercase tracking-[0.1em] transition-[transform,background] duration-300 hover:bg-[#161616]/5 border border-[#161616]/10"
+                >
+                  SEE OUR WORK
+                  <span className="ml-3 block transform transition-transform group-hover:translate-x-1">→</span>
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Right: Premium Editorial Visual (Scroll Animated) */}
+            <EditorialVisual scrollProgress={scrollYProgress} />
           </div>
-
-          {/* Right: Premium Editorial Visual (Scroll Animated) */}
-          <EditorialVisual scrollProgress={scrollYProgress} />
         </div>
 
       </div>
