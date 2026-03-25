@@ -19,33 +19,31 @@ export function BeforeAfterShowcase() {
       <div className="mx-auto max-w-[84rem]" ref={containerRef}>
         
         {/* Header */}
-        <div className="mb-16 max-w-[42rem]">
-          <div>
-            <motion.p 
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-              transition={{ duration: 0.6 }}
-              className="type-eyebrow text-[#B86B5C]"
-            >
-              BEFORE / AFTER
-            </motion.p>
-            <motion.h2 
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-6 max-w-[13ch] font-sans font-bold text-[#161616] text-[clamp(2.5rem,4vw+1rem,4.5rem)] leading-[0.94] tracking-[-0.045em] text-balance"
-            >
-              From dated and unclear<br />to sharp and credible.
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="type-support mt-6 max-w-[38rem] text-[#2A2A2A]/80"
-            >
-              Same business. Better structure, better trust, and a homepage that gives people a stronger reason to stay and enquire.
-            </motion.p>
-          </div>
+        <div className="mb-16">
+          <motion.p 
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.6 }}
+            className="type-eyebrow text-[#B86B5C]"
+          >
+            BEFORE / AFTER
+          </motion.p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mt-6 type-h2 text-[#161616]"
+          >
+            From dated and unclear<br />to sharp and credible.
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="type-support mt-6 max-w-[38rem] text-[#2A2A2A]/80"
+          >
+            Same business. Better structure, better trust, and a homepage that gives people a stronger reason to stay and enquire.
+          </motion.p>
         </div>
 
         {/* Interactive Showcase */}
@@ -114,7 +112,7 @@ export function BeforeAfterShowcase() {
           className="mt-8 flex justify-center"
         >
           <div
-            className="relative inline-grid grid-cols-2 items-center rounded-full border border-[#161616]/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(247,243,238,0.96))] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_14px_36px_rgba(22,22,22,0.08)] backdrop-blur-sm"
+            className="relative inline-grid grid-cols-2 items-center rounded-[14px] border border-[#C8BFB1]/50 bg-gradient-to-b from-white to-[#F3ECE1] p-[5px] shadow-[0_1px_2px_rgba(22,22,22,0.05),0_6px_14px_rgba(22,22,22,0.05),0_18px_40px_rgba(22,22,22,0.05),inset_0_1px_0_rgba(255,255,255,0.95),inset_0_-1px_0_rgba(22,22,22,0.02)]"
             role="tablist"
             aria-label="Homepage transformation view"
           >
@@ -122,8 +120,8 @@ export function BeforeAfterShowcase() {
               aria-hidden="true"
               className={
                 isShowingAfter
-                  ? "absolute inset-y-1.5 left-[calc(50%+0.25rem)] right-1.5 rounded-full border border-[#161616]/10 bg-[#161616] shadow-[0_10px_24px_rgba(22,22,22,0.16),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 ease-out"
-                  : "absolute inset-y-1.5 left-1.5 right-[calc(50%+0.25rem)] rounded-full border border-[#161616]/10 bg-[#161616] shadow-[0_10px_24px_rgba(22,22,22,0.16),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 ease-out"
+                  ? "absolute inset-y-[5px] left-[calc(50%+2px)] right-[5px] rounded-[10px] bg-gradient-to-b from-[#1E1D1B] to-[#141312] shadow-[0_2px_4px_rgba(22,22,22,0.14),0_8px_18px_rgba(22,22,22,0.18),inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-[380ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+                  : "absolute inset-y-[5px] left-[5px] right-[calc(50%+2px)] rounded-[10px] bg-gradient-to-b from-[#1E1D1B] to-[#141312] shadow-[0_2px_4px_rgba(22,22,22,0.14),0_8px_18px_rgba(22,22,22,0.18),inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-[380ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
               }
             />
             <button
@@ -134,8 +132,8 @@ export function BeforeAfterShowcase() {
               onClick={() => setIsShowingAfter(false)}
               className={
                 isShowingAfter
-                  ? "relative z-10 min-w-[7.75rem] rounded-full px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.16em] text-[#161616]/45 transition-colors duration-300 hover:text-[#161616]/75 focus-visible:text-[#161616]"
-                  : "relative z-10 min-w-[7.75rem] rounded-full px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.16em] text-[#F7F3EE] transition-colors duration-300"
+                  ? "relative z-10 min-w-[7.5rem] cursor-pointer rounded-[10px] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#3D3A35] transition-all duration-300 hover:text-[#1A1916] focus-visible:outline-none"
+                  : "relative z-10 min-w-[7.5rem] cursor-pointer rounded-[10px] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#F3EDE4] transition-all duration-300 focus-visible:outline-none"
               }
             >
               BEFORE
@@ -148,8 +146,8 @@ export function BeforeAfterShowcase() {
               onClick={() => setIsShowingAfter(true)}
               className={
                 isShowingAfter
-                  ? "relative z-10 min-w-[7.75rem] rounded-full px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.16em] text-[#F7F3EE] transition-colors duration-300"
-                  : "relative z-10 min-w-[7.75rem] rounded-full px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.16em] text-[#161616]/45 transition-colors duration-300 hover:text-[#161616]/75 focus-visible:text-[#161616]"
+                  ? "relative z-10 min-w-[7.5rem] cursor-pointer rounded-[10px] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#F3EDE4] transition-all duration-300 focus-visible:outline-none"
+                  : "relative z-10 min-w-[7.5rem] cursor-pointer rounded-[10px] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#3D3A35] transition-all duration-300 hover:text-[#1A1916] focus-visible:outline-none"
               }
             >
               AFTER
@@ -181,12 +179,12 @@ function PreviewFooterCta({ tone, label, onClick }: PreviewFooterCtaProps) {
       onClick={onClick}
       className={
         tone === "after"
-          ? "absolute bottom-4 right-4 inline-flex items-center gap-2.5 rounded-full border border-[#161616]/16 bg-white px-5 py-3 text-[12px] font-bold uppercase tracking-[0.13em] text-[#161616] shadow-[0_16px_34px_rgba(22,22,22,0.16),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#161616]/28 hover:shadow-[0_20px_40px_rgba(22,22,22,0.2),inset_0_1px_0_rgba(255,255,255,0.92)] focus-visible:ring-2 focus-visible:ring-[#161616]/20"
-          : "absolute bottom-4 right-4 inline-flex items-center gap-2.5 rounded-full border border-[#CBD5E1] bg-white px-5 py-3 text-[12px] font-bold uppercase tracking-[0.13em] text-[#1E293B] shadow-[0_16px_34px_rgba(15,23,42,0.14),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#94A3B8] hover:shadow-[0_20px_40px_rgba(15,23,42,0.18),inset_0_1px_0_rgba(255,255,255,0.96)] focus-visible:ring-2 focus-visible:ring-[#94A3B8]/30"
+          ? "absolute bottom-5 right-5 inline-flex items-center gap-2.5 rounded-full border border-[#161616]/25 bg-gradient-to-b from-white to-[#F0E9DF] px-6 py-3.5 text-[11.5px] font-bold uppercase tracking-[0.15em] text-[#0A0A0A] shadow-[0_2px_4px_rgba(22,22,22,0.08),0_8px_18px_rgba(22,22,22,0.1),0_20px_44px_rgba(22,22,22,0.1),inset_0_1px_0_rgba(255,255,255,0.95)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#161616]/35 hover:shadow-[0_2px_4px_rgba(22,22,22,0.1),0_12px_24px_rgba(22,22,22,0.14),0_26px_52px_rgba(22,22,22,0.12),inset_0_1px_0_rgba(255,255,255,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#161616]/20"
+          : "absolute bottom-5 right-5 inline-flex items-center gap-2.5 rounded-full border border-[#1E293B]/22 bg-gradient-to-b from-white to-[#EFF2F6] px-6 py-3.5 text-[11.5px] font-bold uppercase tracking-[0.15em] text-[#0A0F1A] shadow-[0_2px_4px_rgba(15,23,42,0.07),0_8px_18px_rgba(15,23,42,0.08),0_20px_44px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.96)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#1E293B]/32 hover:shadow-[0_2px_4px_rgba(15,23,42,0.1),0_12px_24px_rgba(15,23,42,0.12),0_26px_52px_rgba(15,23,42,0.1),inset_0_1px_0_rgba(255,255,255,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E293B]/18"
       }
     >
       <span>{label}</span>
-      <ArrowRight size={14} aria-hidden="true" />
+      <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" />
     </button>
   );
 }
