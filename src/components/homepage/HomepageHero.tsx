@@ -179,7 +179,7 @@ export function HomepageHero() {
           <div className="relative z-10 mx-auto grid h-full w-full max-w-[84rem] max-h-[900px] items-center gap-8 lg:grid-cols-[minmax(0,1.14fr)_minmax(22rem,0.86fr)] lg:gap-10 xl:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] xl:gap-12">
             
             {/* Left: Text Content (Static) */}
-            <div className="relative flex w-full max-w-[42rem] flex-col justify-center md:max-w-[44rem] lg:max-w-[41rem] lg:pt-12 lg:pr-4 xl:max-w-[43rem] xl:pt-14">
+            <div className="relative flex w-full max-w-[42rem] flex-col justify-center md:max-w-[44rem] lg:min-h-[42.5rem] lg:max-w-[41rem] lg:pr-4 xl:max-w-[43rem]">
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -194,7 +194,7 @@ export function HomepageHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.1, ease: [0.2, 0.65, 0.3, 0.9] }}
-                className="mt-3.5 max-w-[12.5ch] font-sans font-bold text-[#161616] text-[clamp(3.35rem,11vw,4.6rem)] md:mt-4 md:text-[clamp(4.2rem,8vw,5.5rem)] xl:text-[5.75rem] leading-[0.99] tracking-[-0.055em] text-balance"
+                className="mt-3.5 max-w-[12.5ch] font-sans font-bold text-[#161616] text-[clamp(2.8rem,9vw,3.85rem)] md:mt-4 md:text-[clamp(3.5rem,6.7vw,4.6rem)] xl:text-[4.75rem] leading-[0.99] tracking-[-0.055em] text-balance"
               >
                 <span className="block">Sharper websites.</span>
                 <span className="block">
@@ -207,7 +207,7 @@ export function HomepageHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2, ease: [0.2, 0.65, 0.3, 0.9] }}
-                className="mt-3.5 max-w-[32rem] text-[clamp(1rem,1vw+0.68rem,1.22rem)] font-medium leading-[1.55] tracking-[-0.01em] text-[#2A2A2A]/80 md:mt-4 md:max-w-[34rem] lg:max-w-[32rem] xl:max-w-[34rem]"
+                className="type-support mt-3.5 max-w-[32rem] text-[#2A2A2A]/80 md:mt-4 md:max-w-[34rem] lg:max-w-[32rem] xl:max-w-[34rem]"
               >
                 We rebuild underperforming service websites into commercial systems that look sharper, capture better leads and move enquiries straight into your existing workflow.
               </motion.p>

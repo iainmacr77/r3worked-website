@@ -173,6 +173,24 @@
     text-wrap: pretty;
   }
 
+  .type-support {
+    font-family: var(--font-inter), sans-serif;
+    font-weight: 500;
+    font-size: clamp(1rem, 1vw + 0.68rem, 1.22rem);
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+    text-wrap: pretty;
+  }
+
+  .type-body-sm {
+    font-family: var(--font-inter), sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.98rem, 0.3vw + 0.92rem, 1.08rem);
+    line-height: 1.68;
+    letter-spacing: -0.006em;
+    text-wrap: pretty;
+  }
+
   .type-eyebrow {
     font-family: var(--font-inter), sans-serif;
     font-weight: 600;

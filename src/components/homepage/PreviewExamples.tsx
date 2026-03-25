@@ -52,7 +52,7 @@ export function PreviewExamples() {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-6 type-body text-[#2A2A2A]/70"
+              className="type-support mt-6 text-[#2A2A2A]/70"
             >
               Before we write a single line of production code, we draft tailored homepage concepts. We find the aesthetic and structural potential your business already has, and make it visible.
             </motion.p>

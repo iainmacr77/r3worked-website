@@ -46,7 +46,7 @@ export function FinalCta() {
               initial={{ opacity: 0, y: 15 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="type-body text-[#F7F3EE]/70 max-w-[36rem] mb-12"
+              className="type-support text-[#F7F3EE]/70 max-w-[36rem] mb-12"
             >
               Send over your current site and get a clear view of what should be reworked first, where leads are leaking, and what a sharper commercial front could look like.
             </motion.p>

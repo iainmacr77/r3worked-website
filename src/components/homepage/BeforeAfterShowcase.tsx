@@ -41,7 +41,7 @@ export function BeforeAfterShowcase() {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-6 text-[clamp(1.125rem,1vw+0.5rem,1.25rem)] leading-relaxed text-[#2A2A2A]/80 font-medium max-w-[38rem]"
+              className="type-support mt-6 max-w-[38rem] text-[#2A2A2A]/80"
             >
               Many perfectly good businesses are heavily undervalued by their websites. We take standard, cluttered interfaces and rebuild them into clear, high-trust digital environments.
             </motion.p>

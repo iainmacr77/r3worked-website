@@ -69,7 +69,7 @@ export function LeadCaptureLayer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.2 }}
-            className="mt-6 type-body text-[#F7F3EE]/70"
+            className="type-support mt-6 text-[#F7F3EE]/70"
           >
             The visible website is only part of the offer. We ensure the lead doesn&apos;t vanish into a black hole—cleanly capturing, routing, and logging every serious enquiry.
           </motion.p>

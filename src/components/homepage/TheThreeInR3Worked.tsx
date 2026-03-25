@@ -7,17 +7,17 @@ const THREE_LAYERS = [
   {
     label: "01",
     title: "Website uplift",
-    body: "Sharper hierarchy, cleaner trust signals, and a stronger first impression.",
+    body: "Make the website look more trustworthy, more professional, and easier for the right customer to act on.",
   },
   {
     label: "02",
     title: "Enquiry capture",
-    body: "Better quote paths, clearer forms, and fewer missed enquiries.",
+    body: "Make it easier for people to get in touch properly, request a quote, and stop good enquiries going missing.",
   },
   {
     label: "03",
-    title: "Lead handling",
-    body: "Instant acknowledgements, client alerts, and cleaner lead handling behind the scenes.",
+    title: "Lead follow-up",
+    body: "Help you respond faster, stay organised, and keep new enquiries from going cold once they come in.",
   },
 ];
 
@@ -62,16 +62,16 @@ export function TheThreeInR3Worked() {
             transition={{ delay: 0.1 }}
             className="mt-6 type-h2 text-[#161616]"
           >
-            The 3 in R3WORKED.
+            The <span className="text-[#D96B4F]">3</span> in R<span className="text-[#D96B4F]">3</span>WORKED.
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.2 }}
-            className="mt-6 type-body text-[#2A2A2A]/70 max-w-[32rem]"
+            className="type-support mt-6 max-w-[32rem] text-[#2A2A2A]/70"
           >
-            Three practical, interconnected layers. One sharper commercial front.
+            Three practical layers that make your website look better, capture more enquiries, and help you stay on top of them.
           </motion.p>
         </div>
 
@@ -127,7 +127,7 @@ function StepItem({ layer }: { layer: { label: string, title: string, body: stri
       <div className="flex-1 w-full">
         <div className="premium-card relative p-8 md:p-12 overflow-hidden w-full max-w-[42rem]">
           {/* Abstract numbering background */}
-          <div className="absolute -right-6 -bottom-10 text-[12rem] font-bold text-[#161616]/[0.02] tracking-tighter pointer-events-none select-none leading-none">
+          <div className="absolute bottom-[-1.2rem] right-16 w-[7.2rem] text-right text-[12rem] font-bold tabular-nums text-[#161616]/[0.02] tracking-[-0.08em] pointer-events-none select-none leading-none md:bottom-[-1.5rem] md:right-20">
             {layer.label}
           </div>
           
@@ -142,7 +142,7 @@ function StepItem({ layer }: { layer: { label: string, title: string, body: stri
               {layer.title}
             </h3>
             
-            <p className="type-body text-[#2A2A2A]/80 max-w-[28rem]">
+            <p className="type-body-sm max-w-[31ch] text-[#2A2A2A]/78">
               {layer.body}
             </p>
           </div>
