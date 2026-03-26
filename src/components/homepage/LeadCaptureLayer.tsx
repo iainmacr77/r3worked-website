@@ -199,7 +199,7 @@ export function LeadCaptureLayer() {
                   <span className="text-[#D96B4F]">properly quoted.</span>
                 </h4>
                 <p className="text-[#161616]/45 text-xs leading-relaxed max-w-[28ch] mb-5">
-                  Trusted local builders serving Bristol and&nbsp;Bath. Free site visits, honest pricing.
+                  Trusted local builders serving Greater Manchester. Free site visits, honest pricing.
                 </p>
 
 

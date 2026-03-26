@@ -143,7 +143,7 @@ function StepItem({
       <div className="flex-1 w-full">
         <motion.div
           whileHover={{ y: -4 }}
-          className="premium-card relative flex h-full w-full max-w-[42rem] cursor-default flex-col overflow-hidden p-8 transition-[border-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[#D96B4F]/40 hover:shadow-[0_36px_96px_rgba(72,50,37,0.12),0_14px_32px_rgba(72,50,37,0.06),inset_0_1px_0_rgba(255,255,255,0.86)] md:p-12"
+          className="premium-card relative flex h-full w-full max-w-[42rem] cursor-default flex-col overflow-hidden p-8 transition-[border-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[6px_6px_0px_#D96B4F,0_20px_60px_rgba(72,50,37,0.08),inset_0_1px_0_rgba(255,255,255,0.7)] md:p-12"
         >
           {/* Abstract numbering background */}
           <div className="absolute bottom-[-1.2rem] right-16 w-[7.2rem] text-right text-[12rem] font-bold tabular-nums text-[#161616]/[0.02] tracking-[-0.08em] pointer-events-none select-none leading-none md:bottom-[-1.5rem] md:right-20">

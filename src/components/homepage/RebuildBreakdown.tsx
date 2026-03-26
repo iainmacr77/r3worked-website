@@ -113,7 +113,7 @@ export function RebuildBreakdown() {
         <p className="type-eyebrow mb-5 text-[#B86B5C]">What Changed</p>
 
         <div
-          className="premium-card relative p-8 md:p-12"
+          className="premium-card relative p-8 md:p-12 border-[#161616]/[0.09] shadow-[2px_2px_0px_rgba(184,107,92,0.06),0_34px_90px_rgba(72,50,37,0.08),0_12px_28px_rgba(72,50,37,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]"
           role="region"
           aria-roledescription="carousel"
           aria-label="Transformation analysis"
