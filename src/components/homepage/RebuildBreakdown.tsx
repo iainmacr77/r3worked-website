@@ -127,7 +127,7 @@ export function RebuildBreakdown() {
           </div>
 
           {/* Slide area */}
-          <div className="relative z-10 min-h-[19rem] md:min-h-[14rem]">
+          <div className="relative z-10 min-h-[24rem] sm:min-h-[22rem] md:min-h-[14rem]">
             <AnimatePresence mode="wait" initial={false} custom={direction}>
               <motion.div
                 key={currentIndex}
@@ -140,7 +140,7 @@ export function RebuildBreakdown() {
                   x: { type: "spring", stiffness: 320, damping: 32 },
                   opacity: { duration: 0.2 },
                 }}
-                className="absolute inset-0"
+                className="inset-0 md:absolute"
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`Move ${currentIndex + 1} of ${REBUILD_MOVES.length}: ${move.category}`}

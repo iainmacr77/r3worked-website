@@ -33,7 +33,7 @@ function EditorialVisual({ scrollProgress }: { scrollProgress: MotionValue<numbe
   const scale3 = useTransform(smoothProgress, [0.6, 0.7, 0.8], [1.05, 1, 1]);
 
   return (
-    <div className="relative w-full max-w-[34rem] aspect-[4/5] mx-auto lg:ml-auto select-none pointer-events-none mt-12 lg:mt-0 flex items-center justify-center">
+    <div className="relative w-full max-w-[34rem] aspect-[4/5] mx-auto lg:ml-auto select-none pointer-events-none mt-10 lg:mt-0 flex items-center justify-center">
       {/* Structural base grid */}
       <div className="absolute inset-x-4 sm:inset-x-8 inset-y-16 border border-[#161616]/10 rounded-sm">
         <div className="absolute inset-x-0 top-1/3 border-t border-[#161616]/5" />
