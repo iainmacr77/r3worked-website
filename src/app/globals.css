@@ -123,6 +123,28 @@
 }
 
 @layer utilities {
+  .light-section-seam {
+    position: relative;
+  }
+
+  .light-section-seam::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: clamp(2.75rem, 5vw, 4.25rem);
+    transform: translateX(-50%);
+    background: linear-gradient(
+      to bottom,
+      rgba(22, 22, 22, 0),
+      rgba(22, 22, 22, 0.1) 45%,
+      rgba(22, 22, 22, 0)
+    );
+    opacity: 0.35;
+  }
+
   .premium-card {
     overflow: hidden;
     border-radius: 2rem;

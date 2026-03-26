@@ -15,7 +15,7 @@ export function BeforeAfterShowcase() {
   const [previewVariant, setPreviewVariant] = useState<"before" | "after" | null>(null);
 
   return (
-    <section id="before-after-showcase" className="bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 border-t border-[#161616]/5">
+    <section id="before-after-showcase" className="light-section-seam bg-[#F7F3EE] px-6 pt-24 pb-14 md:px-10 md:pt-32 md:pb-16">
       <div className="mx-auto max-w-[84rem]" ref={containerRef}>
         
         {/* Header */}

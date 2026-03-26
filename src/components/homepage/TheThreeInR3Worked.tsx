@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type MouseEvent } from "react";
 import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
 
 const THREE_LAYERS = [
@@ -8,16 +8,19 @@ const THREE_LAYERS = [
     label: "01",
     title: "Website uplift",
     body: "Make the website look more trustworthy, more professional, and easier for the right customer to act on.",
+    targetId: "before-after-showcase",
   },
   {
     label: "02",
     title: "Enquiry capture",
     body: "Make it easier for people to get in touch properly, request a quote, and stop good enquiries going missing.",
+    targetId: "rebuild-breakdown",
   },
   {
     label: "03",
     title: "Lead follow-up",
     body: "Help you respond faster, stay organised, and keep new enquiries from going cold once they come in.",
+    targetId: "lead-capture-layer",
   },
 ];
 
@@ -41,7 +44,7 @@ export function TheThreeInR3Worked() {
   return (
     <section
       id="the-3"
-      className="relative bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
+      className="light-section-seam relative bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
     >
       <div className="mx-auto max-w-[84rem]">
         
@@ -102,9 +105,21 @@ export function TheThreeInR3Worked() {
   );
 }
 
-function StepItem({ layer }: { layer: { label: string, title: string, body: string } }) {
+function StepItem({
+  layer,
+}: {
+  layer: { label: string; title: string; body: string; targetId: string };
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-20%" });
+  const handleNavigate = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    const target = document.getElementById(layer.targetId);
+    if (!target) return;
+
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", `#${layer.targetId}`);
+  };
 
   return (
     <motion.div
@@ -125,7 +140,13 @@ function StepItem({ layer }: { layer: { label: string, title: string, body: stri
 
       {/* Content Card */}
       <div className="flex-1 w-full">
-        <div className="premium-card relative p-8 md:p-12 overflow-hidden w-full max-w-[42rem]">
+        <motion.a
+          href={`#${layer.targetId}`}
+          onClick={handleNavigate}
+          whileHover={{ y: -4 }}
+          className="premium-card relative flex h-full w-full max-w-[42rem] flex-col overflow-hidden p-8 transition-[border-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[#D96B4F]/40 hover:shadow-[0_36px_96px_rgba(72,50,37,0.12),0_14px_32px_rgba(72,50,37,0.06),inset_0_1px_0_rgba(255,255,255,0.86)] focus-visible:border-[#D96B4F]/55 focus-visible:shadow-[0_36px_96px_rgba(72,50,37,0.12),0_14px_32px_rgba(72,50,37,0.06),inset_0_1px_0_rgba(255,255,255,0.86)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D96B4F]/15 md:p-12"
+          aria-label={`Read more about ${layer.title.toLowerCase()}`}
+        >
           {/* Abstract numbering background */}
           <div className="absolute bottom-[-1.2rem] right-16 w-[7.2rem] text-right text-[12rem] font-bold tabular-nums text-[#161616]/[0.02] tracking-[-0.08em] pointer-events-none select-none leading-none md:bottom-[-1.5rem] md:right-20">
             {layer.label}
@@ -145,8 +166,12 @@ function StepItem({ layer }: { layer: { label: string, title: string, body: stri
             <p className="type-body-sm max-w-[31ch] text-[#2A2A2A]/78">
               {layer.body}
             </p>
+
+            <span className="mt-8 inline-flex w-fit items-center rounded-full bg-[#161616] px-4 py-2 text-[0.63rem] font-semibold uppercase tracking-[0.16em] text-[#F7F3EE] shadow-[0_8px_16px_rgba(22,22,22,0.14)]">
+              Read more
+            </span>
           </div>
-        </div>
+        </motion.a>
       </div>
     </motion.div>
   );

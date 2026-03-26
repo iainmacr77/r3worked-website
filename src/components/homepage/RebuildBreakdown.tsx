@@ -108,16 +108,26 @@ export function RebuildBreakdown() {
   }, [currentIndex]);
 
   return (
-    <div className="bg-[#F7F3EE] px-6 pb-24 md:px-10 md:pb-32">
+    <section id="rebuild-breakdown" className="light-section-seam bg-[#F7F3EE] px-6 pb-24 md:px-10 md:pb-32">
       <div className="mx-auto max-w-[84rem]">
+        <p className="type-eyebrow mb-5 text-[#B86B5C]">What Changed</p>
+
         <div
-          className="relative overflow-hidden rounded-[2rem] border border-[#161616]/[0.06] bg-[linear-gradient(135deg,rgba(255,255,255,0.88),rgba(247,243,238,0.82))] p-8 shadow-[0_20px_60px_rgba(72,50,37,0.06),0_8px_20px_rgba(72,50,37,0.03),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-[12px] md:p-12 lg:p-16"
+          className="premium-card relative p-8 md:p-12"
           role="region"
           aria-roledescription="carousel"
           aria-label="Transformation analysis"
         >
+          {/* Watermark numeral — anchored to card bottom-right */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-[-1.2rem] right-0 select-none text-[10rem] font-bold tabular-nums leading-none tracking-[-0.08em] text-[#161616]/[0.02] md:bottom-[-1.5rem] md:-right-4 md:text-[12rem]"
+          >
+            {move.number}
+          </div>
+
           {/* Slide area */}
-          <div className="relative min-h-[22rem] md:min-h-[16rem]">
+          <div className="relative z-10 min-h-[19rem] md:min-h-[14rem]">
             <AnimatePresence mode="wait" initial={false} custom={direction}>
               <motion.div
                 key={currentIndex}
@@ -135,79 +145,64 @@ export function RebuildBreakdown() {
                 aria-roledescription="slide"
                 aria-label={`Move ${currentIndex + 1} of ${REBUILD_MOVES.length}: ${move.category}`}
               >
-                {/* Large watermark number */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -top-4 right-0 select-none text-[8rem] font-bold tabular-nums leading-none tracking-[-0.06em] text-[#161616]/[0.025] md:text-[12rem]"
-                >
-                  {move.number}
+                <div className="mb-4">
+                  <span className="type-eyebrow inline-flex items-center gap-2.5 rounded-full border border-[#D96B4F]/15 bg-[#D96B4F]/5 px-3.5 py-1.5 text-[#D96B4F]">
+                    <span className="tabular-nums">{move.number}</span>
+                    {move.category}
+                  </span>
                 </div>
 
-                <div className="relative z-10">
-                  {/* Number + category badge */}
-                  <div className="mb-5 flex items-center gap-4">
-                    <span className="text-[1.4rem] font-bold tabular-nums leading-none tracking-[-0.04em] text-[#161616]/[0.14] md:text-[1.8rem]">
-                      {move.number}
-                    </span>
-                    <span className="type-eyebrow rounded-full border border-[#D96B4F]/15 bg-[#D96B4F]/5 px-3.5 py-1.5 text-[#D96B4F]">
-                      {move.category}
-                    </span>
+                <h3 className="type-h3 mb-6 text-[#161616]">
+                  {move.title}
+                </h3>
+
+                <div className="grid gap-6 md:grid-cols-2 md:gap-14">
+                  <div className="border-l-2 border-[#161616]/12 pl-5">
+                    <div className="mb-2.5 flex items-center gap-3">
+                      <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#161616]/35">
+                        Before
+                      </span>
+                      <SignalMeter
+                        level={move.signalBefore}
+                        variant="weak"
+                      />
+                    </div>
+                    <p className="type-body-sm max-w-[34ch] text-[#2A2A2A]">
+                      {move.weak}
+                    </p>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="type-h3 mb-8 text-[#161616]">
-                    {move.title}
-                  </h3>
-
-                  {/* Signal pair */}
-                  <div className="grid gap-6 md:grid-cols-2 md:gap-14">
-                    {/* Weak signal */}
-                    <div className="border-l-2 border-[#161616]/8 pl-5">
-                      <div className="mb-2.5 flex items-center gap-3">
-                        <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#161616]/25">
-                          Weak signal
-                        </span>
-                        <SignalMeter
-                          level={move.signalBefore}
-                          variant="weak"
-                        />
-                      </div>
-                      <p className="type-body-sm max-w-[34ch] text-[#2A2A2A]/40">
-                        {move.weak}
-                      </p>
+                  <div className="border-l-2 border-[#D96B4F] pl-5">
+                    <div className="mb-2.5 flex items-center gap-3">
+                      <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#D96B4F]/70">
+                        After
+                      </span>
+                      <SignalMeter
+                        level={move.signalAfter}
+                        variant="strong"
+                      />
                     </div>
-
-                    {/* Strong signal */}
-                    <div className="border-l-2 border-[#D96B4F] pl-5">
-                      <div className="mb-2.5 flex items-center gap-3">
-                        <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#D96B4F]/70">
-                          Strong signal
-                        </span>
-                        <SignalMeter
-                          level={move.signalAfter}
-                          variant="strong"
-                        />
-                      </div>
-                      <p className="type-body-sm max-w-[34ch] text-[#161616]">
-                        {move.strong}
-                      </p>
-                    </div>
+                    <p className="type-body-sm max-w-[34ch] text-[#161616]">
+                      {move.strong}
+                    </p>
                   </div>
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
+        </div>
 
-          {/* Navigation controls */}
-          <div className="relative z-20 mt-10 flex items-center justify-center gap-5">
+        {/* Navigation controls */}
+        <div className="mt-6 flex items-center justify-center">
+          <div className="inline-flex items-center gap-0.5 rounded-full border border-[#C8BFB1]/40 bg-gradient-to-b from-white/90 to-[#F3ECE1]/70 p-[3px] shadow-[0_1px_2px_rgba(22,22,22,0.04),0_4px_12px_rgba(22,22,22,0.04),inset_0_1px_0_rgba(255,255,255,0.92)]">
             <NavArrow
               direction="prev"
               onClick={goPrev}
               disabled={isFirst}
             />
-            <span className="min-w-[4.5rem] select-none text-center text-[0.7rem] font-semibold tabular-nums uppercase tracking-[0.2em] text-[#161616]/25">
+            <span className="min-w-[3.5rem] select-none px-1.5 text-center text-[0.68rem] font-semibold tabular-nums uppercase tracking-[0.2em] text-[#161616]/28">
               {String(currentIndex + 1).padStart(2, "0")}
-              <span className="mx-1 text-[#161616]/12">/</span>
+              <span className="mx-0.5 text-[#161616]/14">/</span>
               {String(REBUILD_MOVES.length).padStart(2, "0")}
             </span>
             <NavArrow
@@ -218,7 +213,7 @@ export function RebuildBreakdown() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -242,12 +237,12 @@ function NavArrow({
       onClick={onClick}
       disabled={disabled}
       aria-label={direction === "prev" ? "Previous move" : "Next move"}
-      className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-[#C8BFB1]/40 bg-gradient-to-b from-white to-[#F3ECE1] shadow-[0_1px_3px_rgba(22,22,22,0.05),0_4px_10px_rgba(22,22,22,0.04),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-300 hover:border-[#161616]/16 hover:shadow-[0_2px_6px_rgba(22,22,22,0.08),0_8px_18px_rgba(22,22,22,0.05)] disabled:pointer-events-none disabled:opacity-25"
+      className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-all duration-200 hover:bg-[#161616]/[0.06] active:bg-[#161616]/[0.1] disabled:pointer-events-none disabled:opacity-25"
     >
       <Icon
-        size={16}
+        size={18}
         strokeWidth={2}
-        className="text-[#161616]/50 transition-colors group-hover:text-[#161616]/80"
+        className="text-[#161616]/65 transition-colors group-hover:text-[#161616]/85"
       />
     </button>
   );
@@ -278,7 +273,7 @@ function SignalMeter({
           className={
             i < level
               ? variant === "weak"
-                ? "h-[7px] w-[7px] rounded-full bg-[#161616]/15"
+                ? "h-[7px] w-[7px] rounded-full bg-[#161616]/22"
                 : "h-[7px] w-[7px] rounded-full bg-[#D96B4F]"
               : "h-[7px] w-[7px] rounded-full bg-[#161616]/6"
           }

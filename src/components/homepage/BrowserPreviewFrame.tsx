@@ -33,7 +33,7 @@ export function BrowserPreviewFrame({
   const viewportHeight = browserHeight - chromeHeight;
 
   return (
-    <div className={cn("absolute inset-0 p-4 md:p-5 lg:p-6", className)}>
+    <div className={cn("absolute inset-0", className)}>
       <div ref={containerRef} className="relative h-full w-full overflow-hidden">
         <div
           className="absolute left-1/2 top-0"
@@ -44,7 +44,7 @@ export function BrowserPreviewFrame({
             transformOrigin: "top center",
           }}
         >
-          <div className="h-full overflow-hidden rounded-[1.6rem] border border-[#161616]/10 bg-white shadow-[0_24px_64px_rgba(22,22,22,0.12)]">
+          <div className="h-full overflow-hidden bg-white">
             <div className="flex h-12 items-center gap-4 border-b border-[#161616]/8 bg-white/95 px-5">
               <div className="flex items-center gap-1.5" aria-hidden="true">
                 <div className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />

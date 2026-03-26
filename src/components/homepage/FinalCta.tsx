@@ -9,7 +9,7 @@ export function FinalCta() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="final-cta" className="bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 border-t border-[#161616]/5">
+    <section id="final-cta" className="light-section-seam bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-[84rem]" ref={ref}>
         {/* The Premium CTA Card */}
         <motion.div
