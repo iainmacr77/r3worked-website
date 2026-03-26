@@ -164,26 +164,31 @@ export function HomepageHero() {
   return (
     // A tall container to allow for scroll duration
     // h-[300vh] provides 2 viewports (200vh) of actual scroll distance before the next section pulls up.
-    <section id="hero" ref={sectionRef} className="relative bg-[#F7F3EE] h-[250vh]">
+    <section
+      id="hero"
+      ref={sectionRef}
+      className="relative bg-[#F7F3EE] pb-12 pt-24 sm:pb-14 sm:pt-28 lg:h-[250vh] lg:py-0"
+    >
       
       {/* 
         This is the sticky viewport. 
         It locks to the top of the screen while the parent section scrolls past.
       */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+      <div className="flex w-full items-start justify-center lg:sticky lg:top-0 lg:h-screen lg:items-center lg:overflow-hidden">
         
         {/* Premium ambient grid wrapper so it stays fixed relative to the screen content */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.04] bg-[linear-gradient(rgba(22,22,22,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(22,22,22,0.1)_1px,transparent_1px)] bg-[size:64px_64px] bg-center" />
 
         <div className="w-full px-6 md:px-10">
-          <div className="relative z-10 mx-auto grid h-full w-full max-w-[84rem] max-h-[900px] items-center gap-8 lg:grid-cols-[minmax(0,1.14fr)_minmax(22rem,0.86fr)] lg:gap-10 xl:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] xl:gap-12">
+          <div className="relative z-10 mx-auto flex h-full w-full max-w-[84rem] flex-col gap-8 lg:grid lg:max-h-[900px] lg:grid-cols-[minmax(0,1.14fr)_minmax(22rem,0.86fr)] lg:items-center lg:gap-10 xl:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] xl:gap-12">
             
             {/* Left: Text Content (Static) */}
-            <div className="relative flex w-full max-w-[42rem] flex-col justify-center md:max-w-[44rem] lg:min-h-[42.5rem] lg:max-w-[41rem] lg:pr-4 xl:max-w-[43rem]">
+            <div className="contents lg:relative lg:flex lg:w-full lg:max-w-[41rem] lg:min-h-[42.5rem] lg:flex-col lg:justify-center lg:pr-4 xl:max-w-[43rem]">
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
+                className="order-1"
               >
                 <p className="type-eyebrow text-[#B86B5C]">
                   COMMERCIAL REWORK FOR SERVICE BRANDS
@@ -194,7 +199,7 @@ export function HomepageHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.1, ease: [0.2, 0.65, 0.3, 0.9] }}
-                className="mt-3.5 max-w-[12.5ch] font-sans font-bold text-[#161616] text-[clamp(2.8rem,9vw,3.85rem)] md:mt-4 md:text-[clamp(3.5rem,6.7vw,4.6rem)] xl:text-[4.75rem] leading-[0.99] tracking-[-0.055em] text-balance"
+                className="order-2 mt-3.5 max-w-[12.5ch] font-sans font-bold text-[#161616] text-[clamp(2.8rem,9vw,3.85rem)] leading-[0.99] tracking-[-0.055em] text-balance md:mt-4 md:text-[clamp(3.5rem,6.7vw,4.6rem)] xl:text-[4.75rem]"
               >
                 <span className="block">Sharper websites.</span>
                 <span className="block">
@@ -207,7 +212,7 @@ export function HomepageHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2, ease: [0.2, 0.65, 0.3, 0.9] }}
-                className="type-support mt-3.5 max-w-[32rem] text-[#2A2A2A]/80 md:mt-4 md:max-w-[34rem] lg:max-w-[32rem] xl:max-w-[34rem]"
+                className="type-support order-3 mt-3.5 max-w-[32rem] text-[#2A2A2A]/80 md:mt-4 md:max-w-[34rem] lg:max-w-[32rem] xl:max-w-[34rem]"
               >
                 We rebuild underperforming service websites into commercial systems that look sharper, capture better leads and move enquiries straight into your existing workflow.
               </motion.p>
@@ -216,18 +221,18 @@ export function HomepageHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.3, ease: [0.2, 0.65, 0.3, 0.9] }}
-                className="mt-14 flex flex-col sm:flex-row items-start sm:items-center gap-4 md:mt-16"
+                className="order-5 mt-6 flex flex-col items-stretch gap-3.5 sm:mt-8 sm:flex-row sm:items-center sm:gap-4 lg:mt-14 lg:items-start xl:mt-16"
               >
                 <Link
                   href="#final-cta"
-                  className="inline-flex h-14 items-center justify-center bg-[#161616] text-[#F7F3EE] px-8 rounded-full text-[13px] font-bold uppercase tracking-[0.1em] transition-[transform,background] duration-300 hover:bg-[#2A2A2A] hover:-translate-y-0.5 shadow-[0_12px_24px_rgba(22,22,22,0.12)]"
+                  className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[#161616] px-8 text-[13px] font-bold uppercase tracking-[0.1em] text-[#F7F3EE] shadow-[0_12px_24px_rgba(22,22,22,0.12)] transition-[transform,background] duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] sm:w-auto"
                 >
                   GET A REVIEW
                 </Link>
 
                 <Link
                   href="#before-after-showcase"
-                  className="group inline-flex h-14 items-center justify-center bg-transparent text-[#161616] px-8 rounded-full text-[13px] font-bold uppercase tracking-[0.1em] transition-[transform,background] duration-300 hover:bg-[#161616]/5 border border-[#161616]/10"
+                  className="group inline-flex h-14 w-full items-center justify-center rounded-full border border-[#161616]/10 bg-transparent px-8 text-[13px] font-bold uppercase tracking-[0.1em] text-[#161616] transition-[transform,background] duration-300 hover:bg-[#161616]/5 sm:w-auto"
                 >
                   SEE OUR WORK
                   <span className="ml-3 block transform transition-transform group-hover:translate-x-1">→</span>
@@ -236,7 +241,9 @@ export function HomepageHero() {
             </div>
 
             {/* Right: Premium Editorial Visual (Scroll Animated) */}
-            <EditorialVisual scrollProgress={scrollYProgress} />
+            <div className="order-4 lg:order-none">
+              <EditorialVisual scrollProgress={scrollYProgress} />
+            </div>
           </div>
         </div>
 
