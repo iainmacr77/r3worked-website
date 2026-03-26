@@ -4,6 +4,7 @@ import { HomepageHero } from "@/components/homepage/HomepageHero";
 import { TheThreeInR3Worked } from "@/components/homepage/TheThreeInR3Worked";
 import { BeforeAfterShowcase } from "@/components/homepage/BeforeAfterShowcase";
 import { RebuildBreakdown } from "@/components/homepage/RebuildBreakdown";
+import { EnquiryCaptureSection } from "@/components/homepage/EnquiryCaptureSection";
 import { LeadCaptureLayer } from "@/components/homepage/LeadCaptureLayer";
 import { PreviewExamples } from "@/components/homepage/PreviewExamples";
 import { FinalCta } from "@/components/homepage/FinalCta";
@@ -24,6 +25,7 @@ export default function HomePage() {
       <TheThreeInR3Worked />
       <BeforeAfterShowcase />
       <RebuildBreakdown />
+      <EnquiryCaptureSection />
       <LeadCaptureLayer />
       <PreviewExamples />
       <FinalCta />

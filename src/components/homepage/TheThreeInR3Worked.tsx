@@ -21,7 +21,7 @@ const THREE_LAYERS = [
     label: "03",
     title: "Follow-up system",
     body: "Acknowledge new enquiries instantly, notify the client, log the lead cleanly and create a more reliable path from first contact to booked work.",
-    targetId: "lead-capture-layer",
+    targetId: "follow-up-system",
   },
 ];
 

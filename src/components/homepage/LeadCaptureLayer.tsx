@@ -1,60 +1,88 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import {
-  MousePointerClick,
-  Route,
-  ClipboardList,
-  UserCheck,
-  Phone,
-  Camera,
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  type MotionValue,
+} from "framer-motion";
+import {
+  Send,
+  Bell,
+  ClipboardCheck,
   ArrowRight,
-  ChevronDown,
+  User,
+  MapPin,
+  Briefcase,
+  Check,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
-/*  Capture-stage steps                                                */
+/*  Follow-up steps (left column)                                       */
 /* ------------------------------------------------------------------ */
-const CAPTURE_STEPS = [
+const FOLLOW_UP_STEPS = [
   {
-    icon: MousePointerClick,
     number: "01",
-    title: "Clear CTA placement",
-    desc: "Prominent, intentional buttons placed where buying intent peaks.",
+    title: "Instant acknowledgement",
+    desc: "The prospect receives immediate confirmation their enquiry has landed — no silence, no uncertainty.",
   },
   {
-    icon: Route,
     number: "02",
-    title: "Shorter path to quote",
-    desc: "Fewer clicks between interest and submission. No buried forms, no dead ends.",
+    title: "Client notified clearly",
+    desc: "The business owner sees the lead straight away — with the detail that matters, not buried in noise.",
   },
   {
-    icon: ClipboardList,
     number: "03",
-    title: "Better enquiry detail",
-    desc: "Structured fields that capture what matters — project type, location, photos.",
+    title: "Lead logged properly",
+    desc: "Every enquiry is captured in a clean, structured record — visible, searchable, impossible to lose.",
   },
   {
-    icon: UserCheck,
     number: "04",
-    title: "Serious leads guided through",
-    desc: "A qualifying flow that separates tyre-kickers from real prospects.",
+    title: "Follow-up made easier",
+    desc: "With the lead documented and both sides informed, the path from first contact to booked work gets shorter.",
   },
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Form field pills / chips                                           */
+/*  Dispatch outcomes (right column visual)                             */
 /* ------------------------------------------------------------------ */
-
-const CONTACT_METHODS = [
-  { label: "Call", icon: Phone },
-  { label: "Email", icon: null },
-  { label: "WhatsApp", icon: null },
+const DISPATCH_OUTCOMES = [
+  {
+    icon: Send,
+    label: "Confirmation sent",
+    detail: "Prospect acknowledged",
+  },
+  {
+    icon: Bell,
+    label: "Client alerted",
+    detail: "Notification delivered",
+  },
+  {
+    icon: ClipboardCheck,
+    label: "Lead recorded",
+    detail: "Logged and structured",
+  },
+  {
+    icon: ArrowRight,
+    label: "Next step queued",
+    detail: "Follow-up ready",
+  },
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Component                                                          */
+/*  Activity log entries                                                 */
+/* ------------------------------------------------------------------ */
+const ACTIVITY_LOG = [
+  { time: "12:04:32", event: "Enquiry received" },
+  { time: "12:04:32", event: "Confirmation sent to prospect" },
+  { time: "12:04:33", event: "Client notification delivered" },
+  { time: "12:04:33", event: "Lead logged to record" },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Component                                                            */
 /* ------------------------------------------------------------------ */
 export function LeadCaptureLayer() {
   const ref = useRef<HTMLDivElement>(null);
@@ -69,12 +97,12 @@ export function LeadCaptureLayer() {
     damping: 20,
   });
 
-  const yTransform = useTransform(smoothProgress, [0, 1], [20, -20]);
+  const yTransform = useTransform(smoothProgress, [0, 1], [24, -24]);
 
   return (
     <section
-      id="lead-capture-layer"
-      className="bg-[#161616] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
+      id="follow-up-system"
+      className="light-section-seam bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
     >
       <div className="mx-auto max-w-[84rem]" ref={ref}>
         {/* ───────── Header ───────── */}
@@ -83,257 +111,77 @@ export function LeadCaptureLayer() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="type-eyebrow text-[#D96B4F]"
+            className="type-eyebrow text-[#B86B5C]"
           >
-            Phase 02
+            Phase 03
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.1 }}
-            className="mt-6 type-h2 text-[#F7F3EE]"
+            className="mt-6 type-h2 text-[#161616]"
           >
-            A clearer path to enquiry.
+            From enquiry to organised action.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.2 }}
-            className="type-support mt-6 text-[#F7F3EE]/70 max-w-[40rem]"
+            className="type-support mt-6 text-[#2A2A2A]/70 max-w-[42rem]"
           >
-            We structure your website pages, calls-to-action and form flow so
-            serious prospects know exactly what to do next — and are more likely
-            to actually do it.
+            Once an enquiry comes in, the next steps should be instant and
+            obvious — for the prospect and for the business. We confirm receipt,
+            notify the client, log the lead cleanly and create a more reliable
+            path to booked work.
           </motion.p>
         </div>
 
         {/* ───────── Two-column layout ───────── */}
-        <div className="grid lg:grid-cols-[1fr_1.3fr] gap-16 lg:gap-20 items-center">
-          {/* ── Left: Capture funnel steps ── */}
+        <div className="grid lg:grid-cols-[1fr_1.3fr] gap-16 lg:gap-20 items-start">
+          {/* ── Left: Follow-up steps ── */}
           <div className="relative pl-8">
-            {/* Vertical thread */}
-            <div className="absolute left-[9px] top-2 bottom-2 w-px bg-gradient-to-b from-[#D96B4F]/60 via-[#D96B4F]/20 to-transparent" />
+            <div className="absolute left-[9px] top-2 bottom-2 w-px bg-gradient-to-b from-[#D96B4F]/40 via-[#D96B4F]/15 to-transparent" />
 
             <div className="space-y-14">
-              {CAPTURE_STEPS.map((step, index) => {
-                const Icon = step.icon;
-                return (
-                  <motion.div
-                    key={step.number}
-                    initial={{ opacity: 0, x: -24 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{
-                      delay: index * 0.14,
-                      duration: 0.6,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="relative"
-                  >
-                    {/* Timeline node */}
-                    <div className="absolute -left-[31px] top-1.5 w-[18px] h-[18px] rounded-full bg-[#161616] border-2 border-[#D96B4F]/50 flex items-center justify-center shadow-[0_0_0_4px_#161616]">
-                      <div className="w-[6px] h-[6px] rounded-full bg-[#D96B4F]" />
-                    </div>
+              {FOLLOW_UP_STEPS.map((step, index) => (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, x: -24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{
+                    delay: index * 0.14,
+                    duration: 0.6,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="relative"
+                >
+                  <div className="absolute -left-[31px] top-1.5 w-[18px] h-[18px] rounded-full bg-[#F7F3EE] border-2 border-[#D96B4F]/50 flex items-center justify-center shadow-[0_0_0_4px_#F7F3EE]">
+                    <div className="w-[6px] h-[6px] rounded-full bg-[#D96B4F]" />
+                  </div>
 
-                    {/* Step content */}
-                    <div className="flex items-start gap-4">
-                      <div className="mt-0.5 w-9 h-9 rounded-xl bg-[#D96B4F]/[0.08] border border-[#D96B4F]/15 flex items-center justify-center shrink-0">
-                        <Icon size={16} className="text-[#D96B4F]" />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-3 mb-1.5">
-                          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#D96B4F]/50 tabular-nums">
-                            {step.number}
-                          </span>
-                          <h3 className="text-[1.05rem] font-semibold text-[#F7F3EE] leading-tight">
-                            {step.title}
-                          </h3>
-                        </div>
-                        <p className="text-[#F7F3EE]/55 text-sm leading-relaxed max-w-[26rem]">
-                          {step.desc}
-                        </p>
-                      </div>
+                  <div>
+                    <div className="flex items-center gap-3 mb-1.5">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#D96B4F]/50 tabular-nums">
+                        {step.number}
+                      </span>
+                      <h3 className="text-[1.05rem] font-semibold text-[#161616] leading-tight">
+                        {step.title}
+                      </h3>
                     </div>
-                  </motion.div>
-                );
-              })}
+                    <p className="text-[#2A2A2A]/60 text-sm leading-relaxed max-w-[28rem]">
+                      {step.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
 
-          {/* ── Right: Stylised enquiry UI concept ── */}
-          <motion.div
-            style={{ y: yTransform }}
-            className="relative rounded-xl overflow-hidden border border-[#161616] shadow-[6px_6px_0px_#B86B5C]"
-          >
-            {/* Background surface */}
-            <div className="absolute inset-0 bg-[#F7F3EE] z-0" />
-
-            <div className="relative z-10 flex flex-col">
-              {/* ─ Landing page hero snippet ─ */}
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 0.7 }}
-                className="px-6 pt-7 pb-5 md:px-8 md:pt-8"
-              >
-                {/* Browser chrome dots */}
-                <div className="flex items-center gap-1.5 mb-6">
-                  <div className="w-[7px] h-[7px] rounded-full bg-[#161616]/10" />
-                  <div className="w-[7px] h-[7px] rounded-full bg-[#161616]/10" />
-                  <div className="w-[7px] h-[7px] rounded-full bg-[#161616]/10" />
-                  <div className="ml-3 h-[18px] w-[140px] rounded-full bg-[#161616]/[0.04] border border-[#161616]/[0.08]" />
-                </div>
-
-                {/* Hero headline */}
-                <div className="mb-1">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#D96B4F]/60">
-                    Collins Construction
-                  </span>
-                </div>
-                <h4 className="text-[1.4rem] md:text-[1.7rem] font-bold text-[#161616] leading-[1.15] tracking-[-0.02em] mb-2">
-                  Quality work,
-                  <br />
-                  <span className="text-[#D96B4F]">properly quoted.</span>
-                </h4>
-                <p className="text-[#161616]/45 text-xs leading-relaxed max-w-[28ch] mb-5">
-                  Trusted local builders serving Greater Manchester. Free site visits, honest pricing.
-                </p>
-
-
-              </motion.div>
-
-              {/* ─ Divider ─ */}
-              <div className="mx-6 md:mx-8 border-t border-[#161616]/[0.08]" />
-
-              {/* ─ Quote request form panel ─ */}
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5, duration: 0.7 }}
-                className="px-6 pt-5 pb-6 md:px-8 md:pb-7"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#161616]/40">
-                    Quick Quote Request
-                  </span>
-                  <span className="text-[10px] font-medium text-[#D96B4F]/50 tracking-wide">
-                    2 min
-                  </span>
-                </div>
-
-                {/* Row 1: Name + Contact preference */}
-                <div className="grid grid-cols-2 gap-3 mb-3">
-                  <FormField label="Name" value="James Whitfield" delay={0.6} />
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.65 }}
-                  >
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#161616]/40 mb-1.5 block">
-                      Contact preference
-                    </span>
-                    <div className="flex gap-1 mb-1.5">
-                      {CONTACT_METHODS.map((method, i) => (
-                        <span
-                          key={method.label}
-                          className={`inline-flex items-center justify-center gap-1 rounded-full px-2.5 py-[4px] text-[0.56rem] font-semibold uppercase tracking-wider ${
-                            i === 0
-                              ? "bg-[#D96B4F]/15 text-[#D96B4F] border border-[#D96B4F]/25"
-                              : "bg-[#161616]/[0.04] text-[#161616]/40 border border-[#161616]/[0.08]"
-                          }`}
-                        >
-                          {method.icon && (
-                            <method.icon size={8} strokeWidth={2.5} />
-                          )}
-                          {method.label}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="rounded-md bg-white border border-[#161616]/[0.10] px-4 py-2.5">
-                      <span className="text-[0.78rem] text-[#161616]/70 font-medium">
-                        07700 900 123
-                      </span>
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Row 2: Type of project (dropdown) + Postcode */}
-                <div className="grid grid-cols-2 gap-3 mb-3">
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.7 }}
-                  >
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#161616]/40 mb-2 block">
-                      Type of project
-                    </span>
-                    <div className="rounded-md bg-white border border-[#161616]/[0.10] px-4 py-2.5 flex items-center justify-between">
-                      <span className="text-[0.78rem] text-[#161616]/70 font-medium">
-                        Extension
-                      </span>
-                      <ChevronDown size={14} className="text-[#161616]/30" />
-                    </div>
-                  </motion.div>
-                  <FormField label="Postcode" value="BS6 7AA" delay={0.72} />
-                </div>
-
-                {/* Row 3: Describe the job + Upload photos */}
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.75 }}
-                  className="grid grid-cols-2 gap-3 mb-5"
-                >
-                  <div>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#161616]/40 mb-2 block">
-                      Describe the job
-                    </span>
-                    <div className="rounded-md bg-white border border-[#161616]/[0.10] px-4 py-3 min-h-[3.2rem]">
-                      <span className="text-[0.75rem] text-[#161616]/30 leading-relaxed">
-                        Rear extension, need a quote…
-                      </span>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#161616]/40 mb-2 block">
-                      Upload photos / plans
-                    </span>
-                    <div className="rounded-md bg-[#161616]/[0.02] border border-dashed border-[#161616]/[0.10] px-4 py-3 min-h-[3.2rem] flex items-center gap-2.5">
-                      <Camera size={14} className="text-[#161616]/30 shrink-0" />
-                      <span className="text-[0.68rem] text-[#161616]/30">
-                        Drag or tap
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Bottom row: Send enquiry + Call now */}
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8 }}
-                  className="flex items-center gap-3"
-                >
-                  <div className="inline-flex items-center gap-2.5 rounded-full bg-[#D96B4F] px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_4px_12px_rgba(217,107,79,0.15)]">
-                    Send Enquiry
-                    <ArrowRight size={13} strokeWidth={2.5} />
-                  </div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#161616]/12 bg-transparent px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#161616]/55">
-                    <Phone size={11} strokeWidth={2.5} />
-                    Call Now
-                  </div>
-                </motion.div>
-              </motion.div>
-            </div>
-          </motion.div>
+          {/* ── Right: Dispatch orchestration visual ── */}
+          <DispatchBoard yTransform={yTransform} />
         </div>
       </div>
     </section>
@@ -341,32 +189,156 @@ export function LeadCaptureLayer() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Form field helper                                                  */
+/*  Dispatch Board Visual                                               */
 /* ------------------------------------------------------------------ */
-function FormField({
-  label,
-  value,
-  delay,
-}: {
-  label: string;
-  value: string;
-  delay: number;
-}) {
+function DispatchBoard({ yTransform }: { yTransform: MotionValue<number> }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay }}
-    >
-      <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#161616]/40 mb-2 block">
-        {label}
-      </span>
-      <div className="rounded-md bg-white border border-[#161616]/[0.10] px-4 py-2.5">
-        <span className="text-[0.78rem] text-[#161616]/70 font-medium">
-          {value}
-        </span>
+    <motion.div style={{ y: yTransform }} className="relative">
+      <div className="relative overflow-hidden rounded-2xl border border-[#161616]/[0.06] bg-gradient-to-br from-[#EDE7DD] via-[#E7DED2] to-[#E2D8CA] p-6 md:p-8 shadow-[0_34px_90px_rgba(72,50,37,0.06),0_12px_28px_rgba(72,50,37,0.03),inset_0_1px_0_rgba(255,255,255,0.6)]">
+        {/* Subtle board surface highlight */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.4)_0%,transparent_60%)]" />
+
+        {/* ─ Enquiry card ─ */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="relative"
+        >
+          <div className="rounded-xl bg-white border border-[#161616]/[0.07] p-5 shadow-[0_6px_20px_rgba(22,22,22,0.04),0_1px_3px_rgba(22,22,22,0.02),inset_0_1px_0_rgba(255,255,255,0.9)]">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#D96B4F]/12 to-[#D96B4F]/5 border border-[#D96B4F]/10 flex items-center justify-center">
+                  <User size={15} className="text-[#D96B4F]" />
+                </div>
+                <div>
+                  <span className="text-[0.84rem] font-semibold text-[#161616] block leading-tight">
+                    New Enquiry
+                  </span>
+                  <span className="text-[0.68rem] text-[#161616]/35 font-medium">
+                    Just now
+                  </span>
+                </div>
+              </div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#D96B4F]/8 border border-[#D96B4F]/12 px-2.5 py-1 text-[0.58rem] font-bold uppercase tracking-[0.14em] text-[#D96B4F]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#D96B4F] animate-pulse" />
+                Received
+              </span>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 pt-3 border-t border-[#161616]/[0.05]">
+              <EnquiryField icon={User} label="Name" value="James Whitfield" />
+              <EnquiryField
+                icon={Briefcase}
+                label="Project"
+                value="Extension"
+              />
+              <EnquiryField icon={MapPin} label="Location" value="BS6 7AA" />
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ─ Routing connector ─ */}
+        <div className="relative flex flex-col items-center py-4">
+          <div className="h-4 w-px bg-gradient-to-b from-[#D96B4F]/25 to-[#D96B4F]/12" />
+          <div className="relative my-1 flex items-center justify-center">
+            <div className="w-[18px] h-[18px] rounded-full bg-gradient-to-br from-[#D96B4F]/20 to-[#D96B4F]/10 border border-[#D96B4F]/15 flex items-center justify-center shadow-[0_0_0_4px_rgba(217,107,79,0.04)]">
+              <div className="w-[6px] h-[6px] rounded-full bg-[#D96B4F]/60" />
+            </div>
+            <div className="absolute left-[15%] right-[15%] h-px bg-[#D96B4F]/10" />
+          </div>
+          <div className="h-3 w-px bg-gradient-to-b from-[#D96B4F]/10 to-transparent" />
+        </div>
+
+        {/* ─ 2×2 outcome grid ─ */}
+        <div className="grid grid-cols-2 gap-3">
+          {DISPATCH_OUTCOMES.map((outcome, i) => {
+            const Icon = outcome.icon;
+            return (
+              <motion.div
+                key={outcome.label}
+                initial={{ opacity: 0, y: 14, scale: 0.97 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{
+                  delay: 0.4 + i * 0.1,
+                  duration: 0.5,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="group rounded-lg bg-white/90 border border-[#161616]/[0.05] p-4 shadow-[0_2px_10px_rgba(22,22,22,0.02),inset_0_1px_0_rgba(255,255,255,0.8)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(22,22,22,0.04)]"
+              >
+                <div className="flex items-center justify-between mb-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-[#D96B4F]/[0.06] border border-[#D96B4F]/10 flex items-center justify-center">
+                    <Icon size={13} className="text-[#D96B4F]" />
+                  </div>
+                  <div className="w-[18px] h-[18px] rounded-full bg-[#D96B4F]/10 flex items-center justify-center">
+                    <Check
+                      size={10}
+                      className="text-[#D96B4F]"
+                      strokeWidth={3}
+                    />
+                  </div>
+                </div>
+                <p className="text-[0.78rem] font-semibold text-[#161616] leading-tight mb-0.5">
+                  {outcome.label}
+                </p>
+                <p className="text-[0.66rem] text-[#161616]/40 leading-relaxed">
+                  {outcome.detail}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* ─ Activity log footer ─ */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.85, duration: 0.6 }}
+          className="mt-6 pt-4 border-t border-[#161616]/[0.04]"
+        >
+          <div className="flex flex-col gap-1.5">
+            {ACTIVITY_LOG.map((entry, i) => (
+              <div key={i} className="flex items-center gap-2.5">
+                <span className="text-[0.6rem] font-medium tabular-nums text-[#161616]/18 tracking-wide min-w-[4rem]">
+                  {entry.time}
+                </span>
+                <div className="w-[3px] h-[3px] rounded-full bg-[#D96B4F]/20" />
+                <span className="text-[0.64rem] text-[#161616]/30 font-medium">
+                  {entry.event}
+                </span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Enquiry field mini-component                                        */
+/* ------------------------------------------------------------------ */
+function EnquiryField({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: React.ElementType;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div>
+      <div className="flex items-center gap-1 mb-1">
+        <Icon size={10} className="text-[#161616]/25" />
+        <span className="text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-[#161616]/30">
+          {label}
+        </span>
+      </div>
+      <p className="text-[0.78rem] font-medium text-[#161616]/75">{value}</p>
+    </div>
   );
 }

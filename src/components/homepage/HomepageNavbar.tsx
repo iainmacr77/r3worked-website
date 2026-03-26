@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const NAV_LINKS = [
   { href: "#the-3", label: "The 3" },
   { href: "#before-after-showcase", label: "Rework" },
-  { href: "#lead-capture-layer", label: "System" },
+  { href: "#follow-up-system", label: "System" },
   { href: "#preview-examples", label: "Previews" },
 ];
 
