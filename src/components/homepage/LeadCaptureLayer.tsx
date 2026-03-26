@@ -103,9 +103,9 @@ export function LeadCaptureLayer() {
             transition={{ delay: 0.2 }}
             className="type-support mt-6 text-[#F7F3EE]/70 max-w-[40rem]"
           >
-            We structure the page, calls to action and form flow so serious
-            prospects know exactly what to do next — and are more likely to
-            actually do it.
+            We structure your website pages, calls-to-action and form flow so
+            serious prospects know exactly what to do next — and are more likely
+            to actually do it.
           </motion.p>
         </div>
 
@@ -165,12 +165,10 @@ export function LeadCaptureLayer() {
           {/* ── Right: Stylised enquiry UI concept ── */}
           <motion.div
             style={{ y: yTransform }}
-            className="relative rounded-[2rem] overflow-hidden shadow-2xl border border-[#2A2A2A]"
+            className="relative rounded-xl overflow-hidden border border-[#161616] shadow-[6px_6px_0px_#B86B5C]"
           >
-            {/* Background layers */}
-            <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(42,42,42,0.5)_0%,rgba(22,22,22,0.95)_100%)] z-0" />
-            <div className="absolute top-0 inset-x-0 h-44 bg-[radial-gradient(ellipse_at_top_center,rgba(217,107,79,0.12),transparent_70%)] z-0" />
-            <div className="absolute bottom-0 inset-x-0 h-32 bg-[radial-gradient(ellipse_at_bottom_center,rgba(217,107,79,0.06),transparent_70%)] z-0" />
+            {/* Background surface */}
+            <div className="absolute inset-0 bg-[#F7F3EE] z-0" />
 
             <div className="relative z-10 flex flex-col">
               {/* ─ Landing page hero snippet ─ */}
@@ -183,10 +181,10 @@ export function LeadCaptureLayer() {
               >
                 {/* Browser chrome dots */}
                 <div className="flex items-center gap-1.5 mb-6">
-                  <div className="w-[7px] h-[7px] rounded-full bg-[#F7F3EE]/10" />
-                  <div className="w-[7px] h-[7px] rounded-full bg-[#F7F3EE]/10" />
-                  <div className="w-[7px] h-[7px] rounded-full bg-[#F7F3EE]/10" />
-                  <div className="ml-3 h-[18px] w-[140px] rounded-full bg-[#F7F3EE]/[0.04] border border-[#F7F3EE]/[0.06]" />
+                  <div className="w-[7px] h-[7px] rounded-full bg-[#161616]/10" />
+                  <div className="w-[7px] h-[7px] rounded-full bg-[#161616]/10" />
+                  <div className="w-[7px] h-[7px] rounded-full bg-[#161616]/10" />
+                  <div className="ml-3 h-[18px] w-[140px] rounded-full bg-[#161616]/[0.04] border border-[#161616]/[0.08]" />
                 </div>
 
                 {/* Hero headline */}
@@ -195,12 +193,12 @@ export function LeadCaptureLayer() {
                     Collins Construction
                   </span>
                 </div>
-                <h4 className="text-[1.4rem] md:text-[1.7rem] font-bold text-[#F7F3EE] leading-[1.15] tracking-[-0.02em] mb-2">
+                <h4 className="text-[1.4rem] md:text-[1.7rem] font-bold text-[#161616] leading-[1.15] tracking-[-0.02em] mb-2">
                   Quality work,
                   <br />
                   <span className="text-[#D96B4F]">properly quoted.</span>
                 </h4>
-                <p className="text-[#F7F3EE]/40 text-xs leading-relaxed max-w-[28ch] mb-5">
+                <p className="text-[#161616]/45 text-xs leading-relaxed max-w-[28ch] mb-5">
                   Trusted local builders serving Bristol and&nbsp;Bath. Free site visits, honest pricing.
                 </p>
 
@@ -208,7 +206,7 @@ export function LeadCaptureLayer() {
               </motion.div>
 
               {/* ─ Divider ─ */}
-              <div className="mx-6 md:mx-8 border-t border-[#F7F3EE]/[0.06]" />
+              <div className="mx-6 md:mx-8 border-t border-[#161616]/[0.08]" />
 
               {/* ─ Quote request form panel ─ */}
               <motion.div
@@ -219,7 +217,7 @@ export function LeadCaptureLayer() {
                 className="px-6 pt-5 pb-6 md:px-8 md:pb-7"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#F7F3EE]/40">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#161616]/40">
                     Quick Quote Request
                   </span>
                   <span className="text-[10px] font-medium text-[#D96B4F]/50 tracking-wide">
@@ -236,7 +234,7 @@ export function LeadCaptureLayer() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.65 }}
                   >
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-1.5 block">
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#161616]/40 mb-1.5 block">
                       Contact preference
                     </span>
                     <div className="flex gap-1 mb-1.5">
@@ -246,7 +244,7 @@ export function LeadCaptureLayer() {
                           className={`inline-flex items-center justify-center gap-1 rounded-full px-2.5 py-[4px] text-[0.56rem] font-semibold uppercase tracking-wider ${
                             i === 0
                               ? "bg-[#D96B4F]/15 text-[#D96B4F] border border-[#D96B4F]/25"
-                              : "bg-[#F7F3EE]/[0.04] text-[#F7F3EE]/35 border border-[#F7F3EE]/[0.06]"
+                              : "bg-[#161616]/[0.04] text-[#161616]/40 border border-[#161616]/[0.08]"
                           }`}
                         >
                           {method.icon && (
@@ -256,8 +254,8 @@ export function LeadCaptureLayer() {
                         </span>
                       ))}
                     </div>
-                    <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-[#F7F3EE]/[0.06] px-4 py-2.5">
-                      <span className="text-[0.78rem] text-[#F7F3EE]/60 font-medium">
+                    <div className="rounded-md bg-white border border-[#161616]/[0.10] px-4 py-2.5">
+                      <span className="text-[0.78rem] text-[#161616]/70 font-medium">
                         07700 900 123
                       </span>
                     </div>
@@ -272,14 +270,14 @@ export function LeadCaptureLayer() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.7 }}
                   >
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#161616]/40 mb-2 block">
                       Type of project
                     </span>
-                    <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-[#F7F3EE]/[0.06] px-4 py-2.5 flex items-center justify-between">
-                      <span className="text-[0.78rem] text-[#F7F3EE]/60 font-medium">
+                    <div className="rounded-md bg-white border border-[#161616]/[0.10] px-4 py-2.5 flex items-center justify-between">
+                      <span className="text-[0.78rem] text-[#161616]/70 font-medium">
                         Extension
                       </span>
-                      <ChevronDown size={14} className="text-[#F7F3EE]/25" />
+                      <ChevronDown size={14} className="text-[#161616]/30" />
                     </div>
                   </motion.div>
                   <FormField label="Postcode" value="BS6 7AA" delay={0.72} />
@@ -294,22 +292,22 @@ export function LeadCaptureLayer() {
                   className="grid grid-cols-2 gap-3 mb-5"
                 >
                   <div>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#161616]/40 mb-2 block">
                       Describe the job
                     </span>
-                    <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-[#F7F3EE]/[0.06] px-4 py-3 min-h-[3.2rem]">
-                      <span className="text-[0.75rem] text-[#F7F3EE]/25 leading-relaxed">
+                    <div className="rounded-md bg-white border border-[#161616]/[0.10] px-4 py-3 min-h-[3.2rem]">
+                      <span className="text-[0.75rem] text-[#161616]/30 leading-relaxed">
                         Rear extension, need a quote…
                       </span>
                     </div>
                   </div>
                   <div>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#161616]/40 mb-2 block">
                       Upload photos / plans
                     </span>
-                    <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-dashed border-[#F7F3EE]/[0.08] px-4 py-3 min-h-[3.2rem] flex items-center gap-2.5">
-                      <Camera size={14} className="text-[#F7F3EE]/25 shrink-0" />
-                      <span className="text-[0.68rem] text-[#F7F3EE]/25">
+                    <div className="rounded-md bg-[#161616]/[0.02] border border-dashed border-[#161616]/[0.10] px-4 py-3 min-h-[3.2rem] flex items-center gap-2.5">
+                      <Camera size={14} className="text-[#161616]/30 shrink-0" />
+                      <span className="text-[0.68rem] text-[#161616]/30">
                         Drag or tap
                       </span>
                     </div>
@@ -324,11 +322,11 @@ export function LeadCaptureLayer() {
                   transition={{ delay: 0.8 }}
                   className="flex items-center gap-3"
                 >
-                  <div className="inline-flex items-center gap-2.5 rounded-full bg-[#D96B4F] px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_6px_24px_rgba(217,107,79,0.3)]">
+                  <div className="inline-flex items-center gap-2.5 rounded-full bg-[#D96B4F] px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_4px_12px_rgba(217,107,79,0.15)]">
                     Send Enquiry
                     <ArrowRight size={13} strokeWidth={2.5} />
                   </div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#F7F3EE]/12 bg-[#F7F3EE]/[0.03] px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#F7F3EE]/45">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[#161616]/12 bg-transparent px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#161616]/55">
                     <Phone size={11} strokeWidth={2.5} />
                     Call Now
                   </div>
@@ -361,11 +359,11 @@ function FormField({
       viewport={{ once: true }}
       transition={{ delay }}
     >
-      <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
+      <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#161616]/40 mb-2 block">
         {label}
       </span>
-      <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-[#F7F3EE]/[0.06] px-4 py-2.5">
-        <span className="text-[0.78rem] text-[#F7F3EE]/60 font-medium">
+      <div className="rounded-md bg-white border border-[#161616]/[0.10] px-4 py-2.5">
+        <span className="text-[0.78rem] text-[#161616]/70 font-medium">
           {value}
         </span>
       </div>
