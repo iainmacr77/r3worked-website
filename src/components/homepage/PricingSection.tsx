@@ -186,14 +186,14 @@ export function PricingSection() {
               Ongoing support for the live site and its enquiry-handling layer.
             </p>
 
-            <div className="flex flex-wrap gap-1.5">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2.5">
               {MONTHLY_INCLUSIONS.map((item) => (
-                <span
-                  key={item}
-                  className="inline-flex rounded-full bg-white/55 border border-[#161616]/[0.05] px-3 py-1.5 text-[0.68rem] font-medium text-[#161616]/55"
-                >
-                  {item}
-                </span>
+                <div key={item} className="flex items-center gap-2.5">
+                  <div className="w-[5px] h-[5px] rounded-full bg-[#B86B5C]/35 shrink-0" />
+                  <span className="text-[0.78rem] text-[#2A2A2A]/55 leading-snug">
+                    {item}
+                  </span>
+                </div>
               ))}
             </div>
           </motion.div>
@@ -213,14 +213,17 @@ export function PricingSection() {
               Available where they genuinely help — not upsold by default.
             </p>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-2 gap-2">
               {ADD_ONS.map((item) => (
-                <span
+                <div
                   key={item}
-                  className="inline-flex rounded-full border border-[#D96B4F]/12 bg-[#D96B4F]/[0.03] px-3.5 py-2 text-[0.72rem] font-medium text-[#161616]/55"
+                  className="relative flex items-center rounded-lg border border-[#161616]/[0.05] bg-[#F7F3EE]/60 py-2.5 pl-4 pr-3.5 overflow-hidden"
                 >
-                  {item}
-                </span>
+                  <div className="absolute left-0 top-[0.4rem] bottom-[0.4rem] w-[2px] rounded-full bg-[#D96B4F]/20" />
+                  <span className="text-[0.74rem] font-medium text-[#161616]/50">
+                    {item}
+                  </span>
+                </div>
               ))}
             </div>
           </motion.div>
