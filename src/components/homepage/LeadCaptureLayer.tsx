@@ -10,6 +10,7 @@ import {
   Phone,
   Camera,
   ArrowRight,
+  ChevronDown,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
@@ -25,14 +26,14 @@ const CAPTURE_STEPS = [
   {
     icon: Route,
     number: "02",
-    title: "Shorter enquiry path",
-    desc: "Fewer clicks from interest to submission. No buried forms.",
+    title: "Shorter path to quote",
+    desc: "Fewer clicks between interest and submission. No buried forms, no dead ends.",
   },
   {
     icon: ClipboardList,
     number: "03",
-    title: "Better job detail captured",
-    desc: "Structured fields that capture what matters — job type, area, photos.",
+    title: "Better enquiry detail",
+    desc: "Structured fields that capture what matters — project type, location, photos.",
   },
   {
     icon: UserCheck,
@@ -45,7 +46,7 @@ const CAPTURE_STEPS = [
 /* ------------------------------------------------------------------ */
 /*  Form field pills / chips                                           */
 /* ------------------------------------------------------------------ */
-const JOB_TYPES = ["Flat roof", "Pitched roof", "Guttering", "Chimney", "Leak repair"];
+
 const CONTACT_METHODS = [
   { label: "Call", icon: Phone },
   { label: "Email", icon: null },
@@ -68,7 +69,7 @@ export function LeadCaptureLayer() {
     damping: 20,
   });
 
-  const yTransform = useTransform(smoothProgress, [0, 1], [40, -40]);
+  const yTransform = useTransform(smoothProgress, [0, 1], [20, -20]);
 
   return (
     <section
@@ -109,7 +110,7 @@ export function LeadCaptureLayer() {
         </div>
 
         {/* ───────── Two-column layout ───────── */}
-        <div className="grid lg:grid-cols-[1fr_1.3fr] gap-16 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-[1fr_1.3fr] gap-16 lg:gap-20 items-center">
           {/* ── Left: Capture funnel steps ── */}
           <div className="relative pl-8">
             {/* Vertical thread */}
@@ -191,41 +192,19 @@ export function LeadCaptureLayer() {
                 {/* Hero headline */}
                 <div className="mb-1">
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#D96B4F]/60">
-                    Collins Roofing
+                    Collins Construction
                   </span>
                 </div>
                 <h4 className="text-[1.4rem] md:text-[1.7rem] font-bold text-[#F7F3EE] leading-[1.15] tracking-[-0.02em] mb-2">
-                  Your roof, sorted
+                  Quality work,
                   <br />
-                  <span className="text-[#D96B4F]">properly.</span>
+                  <span className="text-[#D96B4F]">properly quoted.</span>
                 </h4>
                 <p className="text-[#F7F3EE]/40 text-xs leading-relaxed max-w-[28ch] mb-5">
-                  Trusted local roofers serving Bristol and&nbsp;Bath. Free inspections, honest quotes.
+                  Trusted local builders serving Bristol and&nbsp;Bath. Free site visits, honest pricing.
                 </p>
 
-                {/* CTA buttons */}
-                <div className="flex flex-wrap gap-2.5">
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.55 }}
-                    className="inline-flex items-center gap-2 rounded-full bg-[#D96B4F] px-5 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_4px_20px_rgba(217,107,79,0.35)]"
-                  >
-                    Request a Quote
-                    <ArrowRight size={12} strokeWidth={2.5} />
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.65 }}
-                    className="inline-flex items-center gap-2 rounded-full border border-[#F7F3EE]/15 bg-[#F7F3EE]/[0.04] px-5 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[#F7F3EE]/70"
-                  >
-                    <Phone size={11} strokeWidth={2.5} />
-                    Call Now
-                  </motion.div>
-                </div>
+
               </motion.div>
 
               {/* ─ Divider ─ */}
@@ -237,9 +216,9 @@ export function LeadCaptureLayer() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5, duration: 0.7 }}
-                className="px-6 pt-5 pb-7 md:px-8 md:pb-8"
+                className="px-6 pt-5 pb-6 md:px-8 md:pb-7"
               >
-                <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center justify-between mb-4">
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#F7F3EE]/40">
                     Quick Quote Request
                   </span>
@@ -248,123 +227,111 @@ export function LeadCaptureLayer() {
                   </span>
                 </div>
 
-                {/* Form fields grid */}
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  {/* Name */}
+                {/* Row 1: Name + Contact preference */}
+                <div className="grid grid-cols-2 gap-3 mb-3">
                   <FormField label="Name" value="James Whitfield" delay={0.6} />
-                  {/* Postcode */}
-                  <FormField label="Area / Postcode" value="BS6 7AA" delay={0.65} />
-                </div>
-
-                {/* Job type chips */}
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.7 }}
-                  className="mb-4"
-                >
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
-                    Type of job
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {JOB_TYPES.map((job, i) => (
-                      <span
-                        key={job}
-                        className={`inline-flex items-center rounded-full px-3 py-1.5 text-[0.65rem] font-medium tracking-wide transition-colors ${
-                          i === 0
-                            ? "bg-[#D96B4F]/15 text-[#D96B4F] border border-[#D96B4F]/25"
-                            : "bg-[#F7F3EE]/[0.04] text-[#F7F3EE]/40 border border-[#F7F3EE]/[0.06]"
-                        }`}
-                      >
-                        {job}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-
-                {/* Describe issue */}
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.75 }}
-                  className="mb-4"
-                >
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
-                    Describe the issue
-                  </span>
-                  <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-[#F7F3EE]/[0.06] px-4 py-3 min-h-[3.5rem]">
-                    <span className="text-[0.75rem] text-[#F7F3EE]/25 leading-relaxed">
-                      Leak around the chimney flashing, needs inspection…
-                    </span>
-                  </div>
-                </motion.div>
-
-                {/* Upload + contact row */}
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8 }}
-                  className="grid grid-cols-2 gap-3 mb-5"
-                >
-                  {/* Upload photos */}
-                  <div>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
-                      Upload photos
-                    </span>
-                    <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-dashed border-[#F7F3EE]/[0.08] px-4 py-3 flex items-center gap-2.5">
-                      <Camera
-                        size={14}
-                        className="text-[#F7F3EE]/25 shrink-0"
-                      />
-                      <span className="text-[0.68rem] text-[#F7F3EE]/25">
-                        Drag or tap to add
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Preferred contact */}
-                  <div>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.65 }}
+                  >
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-1.5 block">
                       Contact preference
                     </span>
-                    <div className="flex gap-1.5">
+                    <div className="flex gap-1 mb-1.5">
                       {CONTACT_METHODS.map((method, i) => (
                         <span
                           key={method.label}
-                          className={`inline-flex items-center justify-center gap-1.5 rounded-full px-3 py-[7px] text-[0.62rem] font-semibold uppercase tracking-wider ${
+                          className={`inline-flex items-center justify-center gap-1 rounded-full px-2.5 py-[4px] text-[0.56rem] font-semibold uppercase tracking-wider ${
                             i === 0
                               ? "bg-[#D96B4F]/15 text-[#D96B4F] border border-[#D96B4F]/25"
                               : "bg-[#F7F3EE]/[0.04] text-[#F7F3EE]/35 border border-[#F7F3EE]/[0.06]"
                           }`}
                         >
                           {method.icon && (
-                            <method.icon size={10} strokeWidth={2.5} />
+                            <method.icon size={8} strokeWidth={2.5} />
                           )}
                           {method.label}
                         </span>
                       ))}
                     </div>
-                  </div>
-                </motion.div>
+                    <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-[#F7F3EE]/[0.06] px-4 py-2.5">
+                      <span className="text-[0.78rem] text-[#F7F3EE]/60 font-medium">
+                        07700 900 123
+                      </span>
+                    </div>
+                  </motion.div>
+                </div>
 
-                {/* Submit button */}
+                {/* Row 2: Type of project (dropdown) + Postcode */}
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.7 }}
+                  >
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
+                      Type of project
+                    </span>
+                    <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-[#F7F3EE]/[0.06] px-4 py-2.5 flex items-center justify-between">
+                      <span className="text-[0.78rem] text-[#F7F3EE]/60 font-medium">
+                        Extension
+                      </span>
+                      <ChevronDown size={14} className="text-[#F7F3EE]/25" />
+                    </div>
+                  </motion.div>
+                  <FormField label="Postcode" value="BS6 7AA" delay={0.72} />
+                </div>
+
+                {/* Row 3: Describe the job + Upload photos */}
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.85 }}
-                  className="flex items-center justify-between"
+                  transition={{ delay: 0.75 }}
+                  className="grid grid-cols-2 gap-3 mb-5"
                 >
-                  <div className="inline-flex items-center gap-2.5 rounded-full bg-[#D96B4F] px-6 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_6px_24px_rgba(217,107,79,0.3)]">
+                  <div>
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
+                      Describe the job
+                    </span>
+                    <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-[#F7F3EE]/[0.06] px-4 py-3 min-h-[3.2rem]">
+                      <span className="text-[0.75rem] text-[#F7F3EE]/25 leading-relaxed">
+                        Rear extension, need a quote…
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30 mb-2 block">
+                      Upload photos / plans
+                    </span>
+                    <div className="rounded-xl bg-[#F7F3EE]/[0.03] border border-dashed border-[#F7F3EE]/[0.08] px-4 py-3 min-h-[3.2rem] flex items-center gap-2.5">
+                      <Camera size={14} className="text-[#F7F3EE]/25 shrink-0" />
+                      <span className="text-[0.68rem] text-[#F7F3EE]/25">
+                        Drag or tap
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Bottom row: Send enquiry + Call now */}
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.8 }}
+                  className="flex items-center gap-3"
+                >
+                  <div className="inline-flex items-center gap-2.5 rounded-full bg-[#D96B4F] px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_6px_24px_rgba(217,107,79,0.3)]">
                     Send Enquiry
                     <ArrowRight size={13} strokeWidth={2.5} />
                   </div>
-                  <span className="text-[10px] text-[#F7F3EE]/20 hidden sm:inline">
-                    Instant confirmation
-                  </span>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[#F7F3EE]/12 bg-[#F7F3EE]/[0.03] px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#F7F3EE]/45">
+                    <Phone size={11} strokeWidth={2.5} />
+                    Call Now
+                  </div>
                 </motion.div>
               </motion.div>
             </div>
