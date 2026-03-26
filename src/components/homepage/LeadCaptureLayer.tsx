@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   motion,
+  AnimatePresence,
   useScroll,
   useTransform,
   useSpring,
+  useInView,
   type MotionValue,
 } from "framer-motion";
 import {
@@ -66,8 +68,8 @@ const DISPATCH_OUTCOMES = [
   },
   {
     icon: ArrowRight,
-    label: "Next step queued",
-    detail: "Follow-up ready",
+    label: "Follow-up ready",
+    detail: "Next action visible",
   },
 ];
 
@@ -272,10 +274,10 @@ function DispatchBoard({ yTransform }: { yTransform: MotionValue<number> }) {
                   <div className="w-7 h-7 rounded-lg bg-[#D96B4F]/[0.06] border border-[#D96B4F]/10 flex items-center justify-center">
                     <Icon size={13} className="text-[#D96B4F]" />
                   </div>
-                  <div className="w-[18px] h-[18px] rounded-full bg-[#D96B4F]/10 flex items-center justify-center">
+                  <div className="w-[18px] h-[18px] rounded-full bg-[#2E7D5B]/12 flex items-center justify-center">
                     <Check
                       size={10}
-                      className="text-[#D96B4F]"
+                      className="text-[#2E7D5B]"
                       strokeWidth={3}
                     />
                   </div>
@@ -291,28 +293,72 @@ function DispatchBoard({ yTransform }: { yTransform: MotionValue<number> }) {
           })}
         </div>
 
-        {/* ─ Activity log footer ─ */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.85, duration: 0.6 }}
-          className="mt-6 pt-4 border-t border-[#161616]/[0.04]"
-        >
-          <div className="flex flex-col gap-1.5">
-            {ACTIVITY_LOG.map((entry, i) => (
-              <div key={i} className="flex items-center gap-2.5">
-                <span className="text-[0.6rem] font-medium tabular-nums text-[#161616]/18 tracking-wide min-w-[4rem]">
-                  {entry.time}
-                </span>
-                <div className="w-[3px] h-[3px] rounded-full bg-[#D96B4F]/20" />
-                <span className="text-[0.64rem] text-[#161616]/30 font-medium">
-                  {entry.event}
-                </span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        {/* ─ Live activity feed ─ */}
+        <LiveActivityFeed />
+      </div>
+    </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Live Activity Feed                                                  */
+/* ------------------------------------------------------------------ */
+function LiveActivityFeed() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const feedRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(feedRef, { once: false, margin: "-40px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % ACTIVITY_LOG.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, [isInView]);
+
+  const entry = ACTIVITY_LOG[activeIndex];
+
+  return (
+    <motion.div
+      ref={feedRef}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.85, duration: 0.6 }}
+      className="mt-6 pt-5 border-t border-[#161616]/[0.04]"
+    >
+      <div className="flex items-center gap-3 rounded-xl bg-white/50 border border-[#161616]/[0.05] px-4 py-3 shadow-[0_1px_4px_rgba(22,22,22,0.02),inset_0_1px_0_rgba(255,255,255,0.6)]">
+        <div className="flex items-center gap-1.5 shrink-0">
+          <span className="relative flex h-[7px] w-[7px]">
+            <span className="absolute inset-0 rounded-full bg-[#2E7D5B]/40 animate-ping" />
+            <span className="relative inline-flex h-[7px] w-[7px] rounded-full bg-[#2E7D5B]" />
+          </span>
+          <span className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#2E7D5B]/70">
+            Live
+          </span>
+        </div>
+
+        <div className="w-px h-3.5 bg-[#161616]/[0.06] shrink-0" />
+
+        <div className="relative flex-1 h-[1.2rem] overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ y: 14, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -14, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 flex items-center gap-2.5"
+            >
+              <span className="text-[0.68rem] font-medium tabular-nums text-[#161616]/25 tracking-wide shrink-0">
+                {entry.time}
+              </span>
+              <span className="text-[0.74rem] text-[#161616]/50 font-medium truncate">
+                {entry.event}
+              </span>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </motion.div>
   );
