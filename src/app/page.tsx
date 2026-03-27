@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { HomepageNavbar } from "@/components/homepage/HomepageNavbar";
 import { HomepageHero } from "@/components/homepage/HomepageHero";
+import { TrustTicker } from "@/components/homepage/TrustTicker";
 import { TheThreeInR3Worked } from "@/components/homepage/TheThreeInR3Worked";
 import { BeforeAfterShowcase } from "@/components/homepage/BeforeAfterShowcase";
 import { RebuildBreakdown } from "@/components/homepage/RebuildBreakdown";
 import { EnquiryCaptureSection } from "@/components/homepage/EnquiryCaptureSection";
 import { LeadCaptureLayer } from "@/components/homepage/LeadCaptureLayer";
 import { PricingSection } from "@/components/homepage/PricingSection";
-import { PreviewExamples } from "@/components/homepage/PreviewExamples";
 import { FinalCta } from "@/components/homepage/FinalCta";
 import { HomepageFooter } from "@/components/homepage/HomepageFooter";
 import { createSiteMetadata } from "@/lib/site-metadata";
@@ -23,13 +23,13 @@ export default function HomePage() {
     <main className="flex min-h-screen w-full flex-col bg-[#F7F3EE] text-[#161616] scroll-smooth">
       <HomepageNavbar />
       <HomepageHero />
+      <TrustTicker />
       <TheThreeInR3Worked />
       <BeforeAfterShowcase />
       <RebuildBreakdown />
       <EnquiryCaptureSection />
       <LeadCaptureLayer />
       <PricingSection />
-      <PreviewExamples />
       <FinalCta />
       <HomepageFooter />
     </main>

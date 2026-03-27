@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { href: "#the-3", label: "The 3" },
   { href: "#before-after-showcase", label: "Rework" },
   { href: "#follow-up-system", label: "System" },
-  { href: "#preview-examples", label: "Previews" },
+  { href: "#pricing", label: "Pricing" },
 ];
 
 export function HomepageNavbar() {
