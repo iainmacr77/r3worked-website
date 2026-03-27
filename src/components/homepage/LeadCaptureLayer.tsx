@@ -141,7 +141,7 @@ export function LeadCaptureLayer() {
         </div>
 
         {/* ───────── Two-column layout ───────── */}
-        <div className="grid lg:grid-cols-[1fr_1.3fr] gap-16 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-[1fr_1.3fr] gap-16 lg:gap-20 items-center">
           {/* ── Left: Follow-up steps ── */}
           <div className="relative pl-8">
             <div className="absolute left-[9px] top-2 bottom-2 w-px bg-gradient-to-b from-[#D96B4F]/40 via-[#D96B4F]/15 to-transparent" />
