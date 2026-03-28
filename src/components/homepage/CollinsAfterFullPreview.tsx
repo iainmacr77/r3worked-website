@@ -664,7 +664,7 @@ function PreviewButton({ children, className, variant }: PreviewButtonProps) {
         variant === "heroSecondary" &&
           "border-2 border-white bg-white/10 px-10 py-5 text-lg text-white backdrop-blur-sm",
         variant === "whatsapp" &&
-          "bg-[#25D366] px-8 py-5 text-lg text-white shadow-lg",
+          "border-2 border-white bg-white/10 px-8 py-5 text-lg text-[#25D366] backdrop-blur-sm",
         variant === "formSubmit" &&
           "bg-blue-950 px-8 py-6 text-xl text-white shadow-lg",
         className

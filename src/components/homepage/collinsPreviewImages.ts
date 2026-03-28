@@ -19,9 +19,8 @@ export const collinsBeforePreviewImagePaths: CollinsBeforePreviewImages = {
 };
 
 export const collinsAfterPreviewImagePaths: CollinsAfterPreviewImages = {
-  hero: "https://lh3.googleusercontent.com/aida-public/AB6AXuARnqWL6kF6R3hSca1wHH-AxDZaPWIRl2xcsi-jR_LlZ_ZjQ9cVKM3dqAjZJM6peHNU6ii44_wr-chvXGE5D1YSdPO7aaITWXwEU6crVYC1M1nnhYCJ1PZNy5IOKu_HlTOL7MeY--Chx8MVXCe4USJw6lQk9wiUjzebU6cvOf691zmXKWYYTW9OCydwiQpb4JX2e3YoY6IvA5g3GmZhpcqMsh6iWRc1Bk_ve1dYQ8b8ygWzEiKaEuGqb_qcSmEc3FS6T8YMD5L8-bKy",
-  craftsmanship:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuB4Wj1ZS3V_VoBfa_sXFE12nJdOMUAu3BXONBECyB_uJ0KR3yK2LaJ-bNhjJOPOio7dZtQ-XxUxJ_Q0E4ilILnNE8z62wcz9Gw6JZuHgV6IFIqs_2K_Geqzikm4_Lqa0N9iSDfqVuYdMXs4FNUD_6WwUzqDxi7Pmr4yNs2naxsHuyQXuIzZG2BE6U8U4dAY0NAhxXqubJjSK6MEoB4ia2Co47AoiFQrJBqLmRpx0hWW11u55a1CXgk4pFFcF_N9WhVoKUS4KcRUinJP",
+  hero: "/images/collins/after/collins-after-hero-2520x1260.webp",
+  craftsmanship: "/images/collins/after/collins-after-craftsmanship-1800x1200.webp",
   projectGlassPavilion:
     "https://lh3.googleusercontent.com/aida-public/AB6AXuBlOmDMyT0rLWniBeACoQPAXO3bC2klD9tTSkQDGb44bMg-SaDQBsAoVxyIWTQ97tyMfbntoNCbkeqOZHuHMzkLmDklPzeTRIgRQSJLR-IvcGa7fR1jh8zpXuRID8Zod5hQALDXnSUcStYwAyG59laXKkQiZHiOKf5Q-M_YQLwQt-V0lEH0w97JWrAYdbDhwO6eVXIPYHcuCBa1V3Nq7wNLrWj6xvAxKJaP_-Mmic2--vM2QwBeDJmKK4y3tNvBujOth0hrMgFlVIK1",
   projectVictorian:
