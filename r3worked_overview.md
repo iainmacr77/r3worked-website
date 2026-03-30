@@ -642,3 +642,70 @@ No fantasy. No fluff.
 - The design principle is:
 
 **Looks premium. Feels credible. Behaves practically.**
+
+---
+
+## 14) Footer (credibility layer)
+
+The footer should feel like the final credibility layer of the site: elegant, contactable, policy-backed, and real — without drifting into a generic corporate template.
+
+### Footer structure
+
+#### 14.1 Brand / positioning block
+
+Keep the brand line restrained and high-trust. Example positioning sentence:
+
+“Premium website uplift for service businesses, built around cleaner enquiry capture and smarter follow-up behind the scenes.”
+
+Guidance:
+- one concise sentence
+- calm, minimal, highly legible
+- avoid buzzwords and overclaiming
+
+#### 14.2 Contact block (clearly labeled)
+
+Include a labeled contact area with clear tap targets on mobile.
+
+Structure:
+- **Email**: `hello@r3worked.co.uk` (placeholder)
+- **Phone**: `+44 (0)20 0000 0000` (placeholder)
+- **WhatsApp** (optional): “WhatsApp available for quick questions” or “WhatsApp preferred for first contact” (keep this as a small, quiet line rather than an icon-heavy treatment)
+
+Notes:
+- keep it human and direct (no “support desk” tone)
+- UK formatting for phone numbers
+- include `mailto:` and `tel:` behaviour in the build
+
+#### 14.3 Navigation block (site links)
+
+Include a compact set of links:
+- The 3
+- Rework
+- Pricing
+- Review
+
+These should read as intentional sections, not a sitemap dump.
+
+#### 14.4 Legal / trust links
+
+Include policy links even if pages are placeholders initially:
+- Privacy Policy
+- Terms
+- Cookie Policy
+
+Routing can be simple placeholder routes until content exists (e.g. `/privacy`, `/terms`, `/cookies`).
+
+#### 14.5 Bottom strip
+
+Keep the copyright line and add a small, quiet credibility/tagline line if it improves finish.
+
+Example:
+- `© {year} R3WORKED. All rights reserved.`
+- “Sharper website fronts for serious enquiries”
+
+### Visual direction
+
+- **Layout**: 3–4 calm blocks with generous spacing (avoid dense multi-column grids)
+- **Typography**: smaller sizes are fine, but maintain high legibility and clear hierarchy
+- **Styling**: minimal dividers, subtle contrast, no icon sets, no generic “footer background slab”
+- **Tone**: premium and practical, like a real business you can contact after cold outreach
