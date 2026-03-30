@@ -67,11 +67,17 @@ export function BeforeAfterShowcase() {
                   title="Collins Construction homepage"
                   url="https://collinsconstruction.co.uk"
                   footerOverlay={
-                    <PreviewFooterCta
-                      tone="after"
-                      label="View full homepage"
-                      onClick={() => setPreviewVariant("after")}
-                    />
+                    <>
+                      <PreviewEyebrowSwitch
+                        isShowingAfter
+                        onClick={() => setIsShowingAfter(false)}
+                      />
+                      <PreviewFooterCta
+                        tone="after"
+                        label="View full homepage"
+                        onClick={() => setPreviewVariant("after")}
+                      />
+                    </>
                   }
                 >
                   <CollinsAfterFullPreview />
@@ -90,11 +96,17 @@ export function BeforeAfterShowcase() {
                   title="Collins Construction homepage"
                   url="https://collinsconstruction.co.uk"
                   footerOverlay={
-                    <PreviewFooterCta
-                      tone="before"
-                      label="View full homepage"
-                      onClick={() => setPreviewVariant("before")}
-                    />
+                    <>
+                      <PreviewEyebrowSwitch
+                        isShowingAfter={false}
+                        onClick={() => setIsShowingAfter(true)}
+                      />
+                      <PreviewFooterCta
+                        tone="before"
+                        label="View full homepage"
+                        onClick={() => setPreviewVariant("before")}
+                      />
+                    </>
                   }
                 >
                   <CollinsBeforeFullPreview />
@@ -179,12 +191,42 @@ function PreviewFooterCta({ tone, label, onClick }: PreviewFooterCtaProps) {
       onClick={onClick}
       className={
         tone === "after"
-          ? "absolute bottom-5 right-5 inline-flex items-center gap-2.5 rounded-full border border-[#161616]/25 bg-gradient-to-b from-white to-[#F0E9DF] px-6 py-3.5 text-[11.5px] font-bold uppercase tracking-[0.15em] text-[#0A0A0A] shadow-[0_2px_4px_rgba(22,22,22,0.08),0_8px_18px_rgba(22,22,22,0.1),0_20px_44px_rgba(22,22,22,0.1),inset_0_1px_0_rgba(255,255,255,0.95)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#161616]/35 hover:shadow-[0_2px_4px_rgba(22,22,22,0.1),0_12px_24px_rgba(22,22,22,0.14),0_26px_52px_rgba(22,22,22,0.12),inset_0_1px_0_rgba(255,255,255,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#161616]/20"
-          : "absolute bottom-5 right-5 inline-flex items-center gap-2.5 rounded-full border border-[#1E293B]/22 bg-gradient-to-b from-white to-[#EFF2F6] px-6 py-3.5 text-[11.5px] font-bold uppercase tracking-[0.15em] text-[#0A0F1A] shadow-[0_2px_4px_rgba(15,23,42,0.07),0_8px_18px_rgba(15,23,42,0.08),0_20px_44px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.96)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#1E293B]/32 hover:shadow-[0_2px_4px_rgba(15,23,42,0.1),0_12px_24px_rgba(15,23,42,0.12),0_26px_52px_rgba(15,23,42,0.1),inset_0_1px_0_rgba(255,255,255,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E293B]/18"
+          ? "group absolute bottom-5 right-5 inline-flex cursor-pointer items-center gap-2.5 overflow-hidden rounded-full border border-[#D96B4F]/28 bg-gradient-to-b from-[#E7785D] to-[#D96B4F] px-6 py-3.5 text-[11.5px] font-bold uppercase tracking-[0.15em] text-[#FFFFFF] shadow-[0_2px_6px_rgba(217,107,79,0.22),0_18px_44px_rgba(22,22,22,0.12),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D96B4F]/38 hover:shadow-[0_2px_8px_rgba(217,107,79,0.28),0_22px_54px_rgba(22,22,22,0.14),inset_0_1px_0_rgba(255,255,255,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D96B4F]/25"
+          : "group absolute bottom-5 right-5 inline-flex cursor-pointer items-center gap-2.5 overflow-hidden rounded-full border border-[#D96B4F]/28 bg-gradient-to-b from-[#E7785D] to-[#D96B4F] px-6 py-3.5 text-[11.5px] font-bold uppercase tracking-[0.15em] text-[#FFFFFF] shadow-[0_2px_6px_rgba(217,107,79,0.22),0_18px_44px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D96B4F]/38 hover:shadow-[0_2px_8px_rgba(217,107,79,0.28),0_22px_54px_rgba(15,23,42,0.14),inset_0_1px_0_rgba(255,255,255,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D96B4F]/25"
       }
     >
-      <span>{label}</span>
-      <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:translate-x-[220%] motion-reduce:transition-none"
+        style={{ transform: "translateX(0) skewX(-12deg)" }}
+      />
+      <span className="relative z-10">{label}</span>
+      <ArrowRight
+        className="relative z-10"
+        size={14}
+        strokeWidth={2.5}
+        aria-hidden="true"
+      />
+    </button>
+  );
+}
+
+type PreviewEyebrowSwitchProps = {
+  isShowingAfter: boolean;
+  onClick: () => void;
+};
+
+function PreviewEyebrowSwitch({ isShowingAfter, onClick }: PreviewEyebrowSwitchProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="absolute left-5 top-6 inline-flex cursor-pointer items-center rounded-full border border-[#161616]/18 bg-white/88 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#161616]/82 shadow-[0_2px_5px_rgba(22,22,22,0.08),0_18px_44px_rgba(22,22,22,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#161616]/26 hover:bg-white/94 hover:text-[#161616] hover:shadow-[0_2px_7px_rgba(22,22,22,0.1),0_24px_58px_rgba(22,22,22,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#161616]/18"
+      aria-label={
+        isShowingAfter ? "Switch to pre-R3WORKED homepage view" : "Switch to R3WORKED homepage view"
+      }
+    >
+      {isShowingAfter ? "← SEE THE PRE-R3WORKED SITE" : "VIEW THE R3WORKED SITE →"}
     </button>
   );
 }

@@ -530,33 +530,74 @@ export function CollinsAfterFullPreview({
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-100 bg-white p-12 shadow-2xl">
-              <div className="space-y-8">
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                  <PreviewField label="Full Name" placeholder="John Doe" />
-                  <PreviewField label="Phone Number" placeholder="07123 456 789" />
+            <div className="rounded-xl border border-slate-100 bg-white p-10 shadow-2xl">
+              <div className="mb-7 flex items-end justify-between gap-6">
+                <div>
+                  <span className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">
+                    Quote request
+                  </span>
+                  <h3
+                    className="mt-2 text-2xl font-black tracking-tight text-blue-950"
+                    style={{ fontFamily: '"Public Sans", Inter, sans-serif' }}
+                  >
+                    Get a fixed-fee quote
+                  </h3>
                 </div>
-                <PreviewField
-                  label="Email Address"
-                  placeholder="john@example.com"
-                />
-                <PreviewSelect
-                  label="Project Type"
-                  options={[
-                    "Home Extension",
-                    "Full Renovation",
-                    "Kitchen / Bathroom",
-                    "Loft Conversion",
-                    "New Build",
-                  ]}
-                />
-                <PreviewTextarea
-                  label="Tell us about your home"
-                  placeholder="Briefly describe your vision..."
-                />
-                <PreviewButton className="w-full justify-center" variant="formSubmit">
-                  Request a Consultation
-                </PreviewButton>
+                <span className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
+                  ~2 mins
+                </span>
+              </div>
+
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <PreviewField label="Name" placeholder="John Whitfield" />
+
+                  <div className="space-y-3">
+                    <PreviewLabel>Contact preference</PreviewLabel>
+                    <div className="flex flex-wrap gap-2">
+                      <PreviewPill active>Call</PreviewPill>
+                      <PreviewPill>Email</PreviewPill>
+                      <PreviewPill>WhatsApp</PreviewPill>
+                    </div>
+                  </div>
+                </div>
+
+                <PreviewField label="Phone number" placeholder="07123 456 789" />
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <PreviewSelect
+                    label="Project type"
+                    options={[
+                      "Extension",
+                      "Full Renovation",
+                      "Kitchen / Bathroom",
+                      "Loft Conversion",
+                      "New Build",
+                    ]}
+                  />
+                  <PreviewField label="Postcode" placeholder="M20 2XX" />
+                </div>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <PreviewUpload
+                    label="Upload photos / plans"
+                    helper="Optional, but speeds up quoting."
+                  />
+                  <PreviewTextarea
+                    label="Short description"
+                    placeholder="Rear extension. Approx 3m. Looking for a ballpark and next steps."
+                    compact
+                  />
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <PreviewButton className="w-full justify-center sm:w-auto" variant="formSubmit">
+                    Request quote
+                  </PreviewButton>
+                  <p className="text-xs leading-relaxed text-slate-500">
+                    We respond within 1 business day.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -724,19 +765,73 @@ function PreviewSelect({ label, options }: PreviewSelectProps) {
 type PreviewTextareaProps = {
   label: string;
   placeholder: string;
+  compact?: boolean;
 };
 
-function PreviewTextarea({ label, placeholder }: PreviewTextareaProps) {
+function PreviewTextarea({ label, placeholder, compact }: PreviewTextareaProps) {
   return (
     <div className="space-y-3">
-      <label
-        className="text-xs font-black uppercase tracking-widest text-slate-400"
-        style={{ fontFamily: '"Public Sans", Inter, sans-serif' }}
+      <PreviewLabel>{label}</PreviewLabel>
+      <div
+        className={cn(
+          "w-full border-0 border-b-2 border-slate-200 bg-slate-50 p-4 font-semibold text-blue-950",
+          compact ? "min-h-[96px]" : "min-h-[124px]"
+        )}
       >
-        {label}
-      </label>
-      <div className="min-h-[124px] w-full border-0 border-b-2 border-slate-200 bg-slate-50 p-4 font-semibold text-blue-950">
         {placeholder}
+      </div>
+    </div>
+  );
+}
+
+function PreviewLabel({ children }: { children: string }) {
+  return (
+    <label
+      className="text-xs font-black uppercase tracking-widest text-slate-400"
+      style={{ fontFamily: '"Public Sans", Inter, sans-serif' }}
+    >
+      {children}
+    </label>
+  );
+}
+
+function PreviewPill({
+  children,
+  active,
+}: {
+  children: string;
+  active?: boolean;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center rounded-full border px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em]",
+        active
+          ? "border-blue-950/18 bg-blue-950 text-white shadow-[0_10px_22px_rgba(15,23,42,0.12)]"
+          : "border-slate-200 bg-white text-slate-600"
+      )}
+      style={{ fontFamily: '"Public Sans", Inter, sans-serif' }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function PreviewUpload({
+  label,
+  helper,
+}: {
+  label: string;
+  helper: string;
+}) {
+  return (
+    <div className="space-y-3">
+      <PreviewLabel>{label}</PreviewLabel>
+      <div className="flex min-h-[96px] items-center justify-center rounded-lg border border-dashed border-slate-200 bg-white p-4 text-center">
+        <div>
+          <p className="text-sm font-semibold text-slate-600">Drag or tap to add</p>
+          <p className="mt-1 text-xs text-slate-500">{helper}</p>
+        </div>
       </div>
     </div>
   );
