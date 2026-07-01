@@ -30,7 +30,7 @@ export function FinalCta() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="type-eyebrow text-[#D96B4F] mb-6 inline-flex px-4 py-1.5 rounded-full border border-[#D96B4F]/20 bg-[#D96B4F]/5"
             >
-              The Next Step
+              Lead Rescue Review
             </motion.p>
             
             <motion.h2 
@@ -39,7 +39,7 @@ export function FinalCta() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="type-h2 text-[#F7F3EE] mb-8"
             >
-              Start with a homepage review.
+              Find out where enquiries are leaking.
             </motion.h2>
 
             <motion.p 
@@ -48,7 +48,8 @@ export function FinalCta() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="type-support text-[#F7F3EE]/70 max-w-[36rem] mb-12"
             >
-              Send over your current site and get a clear view of what should be reworked first, where leads are leaking, and what a sharper commercial front could look like.
+              Send your current site and contact flow. We&apos;ll show where leads
+              are being lost and what R3WORKED should catch first.
             </motion.p>
 
             <motion.div 
@@ -58,17 +59,17 @@ export function FinalCta() {
               className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
             >
               <Link
-                href="#"
+                href="mailto:hello@r3worked.co.uk?subject=Lead%20Rescue%20review"
                 className="w-full sm:w-auto inline-flex items-center justify-center bg-[#F7F3EE] text-[#161616] px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:bg-white hover:-translate-y-0.5 shadow-[0_12px_24px_rgba(247,243,238,0.1)]"
               >
-                Submit site for review
+                Start Lead Rescue review
               </Link>
 
               <Link
-                href="#"
+                href="mailto:hello@r3worked.co.uk?subject=R3WORKED%20contact"
                 className="w-full sm:w-auto inline-flex items-center justify-center border border-[#F7F3EE]/20 bg-transparent text-[#F7F3EE] px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:bg-[#F7F3EE]/10 hover:-translate-y-0.5"
               >
-                Request a rework concept
+                Contact R3WORKED
               </Link>
             </motion.div>
           </div>

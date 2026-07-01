@@ -2,10 +2,10 @@ import Link from "next/link";
 import { R3WorkedWordmark } from "@/components/homepage/R3WorkedWordmark";
 
 const NAV_LINKS = [
-  { href: "#the-3", label: "The 3" },
-  { href: "#before-after-showcase", label: "Rework" },
+  { href: "#hero", label: "Lead Rescue" },
+  { href: "#before-after-showcase", label: "Website Uplift" },
   { href: "#pricing", label: "Pricing" },
-  { href: "#final-cta", label: "Review" },
+  { href: "#final-cta", label: "Contact" },
 ];
 
 const LEGAL_LINKS = [
@@ -22,8 +22,9 @@ export function HomepageFooter() {
           <div className="max-w-md space-y-5">
             <R3WorkedWordmark className="text-[1.45rem]" />
             <p className="text-base leading-8 text-[#2A2A2A]/72">
-              Premium website uplift for service businesses, built around
-              cleaner enquiry capture and smarter follow-up behind the scenes.
+              Lead rescue for trades and local service businesses - capturing
+              website enquiries, follow-ups and reviews in one cleaner system,
+              with missed-call rescue coming soon.
             </p>
           </div>
 
@@ -82,7 +83,7 @@ export function HomepageFooter() {
         <div className="flex flex-col gap-3 border-t border-[#161616]/6 pt-6 text-[11px] uppercase tracking-[0.16em] text-[#2A2A2A]/44 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} R3WORKED</p>
           <p className="normal-case tracking-normal text-[#2A2A2A]/46">
-            Sharper website fronts for serious enquiries
+            R3WORKED is a trading name of Auric Consulting Limited.
           </p>
         </div>
       </div>

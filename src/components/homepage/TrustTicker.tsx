@@ -4,12 +4,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const TRUST_STATEMENTS = [
-  "Commercial rebuilds for service businesses",
-  "Built for speed, clarity and conversion",
-  "Fast turnaround, no corners cut",
-  "Fixed pricing. No agency theatre",
-  "From first click to booked work",
-  "Web roots going back to 1998",
+  "Missed forms become missed jobs",
+  "Slow replies lose serious enquiries",
+  "Every lead should be logged",
+  "Completed jobs should become reviews",
+  "Website enquiries routed faster",
+  "Missed-call rescue coming soon",
+  "Lead Rescue for trades and local services",
 ];
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];

@@ -13,9 +13,9 @@ import { HomepageFooter } from "@/components/homepage/HomepageFooter";
 import { createSiteMetadata } from "@/lib/site-metadata";
 
 export const metadata: Metadata = createSiteMetadata({
-  title: "R3WORKED | Website Uplift, Lead Capture, Smarter Follow-Up",
+  title: "R3WORKED | Lead Rescue for Trades & Local Service Businesses",
   description:
-    "R3WORKED helps service businesses turn dated digital fronts into sharper websites with clearer enquiries, better lead handling, and cleaner follow-up.",
+    "R3WORKED helps trades and local service businesses stop losing enquiries with website lead capture, WhatsApp/email alerts, lead logging and review follow-up.",
 });
 
 export default function HomePage() {

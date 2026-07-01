@@ -9,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = createSiteMetadata({
-  title: "R3WORKED | Premium Website Uplift",
+  title: "R3WORKED | Lead Rescue for Trades & Local Service Businesses",
   description:
-    "R3WORKED reworks underperforming digital fronts through sharper websites, cleaner lead capture, and smarter follow-up.",
+    "R3WORKED helps trades and local service businesses stop losing enquiries with website lead capture, WhatsApp/email alerts, lead logging and review follow-up.",
 });
 
 export default function RootLayout({

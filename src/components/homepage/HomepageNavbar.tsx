@@ -8,10 +8,10 @@ import { R3WorkedWordmark } from "@/components/homepage/R3WorkedWordmark";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
-  { href: "#the-3", label: "The 3" },
-  { href: "#before-after-showcase", label: "Rework" },
-  { href: "#follow-up-system", label: "System" },
+  { href: "#hero", label: "Lead Rescue" },
+  { href: "#before-after-showcase", label: "Website Uplift" },
   { href: "#pricing", label: "Pricing" },
+  { href: "#final-cta", label: "Contact" },
 ];
 
 export function HomepageNavbar() {
@@ -59,7 +59,7 @@ export function HomepageNavbar() {
               href="#final-cta"
               className="inline-flex items-center justify-center rounded-full bg-[#161616] px-6 py-2.5 text-xs font-semibold tracking-wide text-[#F7F3EE] transition-all hover:bg-[#2A2A2A] shadow-[0_4px_12px_rgba(22,22,22,0.1)]"
             >
-              Get a homepage review
+              Stop losing enquiries
             </Link>
           </div>
 
@@ -100,7 +100,7 @@ export function HomepageNavbar() {
                 onClick={() => setMenuOpen(false)}
                 className="mt-4 inline-flex items-center justify-center rounded-full bg-[#161616] px-6 py-3 text-sm font-semibold tracking-wide text-[#F7F3EE] shadow-md"
               >
-                Get a homepage review
+                Stop losing enquiries
               </Link>
             </div>
           </motion.div>
