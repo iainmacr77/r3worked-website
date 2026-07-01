@@ -1,0 +1,63 @@
+/* =========================================================================
+   R3WORKED — Spacing, radius & shadow tokens
+   Editorial spacing: generous section padding, tight component padding.
+   Signature shape language: rounded cards, pill buttons/badges, and a
+   recurring "hard offset shadow" (e.g. 6px 6px 0px coral) used as a
+   sticker-like accent on key dark panels.
+   ========================================================================= */
+
+:root {
+  /* ---- Spacing scale (rem) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ---- Section rhythm ---- */
+  --section-padding-y: 6rem;         /* py-24 */
+  --section-padding-y-lg: 8rem;      /* md:py-32 */
+  --section-padding-x: 1.5rem;       /* px-6 */
+  --section-padding-x-lg: 2.5rem;    /* md:px-10 */
+  --section-max-width: 84rem;
+
+  /* ---- Corner radii ---- */
+  --radius-sm: 0.5rem;    /* inputs, small chips */
+  --radius-md: 0.75rem;   /* icon tiles */
+  --radius-lg: 1rem;      /* form fields, list rows */
+  --radius-xl: 1.25rem;   /* small cards */
+  --radius-2xl: 1.5rem;   /* showcase frames */
+  --radius-3xl: 1.65rem;  /* dashboard/device panels */
+  --radius-4xl: 2rem;     /* premium-card */
+  --radius-5xl: 2.5rem;   /* final CTA hero panel */
+  --radius-pill: 999px;   /* buttons, badges, toggle track */
+
+  /* ---- Shadows ---- */
+  --shadow-card-soft:
+    0 34px 90px rgba(72, 50, 37, 0.08),
+    0 12px 28px rgba(72, 50, 37, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  --shadow-card-tight:
+    0 8px 24px rgba(22, 22, 22, 0.04);
+
+  --shadow-panel-dark:
+    0 24px 64px rgba(22, 22, 22, 0.12);
+
+  --shadow-button-primary: 0 12px 24px rgba(22, 22, 22, 0.12);
+  --shadow-button-accent: 0 8px 20px rgba(217, 107, 79, 0.2);
+
+  /* Signature "sticker" offset shadow — used on dashboard/device panels
+     and dark hero cards to give a hand-set, high-contrast pop. */
+  --shadow-sticker-coral: 6px 6px 0px var(--r3-coral-muted, #B86B5C);
+
+  --shadow-inset-top: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}

@@ -1,0 +1,11 @@
+/* =========================================================================
+   R3WORKED — Fonts
+   Inter is the single brand typeface (400/500/600/700/800). The production
+   codebase pulls it via the @fontsource/inter npm package rather than
+   shipping raw binaries, and Inter is a standard open-source Google Font
+   (not a proprietary brand face) — so it's served directly from Google
+   Fonts' remote stylesheet rather than self-hosted. No substitution
+   needed; nothing to upload.
+   ========================================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");

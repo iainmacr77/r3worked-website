@@ -1,0 +1,8 @@
+/* R3WORKED Design System — global stylesheet entry point.
+   Consumers link only this file; everything below is pulled in transitively. */
+
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/base.css";

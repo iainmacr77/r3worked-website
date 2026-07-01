@@ -1,0 +1,82 @@
+export const BEAT1 = {
+  eyebrow: "LEAD RESCUE FOR TRADES & LOCAL SERVICE BUSINESSES",
+  heading: "Stop losing enquiries.",
+  support:
+    "Missed calls, slow replies and buried web forms turn serious jobs into someone else's booking.",
+  primaryCta: "Stop losing enquiries",
+  secondaryCta: "See how it works",
+} as const;
+
+export const BEAT2_FORM = {
+  eyebrow: "STEP 01",
+  heading: "Web enquiries captured the second they land.",
+  fields: [
+    { label: "Name", value: "James Whitfield" },
+    { label: "Project", value: "Roof repair / Kitchen extension / Solar install" },
+    { label: "Postcode", value: "M20, Manchester" },
+    { label: "Message", value: "Need a quote this week…" },
+  ],
+  leadCard: {
+    title: "James Whitfield",
+    meta: "Roof repair · M20, Manchester",
+    status: "New enquiry",
+  },
+} as const;
+
+export const BEAT3_ALERT = {
+  eyebrow: "STEP 02",
+  heading: "The owner gets alerted immediately.",
+  notification: {
+    label: "WhatsApp alert sent",
+    title: "New roof repair enquiry — M20 Manchester",
+    action: "Open lead details",
+  },
+  email: {
+    label: "Email alert sent",
+    subject: "New enquiry: Roof repair, M20",
+  },
+} as const;
+
+export const BEAT4_MISSED_CALL = {
+  eyebrow: "STEP 03",
+  heading: "Missed calls should not become missed jobs.",
+  caller: "New Customer",
+  comingSoon: {
+    badge: "COMING SOON",
+    title: "AI missed-call rescue",
+    steps: [
+      "Call answered",
+      "Short summary generated",
+      "WhatsApp/email alert sent",
+      "Lead logged",
+    ],
+  },
+} as const;
+
+export const BEAT5_DASHBOARD = {
+  eyebrow: "STEP 04",
+  heading: "Every enquiry logged. Every next step visible.",
+  tiles: [
+    { label: "Source", value: "Web form" },
+    { label: "Status", value: "Alert sent" },
+    { label: "Next action", value: "Call back" },
+    { label: "Owner notified", value: "Yes" },
+    { label: "Follow-up", value: "Ready" },
+  ],
+} as const;
+
+export const BEAT6_REVIEW = {
+  eyebrow: "STEP 05",
+  heading: "Finished jobs become review momentum.",
+  prompt: "How did we do?",
+  positive: "Great job, thanks!",
+  reviewPrompt: "Would you mind leaving a Google review?",
+} as const;
+
+export const BEAT7_UPLIFT = {
+  heading: "If the front door is weak, we rebuild it.",
+  support:
+    "R3WORKED can audit, refresh or rebuild your site so more serious prospects enquire in the first place.",
+  cta: "See the full rebuild",
+  href: "#before-after-showcase",
+} as const;

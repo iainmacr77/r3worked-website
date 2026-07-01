@@ -1,0 +1,34 @@
+<!-- @dsCard group="Components" viewport="700x260" name="Cards" subtitle="PremiumCard / DarkPanel / SurfaceCard" -->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--surface-page);font-family:var(--font-sans);}</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { PremiumCard, DarkPanel, SurfaceCard } = window.R3WORKEDDesignSystem_b9c054;
+function Demo() {
+  return (
+    <div style={{padding:24, display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:16}}>
+      <PremiumCard hoverLift style={{padding:'1.25rem'}}>
+        <p className="type-eyebrow" style={{color:'var(--r3-coral)', margin:0}}>Phase 01</p>
+        <p className="type-h3" style={{margin:'8px 0 0', fontSize:'1.1rem'}}>Website uplift</p>
+      </PremiumCard>
+      <DarkPanel>
+        <p style={{color:'var(--r3-coral)', fontSize:10, fontWeight:700, letterSpacing:'0.2em', textTransform:'uppercase', margin:0}}>Lead Rescue</p>
+        <p style={{color:'var(--r3-porcelain)', margin:'6px 0 0', fontWeight:600}}>Enquiry control room</p>
+      </DarkPanel>
+      <SurfaceCard tight>
+        <span style={{fontSize:9, fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--text-muted)'}}>Name</span>
+        <p style={{margin:'6px 0 0', fontWeight:500}}>James Whitfield</p>
+      </SurfaceCard>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

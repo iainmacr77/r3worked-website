@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" viewport="700x240" name="Button" subtitle="Primary pill button — 4 variants" -->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--surface-page);font-family:var(--font-sans);}</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { Button } = window.R3WORKEDDesignSystem_b9c054;
+function Demo() {
+  return (
+    <div style={{padding:24, display:'flex', flexDirection:'column', gap:16}}>
+      <div style={{display:'flex', gap:12, flexWrap:'wrap'}}>
+        <Button variant="primary">Stop losing enquiries</Button>
+        <Button variant="accent" iconRight="arrow-right">Send Enquiry</Button>
+      </div>
+      <div style={{display:'flex', gap:12, flexWrap:'wrap'}}>
+        <Button variant="ghost" iconRight="arrow-right">See how it works</Button>
+        <Button variant="primary" size="sm">Contact</Button>
+      </div>
+      <div style={{background:'var(--r3-ink)', padding:16, borderRadius:16, display:'flex', gap:12}}>
+        <Button variant="ghost-dark">Contact R3WORKED</Button>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

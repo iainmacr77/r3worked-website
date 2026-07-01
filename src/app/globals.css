@@ -41,6 +41,11 @@
   --color-coral: #D96B4F;
   --color-deep-clay: #A94F3D;
   --color-oxide: #7E3F35;
+  --color-status-live: #2E7D5B;
+  --color-status-pending: #C08A2E;
+  --color-whatsapp: #25D366;
+  --color-google-blue: #4285F4;
+  --color-google-yellow: #FBBC04;
 }
 
 @layer base {

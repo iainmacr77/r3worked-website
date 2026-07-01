@@ -1,0 +1,67 @@
+/* =========================================================================
+   R3WORKED — Color tokens
+   Base palette preserved from the production site (src/app/globals.css),
+   extended with a small "operational status" system for the new
+   lead-rescue / control-room visual language (RECEIVED / ROUTED / LOGGED /
+   MISSED-CALL / LIVE states).
+   ========================================================================= */
+
+:root {
+  /* ---- Base neutrals (warm, off-white world) ---- */
+  --r3-porcelain: #F7F3EE;      /* primary background */
+  --r3-porcelain-dim: #F3EDE5;  /* ticker / recessed strip bg */
+  --r3-stone: #E7DED2;          /* secondary surface, muted chip bg */
+  --r3-stone-deep: #E2D8CA;     /* gradient end for stone surfaces */
+  --r3-sand-line: #C8BFB1;      /* hairline borders on stone surfaces */
+
+  /* ---- Base ink (near-black panels & text) ---- */
+  --r3-ink: #161616;            /* primary text, dark panels */
+  --r3-ink-soft: #1E1D1B;       /* dark panel gradient top */
+  --r3-ink-deep: #141312;       /* dark panel gradient bottom */
+  --r3-slate: #2A2A2A;          /* secondary text on porcelain */
+
+  /* ---- Brand accent: coral / clay / ember ---- */
+  --r3-coral: #D96B4F;          /* primary brand action color */
+  --r3-coral-bright: #E7785D;   /* gradient top for coral buttons */
+  --r3-coral-muted: #B86B5C;    /* muted coral — eyebrows, quiet accents */
+  --r3-deep-clay: #A94F3D;      /* darker coral, destructive/emphasis */
+  --r3-oxide: #7E3F35;          /* deepest ember, dark-mode destructive */
+
+  /* ---- Operational status system (new) ---- */
+  /* Used sparingly, as tiny system indicators — never as dominant color. */
+  --r3-status-live: #2E7D5B;       /* RECEIVED / ROUTED / LOGGED / success */
+  --r3-status-live-dim: rgba(46, 125, 91, 0.12);
+  --r3-status-pending: #C08A2E;    /* MISSED CALL / PENDING / COMING SOON */
+  --r3-status-pending-dim: rgba(192, 138, 46, 0.12);
+  --r3-status-inactive: rgba(22, 22, 22, 0.32); /* inactive / greyed state */
+
+  /* ---- Semantic aliases ---- */
+  --surface-page: var(--r3-porcelain);
+  --surface-page-dim: var(--r3-porcelain-dim);
+  --surface-card: #FFFFFF;
+  --surface-card-tinted: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(247,243,238,0.85) 100%);
+  --surface-panel-dark: var(--r3-ink);
+  --surface-stone: linear-gradient(135deg, var(--r3-stone) 0%, var(--r3-stone-deep) 100%);
+
+  --text-primary: var(--r3-ink);
+  --text-primary-inverse: var(--r3-porcelain);
+  --text-secondary: rgba(42, 42, 42, 0.78);
+  --text-secondary-inverse: rgba(247, 243, 238, 0.7);
+  --text-muted: rgba(22, 22, 22, 0.4);
+  --text-muted-inverse: rgba(247, 243, 238, 0.4);
+  --text-eyebrow: var(--r3-coral-muted);
+  --text-eyebrow-inverse: rgba(231, 222, 210, 0.64);
+
+  --border-hairline: rgba(22, 22, 22, 0.1);
+  --border-hairline-inverse: rgba(247, 243, 238, 0.1);
+  --border-hairline-soft: rgba(22, 22, 22, 0.06);
+
+  --action-primary-bg: var(--r3-ink);
+  --action-primary-bg-hover: var(--r3-slate);
+  --action-primary-fg: var(--r3-porcelain);
+  --action-accent-bg: var(--r3-coral);
+  --action-accent-fg: #FFFFFF;
+  --action-ring: var(--r3-coral);
+
+  --radius-control: 0.5rem;
+}

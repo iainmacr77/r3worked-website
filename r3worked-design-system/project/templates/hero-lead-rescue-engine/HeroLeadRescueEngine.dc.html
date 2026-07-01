@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Hero — Lead Rescue Engine" description="R3WORKED homepage hero: enquiry sources routing into a live engine, fanning out to rescue outcomes" -->
+<helmet>
+  <script src="./ds-base.js"></script>
+  <style>
+    @keyframes r3t-flow { to { stroke-dashoffset: -24; } }
+    @keyframes r3t-pop-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes r3t-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.85); } }
+    .r3t-stagger { animation: r3t-pop-in 800ms cubic-bezier(0.2,0.65,0.3,0.9) both; }
+    body { margin: 0; }
+  </style>
+</helmet>
+
+<section style="position:relative; overflow:hidden; background:var(--r3-porcelain); font-family:var(--font-sans); padding:56px 48px 96px; min-height:900px;">
+  <div style="pointer-events:none; position:absolute; inset:0; opacity:0.04; background-image:linear-gradient(rgba(22,22,22,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(22,22,22,0.1) 1px, transparent 1px); background-size:64px 64px; background-position:center;"></div>
+  <div style="pointer-events:none; position:absolute; inset:0 0 auto 0; height:220px; background:radial-gradient(ellipse at top, rgba(217,107,79,0.14), transparent 64%);"></div>
+
+  <div style="position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 64px;">
+    <span aria-label="R3WORKED" style="display:inline-flex; align-items:baseline; font-weight:600; text-transform:uppercase; letter-spacing:-0.075em; color:var(--r3-ink); font-size:1.2rem;">
+      <span>R</span><span style="color:var(--r3-coral);">3</span><span>WORKED</span>
+    </span>
+    <div style="display:flex; gap:28px; align-items:center;">
+      <span style="font-size:0.85rem; font-weight:500; color:var(--text-secondary);">Lead Rescue</span>
+      <span style="font-size:0.85rem; font-weight:500; color:var(--text-secondary);">Pricing</span>
+      <x-import component-from-global-scope="{{ ns }}.Button" variant="primary" size="sm" hint-size="180,44">Stop losing enquiries</x-import>
+    </div>
+  </div>
+
+  <div style="position:relative; z-index:1; max-width:1400px; margin:0 auto; display:grid; grid-template-columns:minmax(0,0.95fr) minmax(420px,1.05fr); gap:64px; align-items:center;">
+    <div style="max-width:640px;">
+      <p class="r3t-stagger" style="font-family:var(--font-sans); font-weight:600; font-size:clamp(0.75rem, 0.5vw + 0.5rem, 0.85rem); text-transform:uppercase; letter-spacing:0.15em; color:var(--r3-coral-muted); margin:0; animation-delay:0s;">
+        LEAD RESCUE FOR TRADES &amp; LOCAL SERVICE BUSINESSES
+      </p>
+      <h1 class="r3t-stagger" style="font-family:var(--font-sans); font-weight:700; font-size:clamp(3.5rem, 5vw + 1rem, 7.5rem); line-height:0.95; letter-spacing:-0.04em; margin:20px 0 0; color:var(--r3-ink); max-width:10ch; animation-delay:0.08s;">
+        Stop losing enquiries.
+      </h1>
+      <p class="r3t-stagger" style="font-family:var(--font-sans); font-weight:500; font-size:clamp(1rem, 1vw + 0.68rem, 1.22rem); line-height:1.55; margin:24px 0 0; max-width:38rem; color:var(--text-secondary); animation-delay:0.16s;">
+        R3WORKED captures website enquiries and missed calls, sends instant WhatsApp/email alerts, logs every lead, and helps turn completed jobs into more Google reviews.
+      </p>
+      <div class="r3t-stagger" style="margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; animation-delay:0.24s;">
+        <x-import component-from-global-scope="{{ ns }}.Button" variant="primary" hint-size="240,56">Stop losing enquiries</x-import>
+        <x-import component-from-global-scope="{{ ns }}.Button" variant="ghost" icon-right="arrow-right" hint-size="220,56">See how it works</x-import>
+      </div>
+
+      <div class="r3t-stagger" style="margin-top:56px; display:flex; gap:32px; animation-delay:0.32s;">
+        <div>
+          <p style="margin:0; font-size:1.6rem; font-weight:700; color:var(--r3-ink); letter-spacing:-0.03em;">5 min</p>
+          <p style="margin:0; font-size:0.72rem; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.1em;">Response target</p>
+        </div>
+        <div style="width:1px; background:var(--border-hairline);"></div>
+        <div>
+          <p style="margin:0; font-size:1.6rem; font-weight:700; color:var(--r3-ink); letter-spacing:-0.03em;">3 sources</p>
+          <p style="margin:0; font-size:0.72rem; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.1em;">Web, WhatsApp, missed call</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="r3t-stagger" style="animation-delay:0.2s; position:relative; width:100%; max-width:560px; margin:0 auto;">
+
+      <!-- Row 1: enquiry sources -->
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
+        <div class="r3t-stagger" style="animation-delay:0s; border-radius:14px; border:1px solid var(--border-hairline-soft); background:#fff; box-shadow:var(--shadow-card-tight); padding:10px; display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;">
+          <div style="width:30px; height:30px; border-radius:9px; background:color-mix(in srgb, var(--r3-coral) 8%, transparent); border:1px solid color-mix(in srgb, var(--r3-coral) 15%, transparent); display:flex; align-items:center; justify-content:center;">
+            <x-import component-from-global-scope="{{ ns }}.Icon" name="file-text" size="14" color="var(--r3-coral)" hint-size="14,14"></x-import>
+          </div>
+          <div><p style="margin:0; font-size:0.7rem; font-weight:700; color:var(--text-primary);">Web form</p><p style="margin:0; font-size:0.6rem; color:var(--text-muted);">Kitchen extension quote</p></div>
+        </div>
+        <div class="r3t-stagger" style="animation-delay:0.08s; position:relative; border-radius:14px; border:1px solid var(--border-hairline-soft); background:#fff; box-shadow:var(--shadow-card-tight); padding:10px; display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;">
+          <span style="position:absolute; top:6px; right:6px; font-size:0.48rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--r3-status-pending); background:color-mix(in srgb, var(--r3-status-pending) 12%, transparent); border:1px solid color-mix(in srgb, var(--r3-status-pending) 30%, transparent); border-radius:999px; padding:2px 6px;">Soon</span>
+          <div style="width:30px; height:30px; border-radius:9px; background:color-mix(in srgb, var(--r3-coral) 8%, transparent); border:1px solid color-mix(in srgb, var(--r3-coral) 15%, transparent); display:flex; align-items:center; justify-content:center;">
+            <x-import component-from-global-scope="{{ ns }}.Icon" name="phone-missed" size="14" color="var(--r3-coral)" hint-size="14,14"></x-import>
+          </div>
+          <div><p style="margin:0; font-size:0.7rem; font-weight:700; color:var(--text-primary);">Missed call</p><p style="margin:0; font-size:0.6rem; color:var(--text-muted);">Coming soon</p></div>
+        </div>
+        <div class="r3t-stagger" style="animation-delay:0.16s; border-radius:14px; border:1px solid var(--border-hairline-soft); background:#fff; box-shadow:var(--shadow-card-tight); padding:10px; display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;">
+          <div style="width:30px; height:30px; border-radius:9px; background:color-mix(in srgb, var(--r3-coral) 8%, transparent); border:1px solid color-mix(in srgb, var(--r3-coral) 15%, transparent); display:flex; align-items:center; justify-content:center;">
+            <x-import component-from-global-scope="{{ ns }}.Icon" name="message-square" size="14" color="var(--r3-coral)" hint-size="14,14"></x-import>
+          </div>
+          <div><p style="margin:0; font-size:0.7rem; font-weight:700; color:var(--text-primary);">WhatsApp</p><p style="margin:0; font-size:0.6rem; color:var(--text-muted);">Direct enquiry</p></div>
+        </div>
+      </div>
+
+      <svg width="100%" height="34" viewBox="0 0 300 34" preserveAspectRatio="none" style="display:block; margin:2px 0;" aria-hidden="true">
+        <path d="M50 0 L150 34" stroke="var(--r3-coral)" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="5 7" fill="none" style="animation:r3t-flow 1.1s linear infinite;"></path>
+        <path d="M150 0 L150 34" stroke="var(--r3-coral)" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="5 7" fill="none" style="animation:r3t-flow 1.1s linear infinite;"></path>
+        <path d="M250 0 L150 34" stroke="var(--r3-coral)" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="5 7" fill="none" style="animation:r3t-flow 1.1s linear infinite;"></path>
+      </svg>
+
+      <!-- Engine -->
+      <div class="r3t-stagger" style="animation-delay:0.3s; position:relative; border-radius:20px; background:var(--r3-ink); border:1px solid var(--r3-ink); box-shadow:var(--shadow-sticker-coral); padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <div>
+          <p style="margin:0; font-size:10px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--r3-coral);">Lead Rescue Engine</p>
+          <p style="margin:4px 0 0; font-weight:600; color:var(--r3-porcelain); font-size:0.95rem;">Kitchen extension quote</p>
+        </div>
+        <div style="text-align:right;">
+          <span style="display:inline-flex; align-items:center; gap:7px; border-radius:999px; padding:6px 12px; font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:{{ statusColor }}; border:1px solid {{ statusBorder }}; background:{{ statusBg }};">
+            <span style="width:6px; height:6px; border-radius:50%; background:{{ statusColor }}; animation:r3t-pulse 1.4s ease-in-out infinite;"></span>
+            {{ statusLabel }}
+          </span>
+          <p style="margin:6px 0 0; font-size:0.62rem; color:rgba(247,243,238,0.35); font-weight:600; letter-spacing:0.08em;">RESPONSE TARGET: 5 MIN</p>
+        </div>
+      </div>
+
+      <svg width="100%" height="34" viewBox="0 0 300 34" preserveAspectRatio="none" style="display:block; margin:2px 0;" aria-hidden="true">
+        <path d="M150 0 L50 34" stroke="var(--r3-coral)" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="5 7" fill="none" style="animation:r3t-flow 1.1s linear infinite;"></path>
+        <path d="M150 0 L150 34" stroke="var(--r3-coral)" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="5 7" fill="none" style="animation:r3t-flow 1.1s linear infinite;"></path>
+        <path d="M150 0 L250 34" stroke="var(--r3-coral)" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="5 7" fill="none" style="animation:r3t-flow 1.1s linear infinite;"></path>
+      </svg>
+
+      <!-- Row 2: rescue outcomes -->
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
+        <div class="r3t-stagger" style="animation-delay:0.55s; border-radius:14px; border:1px solid var(--border-hairline-soft); background:#fff; box-shadow:var(--shadow-card-tight); padding:10px; display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;">
+          <div style="width:30px; height:30px; border-radius:9px; background:color-mix(in srgb, var(--r3-coral) 8%, transparent); border:1px solid color-mix(in srgb, var(--r3-coral) 15%, transparent); display:flex; align-items:center; justify-content:center;">
+            <x-import component-from-global-scope="{{ ns }}.Icon" name="bell" size="14" color="var(--r3-coral)" hint-size="14,14"></x-import>
+          </div>
+          <div><p style="margin:0; font-size:0.7rem; font-weight:700; color:var(--text-primary);">Alert sent</p><p style="margin:0; font-size:0.6rem; color:var(--text-muted);">WhatsApp / email</p></div>
+        </div>
+        <div class="r3t-stagger" style="animation-delay:0.65s; border-radius:14px; border:1px solid var(--border-hairline-soft); background:#fff; box-shadow:var(--shadow-card-tight); padding:10px; display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;">
+          <div style="width:30px; height:30px; border-radius:9px; background:color-mix(in srgb, var(--r3-status-live) 8%, transparent); border:1px solid color-mix(in srgb, var(--r3-status-live) 15%, transparent); display:flex; align-items:center; justify-content:center;">
+            <x-import component-from-global-scope="{{ ns }}.Icon" name="clipboard-check" size="14" color="var(--r3-status-live)" hint-size="14,14"></x-import>
+          </div>
+          <div><p style="margin:0; font-size:0.7rem; font-weight:700; color:var(--text-primary);">Lead logged</p><p style="margin:0; font-size:0.6rem; color:var(--text-muted);">Dashboard</p></div>
+        </div>
+        <div class="r3t-stagger" style="animation-delay:0.75s; border-radius:14px; border:1px solid var(--border-hairline-soft); background:#fff; box-shadow:var(--shadow-card-tight); padding:10px; display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;">
+          <div style="width:30px; height:30px; border-radius:9px; background:color-mix(in srgb, var(--r3-status-live) 8%, transparent); border:1px solid color-mix(in srgb, var(--r3-status-live) 15%, transparent); display:flex; align-items:center; justify-content:center;">
+            <x-import component-from-global-scope="{{ ns }}.Icon" name="star" size="14" color="var(--r3-status-live)" hint-size="14,14"></x-import>
+          </div>
+          <div><p style="margin:0; font-size:0.7rem; font-weight:700; color:var(--text-primary);">Review queued</p><p style="margin:0; font-size:0.6rem; color:var(--text-muted);">Post-job follow-up</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { step: 0 };
+
+  componentDidMount() {
+    this._timer = setInterval(() => {
+      this.setState((s) => ({ step: (s.step + 1) % 3 }));
+    }, 2200);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._timer);
+  }
+
+  renderVals() {
+    const CYCLE = ["received", "routed", "logged"];
+    const LABEL = { received: "Received", routed: "Routed", logged: "Logged" };
+    const COLOR = { received: "var(--r3-coral)", routed: "var(--r3-status-live)", logged: "var(--r3-status-live)" };
+    const status = CYCLE[this.state.step];
+    const color = COLOR[status];
+
+    // Namespace this design system's compiled bundle exposes on window —
+    // see check_design_system output. ds-base.js (loaded via <helmet>) loads
+    // the bundle before this component mounts.
+    const ns = "R3WORKEDDesignSystem_b9c054";
+
+    return {
+      ns,
+      statusLabel: LABEL[status],
+      statusColor: color,
+      statusBorder: `color-mix(in srgb, ${color} 35%, transparent)`,
+      statusBg: `color-mix(in srgb, ${color} 12%, transparent)`,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

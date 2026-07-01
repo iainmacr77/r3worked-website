@@ -1,0 +1,55 @@
+/* =========================================================================
+   R3WORKED — Typography tokens
+   Inter is the single brand typeface: big, confident, editorial, tight
+   tracking on display sizes. Loaded from Google Fonts (see fonts.css) since
+   the source codebase consumes it as the @fontsource/inter npm package
+   rather than shipping raw binaries — see readme.md "Fonts" note.
+   ========================================================================= */
+
+:root {
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* ---- Fluid type scale (clamp: min, preferred, max) ---- */
+  --text-h1-size: clamp(3.5rem, 5vw + 1rem, 7.5rem);
+  --text-h1-weight: 700;
+  --text-h1-leading: 0.95;
+  --text-h1-tracking: -0.04em;
+
+  --text-h2-size: clamp(2.5rem, 3.5vw + 1rem, 4.5rem);
+  --text-h2-weight: 600;
+  --text-h2-leading: 1.05;
+  --text-h2-tracking: -0.03em;
+
+  --text-h3-size: clamp(1.8rem, 2vw + 1rem, 2.5rem);
+  --text-h3-weight: 600;
+  --text-h3-leading: 1.1;
+  --text-h3-tracking: -0.02em;
+
+  --text-body-size: clamp(1rem, 1vw + 0.5rem, 1.25rem);
+  --text-body-weight: 400;
+  --text-body-leading: 1.6;
+  --text-body-tracking: -0.01em;
+
+  --text-support-size: clamp(1rem, 1vw + 0.68rem, 1.22rem);
+  --text-support-weight: 500;
+  --text-support-leading: 1.55;
+  --text-support-tracking: -0.01em;
+
+  --text-body-sm-size: clamp(0.98rem, 0.3vw + 0.92rem, 1.08rem);
+  --text-body-sm-weight: 400;
+  --text-body-sm-leading: 1.68;
+  --text-body-sm-tracking: -0.006em;
+
+  --text-eyebrow-size: clamp(0.75rem, 0.5vw + 0.5rem, 0.85rem);
+  --text-eyebrow-weight: 600;
+  --text-eyebrow-tracking: 0.15em;
+
+  /* ---- System / UI microcopy scale (status pills, labels, meta) ---- */
+  --text-label-size: 0.68rem;      /* uppercase button/pill labels */
+  --text-label-weight: 700;
+  --text-label-tracking: 0.14em;
+
+  --text-meta-size: 0.6rem;        /* smallest uppercase meta/timestamps */
+  --text-meta-weight: 700;
+  --text-meta-tracking: 0.18em;
+}
