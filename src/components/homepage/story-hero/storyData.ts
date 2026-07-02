@@ -7,6 +7,37 @@ export const BEAT1 = {
   secondaryCta: "See how it works",
 } as const;
 
+export const BEAT1_LOSSES = {
+  feedLabel: "Incoming enquiries",
+  statusLabel: "Unprotected",
+  tag: "Example scenario",
+  counterLabel: "Walked away this month",
+  footnote: "Every one of these was a real job for someone else.",
+  leads: [
+    {
+      job: "Roof repair",
+      area: "M20, Manchester",
+      value: 1400,
+      channel: "call",
+      lostVia: "Rang twice. No answer.",
+    },
+    {
+      job: "Kitchen extension",
+      area: "SK8, Cheadle",
+      value: 12500,
+      channel: "form",
+      lostVia: "Form sat unread for two days.",
+    },
+    {
+      job: "Boiler replacement",
+      area: "M33, Sale",
+      value: 2300,
+      channel: "message",
+      lostVia: "WhatsApp seen. Never answered.",
+    },
+  ],
+} as const;
+
 export const BEAT2_FORM = {
   eyebrow: "STEP 01",
   heading: "Web enquiries captured the second they land.",
@@ -21,11 +52,17 @@ export const BEAT2_FORM = {
     meta: "Roof repair · M20, Manchester",
     status: "New enquiry",
   },
+  alertCaption: "Alert on its way to the owner",
 } as const;
 
 export const BEAT3_ALERT = {
   eyebrow: "STEP 02",
   heading: "The owner gets alerted immediately.",
+  origin: {
+    label: "Lead captured",
+    name: "James Whitfield",
+    meta: "Roof repair · M20, Manchester",
+  },
   notification: {
     label: "WhatsApp alert sent",
     title: "New roof repair enquiry — M20 Manchester",
@@ -41,9 +78,12 @@ export const BEAT4_MISSED_CALL = {
   eyebrow: "STEP 03",
   heading: "Missed calls should not become missed jobs.",
   caller: "New Customer",
+  transcript:
+    "Hey, got a leak on the extension roof in Manchester M20, need a quote this week please…",
   comingSoon: {
     badge: "COMING SOON",
     title: "AI missed-call rescue",
+    answerLine: "AI picks up within two rings",
     steps: [
       "Call answered",
       "Short summary generated",
@@ -56,6 +96,7 @@ export const BEAT4_MISSED_CALL = {
 export const BEAT5_DASHBOARD = {
   eyebrow: "STEP 04",
   heading: "Every enquiry logged. Every next step visible.",
+  timeline: ["Captured (Web)", "WhatsApp alerted", "Follow-up ready"],
   tiles: [
     { label: "Source", value: "Web form" },
     { label: "Status", value: "Alert sent" },
@@ -71,12 +112,4 @@ export const BEAT6_REVIEW = {
   prompt: "How did we do?",
   positive: "Great job, thanks!",
   reviewPrompt: "Would you mind leaving a Google review?",
-} as const;
-
-export const BEAT7_UPLIFT = {
-  heading: "If the front door is weak, we rebuild it.",
-  support:
-    "R3WORKED can audit, refresh or rebuild your site so more serious prospects enquire in the first place.",
-  cta: "See the full rebuild",
-  href: "#before-after-showcase",
 } as const;

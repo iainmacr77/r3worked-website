@@ -1,1 +1,4 @@
-export { LeadRescueStoryHero as HomepageHero } from "./story-hero/LeadRescueStoryHero";
+export {
+  LeadRescueStoryHero as HomepageHero,
+  LeadRescueStorySteps,
+} from "./story-hero/LeadRescueStoryHero";

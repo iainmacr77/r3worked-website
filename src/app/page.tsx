@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { HomepageNavbar } from "@/components/homepage/HomepageNavbar";
-import { HomepageHero } from "@/components/homepage/HomepageHero";
+import { HomepageHero, LeadRescueStorySteps } from "@/components/homepage/HomepageHero";
 import { TrustTicker } from "@/components/homepage/TrustTicker";
 import { TheThreeInR3Worked } from "@/components/homepage/TheThreeInR3Worked";
 import { BeforeAfterShowcase } from "@/components/homepage/BeforeAfterShowcase";
@@ -23,6 +23,7 @@ export default function HomePage() {
     <main className="flex min-h-screen w-full flex-col bg-[#F7F3EE] text-[#161616] scroll-smooth">
       <HomepageNavbar />
       <HomepageHero />
+      <LeadRescueStorySteps />
       <TrustTicker />
       <TheThreeInR3Worked />
       <BeforeAfterShowcase />
