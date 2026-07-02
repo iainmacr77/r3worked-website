@@ -348,8 +348,9 @@ export function FormToLeadSequence({
   const [activeField, setActiveField] = useState<number>(0);
   const [isTypingDone, setIsTypingDone] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showLead, setShowLead] = useState(false);
-  const [showFlight, setShowFlight] = useState(false);
+  const [leadStage, setLeadStage] = useState<"hidden" | "overlay" | "flying" | "sent">(
+    "hidden"
+  );
 
   useEffect(() => {
     if (!inView || reduceMotion || isTypingDone) return;
@@ -379,8 +380,9 @@ export function FormToLeadSequence({
               setIsSubmitting(true);
               setTimeout(() => {
                 setIsSubmitting(false);
-                setShowLead(true);
-                setTimeout(() => setShowFlight(true), 650);
+                setLeadStage("overlay");
+                setTimeout(() => setLeadStage("flying"), 1600);
+                setTimeout(() => setLeadStage("sent"), 2500);
               }, 800);
             }, 500);
           }
@@ -397,8 +399,7 @@ export function FormToLeadSequence({
     if (reduceMotion) {
       setTypedValues(fields.map((f) => f.value));
       setIsTypingDone(true);
-      setShowLead(true);
-      setShowFlight(true);
+      setLeadStage("sent");
     }
   }, [inView, reduceMotion, fields]);
 
@@ -411,7 +412,15 @@ export function FormToLeadSequence({
 
       <motion.div
         initial={reduceMotion ? false : { opacity: 0, y: 30 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
+        animate={
+          inView
+            ? {
+                opacity: leadStage === "overlay" || leadStage === "flying" ? 0.45 : 1,
+                y: 0,
+                scale: leadStage === "overlay" || leadStage === "flying" ? 0.985 : 1,
+              }
+            : {}
+        }
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className="relative z-10 rounded-[2.2rem] border border-[#161616]/10 bg-white/95 p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_24px_rgba(22,22,22,0.05),0_32px_64px_rgba(22,22,22,0.09),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-sm sm:p-8"
       >
@@ -475,90 +484,91 @@ export function FormToLeadSequence({
             )}
           </motion.button>
 
-          <span className="text-[10px] font-semibold italic text-[#161616]/40">
-            {!isTypingDone
-              ? "Customer typing..."
-              : isSubmitting
-                ? "Sending lead..."
-                : "Ready to submit"}
-          </span>
+          {leadStage === "sent" ? (
+            <motion.span
+              initial={reduceMotion ? false : { opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-700/90"
+            >
+              <MessageSquare size={11} className="text-[#25D366]" aria-hidden="true" />
+              {alertCaption} →
+            </motion.span>
+          ) : (
+            <span className="text-[10px] font-semibold italic text-[#161616]/40">
+              {!isTypingDone
+                ? "Customer typing..."
+                : isSubmitting
+                  ? "Sending lead..."
+                  : leadStage !== "hidden"
+                    ? "Lead captured"
+                    : "Ready to submit"}
+            </span>
+          )}
         </div>
       </motion.div>
 
-      {/* Lead card springs out of the form */}
+      {/* Lead card pops over the form, holds a beat, then flies off toward
+          the owner — picked up by the phone in the next section */}
       <AnimatePresence>
-        {showLead ? (
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 12, scale: 1 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="absolute left-4 right-4 z-20 rounded-2xl border p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_20px_45px_rgba(22,22,22,0.1),inset_0_1px_1px_rgba(255,255,255,0.9)] backdrop-blur-md"
-            style={{
-              borderColor: "rgba(46,125,91,0.25)",
-              background:
-                "linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(240,249,244,0.97) 100%)",
-            }}
-          >
-            <div className="flex items-center gap-3.5">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 shadow-inner">
-                <CheckCircle2 size={20} className="text-emerald-600" aria-hidden="true" />
+        {(leadStage === "overlay" || leadStage === "flying") && (
+          <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 28, scale: 0.92 }}
+              animate={
+                leadStage === "overlay"
+                  ? { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }
+                  : { opacity: 0, x: 560, y: -60, scale: 0.85, rotate: 6 }
+              }
+              exit={{ opacity: 0 }}
+              transition={
+                leadStage === "overlay"
+                  ? { type: "spring", stiffness: 240, damping: 22 }
+                  : { duration: 0.7, ease: [0.55, 0, 0.85, 0.4] }
+              }
+              className="w-full max-w-[24rem] rounded-2xl border p-5 backdrop-blur-md"
+              style={{
+                borderColor: "rgba(46,125,91,0.3)",
+                background:
+                  "linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(240,249,244,0.99) 100%)",
+                boxShadow:
+                  "0 2px 4px rgba(0,0,0,0.05), 0 24px 60px rgba(22,22,22,0.18), 0 0 40px rgba(37,211,102,0.12)",
+              }}
+            >
+              <div className="flex items-center gap-3.5">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 shadow-inner">
+                  <CheckCircle2 size={20} className="text-emerald-600" aria-hidden="true" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[9px] font-extrabold uppercase tracking-[0.14em] text-emerald-600">
+                    Lead Captured
+                  </p>
+                  <p className="mt-0.5 truncate text-[14px] font-bold text-[#161616]">
+                    {leadCard.title}
+                  </p>
+                  <p className="truncate text-[11px] font-medium text-[#161616]/50">
+                    {leadCard.meta}
+                  </p>
+                </div>
+                <span className="shrink-0 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[9px] font-extrabold uppercase tracking-[0.12em] text-emerald-700 shadow-sm">
+                  {leadCard.status}
+                </span>
               </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-[9px] font-extrabold uppercase tracking-[0.14em] text-emerald-600">
-                  Lead Captured
-                </p>
-                <p className="mt-0.5 truncate text-[13px] font-bold text-[#161616]">
-                  {leadCard.title}
-                </p>
-                <p className="truncate text-[11px] font-medium text-[#161616]/50">
-                  {leadCard.meta}
-                </p>
-              </div>
-              <span className="shrink-0 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[9px] font-extrabold uppercase tracking-[0.12em] text-emerald-700 shadow-sm">
-                {leadCard.status}
-              </span>
-            </div>
 
-            {showFlight && (
-              <motion.div
-                initial={reduceMotion ? false : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4 }}
-                className="mt-3 flex items-center gap-1.5 border-t border-emerald-600/10 pt-2.5"
-              >
-                <MessageSquare size={11} className="text-[#25D366]" aria-hidden="true" />
-                <span className="text-[10px] font-bold text-emerald-700/80">
+              <div className="mt-3.5 flex items-center gap-2 border-t border-emerald-600/10 pt-3">
+                <span
+                  className="flex h-6 w-6 items-center justify-center rounded-lg"
+                  style={{ background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)" }}
+                >
+                  <MessageSquare size={12} className="text-white" aria-hidden="true" />
+                </span>
+                <span className="text-[10px] font-bold text-emerald-700/85">
                   {alertCaption} →
                 </span>
-              </motion.div>
-            )}
-          </motion.div>
-        ) : null}
+              </div>
+            </motion.div>
+          </div>
+        )}
       </AnimatePresence>
-
-      {/* WhatsApp bubble launches off toward the owner */}
-      {showFlight && !reduceMotion && (
-        <motion.div
-          initial={{ opacity: 0, x: 0, y: 0, scale: 0.6, rotate: 0 }}
-          animate={{
-            opacity: [0, 1, 1, 0],
-            x: [0, 55, 130, 200],
-            y: [0, -50, -110, -165],
-            scale: [0.7, 1, 0.95, 0.65],
-            rotate: [0, 8, 14, 20],
-          }}
-          transition={{ duration: 1.25, ease: "easeOut", times: [0, 0.25, 0.7, 1] }}
-          className="absolute -top-1 right-10 z-30 flex h-10 w-10 items-center justify-center rounded-2xl"
-          style={{
-            background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)",
-            boxShadow: "0 10px 28px rgba(37,211,102,0.45)",
-          }}
-          aria-hidden="true"
-        >
-          <MessageSquare size={16} className="text-white" />
-        </motion.div>
-      )}
     </div>
   );
 }
