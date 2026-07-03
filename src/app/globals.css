@@ -182,6 +182,16 @@
     text-wrap: balance;
   }
 
+  .type-section-heading-serif {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(2.9rem, 4.55vw, 4.45rem);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    text-shadow: 0.018em 0 0 currentColor;
+  }
+
   .type-h3 {
     font-family: var(--font-inter), sans-serif;
     font-weight: 600;

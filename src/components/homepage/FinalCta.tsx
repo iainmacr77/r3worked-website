@@ -37,7 +37,7 @@ export function FinalCta() {
               initial={{ opacity: 0, y: 15 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="type-h2 text-[#F7F3EE] mb-8"
+              className="type-section-heading-serif text-[#F7F3EE] mb-8"
             >
               Find out where enquiries are leaking.
             </motion.h2>

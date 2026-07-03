@@ -92,7 +92,7 @@ export function EnquiryCaptureSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.1 }}
-            className="mt-6 type-h2 text-[#F7F3EE]"
+            className="mt-6 type-section-heading-serif text-[#F7F3EE]"
           >
             A clearer path to enquiry.
           </motion.h2>

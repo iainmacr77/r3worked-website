@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "r3worked-design-system/**",
+    "r3worked-lead-capture-animation/**",
   ]),
 ]);
 

@@ -32,7 +32,7 @@ export function BeforeAfterShowcase() {
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-6 type-h2 text-[#161616]"
+            className="mt-6 type-section-heading-serif text-[#161616]"
           >
             From dated and unclear<br />to sharp and credible.
           </motion.h2>

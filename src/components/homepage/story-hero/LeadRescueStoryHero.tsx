@@ -1,13 +1,13 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LeadRescueIntroFilm } from "@/components/homepage/LeadRescueIntroFilm";
 import {
   BEAT1,
-  BEAT1_LOSSES,
   BEAT2_FORM,
   BEAT3_ALERT,
   BEAT4_MISSED_CALL,
@@ -19,7 +19,6 @@ import {
   DashboardTiles,
   EASE,
   FormToLeadSequence,
-  LostLeadFeed,
   MissedCallRescue,
   ReviewConversation,
 } from "./StoryWidgets";
@@ -39,9 +38,20 @@ function BeatEyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-function BeatHeading({ children }: { children: ReactNode }) {
+function BeatHeading({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <h2 className="mt-6 max-w-[14ch] text-[clamp(2.5rem,4.5vw+1rem,4.3rem)] font-bold leading-[0.96] tracking-[-0.04em] text-balance text-[#161616]">
+    <h2
+      className={cn(
+        "mt-6 max-w-[13ch] type-section-heading-serif text-[#161616]",
+        className
+      )}
+    >
       {children}
     </h2>
   );
@@ -54,6 +64,7 @@ interface BeatShellProps {
   children: ReactNode;
   id?: string;
   className?: string;
+  headingClassName?: string;
   gridOpacity?: number;
   gridSize?: number;
   glow?: ReactNode;
@@ -66,6 +77,7 @@ function BeatShell({
   children,
   id,
   className,
+  headingClassName,
   gridOpacity = 0.03,
   gridSize = 56,
   glow,
@@ -103,7 +115,7 @@ function BeatShell({
           className="max-w-[32rem] lg:max-w-none"
         >
           <BeatEyebrow>{eyebrow}</BeatEyebrow>
-          <BeatHeading>{heading}</BeatHeading>
+          <BeatHeading className={headingClassName}>{heading}</BeatHeading>
           {support && (
             <p className="mt-6 text-base leading-relaxed text-pretty max-w-[38rem] text-[#2A2A2A]/75">
               {support}
@@ -117,85 +129,69 @@ function BeatShell({
   );
 }
 
+function HeroFilmCtas({ show }: { show: boolean }) {
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          key="lead-rescue-film-ctas"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.65, ease: EASE }}
+          className="pointer-events-none absolute inset-0 z-40 flex items-center px-6 pb-24 pt-28 sm:pt-36 md:px-10 lg:pb-28 lg:pt-40"
+        >
+          <div className="mx-auto grid w-full max-w-[84rem] gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(26rem,1.08fr)] lg:items-center xl:gap-16">
+            <div className="max-w-[46rem]">
+              <div aria-hidden="true" className="invisible select-none">
+                <BeatEyebrow>{BEAT1.eyebrow}</BeatEyebrow>
+                <h1 className="mt-6 max-w-[12ch] font-sans text-[clamp(3.3rem,8vw,5.6rem)] font-extrabold leading-[0.94] tracking-[-0.05em] text-[#161616] text-balance">
+                  {BEAT1.heading}
+                </h1>
+                <p className="mt-6 max-w-[36rem] text-lg font-medium leading-relaxed text-[#2A2A2A]/80 text-pretty">
+                  {BEAT1.support}
+                </p>
+              </div>
+
+              <div className="pointer-events-auto mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
+                <Link
+                  href="#final-cta"
+                  className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[#161616] px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#F7F3EE] shadow-[0_12px_28px_rgba(22,22,22,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] hover:shadow-[0_16px_36px_rgba(22,22,22,0.22)] sm:w-auto"
+                >
+                  {BEAT1.primaryCta}
+                </Link>
+
+                <Link
+                  href="#how-it-works"
+                  className="group inline-flex h-14 w-full items-center justify-center rounded-full border border-[#161616]/10 bg-white/40 px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#161616] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/60 sm:w-auto"
+                >
+                  {BEAT1.secondaryCta}
+                  <ArrowRight
+                    className="ml-3 transition-transform group-hover:translate-x-1.5"
+                    size={15}
+                    strokeWidth={2.4}
+                    aria-hidden="true"
+                  />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 /** The homepage hero — problem statement plus the live enquiry leak. */
 export function LeadRescueStoryHero() {
+  const [introFilmComplete, setIntroFilmComplete] = useState(false);
+
   return (
     <section id="hero" className="relative w-full overflow-hidden">
-      <div className="relative overflow-hidden bg-[#F7F3EE] px-6 pb-24 pt-28 sm:pt-36 md:px-10 lg:min-h-screen lg:pb-28 lg:pt-40 flex items-center">
-        {/* Soft grid background */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.04] bg-[linear-gradient(rgba(22,22,22,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(22,22,22,0.12)_1px,transparent_1px)] bg-[size:64px_64px] bg-center" />
-
-        {/* Dramatic ambient warm illumination */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_35%,rgba(217,107,79,0.08),transparent_55%),radial-gradient(circle_at_80%_65%,rgba(231,222,210,0.45),transparent_60%)]" />
-
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(ellipse_at_top,rgba(217,107,79,0.12),transparent_70%)]" />
-
-        <div className="relative z-10 mx-auto grid w-full max-w-[84rem] gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(26rem,1.08fr)] lg:items-center xl:gap-16">
-          <div className="max-w-[46rem]">
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE }}
-            >
-              <BeatEyebrow>{BEAT1.eyebrow}</BeatEyebrow>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
-              className="mt-6 max-w-[12ch] font-sans text-[clamp(3.3rem,8vw,5.6rem)] font-extrabold leading-[0.94] tracking-[-0.05em] text-[#161616] text-balance"
-            >
-              {BEAT1.heading}
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.16, ease: EASE }}
-              className="mt-6 max-w-[36rem] text-lg font-medium leading-relaxed text-[#2A2A2A]/80 text-pretty"
-            >
-              {BEAT1.support}
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.24, ease: EASE }}
-              className="mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center"
-            >
-              <Link
-                href="#final-cta"
-                className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[#161616] px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#F7F3EE] shadow-[0_12px_28px_rgba(22,22,22,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] hover:shadow-[0_16px_36px_rgba(22,22,22,0.22)] sm:w-auto"
-              >
-                {BEAT1.primaryCta}
-              </Link>
-
-              <Link
-                href="#how-it-works"
-                className="group inline-flex h-14 w-full items-center justify-center rounded-full border border-[#161616]/10 bg-white/40 backdrop-blur-md px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#161616] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/60 sm:w-auto"
-              >
-                {BEAT1.secondaryCta}
-                <ArrowRight
-                  className="ml-3 transition-transform group-hover:translate-x-1.5"
-                  size={15}
-                  strokeWidth={2.4}
-                  aria-hidden="true"
-                />
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* The leak: live enquiries arriving and walking away */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
-            className="relative w-full"
-          >
-            <LostLeadFeed {...BEAT1_LOSSES} />
-          </motion.div>
-        </div>
+      <div className="relative flex min-h-screen items-center overflow-hidden bg-[#F5F2EA] px-6 pb-24 pt-28 sm:pt-36 md:px-10 lg:pb-28 lg:pt-40">
+        <h1 className="sr-only">Never miss another lead.</h1>
+        <LeadRescueIntroFilm onComplete={() => setIntroFilmComplete(true)} />
+        <HeroFilmCtas show={introFilmComplete} />
       </div>
     </section>
   );

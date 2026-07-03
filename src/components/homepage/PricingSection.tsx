@@ -70,7 +70,7 @@ export function PricingSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.1 }}
-            className="mt-6 type-h2 text-[#161616]"
+            className="mt-6 type-section-heading-serif text-[#161616]"
           >
             Clear pricing. No agency theatre.
           </motion.h2>
