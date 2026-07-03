@@ -20,6 +20,8 @@ const SANS = "Helvetica, Arial, sans-serif";
 const STAGE_WIDTH = 1920;
 const STAGE_HEIGHT = 1080;
 const DURATION = 28;
+const FINAL_SCENE_START = 23.6;
+const FINAL_CTA_REVEAL_AT = FINAL_SCENE_START + 2.95;
 
 const RING_TIMES = [1.9, 3] as const;
 const MISSED_CALL_AT = 3.8;
@@ -817,8 +819,10 @@ function LogCard({ localTime, duration }: { localTime: number; duration: number 
 }
 
 function FinalLine({ localTime }: { localTime: number }) {
-  const opacity = smoothStep(localTime, 0, 0.6);
-  const scale = lerp(0.965, 1, smoothStep(localTime, 0, 0.85));
+  const headlineIn = smoothStep(localTime, 0, 1.05);
+  const rhythmIn = smoothStep(localTime, 0.95, 1.75);
+  const sublineIn = smoothStep(localTime, 1.85, 2.65);
+  const scale = lerp(0.965, 1, headlineIn);
 
   return (
     <div
@@ -829,7 +833,6 @@ function FinalLine({ localTime }: { localTime: number }) {
         flexDirection: "column",
         justifyContent: "center",
         left: 0,
-        opacity,
         position: "absolute",
         right: 0,
         top: 0,
@@ -843,7 +846,9 @@ function FinalLine({ localTime }: { localTime: number }) {
           fontSize: "clamp(86px, 7vw, 128px)",
           letterSpacing: "-0.01em",
           lineHeight: 1.05,
+          opacity: headlineIn,
           textAlign: "center",
+          transform: `translateY(${lerp(18, 0, headlineIn)}px)`,
         }}
       >
         Never miss
@@ -858,8 +863,9 @@ function FinalLine({ localTime }: { localTime: number }) {
           fontWeight: 700,
           letterSpacing: "0.24em",
           marginTop: 40,
-          opacity: smoothStep(localTime, 0.45, 1.1),
+          opacity: rhythmIn,
           textTransform: "uppercase",
+          transform: `translateY(${lerp(12, 0, rhythmIn)}px)`,
         }}
       >
         Calls &middot; Forms &middot; Follow-ups
@@ -874,9 +880,10 @@ function FinalLine({ localTime }: { localTime: number }) {
           lineHeight: 1.55,
           marginTop: 16,
           maxWidth: "clamp(560px, 66vw, 760px)",
-          opacity: smoothStep(localTime, 0.68, 1.25),
+          opacity: sublineIn,
           padding: "0 20px",
           textAlign: "center",
+          transform: `translateY(${lerp(12, 0, sublineIn)}px)`,
         }}
       >
         Every enquiry captured, every owner alerted, every next step tracked.
@@ -920,8 +927,8 @@ function SceneRoot({ time }: { time: number }) {
         </Fade>
       )}
 
-      {spriteVisible(time, 1.4, 7.6) && (
-        <RingingPhone time={time} {...getSprite(time, 1.4, 7.6)} />
+      {spriteVisible(time, 1.4, 8.1) && (
+        <RingingPhone time={time} {...getSprite(time, 1.4, 8.1)} />
       )}
 
       {spriteVisible(time, 5.65, 8.1) && (
@@ -1006,7 +1013,9 @@ function SceneRoot({ time }: { time: number }) {
         </Fade>
       )}
 
-      {spriteVisible(time, 23.6, DURATION) && <FinalLine {...getSprite(time, 23.6, DURATION)} />}
+      {spriteVisible(time, FINAL_SCENE_START, DURATION) && (
+        <FinalLine {...getSprite(time, FINAL_SCENE_START, DURATION)} />
+      )}
     </div>
   );
 }
@@ -1016,6 +1025,13 @@ export function LeadRescueIntroFilm({ onComplete }: { onComplete: () => void }) 
   const { ref, scale } = useCoverScale();
   const complete = useCallback(() => onComplete(), [onComplete]);
   const time = useIntroClock(DURATION, complete, reducedMotion !== true);
+  const ctaReadyRef = useRef(false);
+
+  useEffect(() => {
+    if (ctaReadyRef.current || time < FINAL_CTA_REVEAL_AT) return;
+    ctaReadyRef.current = true;
+    complete();
+  }, [complete, time]);
 
   return (
     <div ref={ref} className="absolute inset-0 overflow-hidden bg-[#F5F2EA]">
