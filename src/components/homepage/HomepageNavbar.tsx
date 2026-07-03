@@ -31,7 +31,7 @@ export function HomepageNavbar() {
     <header 
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled ? "bg-[#F7F3EE]/90 backdrop-blur-md border-b border-[#161616]/5 py-2" : "bg-transparent py-4"
+        scrolled ? "bg-[#F5F2EA]/90 backdrop-blur-md border-b border-[#161616]/5 py-2" : "bg-transparent py-4"
       )}
     >
       <div className="px-6 md:px-10">
@@ -82,7 +82,7 @@ export function HomepageNavbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute inset-x-0 top-full border-b border-[#161616]/5 bg-[#F7F3EE] px-6 py-6 shadow-xl md:hidden"
+            className="absolute inset-x-0 top-full border-b border-[#161616]/5 bg-[#F5F2EA] px-6 py-6 shadow-xl md:hidden"
           >
             <div className="flex flex-col gap-4">
               {NAV_LINKS.map((link) => (

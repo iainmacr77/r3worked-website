@@ -25,7 +25,7 @@ export function HomepageSectionShell({
       id={id}
       className={cn(
         "px-6 py-24 md:px-10 md:py-32",
-        dark ? "bg-[#161616] text-[#F7F3EE]" : "bg-[#F7F3EE] text-[#161616]",
+        dark ? "bg-[#161616] text-[#F7F3EE]" : "bg-[#F5F2EA] text-[#161616]",
         className
       )}
     >

@@ -15,7 +15,7 @@ export function BeforeAfterShowcase() {
   const [previewVariant, setPreviewVariant] = useState<"before" | "after" | null>(null);
 
   return (
-    <section id="before-after-showcase" className="light-section-seam bg-[#F7F3EE] px-6 pt-24 pb-14 md:px-10 md:pt-32 md:pb-16">
+    <section id="before-after-showcase" className="light-section-seam bg-[#F5F2EA] px-6 pt-24 pb-14 md:px-10 md:pt-32 md:pb-16">
       <div className="mx-auto max-w-[84rem]" ref={containerRef}>
         
         {/* Header */}
@@ -61,7 +61,7 @@ export function BeforeAfterShowcase() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="absolute inset-0 bg-[#F7F3EE]"
+                className="absolute inset-0 bg-[#F5F2EA]"
               >
                 <BrowserPreviewFrame
                   title="Collins Construction homepage"

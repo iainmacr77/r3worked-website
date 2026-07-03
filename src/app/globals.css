@@ -36,7 +36,7 @@
   /* R3WORKED Colors */
   --color-ink: #161616;
   --color-slate: #2A2A2A;
-  --color-porcelain: #F7F3EE;
+  --color-porcelain: #F5F2EA;
   --color-stone: #E7DED2;
   --color-coral: #D96B4F;
   --color-deep-clay: #A94F3D;
@@ -50,17 +50,17 @@
 
 @layer base {
   :root {
-    --background: #F7F3EE; /* Porcelain */
+    --background: #F5F2EA; /* Paper */
     --foreground: #161616; /* Ink */
     
-    --card: #F7F3EE;
+    --card: #F5F2EA;
     --card-foreground: #161616;
     
-    --popover: #F7F3EE;
+    --popover: #F5F2EA;
     --popover-foreground: #161616;
     
     --primary: #D96B4F; /* Coral */
-    --primary-foreground: #F7F3EE;
+    --primary-foreground: #F5F2EA;
     
     --secondary: #E7DED2; /* Stone */
     --secondary-foreground: #161616;
@@ -72,7 +72,7 @@
     --accent-foreground: #161616;
     
     --destructive: #A94F3D; /* Deep Clay */
-    --destructive-foreground: #F7F3EE;
+    --destructive-foreground: #F5F2EA;
     
     --border: rgba(22, 22, 22, 0.1); 
     --input: rgba(22, 22, 22, 0.1);
@@ -83,31 +83,31 @@
 
   .dark {
     --background: #161616; /* Ink */
-    --foreground: #F7F3EE; /* Porcelain */
+    --foreground: #F5F2EA; /* Paper */
     
     --card: #161616;
-    --card-foreground: #F7F3EE;
+    --card-foreground: #F5F2EA;
     
     --popover: #161616;
-    --popover-foreground: #F7F3EE;
+    --popover-foreground: #F5F2EA;
     
     --primary: #D96B4F; /* Coral */
     --primary-foreground: #161616;
     
     --secondary: #2A2A2A; /* Slate */
-    --secondary-foreground: #F7F3EE;
+    --secondary-foreground: #F5F2EA;
     
     --muted: #2A2A2A;
     --muted-foreground: #E7DED2;
     
     --accent: #2A2A2A;
-    --accent-foreground: #F7F3EE;
+    --accent-foreground: #F5F2EA;
     
     --destructive: #7E3F35; /* Oxide */
-    --destructive-foreground: #F7F3EE;
+    --destructive-foreground: #F5F2EA;
     
-    --border: rgba(247, 243, 238, 0.1);
-    --input: rgba(247, 243, 238, 0.1);
+    --border: rgba(245, 242, 234, 0.1);
+    --input: rgba(245, 242, 234, 0.1);
     --ring: #D96B4F;
   }
 
@@ -154,7 +154,7 @@
     overflow: hidden;
     border-radius: 2rem;
     border: 1px solid rgba(22, 22, 22, 0.06);
-    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(247,243,238,0.85) 100%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(245,242,234,0.85) 100%);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow:

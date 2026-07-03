@@ -52,7 +52,7 @@ export function PricingSection() {
   return (
     <section
       id="pricing"
-      className="light-section-seam bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
+      className="light-section-seam bg-[#F5F2EA] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
     >
       <div className="mx-auto max-w-[84rem]">
         {/* ───────── Header ───────── */}
@@ -217,7 +217,7 @@ export function PricingSection() {
               {ADD_ONS.map((item) => (
                 <div
                   key={item}
-                  className="relative flex items-center rounded-lg border border-[#161616]/[0.05] bg-[#F7F3EE]/60 py-2.5 pl-4 pr-3.5 overflow-hidden"
+                  className="relative flex items-center rounded-lg border border-[#161616]/[0.05] bg-[#F5F2EA]/60 py-2.5 pl-4 pr-3.5 overflow-hidden"
                 >
                   <div className="absolute left-0 top-[0.4rem] bottom-[0.4rem] w-[2px] rounded-full bg-[#D96B4F]/20" />
                   <span className="text-[0.74rem] font-medium text-[#161616]/50">

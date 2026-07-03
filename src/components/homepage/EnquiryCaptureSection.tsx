@@ -168,7 +168,7 @@ export function EnquiryCaptureSection() {
             className="relative rounded-xl overflow-hidden border border-[#161616] shadow-[6px_6px_0px_#B86B5C]"
           >
             {/* Background surface */}
-            <div className="absolute inset-0 bg-[#F7F3EE] z-0" />
+            <div className="absolute inset-0 bg-[#F5F2EA] z-0" />
 
             <div className="relative z-10 flex flex-col">
               {/* ─ Landing page hero snippet ─ */}

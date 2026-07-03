@@ -45,7 +45,7 @@ export function TheThreeInR3Worked() {
   return (
     <section
       id="the-3"
-      className="light-section-seam relative bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
+      className="light-section-seam relative bg-[#F5F2EA] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
     >
       <div className="mx-auto max-w-[84rem]">
         
@@ -132,7 +132,7 @@ function StepItem({
     >
       {/* Node / Indicator */}
       <div className="md:w-[70px] flex md:justify-center pt-8 md:pt-0 items-start md:items-center relative z-10 shrink-0">
-        <div className="w-[18px] h-[18px] rounded-full bg-[#F7F3EE] border-2 border-[#D96B4F] flex items-center justify-center shadow-[0_0_0_6px_rgba(247,243,238,1)] transition-transform duration-500 group-hover:scale-125">
+        <div className="w-[18px] h-[18px] rounded-full bg-[#F5F2EA] border-2 border-[#D96B4F] flex items-center justify-center shadow-[0_0_0_6px_rgba(245,242,234,1)] transition-transform duration-500 group-hover:scale-125">
           <div className="w-1.5 h-1.5 rounded-full bg-[#161616]" />
         </div>
         {/* Mobile connection line */}

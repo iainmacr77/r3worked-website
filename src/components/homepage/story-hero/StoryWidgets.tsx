@@ -78,7 +78,7 @@ export function PhoneMockup({
         <div
           className={cn(
             "relative flex h-full w-full flex-col overflow-hidden pt-9",
-            dark ? "bg-[#101012]" : "bg-[#F7F3EE]"
+            dark ? "bg-[#101012]" : "bg-[#F5F2EA]"
           )}
         >
           {children}
@@ -444,7 +444,7 @@ export function FormToLeadSequence({
                   "rounded-2xl border px-4 py-3 transition-all duration-300",
                   isFieldActive
                     ? "border-[#D96B4F] bg-[#D96B4F]/[0.02] shadow-[0_0_0_3px_rgba(217,107,79,0.08),0_0_18px_rgba(217,107,79,0.1)]"
-                    : "border-[#161616]/8 bg-[#F7F3EE]/50"
+                    : "border-[#161616]/8 bg-[#F5F2EA]/50"
                 )}
               >
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#161616]/40">
@@ -626,7 +626,7 @@ export function EmailAlertCard({ label, subject }: { label: string; subject: str
       transition={{ type: "spring", stiffness: 200, damping: 22 }}
       className="flex w-full max-w-[280px] items-center gap-3.5 rounded-2xl border border-[#161616]/10 bg-white/90 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_36px_rgba(22,22,22,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-md"
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#161616]/8 bg-[#F7F3EE] shadow-inner">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#161616]/8 bg-[#F5F2EA] shadow-inner">
         <Mail size={17} className="text-[#161616]/60" aria-hidden="true" />
       </div>
       <div className="min-w-0 flex-1">

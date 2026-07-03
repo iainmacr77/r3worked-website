@@ -79,7 +79,7 @@ function BeatShell({
   id,
   className,
   headingClassName,
-  gridOpacity = 0.03,
+  gridOpacity = 0,
   gridSize = 56,
   glow,
   visualFirst = false,
@@ -88,19 +88,21 @@ function BeatShell({
     <div
       id={id}
       className={cn(
-        "relative overflow-hidden px-6 py-24 sm:py-32 md:px-10 lg:min-h-[85vh] lg:py-0 flex items-center bg-[#F7F3EE] text-[#161616]",
+        "relative overflow-hidden px-6 py-24 sm:py-32 md:px-10 lg:min-h-[85vh] lg:py-0 flex items-center bg-[#F5F2EA] text-[#161616]",
         className
       )}
     >
       {/* Dynamic Grid Pattern */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-center"
-        style={{
-          opacity: gridOpacity,
-          backgroundImage: `linear-gradient(rgba(22,22,22,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(22,22,22,0.08) 1px, transparent 1px)`,
-          backgroundSize: `${gridSize}px ${gridSize}px`,
-        }}
-      />
+      {gridOpacity > 0 && (
+        <div
+          className="pointer-events-none absolute inset-0 bg-center"
+          style={{
+            opacity: gridOpacity,
+            backgroundImage: `linear-gradient(rgba(22,22,22,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(22,22,22,0.08) 1px, transparent 1px)`,
+            backgroundSize: `${gridSize}px ${gridSize}px`,
+          }}
+        />
+      )}
 
       {/* Atmospheric noise backdrop */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.015] bg-repeat bg-[url('data:image/svg+xml,%3Csvg%20viewBox=%220%200%20200%20200%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter%20id=%22noiseFilter%22%3E%3CfeTurbulence%20type=%22fractalNoise%22%20baseFrequency=%220.8%22%20numOctaves=%223%22%20stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect%20width=%22100%25%22%20height=%22100%25%22%20filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')]" />
@@ -223,7 +225,6 @@ export function LeadRescueStorySteps() {
         heading={BEAT2_FORM.heading}
         support={BEAT2_FORM.support}
         gridSize={48}
-        gridOpacity={0.03}
         glow={
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(217,107,79,0.06),transparent_55%)]" />
         }
@@ -242,7 +243,6 @@ export function LeadRescueStorySteps() {
         support={BEAT3_ALERT.support}
         visualFirst
         gridSize={56}
-        gridOpacity={0.03}
       >
         <AlertFlightScene
           origin={BEAT3_ALERT.origin}
@@ -257,7 +257,6 @@ export function LeadRescueStorySteps() {
         heading={BEAT4_MISSED_CALL.heading}
         support={BEAT4_MISSED_CALL.support}
         gridSize={64}
-        gridOpacity={0.03}
         glow={
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,rgba(245,158,11,0.07),transparent_50%)]" />
         }
@@ -276,7 +275,6 @@ export function LeadRescueStorySteps() {
         support={BEAT5_DASHBOARD.support}
         visualFirst
         gridSize={48}
-        gridOpacity={0.02}
         glow={
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,rgba(217,107,79,0.05),transparent_60%)]" />
         }
@@ -290,7 +288,6 @@ export function LeadRescueStorySteps() {
         heading={BEAT6_REVIEW.heading}
         support={BEAT6_REVIEW.support}
         gridSize={56}
-        gridOpacity={0.03}
         glow={
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,rgba(66,133,244,0.06)_0%,rgba(251,188,4,0.05)_40%,transparent_70%)]" />
         }

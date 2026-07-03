@@ -104,7 +104,7 @@ export function LeadCaptureLayer() {
   return (
     <section
       id="follow-up-system"
-      className="light-section-seam bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
+      className="light-section-seam bg-[#F5F2EA] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
     >
       <div className="mx-auto max-w-[84rem]" ref={ref}>
         {/* ───────── Header ───────── */}
@@ -160,7 +160,7 @@ export function LeadCaptureLayer() {
                   }}
                   className="relative"
                 >
-                  <div className="absolute -left-[31px] top-1.5 w-[18px] h-[18px] rounded-full bg-[#F7F3EE] border-2 border-[#D96B4F]/50 flex items-center justify-center shadow-[0_0_0_4px_#F7F3EE]">
+                  <div className="absolute -left-[31px] top-1.5 w-[18px] h-[18px] rounded-full bg-[#F5F2EA] border-2 border-[#D96B4F]/50 flex items-center justify-center shadow-[0_0_0_4px_#F5F2EA]">
                     <div className="w-[6px] h-[6px] rounded-full bg-[#D96B4F]" />
                   </div>
 

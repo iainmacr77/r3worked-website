@@ -27,7 +27,7 @@ export function PreviewExamples() {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section id="preview-examples" className="bg-[#F7F3EE] px-6 py-24 md:px-10 md:py-32 border-t border-[#161616]/5">
+    <section id="preview-examples" className="bg-[#F5F2EA] px-6 py-24 md:px-10 md:py-32 border-t border-[#161616]/5">
       <div className="mx-auto max-w-[84rem]" ref={ref}>
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">

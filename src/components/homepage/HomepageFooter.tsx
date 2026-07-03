@@ -16,7 +16,7 @@ const LEGAL_LINKS = [
 
 export function HomepageFooter() {
   return (
-    <footer className="border-t border-[#161616]/6 bg-[#F7F3EE] px-6 pb-10 pt-20 md:px-10">
+    <footer className="border-t border-[#161616]/6 bg-[#F5F2EA] px-6 pb-10 pt-20 md:px-10">
       <div className="mx-auto flex max-w-[78rem] flex-col gap-14">
         <div className="grid gap-12 md:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)_minmax(0,0.55fr)_minmax(0,0.55fr)] md:gap-10">
           <div className="max-w-md space-y-5">

@@ -108,7 +108,7 @@ export function RebuildBreakdown() {
   }, [currentIndex]);
 
   return (
-    <section id="rebuild-breakdown" className="light-section-seam bg-[#F7F3EE] px-6 pb-24 md:px-10 md:pb-32">
+    <section id="rebuild-breakdown" className="light-section-seam bg-[#F5F2EA] px-6 pb-24 md:px-10 md:pb-32">
       <div className="mx-auto max-w-[84rem]">
         <p className="type-eyebrow mb-5 text-[#B86B5C]">What Changed</p>
 

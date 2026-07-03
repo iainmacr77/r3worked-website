@@ -20,7 +20,7 @@ export const metadata: Metadata = createSiteMetadata({
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen w-full flex-col bg-[#F7F3EE] text-[#161616] scroll-smooth">
+    <main className="flex min-h-screen w-full flex-col bg-[#F5F2EA] text-[#161616] scroll-smooth">
       <HomepageNavbar />
       <HomepageHero />
       <LeadRescueStorySteps />
