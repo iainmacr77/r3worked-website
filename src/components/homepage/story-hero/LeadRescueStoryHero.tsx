@@ -68,6 +68,7 @@ interface BeatShellProps {
   gridOpacity?: number;
   gridSize?: number;
   glow?: ReactNode;
+  visualFirst?: boolean;
 }
 
 function BeatShell({
@@ -81,6 +82,7 @@ function BeatShell({
   gridOpacity = 0.03,
   gridSize = 56,
   glow,
+  visualFirst = false,
 }: BeatShellProps) {
   return (
     <div
@@ -106,24 +108,38 @@ function BeatShell({
       {/* Radial Spotlights / Atmospheric Glows */}
       {glow}
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[84rem] items-center gap-12 lg:min-h-[85vh] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] xl:gap-16">
+      <div
+        className={cn(
+          "relative z-10 mx-auto grid w-full max-w-[84rem] items-center gap-12 lg:min-h-[85vh] xl:gap-16",
+          visualFirst
+            ? "lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]"
+            : "lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
+        )}
+      >
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: EASE }}
-          className="max-w-[32rem] lg:max-w-none"
+          className={cn("max-w-[32rem] lg:max-w-none", visualFirst && "lg:order-2")}
         >
           <BeatEyebrow>{eyebrow}</BeatEyebrow>
           <BeatHeading className={headingClassName}>{heading}</BeatHeading>
           {support && (
-            <p className="mt-6 text-base leading-relaxed text-pretty max-w-[38rem] text-[#2A2A2A]/75">
+            <p className="mt-6 max-w-[36rem] text-[1rem] font-medium leading-[1.58] text-pretty text-[#2A2A2A]/70 sm:text-[1.0625rem] lg:text-[1.16rem]">
               {support}
             </p>
           )}
         </motion.div>
 
-        <div className="w-full flex justify-center items-center">{children}</div>
+        <div
+          className={cn(
+            "flex w-full items-center justify-center",
+            visualFirst && "lg:order-1"
+          )}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
@@ -205,6 +221,7 @@ export function LeadRescueStorySteps() {
       <BeatShell
         eyebrow={BEAT2_FORM.eyebrow}
         heading={BEAT2_FORM.heading}
+        support={BEAT2_FORM.support}
         gridSize={48}
         gridOpacity={0.03}
         glow={
@@ -222,11 +239,10 @@ export function LeadRescueStorySteps() {
       <BeatShell
         eyebrow={BEAT3_ALERT.eyebrow}
         heading={BEAT3_ALERT.heading}
+        support={BEAT3_ALERT.support}
+        visualFirst
         gridSize={56}
         gridOpacity={0.03}
-        glow={
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,rgba(37,211,102,0.08),transparent_50%)]" />
-        }
       >
         <AlertFlightScene
           origin={BEAT3_ALERT.origin}
@@ -239,6 +255,7 @@ export function LeadRescueStorySteps() {
       <BeatShell
         eyebrow={BEAT4_MISSED_CALL.eyebrow}
         heading={BEAT4_MISSED_CALL.heading}
+        support={BEAT4_MISSED_CALL.support}
         gridSize={64}
         gridOpacity={0.03}
         glow={
@@ -256,6 +273,8 @@ export function LeadRescueStorySteps() {
       <BeatShell
         eyebrow={BEAT5_DASHBOARD.eyebrow}
         heading={BEAT5_DASHBOARD.heading}
+        support={BEAT5_DASHBOARD.support}
+        visualFirst
         gridSize={48}
         gridOpacity={0.02}
         glow={
@@ -269,6 +288,7 @@ export function LeadRescueStorySteps() {
       <BeatShell
         eyebrow={BEAT6_REVIEW.eyebrow}
         heading={BEAT6_REVIEW.heading}
+        support={BEAT6_REVIEW.support}
         gridSize={56}
         gridOpacity={0.03}
         glow={

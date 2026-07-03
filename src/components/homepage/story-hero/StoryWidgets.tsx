@@ -1374,7 +1374,7 @@ export function ReviewConversation({
                           ? { scale: [1, 1.35, 1], rotate: [0, 10, 0] }
                           : { scale: 1 }
                       }
-                      transition={{ type: "spring", stiffness: 350, damping: 15 }}
+                      transition={{ type: "tween", duration: 0.42, ease: "easeInOut" }}
                       className="inline-flex"
                     >
                       <Star

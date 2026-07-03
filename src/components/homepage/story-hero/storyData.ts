@@ -40,7 +40,9 @@ export const BEAT1_LOSSES = {
 
 export const BEAT2_FORM = {
   eyebrow: "STEP 01",
-  heading: "Web enquiries captured the second they land.",
+  heading: "Web enquiries captured the second they land",
+  support:
+    "Every quote form submission is turned into a structured lead and pushed instantly to the business owner.",
   fields: [
     { label: "Name", value: "James Whitfield" },
     { label: "Project", value: "Roof repair / Kitchen extension / Solar install" },
@@ -57,7 +59,9 @@ export const BEAT2_FORM = {
 
 export const BEAT3_ALERT = {
   eyebrow: "STEP 02",
-  heading: "The owner gets alerted immediately.",
+  heading: "The owner gets alerted immediately",
+  support:
+    "WhatsApp and email alerts make sure new enquiries are seen while the customer is still warm.",
   origin: {
     label: "Lead captured",
     name: "James Whitfield",
@@ -76,7 +80,9 @@ export const BEAT3_ALERT = {
 
 export const BEAT4_MISSED_CALL = {
   eyebrow: "STEP 03",
-  heading: "Missed calls should not become missed jobs.",
+  heading: "Missed calls should not become missed jobs",
+  support:
+    "AI missed-call rescue answers, captures the job details, and sends the owner a clean summary.",
   caller: "New Customer",
   transcript:
     "Hey, got a leak on the extension roof in Manchester M20, need a quote this week please…",
@@ -95,7 +101,9 @@ export const BEAT4_MISSED_CALL = {
 
 export const BEAT5_DASHBOARD = {
   eyebrow: "STEP 04",
-  heading: "Every enquiry logged. Every next step visible.",
+  heading: "Every enquiry logged. Every next step visible",
+  support:
+    "A simple lead log shows what came in, who was notified, and what needs to happen next.",
   timeline: ["Captured (Web)", "WhatsApp alerted", "Follow-up ready"],
   tiles: [
     { label: "Source", value: "Web form" },
@@ -108,7 +116,9 @@ export const BEAT5_DASHBOARD = {
 
 export const BEAT6_REVIEW = {
   eyebrow: "STEP 05",
-  heading: "Finished jobs become review momentum.",
+  heading: "Finished jobs become five-star momentum",
+  support:
+    "After the job, automated follow-up helps happy customers turn into Google reviews.",
   prompt: "How did we do?",
   positive: "Great job, thanks!",
   reviewPrompt: "Would you mind leaving a Google review?",
