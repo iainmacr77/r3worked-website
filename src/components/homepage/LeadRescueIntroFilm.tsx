@@ -21,7 +21,8 @@ const STAGE_WIDTH = 1920;
 const STAGE_HEIGHT = 1080;
 const DURATION = 25;
 
-const RING_TIMES = [1.9, 3, 4.1] as const;
+const RING_TIMES = [1.9, 3] as const;
+const MISSED_CALL_AT = 4.3;
 const PHONE_SRC = { x: 1360, y: 510 };
 const CATCH_PT = { x: 610, y: 560 };
 
@@ -43,7 +44,7 @@ function drawWaves(
   const dark = smoothStep(t, 7.7, 8.5) - smoothStep(t, 15.3, 16.1);
   const capture = smoothStep(t, 11.5, 13.2);
   const calm3 = smoothStep(t, 16.2, 17.7);
-  const ampScene1 = lerp(16, 5, smoothStep(t, 5.6, 6.7));
+  const ampScene1 = lerp(16, 5, smoothStep(t, 4.8, 5.9));
   const ampScene2 = lerp(56, 9, capture);
   const amp = lerp(ampScene1, ampScene2, dark) * lerp(1, 0.6, calm3);
   const spread = lerp(1, lerp(1.08, 0.3, capture), dark);
@@ -357,7 +358,7 @@ function RingingPhone({
   duration: number;
 }) {
   const opacity = fadeIO(localTime, duration, 0.55, 0.5);
-  const missed = time > 5.3;
+  const missed = time > MISSED_CALL_AT;
   const width = 320;
   const height = 650;
   let pulse = 0;
@@ -902,27 +903,30 @@ function SceneRoot({ time }: { time: number }) {
         </Fade>
       )}
 
-      {spriteVisible(time, 1.4, 6.6) && (
-        <RingingPhone time={time} {...getSprite(time, 1.4, 6.6)} />
+      {spriteVisible(time, 1.4, 7.6) && (
+        <RingingPhone time={time} {...getSprite(time, 1.4, 7.6)} />
       )}
 
-      {spriteVisible(time, 5.7, 8.1) && (
+      {spriteVisible(time, 5.65, 8.1) && (
         <Fade
-          {...getSprite(time, 5.7, 8.1)}
-          inDuration={0.35}
+          {...getSprite(time, 5.65, 8.1)}
+          inDuration={0.45}
           outDuration={0.4}
           rise={0}
-          style={{ left: 0, right: 0, textAlign: "center", top: 840 }}
+          style={{ left: 190, top: 300, width: 780 }}
         >
           <div
             style={{
               color: INK,
               fontFamily: SERIF,
-              fontSize: 92,
+              fontSize: 108,
               letterSpacing: "-0.01em",
+              lineHeight: 1.03,
             }}
           >
-            Missed call. <span style={{ color: "#B3341F" }}>Missed job.</span>
+            Missed call.
+            <br />
+            <span style={{ color: "#B3341F" }}>Missed job.</span>
           </div>
         </Fade>
       )}
