@@ -840,7 +840,7 @@ function FinalLine({ localTime }: { localTime: number }) {
         style={{
           color: INK,
           fontFamily: SERIF,
-          fontSize: 128,
+          fontSize: "clamp(86px, 7vw, 128px)",
           letterSpacing: "-0.01em",
           lineHeight: 1.05,
           textAlign: "center",
@@ -854,15 +854,32 @@ function FinalLine({ localTime }: { localTime: number }) {
         style={{
           color: COPPER,
           fontFamily: SANS,
-          fontSize: 26,
+          fontSize: "clamp(20px, 1.35vw, 26px)",
           fontWeight: 700,
-          letterSpacing: "0.26em",
+          letterSpacing: "0.24em",
           marginTop: 40,
           opacity: smoothStep(localTime, 0.45, 1.1),
           textTransform: "uppercase",
         }}
       >
         Calls &middot; Forms &middot; Follow-ups
+      </div>
+      <div
+        style={{
+          color: "rgba(42,42,42,0.7)",
+          fontFamily: SANS,
+          fontSize: "clamp(24px, 1.55vw, 31px)",
+          fontWeight: 500,
+          letterSpacing: "-0.01em",
+          lineHeight: 1.55,
+          marginTop: 16,
+          maxWidth: "clamp(560px, 66vw, 760px)",
+          opacity: smoothStep(localTime, 0.68, 1.25),
+          padding: "0 20px",
+          textAlign: "center",
+        }}
+      >
+        Every enquiry captured, every owner alerted, every next step tracked.
       </div>
     </div>
   );

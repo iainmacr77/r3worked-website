@@ -157,42 +157,28 @@ function HeroFilmCtas({ show }: { show: boolean }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 8 }}
           transition={{ duration: 0.65, ease: EASE }}
-          className="pointer-events-none absolute inset-0 z-40 flex items-center px-6 pb-24 pt-28 sm:pt-36 md:px-10 lg:pb-28 lg:pt-40"
+          className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center px-6 pb-24 pt-28 sm:pt-36 md:px-10 lg:pb-28 lg:pt-40"
         >
-          <div className="mx-auto grid w-full max-w-[84rem] gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(26rem,1.08fr)] lg:items-center xl:gap-16">
-            <div className="max-w-[46rem]">
-              <div aria-hidden="true" className="invisible select-none">
-                <BeatEyebrow>{BEAT1.eyebrow}</BeatEyebrow>
-                <h1 className="mt-6 max-w-[12ch] font-sans text-[clamp(3.3rem,8vw,5.6rem)] font-extrabold leading-[0.94] tracking-[-0.05em] text-[#161616] text-balance">
-                  {BEAT1.heading}
-                </h1>
-                <p className="mt-6 max-w-[36rem] text-lg font-medium leading-relaxed text-[#2A2A2A]/80 text-pretty">
-                  {BEAT1.support}
-                </p>
-              </div>
+          <div className="pointer-events-auto flex w-full max-w-[42rem] translate-y-[14rem] flex-col items-stretch gap-3 sm:w-auto sm:max-w-none sm:translate-y-[13rem] sm:flex-row sm:items-center sm:justify-center sm:gap-4 md:translate-y-[12.25rem] lg:translate-y-[11.75rem]">
+            <Link
+              href="#final-cta"
+              className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[#161616] px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#F7F3EE] shadow-[0_12px_28px_rgba(22,22,22,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] hover:shadow-[0_16px_36px_rgba(22,22,22,0.22)] sm:w-auto"
+            >
+              {BEAT1.primaryCta}
+            </Link>
 
-              <div className="pointer-events-auto mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
-                <Link
-                  href="#final-cta"
-                  className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[#161616] px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#F7F3EE] shadow-[0_12px_28px_rgba(22,22,22,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] hover:shadow-[0_16px_36px_rgba(22,22,22,0.22)] sm:w-auto"
-                >
-                  {BEAT1.primaryCta}
-                </Link>
-
-                <Link
-                  href="#how-it-works"
-                  className="group inline-flex h-14 w-full items-center justify-center rounded-full border border-[#161616]/10 bg-white/40 px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#161616] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/60 sm:w-auto"
-                >
-                  {BEAT1.secondaryCta}
-                  <ArrowRight
-                    className="ml-3 transition-transform group-hover:translate-x-1.5"
-                    size={15}
-                    strokeWidth={2.4}
-                    aria-hidden="true"
-                  />
-                </Link>
-              </div>
-            </div>
+            <Link
+              href="#how-it-works"
+              className="group inline-flex h-14 w-full items-center justify-center rounded-full border border-[#161616]/10 bg-white/40 px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#161616] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/60 sm:w-auto"
+            >
+              {BEAT1.secondaryCta}
+              <ArrowRight
+                className="ml-3 transition-transform group-hover:translate-x-1.5"
+                size={15}
+                strokeWidth={2.4}
+                aria-hidden="true"
+              />
+            </Link>
           </div>
         </motion.div>
       )}
@@ -206,7 +192,7 @@ export function LeadRescueStoryHero() {
 
   return (
     <section id="hero" className="relative w-full overflow-hidden">
-      <div className="relative flex min-h-screen items-center overflow-hidden bg-[#F5F2EA] px-6 pb-24 pt-28 sm:pt-36 md:px-10 lg:pb-28 lg:pt-40">
+      <div className="relative flex min-h-[calc(100vh+2rem)] items-center overflow-hidden bg-[#F5F2EA] px-6 pb-24 pt-28 sm:pt-36 md:px-10 lg:pb-28 lg:pt-40">
         <h1 className="sr-only">Never miss another lead.</h1>
         <LeadRescueIntroFilm onComplete={() => setIntroFilmComplete(true)} />
         <HeroFilmCtas show={introFilmComplete} />
