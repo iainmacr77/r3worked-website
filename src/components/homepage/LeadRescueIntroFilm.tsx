@@ -19,10 +19,10 @@ const SERIF = "Georgia, 'Times New Roman', serif";
 const SANS = "Helvetica, Arial, sans-serif";
 const STAGE_WIDTH = 1920;
 const STAGE_HEIGHT = 1080;
-const DURATION = 25;
+const DURATION = 28;
 
 const RING_TIMES = [1.9, 3] as const;
-const MISSED_CALL_AT = 4.3;
+const MISSED_CALL_AT = 3.8;
 const PHONE_SRC = { x: 1360, y: 510 };
 const CATCH_PT = { x: 610, y: 560 };
 
@@ -41,9 +41,9 @@ function drawWaves(
 ) {
   ctx.clearRect(0, 0, width, height);
 
-  const dark = smoothStep(t, 7.7, 8.5) - smoothStep(t, 15.3, 16.1);
+  const dark = smoothStep(t, 7.7, 8.5) - smoothStep(t, 16.8, 17.6);
   const capture = smoothStep(t, 11.5, 13.2);
-  const calm3 = smoothStep(t, 16.2, 17.7);
+  const calm3 = smoothStep(t, 17.7, 19.2);
   const ampScene1 = lerp(16, 5, smoothStep(t, 4.8, 5.9));
   const ampScene2 = lerp(56, 9, capture);
   const amp = lerp(ampScene1, ampScene2, dark) * lerp(1, 0.6, calm3);
@@ -869,7 +869,7 @@ function FinalLine({ localTime }: { localTime: number }) {
 }
 
 function SceneRoot({ time }: { time: number }) {
-  const dark = smoothStep(time, 7.7, 8.5) - smoothStep(time, 15.3, 16.1);
+  const dark = smoothStep(time, 7.7, 8.5) - smoothStep(time, 16.8, 17.6);
 
   return (
     <div
@@ -943,17 +943,17 @@ function SceneRoot({ time }: { time: number }) {
               marginTop: 26,
             }}
           >
-            Every ring.
+            Every call answered.
             <br />
-            Every form.
+            Every form collected.
           </div>
         </Fade>
       )}
 
-      {spriteVisible(time, 11.7, 15.4) && <AlertCard {...getSprite(time, 11.7, 15.4)} />}
+      {spriteVisible(time, 11.7, 16.9) && <AlertCard {...getSprite(time, 11.7, 16.9)} />}
 
-      {spriteVisible(time, 12, 15.4) && (
-        <Fade {...getSprite(time, 12, 15.4)} style={{ left: 1050, top: 470, width: 720 }}>
+      {spriteVisible(time, 12, 16.9) && (
+        <Fade {...getSprite(time, 12, 16.9)} style={{ left: 1050, top: 470, width: 720 }}>
           <div style={{ color: PAPER, fontFamily: SERIF, fontSize: 130 }}>Caught.</div>
           <div
             style={{
@@ -968,10 +968,10 @@ function SceneRoot({ time }: { time: number }) {
         </Fade>
       )}
 
-      {spriteVisible(time, 16.1, 20.3) && <LogCard {...getSprite(time, 16.1, 20.3)} />}
+      {spriteVisible(time, 17.6, 23.3) && <LogCard {...getSprite(time, 17.6, 23.3)} />}
 
-      {spriteVisible(time, 16.4, 20.3) && (
-        <Fade {...getSprite(time, 16.4, 20.3)} style={{ left: 950, top: 400, width: 800 }}>
+      {spriteVisible(time, 17.9, 23.3) && (
+        <Fade {...getSprite(time, 17.9, 23.3)} style={{ left: 950, top: 400, width: 800 }}>
           <Label text="Back at the office" />
           <div
             style={{
@@ -989,7 +989,7 @@ function SceneRoot({ time }: { time: number }) {
         </Fade>
       )}
 
-      {spriteVisible(time, 20.6, DURATION) && <FinalLine {...getSprite(time, 20.6, DURATION)} />}
+      {spriteVisible(time, 23.6, DURATION) && <FinalLine {...getSprite(time, 23.6, DURATION)} />}
     </div>
   );
 }
