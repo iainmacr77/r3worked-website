@@ -9,6 +9,7 @@ import { RebuildBreakdown } from "@/components/homepage/RebuildBreakdown";
 import { EnquiryCaptureSection } from "@/components/homepage/EnquiryCaptureSection";
 import { LeadCaptureLayer } from "@/components/homepage/LeadCaptureLayer";
 import { PricingSection } from "@/components/homepage/PricingSection";
+import { FaqSection } from "@/components/homepage/FaqSection";
 import { FinalCta } from "@/components/homepage/FinalCta";
 import { HomepageFooter } from "@/components/homepage/HomepageFooter";
 import { createSiteMetadata } from "@/lib/site-metadata";
@@ -33,6 +34,7 @@ export default function HomePage() {
       <EnquiryCaptureSection />
       <LeadCaptureLayer />
       <PricingSection />
+      <FaqSection />
       <FinalCta />
       <HomepageFooter />
     </main>
