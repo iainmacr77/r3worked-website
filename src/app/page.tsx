@@ -3,7 +3,7 @@ import { HomepageNavbar } from "@/components/homepage/HomepageNavbar";
 import { HomepageHero, LeadRescueStorySteps } from "@/components/homepage/HomepageHero";
 import { LeadRescueReviewSection } from "@/components/homepage/LeadRescueReviewSection";
 import { TrustTicker } from "@/components/homepage/TrustTicker";
-import { TheThreeInR3Worked } from "@/components/homepage/TheThreeInR3Worked";
+import { TwoPathBridge } from "@/components/homepage/TwoPathBridge";
 import { BeforeAfterShowcase } from "@/components/homepage/BeforeAfterShowcase";
 import { RebuildBreakdown } from "@/components/homepage/RebuildBreakdown";
 import { EnquiryCaptureSection } from "@/components/homepage/EnquiryCaptureSection";
@@ -27,7 +27,7 @@ export default function HomePage() {
       <LeadRescueStorySteps />
       <LeadRescueReviewSection />
       <TrustTicker />
-      <TheThreeInR3Worked />
+      <TwoPathBridge />
       <BeforeAfterShowcase />
       <RebuildBreakdown />
       <EnquiryCaptureSection />

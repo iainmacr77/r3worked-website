@@ -26,7 +26,7 @@ export function BeforeAfterShowcase() {
             transition={{ duration: 0.6 }}
             className="type-eyebrow text-[#B86B5C]"
           >
-            BEFORE / AFTER
+            Phase 01 — Website uplift
           </motion.p>
           <motion.h2 
             initial={{ opacity: 0, y: 10 }}

@@ -115,7 +115,7 @@ export function LeadCaptureLayer() {
             viewport={{ once: true, margin: "-100px" }}
             className="type-eyebrow text-[#B86B5C]"
           >
-            Phase 03
+            Phase 03 — Follow-up
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 10 }}

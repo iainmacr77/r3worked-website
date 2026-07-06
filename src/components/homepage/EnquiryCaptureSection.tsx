@@ -85,7 +85,7 @@ export function EnquiryCaptureSection() {
             viewport={{ once: true, margin: "-100px" }}
             className="type-eyebrow text-[#D96B4F]"
           >
-            Phase 02
+            Phase 02 — Enquiry capture
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 10 }}
