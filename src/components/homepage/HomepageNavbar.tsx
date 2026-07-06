@@ -8,10 +8,10 @@ import { R3WorkedWordmark } from "@/components/homepage/R3WorkedWordmark";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
-  { href: "#hero", label: "Lead Rescue" },
-  { href: "#before-after-showcase", label: "Website Uplift" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#final-cta", label: "Contact" },
+  { href: "/#hero", label: "Lead Rescue" },
+  { href: "/#before-after-showcase", label: "Website Uplift" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/#final-cta", label: "Contact" },
 ];
 
 export function HomepageNavbar() {
@@ -36,7 +36,7 @@ export function HomepageNavbar() {
     >
       <div className="px-6 md:px-10">
         <div className="mx-auto flex max-w-[84rem] items-center justify-between">
-          <Link href="#hero" className="flex items-center text-[#161616] transition-opacity hover:opacity-80">
+          <Link href="/#hero" className="flex items-center text-[#161616] transition-opacity hover:opacity-80">
             <R3WorkedWordmark className="text-[1.1rem] md:text-[1.22rem]" />
           </Link>
 
@@ -56,7 +56,7 @@ export function HomepageNavbar() {
           {/* Desktop CTA */}
           <div className="hidden md:flex">
             <Link
-              href="#final-cta"
+              href="/#lead-rescue-review"
               className="inline-flex items-center justify-center rounded-full bg-[#161616] px-6 py-2.5 text-xs font-semibold tracking-wide text-[#F7F3EE] transition-all hover:bg-[#2A2A2A] shadow-[0_4px_12px_rgba(22,22,22,0.1)]"
             >
               Stop losing enquiries
@@ -96,7 +96,7 @@ export function HomepageNavbar() {
                 </Link>
               ))}
               <Link
-                href="#final-cta"
+                href="/#lead-rescue-review"
                 onClick={() => setMenuOpen(false)}
                 className="mt-4 inline-flex items-center justify-center rounded-full bg-[#161616] px-6 py-3 text-sm font-semibold tracking-wide text-[#F7F3EE] shadow-md"
               >

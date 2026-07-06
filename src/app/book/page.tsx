@@ -1,71 +1,70 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { HomepageFooter } from "@/components/homepage/HomepageFooter";
 import { HomepageNavbar } from "@/components/homepage/HomepageNavbar";
+import { LeadCaptureForm } from "@/components/forms/LeadCaptureForm";
 import { createSiteMetadata } from "@/lib/site-metadata";
 
 export const metadata: Metadata = createSiteMetadata({
-  title: "Book a Demo | Hey Lola",
+  title: "Start Your Lead Rescue Review | R3WORKED",
   description:
-    "Book a Hey Lola demo to see how the voice layer works across restaurants and medical practices.",
+    "Request a free Lead Rescue Review. We'll show you where your enquiries are being lost — missed calls, buried forms, slow replies — and what to fix first.",
 });
 
-const DEMO_TRACKS = [
+const EXPECTATIONS = [
   {
-    title: "Restaurants",
-    description:
-      "See how Lola handles bookings, changes, policy questions, and peak-hour phone pressure.",
-    href: "/restaurants",
+    title: "Tell us where to look",
+    body: "Your name, number and website — that's all we need to get started.",
   },
   {
-    title: "Medical",
-    description:
-      "See how Lola supports booking flow for medical practices while keeping clinical matters with staff.",
-    href: "/medical",
+    title: "We review your enquiry flow",
+    body: "Calls, forms and messages: we find where serious jobs are slipping through.",
+  },
+  {
+    title: "You get an honest report",
+    body: "What's leaking, what to fix first, and whether R3WORKED is the right fit.",
   },
 ];
 
-export default function BookDemoPage() {
+export default function BookPage() {
   return (
-    <main className="flex min-h-screen w-full flex-col bg-[#FAFAF8]">
+    <main className="flex min-h-screen w-full flex-col bg-[#F5F2EA] text-[#161616]">
       <HomepageNavbar />
 
-      <section className="w-full px-6 pb-20 pt-32 md:px-16 md:pb-24 md:pt-40">
-        <div className="mx-auto max-w-5xl">
-          <p className="font-jetbrains text-[10px] font-semibold uppercase tracking-[0.22em] text-charcoal/42">
-            Book Demo
-          </p>
-          <h1 className="type-h2-serif mt-4 max-w-[12ch] text-ink">
-            See Lola against a real operating flow.
-          </h1>
-          <p className="type-lead mt-6 max-w-[44ch] text-charcoal/60">
-            Choose the live environment closest to your team. We will use that
-            operating context as the starting point.
-          </p>
+      <section className="w-full px-6 pb-20 pt-32 md:px-10 md:pb-28 md:pt-40">
+        <div className="mx-auto grid max-w-[78rem] items-start gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-20">
+          <div>
+            <p className="type-eyebrow inline-flex rounded-full border border-[#D96B4F]/20 bg-[#D96B4F]/5 px-4 py-1.5 text-[#B86B5C]">
+              Free Lead Rescue Review
+            </p>
+            <h1 className="mt-6 type-section-heading-serif text-[#161616]">
+              Start your Lead Rescue Review.
+            </h1>
+            <p className="type-support mt-6 max-w-[36rem] text-[#2A2A2A]/70">
+              Find out where enquiries are leaking before they become someone
+              else&apos;s booking. Free, quick, and no obligation.
+            </p>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-[2rem] border border-ink/[0.06] bg-ink/[0.04] md:grid-cols-2">
-            {DEMO_TRACKS.map((track) => (
-              <Link
-                key={track.title}
-                href={track.href}
-                className="group bg-white p-8 transition-colors duration-300 hover:bg-[#F7F5F0] md:p-10"
-              >
-                <p className="font-jetbrains text-[10px] uppercase tracking-[0.18em] text-charcoal/35">
-                  Live today
-                </p>
-                <h2 className="mt-4 text-[2rem] font-semibold tracking-[-0.03em] text-ink">
-                  {track.title}
-                </h2>
-                <p className="mt-3 max-w-[30ch] text-sm leading-relaxed text-charcoal/58">
-                  {track.description}
-                </p>
-                <p className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-ink">
-                  Explore {track.title}
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </p>
-              </Link>
-            ))}
+            <ol className="mt-12 flex flex-col gap-8">
+              {EXPECTATIONS.map((step, index) => (
+                <li key={step.title} className="flex items-start gap-5">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#D96B4F]/25 bg-[#D96B4F]/5 text-[0.8rem] font-bold tabular-nums text-[#D96B4F]">
+                    {index + 1}
+                  </span>
+                  <div>
+                    <p className="text-[1rem] font-semibold text-[#161616]">
+                      {step.title}
+                    </p>
+                    <p className="mt-1 max-w-[34rem] text-[0.9rem] leading-relaxed text-[#2A2A2A]/60">
+                      {step.body}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="premium-card p-6 sm:p-8 md:p-10">
+            <LeadCaptureForm variant="light" />
           </div>
         </div>
       </section>

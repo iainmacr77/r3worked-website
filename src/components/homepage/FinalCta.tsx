@@ -48,8 +48,8 @@ export function FinalCta() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="type-support text-[#F7F3EE]/70 max-w-[36rem] mb-12"
             >
-              Send your current site and contact flow. We&apos;ll show where leads
-              are being lost and what R3WORKED should catch first.
+              Tell us where to look — it takes 30 seconds. We&apos;ll show where
+              leads are being lost and what R3WORKED should catch first.
             </motion.p>
 
             <motion.div 
@@ -59,14 +59,14 @@ export function FinalCta() {
               className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
             >
               <Link
-                href="mailto:hello@r3worked.co.uk?subject=Lead%20Rescue%20review"
+                href="#lead-rescue-review"
                 className="w-full sm:w-auto inline-flex items-center justify-center bg-[#F5F2EA] text-[#161616] px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:bg-white hover:-translate-y-0.5 shadow-[0_12px_24px_rgba(245,242,234,0.1)]"
               >
                 Start Lead Rescue review
               </Link>
 
               <Link
-                href="mailto:hello@r3worked.co.uk?subject=R3WORKED%20contact"
+                href="/book"
                 className="w-full sm:w-auto inline-flex items-center justify-center border border-[#F5F2EA]/20 bg-transparent text-[#F5F2EA] px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:bg-[#F5F2EA]/10 hover:-translate-y-0.5"
               >
                 Contact R3WORKED

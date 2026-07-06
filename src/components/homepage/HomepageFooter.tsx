@@ -2,10 +2,10 @@ import Link from "next/link";
 import { R3WorkedWordmark } from "@/components/homepage/R3WorkedWordmark";
 
 const NAV_LINKS = [
-  { href: "#hero", label: "Lead Rescue" },
-  { href: "#before-after-showcase", label: "Website Uplift" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#final-cta", label: "Contact" },
+  { href: "/#hero", label: "Lead Rescue" },
+  { href: "/#before-after-showcase", label: "Website Uplift" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/#final-cta", label: "Contact" },
 ];
 
 const LEGAL_LINKS = [
@@ -47,6 +47,12 @@ export function HomepageFooter() {
             <p className="text-[13px] leading-6 text-[#2A2A2A]/58">
               WhatsApp available for quick questions.
             </p>
+            <Link
+              href="/#lead-rescue-review"
+              className="font-semibold text-[#B86B5C] transition-colors hover:text-[#D96B4F]"
+            >
+              Get your free review
+            </Link>
           </div>
 
           <div className="grid gap-3 text-sm">
