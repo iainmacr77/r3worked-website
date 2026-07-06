@@ -409,7 +409,7 @@ function AnimatedPrice({
       if (progress < 1) requestAnimationFrame(step);
     }
 
-    setValue(0);
+    // First frame naturally computes eased(0) = 0, so no explicit reset needed.
     requestAnimationFrame(step);
   }, [isInView, reducedMotion, target]);
 
