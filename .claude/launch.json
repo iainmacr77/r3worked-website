@@ -5,12 +5,10 @@
       "name": "dev",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
-        "dev",
-        "--port",
-        "3210"
+        "dev"
       ],
       "port": 3210,
-      "autoPort": false
+      "autoPort": true
     }
   ]
 }

@@ -67,7 +67,7 @@ export async function POST(request: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.LEAD_TO_EMAIL ?? "hello@r3worked.co.uk";
+  const to = process.env.LEAD_TO_EMAIL ?? "info@r3worked.com";
   const from = process.env.RESEND_FROM ?? "onboarding@resend.dev";
 
   if (!apiKey) {

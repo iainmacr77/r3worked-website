@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { CookieConsent } from "@/components/analytics/CookieConsent";
 import { createSiteMetadata } from "@/lib/site-metadata";
 
 const inter = Inter({
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en" className="dark scroll-smooth">
       <body className={`${inter.variable} antialiased`}>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

@@ -33,16 +33,10 @@ export function HomepageFooter() {
               Contact
             </p>
             <a
-              href="mailto:hello@r3worked.co.uk"
+              href="mailto:info@r3worked.com"
               className="text-[#2A2A2A]/74 transition-colors hover:text-[#161616]"
             >
-              hello@r3worked.co.uk
-            </a>
-            <a
-              href="tel:+442000000000"
-              className="text-[#2A2A2A]/74 transition-colors hover:text-[#161616]"
-            >
-              +44 (0)20 0000 0000
+              info@r3worked.com
             </a>
             <p className="text-[13px] leading-6 text-[#2A2A2A]/58">
               WhatsApp available for quick questions.
@@ -89,7 +83,9 @@ export function HomepageFooter() {
         <div className="flex flex-col gap-3 border-t border-[#161616]/6 pt-6 text-[11px] uppercase tracking-[0.16em] text-[#2A2A2A]/44 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} R3WORKED</p>
           <p className="normal-case tracking-normal text-[#2A2A2A]/46">
-            R3WORKED is a trading name of Auric Consulting Limited.
+            R3WORKED is a trading name of Auric Consulting Limited (company
+            no. 143291), Level 4, SBI Tower, Cybercity, Ebene, Republic of
+            Mauritius.
           </p>
         </div>
       </div>
