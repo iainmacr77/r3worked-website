@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import { useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { motion } from "framer-motion";
 
 const CONSENT_KEY = "r3w-cookie-consent";
 const CONSENT_EVENT = "r3w-consent-change";
@@ -62,15 +63,50 @@ function GoogleAnalytics() {
   );
 }
 
+/**
+ * Holds the banner back until the hero has scrolled out of view, so the
+ * opening animation plays uncovered. Pages without a #hero (e.g. /book,
+ * /cookies) show the banner straight away. Analytics remain consent-gated
+ * regardless of when the banner appears.
+ */
+function useHeroPassed() {
+  const [passed, setPassed] = useState(false);
+
+  useEffect(() => {
+    const hero = document.getElementById("hero");
+    if (!hero) {
+      setPassed(true);
+      return;
+    }
+    const check = () => {
+      if (hero.getBoundingClientRect().bottom <= 0) {
+        setPassed(true);
+        window.removeEventListener("scroll", check);
+      }
+    };
+    window.addEventListener("scroll", check, { passive: true });
+    check();
+    return () => window.removeEventListener("scroll", check);
+  }, []);
+
+  return passed;
+}
+
 export function CookieConsent() {
   const consent = useConsent();
+  const heroPassed = useHeroPassed();
 
   return (
     <>
       {consent === "accepted" ? <GoogleAnalytics /> : null}
 
-      {consent === "none" ? (
-        <div className="fixed inset-x-0 bottom-0 z-50 px-4 pb-4 md:px-6 md:pb-6">
+      {consent === "none" && heroPassed ? (
+        <motion.div
+          initial={{ y: 24, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-x-0 bottom-0 z-50 px-4 pb-4 md:px-6 md:pb-6"
+        >
           <div className="mx-auto flex max-w-[46rem] flex-col gap-4 rounded-2xl border border-[#161616]/10 bg-[#FFFDF8] p-5 shadow-[0_12px_40px_rgba(22,22,22,0.14)] sm:flex-row sm:items-center sm:gap-6 sm:p-6">
             <p className="flex-1 text-[0.85rem] leading-relaxed text-[#2A2A2A]/75">
               We use one essential cookie plus optional analytics cookies to
@@ -94,7 +130,7 @@ export function CookieConsent() {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
       ) : null}
     </>
   );
