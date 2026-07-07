@@ -29,7 +29,7 @@ export function LeadRescueReviewSection() {
         >
           {/* Subtle architectural lines inside */}
           <div className="absolute inset-0 opacity-[0.2] bg-[linear-gradient(rgba(245,242,234,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(245,242,234,0.08)_1px,transparent_1px)] bg-[size:64px_64px]" />
-          <div className="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_top,rgba(217,107,79,0.1),transparent_60%)]" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_top,rgba(240,164,66,0.1),transparent_60%)]" />
 
           <div className="relative z-10 grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
             {/* Left: pitch */}
@@ -39,7 +39,7 @@ export function LeadRescueReviewSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ delay: 0.15, duration: 0.6 }}
-                className="type-eyebrow inline-flex rounded-full border border-[#D96B4F]/20 bg-[#D96B4F]/5 px-4 py-1.5 text-[#D96B4F]"
+                className="type-eyebrow inline-flex rounded-full border border-[#F0A442]/20 bg-[#F0A442]/5 px-4 py-1.5 text-[#F0A442]"
               >
                 Free Lead Rescue Review
               </motion.p>
@@ -75,7 +75,7 @@ export function LeadRescueReviewSection() {
                     transition={{ delay: 0.45 + index * 0.1, duration: 0.5 }}
                     className="flex items-start gap-3"
                   >
-                    <div className="mt-[0.55rem] h-[6px] w-[6px] shrink-0 rounded-full bg-[#D96B4F]" />
+                    <div className="mt-[0.55rem] h-[6px] w-[6px] shrink-0 rounded-full bg-[#F0A442]" />
                     <span className="text-[0.92rem] leading-relaxed text-[#F7F3EE]/60">
                       {item}
                     </span>

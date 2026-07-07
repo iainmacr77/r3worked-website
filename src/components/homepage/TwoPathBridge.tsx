@@ -92,7 +92,7 @@ export function TwoPathBridge() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="type-eyebrow text-[#B86B5C]"
+            className="type-eyebrow text-[#A87C4F]"
           >
             Two ways in
           </motion.p>
@@ -126,7 +126,7 @@ export function TwoPathBridge() {
           >
             <defs>
               <linearGradient id="fork-stroke" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#D96B4F" stopOpacity="0.9" />
+                <stop offset="0%" stopColor="#C97C2E" stopOpacity="0.9" />
                 <stop offset="100%" stopColor="#C87968" stopOpacity="0.9" />
               </linearGradient>
             </defs>
@@ -185,14 +185,14 @@ export function TwoPathBridge() {
 
             {/* Junction + branch-end nodes */}
             <g data-fork-junction>
-              <circle cx="400" cy="72" r="5" fill="#D96B4F" />
+              <circle cx="400" cy="72" r="5" fill="#C97C2E" />
             </g>
             <g data-fork-node>
-              <circle cx="180" cy="236" r="9" fill="#F5F2EA" stroke="#D96B4F" strokeWidth="2" />
+              <circle cx="180" cy="236" r="9" fill="#F5F2EA" stroke="#C97C2E" strokeWidth="2" />
               <circle cx="180" cy="236" r="3" fill="#161616" />
             </g>
             <g data-fork-node>
-              <circle cx="620" cy="236" r="9" fill="#F5F2EA" stroke="#D96B4F" strokeWidth="2" />
+              <circle cx="620" cy="236" r="9" fill="#F5F2EA" stroke="#C97C2E" strokeWidth="2" />
               <circle cx="620" cy="236" r="3" fill="#161616" />
             </g>
           </svg>
@@ -236,7 +236,7 @@ function PathCard({
         ease: [0.22, 1, 0.36, 1],
       }}
       whileHover={{ y: -4 }}
-      className="premium-card group relative flex h-full flex-col overflow-hidden p-8 transition-[border-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[6px_6px_0px_#D96B4F,0_20px_60px_rgba(72,50,37,0.08),inset_0_1px_0_rgba(255,255,255,0.7)] md:p-12"
+      className="premium-card group relative flex h-full flex-col overflow-hidden p-8 transition-[border-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[6px_6px_0px_#C97C2E,0_20px_60px_rgba(72,50,37,0.08),inset_0_1px_0_rgba(255,255,255,0.7)] md:p-12"
     >
       {/* Ghost path letter */}
       <div
@@ -247,7 +247,7 @@ function PathCard({
       </div>
 
       <div className="relative z-10 flex h-full flex-col">
-        <span className="type-eyebrow mb-8 w-fit rounded-full border border-[#D96B4F]/20 bg-[#D96B4F]/5 px-4 py-1.5 text-[#D96B4F]">
+        <span className="type-eyebrow mb-8 w-fit rounded-full border border-[#C97C2E]/20 bg-[#C97C2E]/5 px-4 py-1.5 text-[#C97C2E]">
           Path {path.label}
         </span>
 
@@ -262,8 +262,8 @@ function PathCard({
           onClick={handleNavigate}
           className={
             path.primary
-              ? "mt-auto inline-flex h-12 w-fit items-center gap-2.5 rounded-full bg-[#D96B4F] px-6 text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-white shadow-[0_10px_20px_rgba(217,107,79,0.2)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(217,107,79,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D96B4F]/30"
-              : "mt-auto inline-flex h-12 w-fit items-center gap-2.5 rounded-full bg-[#161616] px-6 text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-[#F7F3EE] shadow-[0_10px_18px_rgba(22,22,22,0.14)] transition-[transform,background,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D96B4F]/30"
+              ? "mt-auto inline-flex h-12 w-fit items-center gap-2.5 rounded-full bg-[#C97C2E] px-6 text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-white shadow-[0_10px_20px_rgba(201,124,46,0.2)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(201,124,46,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C97C2E]/30"
+              : "mt-auto inline-flex h-12 w-fit items-center gap-2.5 rounded-full bg-[#161616] px-6 text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-[#F7F3EE] shadow-[0_10px_18px_rgba(22,22,22,0.14)] transition-[transform,background,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C97C2E]/30"
           }
         >
           {path.ctaLabel}

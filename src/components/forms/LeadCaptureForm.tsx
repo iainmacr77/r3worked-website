@@ -20,9 +20,9 @@ const LABEL_STYLES: Record<Variant, string> = {
 };
 
 const INPUT_STYLES: Record<Variant, string> = {
-  dark: "border-[#F7F3EE]/12 bg-[#F7F3EE]/[0.04] text-[#F7F3EE] placeholder:text-[#F7F3EE]/25 focus:border-[#D96B4F]/60",
+  dark: "border-[#F7F3EE]/12 bg-[#F7F3EE]/[0.04] text-[#F7F3EE] placeholder:text-[#F7F3EE]/25 focus:border-[#F0A442]/60",
   light:
-    "border-[#161616]/10 bg-white/70 text-[#161616] placeholder:text-[#161616]/30 focus:border-[#D96B4F]/60",
+    "border-[#161616]/10 bg-white/70 text-[#161616] placeholder:text-[#161616]/30 focus:border-[#C97C2E]/60",
 };
 
 export function LeadCaptureForm({
@@ -212,7 +212,12 @@ export function LeadCaptureForm({
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex min-h-[3.25rem] w-full items-center justify-center gap-2.5 rounded-full bg-[#D96B4F] px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_8px_20px_rgba(217,107,79,0.2)] transition-[transform,box-shadow,opacity] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(217,107,79,0.25)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-fit sm:px-9"
+          className={cn(
+            "inline-flex min-h-[3.25rem] w-full items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] transition-[transform,box-shadow,opacity] duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 sm:w-fit sm:px-9",
+            variant === "dark"
+              ? "bg-[#F0A442] text-[#161616] shadow-[0_8px_20px_rgba(240,164,66,0.2)] hover:shadow-[0_12px_28px_rgba(240,164,66,0.25)]"
+              : "bg-[#C97C2E] text-white shadow-[0_8px_20px_rgba(201,124,46,0.2)] hover:shadow-[0_12px_28px_rgba(201,124,46,0.25)]"
+          )}
         >
           {status === "submitting" ? "Sending…" : "Get my free review"}
           {status !== "submitting" && <ArrowRight size={14} strokeWidth={2.5} />}
@@ -289,7 +294,7 @@ function CapturedLeadCard({
             : "border-[#161616]/10 bg-white/95 shadow-[0_10px_24px_rgba(22,22,22,0.05)]"
         )}
       >
-        <div className="pointer-events-none absolute -right-10 -top-12 h-32 w-32 rounded-full bg-[#D96B4F]/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-10 -top-12 h-32 w-32 rounded-full bg-[#C97C2E]/10 blur-3xl" />
 
         <div className="flex items-center gap-3">
           <motion.div
@@ -304,7 +309,7 @@ function CapturedLeadCard({
             <p
               className={cn(
                 "text-[0.68rem] font-bold uppercase tracking-[0.18em]",
-                dark ? "text-[#D96B4F]" : "text-[#B86B5C]"
+                dark ? "text-[#F0A442]" : "text-[#A87C4F]"
               )}
             >
               Lead captured

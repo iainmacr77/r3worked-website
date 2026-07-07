@@ -80,7 +80,7 @@ export function PricingSection() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="type-eyebrow text-[#B86B5C]"
+            className="type-eyebrow text-[#A87C4F]"
           >
             Pricing
           </motion.p>
@@ -113,7 +113,7 @@ export function PricingSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ delay: 0.15, duration: 0.7, ease: EASE_OUT }}
-            className="relative overflow-hidden rounded-[1.75rem] bg-[#161616] p-8 md:p-12 shadow-[6px_6px_0px_#B86B5C]"
+            className="relative overflow-hidden rounded-[1.75rem] bg-[#161616] p-8 md:p-12 shadow-[6px_6px_0px_#F0A442]"
           >
             {/* Watermark */}
             <div
@@ -124,7 +124,7 @@ export function PricingSection() {
             </div>
 
             <div className="relative z-10 flex h-full flex-col">
-              <span className="type-eyebrow text-[#D96B4F] mb-6">
+              <span className="type-eyebrow text-[#F0A442] mb-6">
                 Lead Rescue
               </span>
 
@@ -133,7 +133,7 @@ export function PricingSection() {
                   target={149}
                   prefix="£"
                   className="text-[3.6rem] md:text-[4.6rem] font-bold text-[#F7F3EE] leading-[0.9] tracking-[-0.04em]"
-                  accentClassName="text-[#D96B4F]"
+                  accentClassName="text-[#F0A442]"
                 />
                 <span className="pb-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[#F7F3EE]/30">
                   per month
@@ -149,7 +149,7 @@ export function PricingSection() {
               <div className="mb-10 grid grid-cols-1 gap-y-3.5 sm:grid-cols-2 sm:gap-x-8">
                 {LEAD_RESCUE_INCLUSIONS.map((item) => (
                   <div key={item} className="flex items-start gap-3">
-                    <div className="mt-[0.55rem] h-[6px] w-[6px] shrink-0 rounded-full bg-[#D96B4F]" />
+                    <div className="mt-[0.55rem] h-[6px] w-[6px] shrink-0 rounded-full bg-[#F0A442]" />
                     <span className="text-[0.88rem] leading-relaxed text-[#F7F3EE]/65">
                       {item}
                     </span>
@@ -160,7 +160,7 @@ export function PricingSection() {
               <Magnetic className="mt-auto w-fit">
                 <Link
                   href="#lead-rescue-review"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-[#D96B4F] px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_8px_20px_rgba(217,107,79,0.2)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(217,107,79,0.25)]"
+                  className="inline-flex items-center gap-2.5 rounded-full bg-[#F0A442] px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[#161616] shadow-[0_8px_20px_rgba(240,164,66,0.2)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(240,164,66,0.25)]"
                 >
                   Stop losing leads
                   <ArrowRight size={14} strokeWidth={2.5} />
@@ -179,17 +179,17 @@ export function PricingSection() {
           >
             <div className="flex h-full flex-col">
               <div className="mb-6 flex flex-wrap items-center gap-3">
-                <span className="type-eyebrow text-[#B86B5C]">
+                <span className="type-eyebrow text-[#A87C4F]">
                   Lead Rescue + AI Answering
                 </span>
-                <span className="shrink-0 rounded-full border border-[#D96B4F]/25 bg-[#D96B4F]/8 px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.12em] text-[#D96B4F]">
+                <span className="shrink-0 rounded-full border border-[#C97C2E]/25 bg-[#C97C2E]/8 px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.12em] text-[#C97C2E]">
                   Launching soon
                 </span>
               </div>
 
               <div className="mb-6 flex items-end gap-3">
                 <span className="text-[3.6rem] font-bold leading-[0.9] tracking-[-0.04em] text-[#161616]">
-                  <span className="text-[#D96B4F]">£</span>249
+                  <span className="text-[#C97C2E]">£</span>249
                 </span>
                 <span className="pb-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[#161616]/30">
                   from / month
@@ -204,7 +204,7 @@ export function PricingSection() {
               <div className="mb-10 flex flex-col gap-3.5">
                 {AI_ANSWERING_INCLUSIONS.map((item) => (
                   <div key={item} className="flex items-start gap-3">
-                    <div className="mt-[0.55rem] h-[6px] w-[6px] shrink-0 rounded-full bg-[#B86B5C]/50" />
+                    <div className="mt-[0.55rem] h-[6px] w-[6px] shrink-0 rounded-full bg-[#A87C4F]/50" />
                     <span className="text-[0.88rem] leading-relaxed text-[#2A2A2A]/60">
                       {item}
                     </span>
@@ -235,7 +235,7 @@ export function PricingSection() {
           >
             <div className="mb-5 flex items-start justify-between gap-4">
               <div>
-                <span className="type-eyebrow text-[#B86B5C]">
+                <span className="type-eyebrow text-[#A87C4F]">
                   Website refresh
                 </span>
                 <p className="mt-2 text-[0.82rem] leading-relaxed text-[#2A2A2A]/55">
@@ -244,7 +244,7 @@ export function PricingSection() {
               </div>
               <div className="shrink-0 text-right">
                 <span className="text-[1.8rem] md:text-[2.2rem] font-bold leading-none tracking-[-0.03em] text-[#161616]">
-                  <span className="text-[#D96B4F]">£</span>495
+                  <span className="text-[#C97C2E]">£</span>495
                 </span>
                 <span className="mt-1 block text-[0.6rem] font-semibold uppercase tracking-[0.15em] text-[#161616]/30">
                   one-off
@@ -255,7 +255,7 @@ export function PricingSection() {
             <div className="grid grid-cols-1 gap-y-2.5 sm:grid-cols-2 sm:gap-x-6">
               {REFRESH_INCLUSIONS.map((item) => (
                 <div key={item} className="flex items-center gap-2.5">
-                  <div className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#B86B5C]/35" />
+                  <div className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#A87C4F]/35" />
                   <span className="text-[0.78rem] leading-snug text-[#2A2A2A]/55">
                     {item}
                   </span>
@@ -274,7 +274,7 @@ export function PricingSection() {
           >
             <div className="mb-5 flex items-start justify-between gap-4">
               <div>
-                <span className="type-eyebrow text-[#B86B5C]">
+                <span className="type-eyebrow text-[#A87C4F]">
                   Website rebuild
                 </span>
                 <p className="mt-2 text-[0.82rem] leading-relaxed text-[#2A2A2A]/55">
@@ -287,7 +287,7 @@ export function PricingSection() {
                   target={1250}
                   prefix="£"
                   className="text-[1.8rem] md:text-[2.2rem] font-bold leading-none tracking-[-0.03em] text-[#161616]"
-                  accentClassName="text-[#D96B4F]"
+                  accentClassName="text-[#C97C2E]"
                 />
                 <span className="mt-1 block text-[0.6rem] font-semibold uppercase tracking-[0.15em] text-[#161616]/30">
                   one-off
@@ -298,7 +298,7 @@ export function PricingSection() {
             <div className="grid grid-cols-1 gap-y-2.5 sm:grid-cols-2 sm:gap-x-6">
               {REBUILD_INCLUSIONS.map((item) => (
                 <div key={item} className="flex items-center gap-2.5">
-                  <div className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#B86B5C]/35" />
+                  <div className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#A87C4F]/35" />
                   <span className="text-[0.78rem] leading-snug text-[#2A2A2A]/55">
                     {item}
                   </span>
@@ -327,11 +327,11 @@ export function PricingSection() {
           {/* Site care & hosting */}
           <div>
             <div className="flex items-start justify-between gap-4">
-              <span className="type-eyebrow text-[#B86B5C]/70">
+              <span className="type-eyebrow text-[#A87C4F]/70">
                 Site Care &amp; Hosting
               </span>
               <span className="shrink-0 text-[1.3rem] font-bold leading-none tracking-[-0.02em] text-[#161616]">
-                +<span className="text-[#D96B4F]">£</span>50
+                +<span className="text-[#C97C2E]">£</span>50
                 <span className="ml-1 text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-[#161616]/30">
                   /mo
                 </span>
@@ -345,7 +345,7 @@ export function PricingSection() {
 
           {/* Add-ons */}
           <div>
-            <span className="type-eyebrow text-[#B86B5C]/70">Add-ons</span>
+            <span className="type-eyebrow text-[#A87C4F]/70">Add-ons</span>
             <div className="mt-3 flex flex-wrap gap-2">
               {ADD_ONS.map((item) => (
                 <span

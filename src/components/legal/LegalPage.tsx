@@ -25,7 +25,7 @@ export function LegalPage({
 
       <section className="w-full px-6 pb-24 pt-32 md:px-10 md:pb-32 md:pt-40">
         <div className="mx-auto max-w-[46rem]">
-          <p className="type-eyebrow inline-flex rounded-full border border-[#D96B4F]/20 bg-[#D96B4F]/5 px-4 py-1.5 text-[#B86B5C]">
+          <p className="type-eyebrow inline-flex rounded-full border border-[#C97C2E]/20 bg-[#C97C2E]/5 px-4 py-1.5 text-[#A87C4F]">
             {eyebrow}
           </p>
           <h1 className="mt-6 type-section-heading-serif text-[#161616]">

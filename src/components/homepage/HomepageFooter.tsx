@@ -29,7 +29,7 @@ export function HomepageFooter() {
           </div>
 
           <div className="grid gap-3 text-sm">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#B86B5C]/80">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#A87C4F]/80">
               Contact
             </p>
             <a
@@ -43,14 +43,14 @@ export function HomepageFooter() {
             </p>
             <Link
               href="/#lead-rescue-review"
-              className="font-semibold text-[#B86B5C] transition-colors hover:text-[#D96B4F]"
+              className="font-semibold text-[#A87C4F] transition-colors hover:text-[#C97C2E]"
             >
               Get your free review
             </Link>
           </div>
 
           <div className="grid gap-3 text-sm">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#B86B5C]/80">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#A87C4F]/80">
               Navigate
             </p>
             {NAV_LINKS.map((link) => (
@@ -65,7 +65,7 @@ export function HomepageFooter() {
           </div>
 
           <div className="grid gap-3 text-sm">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#B86B5C]/80">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#A87C4F]/80">
               Policies
             </p>
             {LEGAL_LINKS.map((link) => (

@@ -113,7 +113,7 @@ export function LeadCaptureLayer() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="type-eyebrow text-[#B86B5C]"
+            className="type-eyebrow text-[#A87C4F]"
           >
             Phase 03 — Follow-up
           </motion.p>
@@ -144,7 +144,7 @@ export function LeadCaptureLayer() {
         <div className="grid lg:grid-cols-[1fr_1.3fr] gap-16 lg:gap-20 items-center">
           {/* ── Left: Follow-up steps ── */}
           <div className="relative pl-8">
-            <div className="absolute left-[9px] top-2 bottom-2 w-px bg-gradient-to-b from-[#D96B4F]/40 via-[#D96B4F]/15 to-transparent" />
+            <div className="absolute left-[9px] top-2 bottom-2 w-px bg-gradient-to-b from-[#C97C2E]/40 via-[#C97C2E]/15 to-transparent" />
 
             <div className="space-y-14">
               {FOLLOW_UP_STEPS.map((step, index) => (
@@ -160,13 +160,13 @@ export function LeadCaptureLayer() {
                   }}
                   className="relative"
                 >
-                  <div className="absolute -left-[31px] top-1.5 w-[18px] h-[18px] rounded-full bg-[#F5F2EA] border-2 border-[#D96B4F]/50 flex items-center justify-center shadow-[0_0_0_4px_#F5F2EA]">
-                    <div className="w-[6px] h-[6px] rounded-full bg-[#D96B4F]" />
+                  <div className="absolute -left-[31px] top-1.5 w-[18px] h-[18px] rounded-full bg-[#F5F2EA] border-2 border-[#C97C2E]/50 flex items-center justify-center shadow-[0_0_0_4px_#F5F2EA]">
+                    <div className="w-[6px] h-[6px] rounded-full bg-[#C97C2E]" />
                   </div>
 
                   <div>
                     <div className="flex items-center gap-3 mb-1.5">
-                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#D96B4F]/50 tabular-nums">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C97C2E]/50 tabular-nums">
                         {step.number}
                       </span>
                       <h3 className="text-[1.05rem] font-semibold text-[#161616] leading-tight">
@@ -211,8 +211,8 @@ function DispatchBoard({ yTransform }: { yTransform: MotionValue<number> }) {
           <div className="rounded-xl bg-white border border-[#161616]/[0.07] p-5 shadow-[0_6px_20px_rgba(22,22,22,0.04),0_1px_3px_rgba(22,22,22,0.02),inset_0_1px_0_rgba(255,255,255,0.9)]">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#D96B4F]/12 to-[#D96B4F]/5 border border-[#D96B4F]/10 flex items-center justify-center">
-                  <User size={15} className="text-[#D96B4F]" />
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#C97C2E]/12 to-[#C97C2E]/5 border border-[#C97C2E]/10 flex items-center justify-center">
+                  <User size={15} className="text-[#C97C2E]" />
                 </div>
                 <div>
                   <span className="text-[0.84rem] font-semibold text-[#161616] block leading-tight">
@@ -223,8 +223,8 @@ function DispatchBoard({ yTransform }: { yTransform: MotionValue<number> }) {
                   </span>
                 </div>
               </div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#D96B4F]/8 border border-[#D96B4F]/12 px-2.5 py-1 text-[0.58rem] font-bold uppercase tracking-[0.14em] text-[#D96B4F]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D96B4F] animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C97C2E]/8 border border-[#C97C2E]/12 px-2.5 py-1 text-[0.58rem] font-bold uppercase tracking-[0.14em] text-[#C97C2E]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C97C2E] animate-pulse" />
                 Received
               </span>
             </div>
@@ -243,14 +243,14 @@ function DispatchBoard({ yTransform }: { yTransform: MotionValue<number> }) {
 
         {/* ─ Routing connector ─ */}
         <div className="relative flex flex-col items-center py-4">
-          <div className="h-4 w-px bg-gradient-to-b from-[#D96B4F]/25 to-[#D96B4F]/12" />
+          <div className="h-4 w-px bg-gradient-to-b from-[#C97C2E]/25 to-[#C97C2E]/12" />
           <div className="relative my-1 flex items-center justify-center">
-            <div className="w-[18px] h-[18px] rounded-full bg-gradient-to-br from-[#D96B4F]/20 to-[#D96B4F]/10 border border-[#D96B4F]/15 flex items-center justify-center shadow-[0_0_0_4px_rgba(217,107,79,0.04)]">
-              <div className="w-[6px] h-[6px] rounded-full bg-[#D96B4F]/60" />
+            <div className="w-[18px] h-[18px] rounded-full bg-gradient-to-br from-[#C97C2E]/20 to-[#C97C2E]/10 border border-[#C97C2E]/15 flex items-center justify-center shadow-[0_0_0_4px_rgba(201,124,46,0.04)]">
+              <div className="w-[6px] h-[6px] rounded-full bg-[#C97C2E]/60" />
             </div>
-            <div className="absolute left-[15%] right-[15%] h-px bg-[#D96B4F]/10" />
+            <div className="absolute left-[15%] right-[15%] h-px bg-[#C97C2E]/10" />
           </div>
-          <div className="h-3 w-px bg-gradient-to-b from-[#D96B4F]/10 to-transparent" />
+          <div className="h-3 w-px bg-gradient-to-b from-[#C97C2E]/10 to-transparent" />
         </div>
 
         {/* ─ 2×2 outcome grid ─ */}
@@ -271,8 +271,8 @@ function DispatchBoard({ yTransform }: { yTransform: MotionValue<number> }) {
                 className="group rounded-lg bg-white/90 border border-[#161616]/[0.05] p-4 shadow-[0_2px_10px_rgba(22,22,22,0.02),inset_0_1px_0_rgba(255,255,255,0.8)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(22,22,22,0.04)]"
               >
                 <div className="flex items-center justify-between mb-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-[#D96B4F]/[0.06] border border-[#D96B4F]/10 flex items-center justify-center">
-                    <Icon size={13} className="text-[#D96B4F]" />
+                  <div className="w-7 h-7 rounded-lg bg-[#C97C2E]/[0.06] border border-[#C97C2E]/10 flex items-center justify-center">
+                    <Icon size={13} className="text-[#C97C2E]" />
                   </div>
                   <div className="w-[18px] h-[18px] rounded-full bg-[#2E7D5B]/12 flex items-center justify-center">
                     <Check

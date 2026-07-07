@@ -33,7 +33,7 @@ export default function BookPage() {
       <section className="w-full px-6 pb-20 pt-32 md:px-10 md:pb-28 md:pt-40">
         <div className="mx-auto grid max-w-[78rem] items-start gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-20">
           <div>
-            <p className="type-eyebrow inline-flex rounded-full border border-[#D96B4F]/20 bg-[#D96B4F]/5 px-4 py-1.5 text-[#B86B5C]">
+            <p className="type-eyebrow inline-flex rounded-full border border-[#C97C2E]/20 bg-[#C97C2E]/5 px-4 py-1.5 text-[#A87C4F]">
               Free Lead Rescue Review
             </p>
             <h1 className="mt-6 type-section-heading-serif text-[#161616]">
@@ -47,7 +47,7 @@ export default function BookPage() {
             <ol className="mt-12 flex flex-col gap-8">
               {EXPECTATIONS.map((step, index) => (
                 <li key={step.title} className="flex items-start gap-5">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#D96B4F]/25 bg-[#D96B4F]/5 text-[0.8rem] font-bold tabular-nums text-[#D96B4F]">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#C97C2E]/25 bg-[#C97C2E]/5 text-[0.8rem] font-bold tabular-nums text-[#C97C2E]">
                     {index + 1}
                   </span>
                   <div>

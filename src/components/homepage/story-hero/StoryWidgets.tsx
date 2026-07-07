@@ -105,14 +105,14 @@ const LOSS_CHANNEL_META: Record<
   call: {
     icon: PhoneMissed,
     label: "Phone call",
-    iconClass: "text-[#D96B4F]",
-    tileClass: "bg-[#D96B4F]/10 border-[#D96B4F]/25",
+    iconClass: "text-[#C97C2E]",
+    tileClass: "bg-[#C97C2E]/10 border-[#C97C2E]/25",
   },
   form: {
     icon: FileText,
     label: "Web form",
-    iconClass: "text-[#C08A2E]",
-    tileClass: "bg-[#C08A2E]/10 border-[#C08A2E]/25",
+    iconClass: "text-[#D4A017]",
+    tileClass: "bg-[#D4A017]/10 border-[#D4A017]/25",
   },
   message: {
     icon: MessageSquare,
@@ -226,7 +226,7 @@ export function LostLeadFeed({
                 "relative overflow-hidden rounded-[1.4rem] border p-4 backdrop-blur-md transition-colors duration-500",
                 lost
                   ? "border-[#161616]/8 bg-white/45 shadow-[0_8px_20px_rgba(22,22,22,0.03)]"
-                  : "border-[#D96B4F]/30 bg-white/85 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_24px_rgba(217,107,79,0.08),0_28px_56px_rgba(22,22,22,0.08)]"
+                  : "border-[#C97C2E]/30 bg-white/85 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_24px_rgba(201,124,46,0.08),0_28px_56px_rgba(22,22,22,0.08)]"
               )}
             >
               <div className={cn("flex items-start gap-3.5 transition-opacity duration-500", lost && "opacity-55")}>
@@ -287,10 +287,10 @@ export function LostLeadFeed({
                         animate={reduceMotion ? { scaleX: 1 } : { scaleX: 0 }}
                         transition={{ duration: 1.2, ease: "linear" }}
                         style={{ originX: 0 }}
-                        className="h-full rounded-full bg-gradient-to-r from-[#D96B4F] to-red-500"
+                        className="h-full rounded-full bg-gradient-to-r from-[#C97C2E] to-red-500"
                       />
                     </div>
-                    <span className="shrink-0 text-[8px] font-extrabold uppercase tracking-[0.12em] text-[#D96B4F]">
+                    <span className="shrink-0 text-[8px] font-extrabold uppercase tracking-[0.12em] text-[#C97C2E]">
                       Waiting for a reply
                     </span>
                   </div>
@@ -314,7 +314,7 @@ export function LostLeadFeed({
               <p className="text-[9px] font-extrabold uppercase tracking-[0.2em] text-white/45">
                 {counterLabel}
               </p>
-              <motion.p className="mt-1.5 text-[2rem] font-extrabold leading-none tracking-[-0.03em] text-[#D96B4F] tabular-nums">
+              <motion.p className="mt-1.5 text-[2rem] font-extrabold leading-none tracking-[-0.03em] text-[#C97C2E] tabular-nums">
                 {tallyText}
               </motion.p>
               <p className="mt-2 text-[11px] font-semibold text-white/50">{footnote}</p>
@@ -407,7 +407,7 @@ export function FormToLeadSequence({
   return (
     <div ref={ref} className="relative mx-auto w-full max-w-md lg:max-w-lg">
       <div
-        className="absolute -inset-3 rounded-[2.4rem] bg-gradient-to-tr from-[#D96B4F]/12 to-stone-200/5 blur-xl transition-opacity duration-1000"
+        className="absolute -inset-3 rounded-[2.4rem] bg-gradient-to-tr from-[#C97C2E]/12 to-stone-200/5 blur-xl transition-opacity duration-1000"
         style={{ opacity: inView ? 1 : 0 }}
       />
 
@@ -427,12 +427,12 @@ export function FormToLeadSequence({
       >
         <div className="mb-5 flex items-center justify-between border-b border-[#161616]/5 pb-4">
           <div>
-            <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#D96B4F]">
+            <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#C97C2E]">
               Quote Form
             </p>
             <p className="text-sm font-bold text-[#161616]">Interactive Simulator</p>
           </div>
-          <span className="flex h-2.5 w-2.5 animate-pulse rounded-full bg-[#D96B4F]" />
+          <span className="flex h-2.5 w-2.5 animate-pulse rounded-full bg-[#C97C2E]" />
         </div>
 
         <div className="space-y-4">
@@ -444,7 +444,7 @@ export function FormToLeadSequence({
                 className={cn(
                   "rounded-2xl border px-4 py-3 transition-all duration-300",
                   isFieldActive
-                    ? "border-[#D96B4F] bg-[#D96B4F]/[0.02] shadow-[0_0_0_3px_rgba(217,107,79,0.08),0_0_18px_rgba(217,107,79,0.1)]"
+                    ? "border-[#C97C2E] bg-[#C97C2E]/[0.02] shadow-[0_0_0_3px_rgba(201,124,46,0.08),0_0_18px_rgba(201,124,46,0.1)]"
                     : "border-[#161616]/8 bg-[#F5F2EA]/50"
                 )}
               >
@@ -457,7 +457,7 @@ export function FormToLeadSequence({
                     <motion.span
                       animate={{ opacity: [1, 0, 1] }}
                       transition={{ duration: 0.8, repeat: Infinity }}
-                      className="ml-1 inline-block h-3.5 w-1 rounded-full bg-[#D96B4F]"
+                      className="ml-1 inline-block h-3.5 w-1 rounded-full bg-[#C97C2E]"
                     />
                   )}
                 </div>
@@ -474,7 +474,7 @@ export function FormToLeadSequence({
               isSubmitting
                 ? "cursor-not-allowed bg-[#161616]/40 text-[#F7F3EE]"
                 : isTypingDone
-                  ? "cursor-pointer bg-[#D96B4F] text-[#F7F3EE] hover:-translate-y-0.5 hover:bg-[#c45a3f] hover:shadow-lg"
+                  ? "cursor-pointer bg-[#C97C2E] text-[#F7F3EE] hover:-translate-y-0.5 hover:bg-[#c45a3f] hover:shadow-lg"
                   : "cursor-not-allowed bg-[#161616]/20 text-[#161616]/50"
             )}
           >
@@ -771,8 +771,8 @@ export function ComingSoonBadge({ children = "Coming soon" }: { children?: React
       className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.16em]"
       style={{
         color: "var(--color-status-pending)",
-        borderColor: "rgba(192,138,46,0.3)",
-        background: "rgba(192,138,46,0.1)",
+        borderColor: "rgba(212,160,23,0.3)",
+        background: "rgba(212,160,23,0.1)",
       }}
     >
       <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500" />
@@ -880,7 +880,7 @@ export function MissedCallRescue({
                   className="flex flex-1 flex-col justify-between"
                 >
                   <div className="pt-2">
-                    <p className="animate-pulse text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#C08A2E]">
+                    <p className="animate-pulse text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#D4A017]">
                       Incoming Call
                     </p>
                     <p className="mt-1.5 text-lg font-extrabold tracking-tight">{caller}</p>
@@ -893,7 +893,7 @@ export function MissedCallRescue({
                       transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                       className="absolute inset-0 rounded-full border border-amber-500/30 bg-amber-500/10"
                     />
-                    <div className="z-10 flex h-13 w-13 items-center justify-center rounded-full border border-amber-300/30 bg-gradient-to-br from-amber-400 to-[#D96B4F] shadow-lg">
+                    <div className="z-10 flex h-13 w-13 items-center justify-center rounded-full border border-amber-300/30 bg-gradient-to-br from-amber-400 to-[#C97C2E] shadow-lg">
                       <User size={22} className="text-white" />
                     </div>
                   </div>
@@ -925,7 +925,7 @@ export function MissedCallRescue({
                     </div>
                   </div>
                   <div>
-                    <p className="text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#D96B4F]">
+                    <p className="text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#C97C2E]">
                       Missed Call
                     </p>
                     <p className="mt-1 text-base font-extrabold tracking-tight">{caller}</p>
@@ -1031,7 +1031,7 @@ export function MissedCallRescue({
                       className={cn(
                         "flex items-center gap-3 rounded-xl border px-3 py-2 transition-all duration-300",
                         isChecked
-                          ? "border-[#C08A2E]/25 bg-[#C08A2E]/[0.05]"
+                          ? "border-[#D4A017]/25 bg-[#D4A017]/[0.05]"
                           : "border-white/5 bg-white/[0.01]"
                       )}
                     >
@@ -1039,7 +1039,7 @@ export function MissedCallRescue({
                         className={cn(
                           "flex h-5 w-5 shrink-0 items-center justify-center rounded-md border text-[9px] font-extrabold shadow-inner transition-all duration-300",
                           isChecked
-                            ? "border-[#C08A2E] bg-[#C08A2E] text-white"
+                            ? "border-[#D4A017] bg-[#D4A017] text-white"
                             : "border-white/10 bg-white/5 text-white/35"
                         )}
                       >
@@ -1082,16 +1082,16 @@ export function DashboardTiles({
       className="relative mx-auto w-full max-w-[54rem] overflow-hidden rounded-3xl border border-white/10 bg-[#1c1c1e] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.3),0_24px_70px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-md"
     >
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.03]" />
-      <div className="absolute -bottom-20 -left-20 h-48 w-48 rounded-full bg-[#D96B4F]/10 blur-3xl" />
+      <div className="absolute -bottom-20 -left-20 h-48 w-48 rounded-full bg-[#C97C2E]/10 blur-3xl" />
 
       {/* Header bar */}
       <div className="mb-5 flex flex-col justify-between gap-4 border-b border-white/5 pb-4 sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[#D96B4F]">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[#C97C2E]">
             <Smartphone size={18} />
           </div>
           <div>
-            <p className="text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#D96B4F]">
+            <p className="text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#C97C2E]">
               Control Center
             </p>
             <h3 className="text-[13px] font-extrabold text-white">Lead Rescue Log</h3>
@@ -1118,7 +1118,7 @@ export function DashboardTiles({
             initial={reduceMotion ? false : { opacity: 0, x: -15 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ type: "spring", stiffness: 140, damping: 20, delay: 0.1 }}
-            className="rounded-2xl border border-[#D96B4F]/30 bg-[#D96B4F]/[0.05] p-4 shadow-[0_0_0_1px_rgba(217,107,79,0.08),0_8px_20px_rgba(0,0,0,0.2),0_0_28px_rgba(217,107,79,0.08),inset_0_1px_0_rgba(255,255,255,0.02)]"
+            className="rounded-2xl border border-[#C97C2E]/30 bg-[#C97C2E]/[0.05] p-4 shadow-[0_0_0_1px_rgba(201,124,46,0.08),0_8px_20px_rgba(0,0,0,0.2),0_0_28px_rgba(201,124,46,0.08),inset_0_1px_0_rgba(255,255,255,0.02)]"
           >
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
@@ -1134,7 +1134,7 @@ export function DashboardTiles({
               </div>
               <div className="shrink-0 text-right">
                 <span className="block text-[10px] font-semibold text-white/40">Just now</span>
-                <span className="mt-1 block text-[11px] font-bold text-[#D96B4F]">M20</span>
+                <span className="mt-1 block text-[11px] font-bold text-[#C97C2E]">M20</span>
               </div>
             </div>
 
@@ -1219,7 +1219,7 @@ export function DashboardTiles({
             ))}
           </div>
 
-          <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/5 bg-gradient-to-r from-[#D96B4F]/10 to-amber-500/10 p-4 shadow-inner">
+          <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/5 bg-gradient-to-r from-[#C97C2E]/10 to-amber-500/10 p-4 shadow-inner">
             <div className="min-w-0">
               <p className="text-[9px] font-extrabold uppercase tracking-[0.14em] text-amber-500">
                 Capture Ratio

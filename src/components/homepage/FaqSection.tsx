@@ -53,7 +53,7 @@ export function FaqSection() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="type-eyebrow text-[#B86B5C]"
+            className="type-eyebrow text-[#A87C4F]"
           >
             FAQ
           </motion.p>
@@ -102,14 +102,14 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
       className="border-t border-[#161616]/6 last:border-b"
     >
       <Accordion.Header>
-        <Accordion.Trigger className="group flex w-full items-center justify-between gap-6 py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D96B4F]/30">
+        <Accordion.Trigger className="group flex w-full items-center justify-between gap-6 py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C97C2E]/30">
           <span className="text-[1.05rem] font-semibold leading-snug text-[#161616]">
             {question}
           </span>
           <ChevronDown
             size={18}
             strokeWidth={2.25}
-            className="shrink-0 text-[#B86B5C] transition-transform duration-300 group-data-[state=open]:rotate-180"
+            className="shrink-0 text-[#A87C4F] transition-transform duration-300 group-data-[state=open]:rotate-180"
           />
         </Accordion.Trigger>
       </Accordion.Header>

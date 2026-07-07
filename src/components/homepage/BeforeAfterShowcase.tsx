@@ -26,7 +26,7 @@ export function BeforeAfterShowcase() {
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
             transition={{ duration: 0.6 }}
-            className="type-eyebrow text-[#B86B5C]"
+            className="type-eyebrow text-[#A87C4F]"
           >
             Phase 01 — Website uplift
           </motion.p>
@@ -193,8 +193,8 @@ function PreviewFooterCta({ tone, label, onClick }: PreviewFooterCtaProps) {
       onClick={onClick}
       className={
         tone === "after"
-          ? "group absolute bottom-5 right-5 inline-flex cursor-pointer items-center gap-2.5 overflow-hidden rounded-full border border-[#D96B4F]/28 bg-gradient-to-b from-[#E7785D] to-[#D96B4F] px-6 py-3.5 text-[11.5px] font-bold uppercase tracking-[0.15em] text-[#FFFFFF] shadow-[0_2px_6px_rgba(217,107,79,0.22),0_18px_44px_rgba(22,22,22,0.12),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D96B4F]/38 hover:shadow-[0_2px_8px_rgba(217,107,79,0.28),0_22px_54px_rgba(22,22,22,0.14),inset_0_1px_0_rgba(255,255,255,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D96B4F]/25"
-          : "group absolute bottom-5 right-5 inline-flex cursor-pointer items-center gap-2.5 overflow-hidden rounded-full border border-[#D96B4F]/28 bg-gradient-to-b from-[#E7785D] to-[#D96B4F] px-6 py-3.5 text-[11.5px] font-bold uppercase tracking-[0.15em] text-[#FFFFFF] shadow-[0_2px_6px_rgba(217,107,79,0.22),0_18px_44px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D96B4F]/38 hover:shadow-[0_2px_8px_rgba(217,107,79,0.28),0_22px_54px_rgba(15,23,42,0.14),inset_0_1px_0_rgba(255,255,255,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D96B4F]/25"
+          ? "group absolute bottom-5 right-5 inline-flex cursor-pointer items-center gap-2.5 overflow-hidden rounded-full border border-[#C97C2E]/28 bg-gradient-to-b from-[#DE9440] to-[#C97C2E] px-6 py-3.5 text-[11.5px] font-bold uppercase tracking-[0.15em] text-[#FFFFFF] shadow-[0_2px_6px_rgba(201,124,46,0.22),0_18px_44px_rgba(22,22,22,0.12),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C97C2E]/38 hover:shadow-[0_2px_8px_rgba(201,124,46,0.28),0_22px_54px_rgba(22,22,22,0.14),inset_0_1px_0_rgba(255,255,255,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C97C2E]/25"
+          : "group absolute bottom-5 right-5 inline-flex cursor-pointer items-center gap-2.5 overflow-hidden rounded-full border border-[#C97C2E]/28 bg-gradient-to-b from-[#DE9440] to-[#C97C2E] px-6 py-3.5 text-[11.5px] font-bold uppercase tracking-[0.15em] text-[#FFFFFF] shadow-[0_2px_6px_rgba(201,124,46,0.22),0_18px_44px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C97C2E]/38 hover:shadow-[0_2px_8px_rgba(201,124,46,0.28),0_22px_54px_rgba(15,23,42,0.14),inset_0_1px_0_rgba(255,255,255,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C97C2E]/25"
       }
     >
       <span

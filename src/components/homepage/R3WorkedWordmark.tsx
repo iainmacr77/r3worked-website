@@ -18,7 +18,7 @@ export function R3WorkedWordmark({
       )}
     >
       <span>R</span>
-      <span className={cn("text-[#D96B4F]", accentClassName)}>3</span>
+      <span className={cn("text-[#C97C2E]", accentClassName)}>3</span>
       <span>WORKED</span>
     </span>
   );

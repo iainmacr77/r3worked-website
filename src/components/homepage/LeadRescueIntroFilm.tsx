@@ -12,8 +12,8 @@ import { useReducedMotion } from "framer-motion";
 
 const PAPER = "#F5F2EA";
 const INK = "#171309";
-const COPPER = "#C4601F";
-const COPPER_BRIGHT = "#E8853F";
+const COPPER = "#C97C2E";
+const COPPER_BRIGHT = "#F0A442";
 const MUTED = "#8B8171";
 const SERIF = "Georgia, 'Times New Roman', serif";
 const SANS = "Helvetica, Arial, sans-serif";
@@ -950,7 +950,7 @@ function SceneRoot({ time }: { time: number }) {
           >
             Missed call.
             <br />
-            <span style={{ color: "#B3341F" }}>Missed job.</span>
+            <span style={{ color: "#C97C2E" }}>Missed job.</span>
           </div>
         </Fade>
       )}

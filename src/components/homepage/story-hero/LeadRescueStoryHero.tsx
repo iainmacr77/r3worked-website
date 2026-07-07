@@ -26,14 +26,7 @@ import {
 
 function BeatEyebrow({ children }: { children: ReactNode }) {
   return (
-    <span
-      className="inline-block text-[11px] font-extrabold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full border"
-      style={{
-        color: "var(--color-deep-clay)",
-        borderColor: "rgba(169,79,61,0.15)",
-        background: "rgba(169,79,61,0.04)",
-      }}
-    >
+    <span className="type-eyebrow inline-block text-[#A87C4F]">
       {children}
     </span>
   );
@@ -285,7 +278,7 @@ export function LeadRescueStorySteps() {
         support={BEAT2_FORM.support}
         gridSize={48}
         glow={
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(217,107,79,0.06),transparent_55%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(201,124,46,0.06),transparent_55%)]" />
         }
       >
         <FormToLeadSequence
@@ -335,7 +328,7 @@ export function LeadRescueStorySteps() {
         visualFirst
         gridSize={48}
         glow={
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,rgba(217,107,79,0.05),transparent_60%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,rgba(201,124,46,0.05),transparent_60%)]" />
         }
       >
         <DashboardTiles tiles={BEAT5_DASHBOARD.tiles} timeline={BEAT5_DASHBOARD.timeline} />

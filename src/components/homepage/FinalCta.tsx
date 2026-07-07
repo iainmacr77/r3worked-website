@@ -21,7 +21,7 @@ export function FinalCta() {
         >
           {/* Subtle architectural lines inside */}
           <div className="absolute inset-0 opacity-[0.2] bg-[linear-gradient(rgba(245,242,234,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(245,242,234,0.08)_1px,transparent_1px)] bg-[size:64px_64px]" />
-          <div className="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_top,rgba(217,107,79,0.1),transparent_60%)]" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_top,rgba(240,164,66,0.1),transparent_60%)]" />
 
           {/* Core Content */}
           <div className="relative z-10 flex flex-col items-center text-center max-w-[48rem] mx-auto">
@@ -29,7 +29,7 @@ export function FinalCta() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="type-eyebrow text-[#D96B4F] mb-6 inline-flex px-4 py-1.5 rounded-full border border-[#D96B4F]/20 bg-[#D96B4F]/5"
+              className="type-eyebrow text-[#F0A442] mb-6 inline-flex px-4 py-1.5 rounded-full border border-[#F0A442]/20 bg-[#F0A442]/5"
             >
               Lead Rescue Review
             </motion.p>

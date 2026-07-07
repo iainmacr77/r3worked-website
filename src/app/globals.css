@@ -38,11 +38,11 @@
   --color-slate: #2A2A2A;
   --color-porcelain: #F5F2EA;
   --color-stone: #E7DED2;
-  --color-coral: #D96B4F;
-  --color-deep-clay: #A94F3D;
+  --color-coral: #C97C2E; /* Site Amber (legacy var name) */
+  --color-deep-clay: #A6641C; /* Deep Amber (legacy var name) */
   --color-oxide: #7E3F35;
   --color-status-live: #2E7D5B;
-  --color-status-pending: #C08A2E;
+  --color-status-pending: #D4A017;
   --color-whatsapp: #25D366;
   --color-google-blue: #4285F4;
   --color-google-yellow: #FBBC04;
@@ -59,7 +59,7 @@
     --popover: #F5F2EA;
     --popover-foreground: #161616;
     
-    --primary: #D96B4F; /* Coral */
+    --primary: #C97C2E; /* Site Amber */
     --primary-foreground: #F5F2EA;
     
     --secondary: #E7DED2; /* Stone */
@@ -76,7 +76,7 @@
     
     --border: rgba(22, 22, 22, 0.1); 
     --input: rgba(22, 22, 22, 0.1);
-    --ring: #D96B4F;
+    --ring: #C97C2E;
     
     --radius: 0.5rem;
   }
@@ -91,7 +91,7 @@
     --popover: #161616;
     --popover-foreground: #F5F2EA;
     
-    --primary: #D96B4F; /* Coral */
+    --primary: #C97C2E; /* Site Amber */
     --primary-foreground: #161616;
     
     --secondary: #2A2A2A; /* Slate */
@@ -108,7 +108,7 @@
     
     --border: rgba(245, 242, 234, 0.1);
     --input: rgba(245, 242, 234, 0.1);
-    --ring: #D96B4F;
+    --ring: #C97C2E;
   }
 
   * {

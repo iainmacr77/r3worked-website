@@ -83,7 +83,7 @@ export function EnquiryCaptureSection() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="type-eyebrow text-[#D96B4F]"
+            className="type-eyebrow text-[#F0A442]"
           >
             Phase 02 — Enquiry capture
           </motion.p>
@@ -114,7 +114,7 @@ export function EnquiryCaptureSection() {
           {/* ── Left: Capture funnel steps ── */}
           <div className="relative pl-8">
             {/* Vertical thread */}
-            <div className="absolute left-[9px] top-2 bottom-2 w-px bg-gradient-to-b from-[#D96B4F]/60 via-[#D96B4F]/20 to-transparent" />
+            <div className="absolute left-[9px] top-2 bottom-2 w-px bg-gradient-to-b from-[#F0A442]/60 via-[#F0A442]/20 to-transparent" />
 
             <div className="space-y-14">
               {CAPTURE_STEPS.map((step, index) => {
@@ -133,18 +133,18 @@ export function EnquiryCaptureSection() {
                     className="relative"
                   >
                     {/* Timeline node */}
-                    <div className="absolute -left-[31px] top-1.5 w-[18px] h-[18px] rounded-full bg-[#161616] border-2 border-[#D96B4F]/50 flex items-center justify-center shadow-[0_0_0_4px_#161616]">
-                      <div className="w-[6px] h-[6px] rounded-full bg-[#D96B4F]" />
+                    <div className="absolute -left-[31px] top-1.5 w-[18px] h-[18px] rounded-full bg-[#161616] border-2 border-[#F0A442]/50 flex items-center justify-center shadow-[0_0_0_4px_#161616]">
+                      <div className="w-[6px] h-[6px] rounded-full bg-[#F0A442]" />
                     </div>
 
                     {/* Step content */}
                     <div className="flex items-start gap-4">
-                      <div className="mt-0.5 w-9 h-9 rounded-xl bg-[#D96B4F]/[0.08] border border-[#D96B4F]/15 flex items-center justify-center shrink-0">
-                        <Icon size={16} className="text-[#D96B4F]" />
+                      <div className="mt-0.5 w-9 h-9 rounded-xl bg-[#F0A442]/[0.08] border border-[#F0A442]/15 flex items-center justify-center shrink-0">
+                        <Icon size={16} className="text-[#F0A442]" />
                       </div>
                       <div>
                         <div className="flex items-center gap-3 mb-1.5">
-                          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#D96B4F]/50 tabular-nums">
+                          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#F0A442]/50 tabular-nums">
                             {step.number}
                           </span>
                           <h3 className="text-[1.05rem] font-semibold text-[#F7F3EE] leading-tight">
@@ -165,7 +165,7 @@ export function EnquiryCaptureSection() {
           {/* ── Right: Stylised enquiry UI concept ── */}
           <motion.div
             style={{ y: yTransform }}
-            className="relative rounded-xl overflow-hidden border border-[#161616] shadow-[6px_6px_0px_#B86B5C]"
+            className="relative rounded-xl overflow-hidden border border-[#161616] shadow-[6px_6px_0px_#F0A442]"
           >
             {/* Background surface */}
             <div className="absolute inset-0 bg-[#F5F2EA] z-0" />
@@ -189,14 +189,14 @@ export function EnquiryCaptureSection() {
 
                 {/* Hero headline */}
                 <div className="mb-1">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#D96B4F]/60">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C97C2E]/60">
                     Collins Construction
                   </span>
                 </div>
                 <h4 className="text-[1.4rem] md:text-[1.7rem] font-bold text-[#161616] leading-[1.15] tracking-[-0.02em] mb-2">
                   Quality work,
                   <br />
-                  <span className="text-[#D96B4F]">properly quoted.</span>
+                  <span className="text-[#C97C2E]">properly quoted.</span>
                 </h4>
                 <p className="text-[#161616]/45 text-xs leading-relaxed max-w-[28ch] mb-5">
                   Trusted local builders serving Greater Manchester. Free site visits, honest pricing.
@@ -220,7 +220,7 @@ export function EnquiryCaptureSection() {
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#161616]/40">
                     Quick Quote Request
                   </span>
-                  <span className="text-[10px] font-medium text-[#D96B4F]/50 tracking-wide">
+                  <span className="text-[10px] font-medium text-[#C97C2E]/50 tracking-wide">
                     2 min
                   </span>
                 </div>
@@ -243,7 +243,7 @@ export function EnquiryCaptureSection() {
                           key={method.label}
                           className={`inline-flex items-center justify-center gap-1 rounded-full px-2.5 py-[4px] text-[0.56rem] font-semibold uppercase tracking-wider ${
                             i === 0
-                              ? "bg-[#D96B4F]/15 text-[#D96B4F] border border-[#D96B4F]/25"
+                              ? "bg-[#C97C2E]/15 text-[#C97C2E] border border-[#C97C2E]/25"
                               : "bg-[#161616]/[0.04] text-[#161616]/40 border border-[#161616]/[0.08]"
                           }`}
                         >
@@ -322,7 +322,7 @@ export function EnquiryCaptureSection() {
                   transition={{ delay: 0.8 }}
                   className="flex items-center gap-3"
                 >
-                  <div className="inline-flex items-center gap-2.5 rounded-full bg-[#D96B4F] px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_4px_12px_rgba(217,107,79,0.15)]">
+                  <div className="inline-flex items-center gap-2.5 rounded-full bg-[#C97C2E] px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_4px_12px_rgba(201,124,46,0.15)]">
                     Send Enquiry
                     <ArrowRight size={13} strokeWidth={2.5} />
                   </div>

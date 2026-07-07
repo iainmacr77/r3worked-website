@@ -8,7 +8,7 @@ const PREVIEW_CARDS = [
   {
     title: "Roofing Company",
     desc: "From cluttered trade site to premium local authority.",
-    accent: "bg-[#D96B4F]"
+    accent: "bg-[#C97C2E]"
   },
   {
     title: "Bespoke Builder",
@@ -18,7 +18,7 @@ const PREVIEW_CARDS = [
   {
     title: "Hidden Gem",
     desc: "Structuring the layout to handle high-value enquiries.",
-    accent: "bg-[#B86B5C]"
+    accent: "bg-[#A87C4F]"
   },
 ];
 
@@ -36,7 +36,7 @@ export function PreviewExamples() {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ duration: 0.6 }}
-              className="type-eyebrow text-[#B86B5C]"
+              className="type-eyebrow text-[#A87C4F]"
             >
               Concept Previews
             </motion.p>
@@ -63,7 +63,7 @@ export function PreviewExamples() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="shrink-0"
           >
-            <button className="flex items-center gap-2 group text-sm font-semibold text-[#161616] hover:text-[#D96B4F] transition-colors">
+            <button className="flex items-center gap-2 group text-sm font-semibold text-[#161616] hover:text-[#C97C2E] transition-colors">
               Request a concept
               <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>

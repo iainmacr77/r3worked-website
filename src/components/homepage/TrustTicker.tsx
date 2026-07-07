@@ -41,7 +41,7 @@ export function TrustTicker() {
               transition={{ duration: 0.45, ease: EASE_OUT }}
               className="absolute inset-0 flex flex-col items-center justify-center"
             >
-              <div className="w-6 h-[1.5px] bg-[#D96B4F]/35 mb-3" />
+              <div className="w-6 h-[1.5px] bg-[#C97C2E]/35 mb-3" />
               <p className="text-[0.78rem] md:text-[1.05rem] lg:text-[1.2rem] font-semibold uppercase tracking-[0.1em] md:tracking-[0.13em] text-[#161616]/70 whitespace-nowrap">
                 {TRUST_STATEMENTS[activeIndex]}
               </p>

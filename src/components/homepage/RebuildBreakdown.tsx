@@ -110,10 +110,10 @@ export function RebuildBreakdown() {
   return (
     <section id="rebuild-breakdown" className="light-section-seam bg-[#F5F2EA] px-6 pb-24 md:px-10 md:pb-32">
       <div className="mx-auto max-w-[84rem]">
-        <p className="type-eyebrow mb-5 text-[#B86B5C]">What Changed</p>
+        <p className="type-eyebrow mb-5 text-[#A87C4F]">What Changed</p>
 
         <div
-          className="premium-card relative p-8 md:p-12 border-[#161616]/[0.09] shadow-[2px_2px_0px_rgba(184,107,92,0.06),0_34px_90px_rgba(72,50,37,0.08),0_12px_28px_rgba(72,50,37,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]"
+          className="premium-card relative p-8 md:p-12 border-[#161616]/[0.09] shadow-[2px_2px_0px_rgba(168,124,79,0.06),0_34px_90px_rgba(72,50,37,0.08),0_12px_28px_rgba(72,50,37,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]"
           role="region"
           aria-roledescription="carousel"
           aria-label="Transformation analysis"
@@ -146,7 +146,7 @@ export function RebuildBreakdown() {
                 aria-label={`Move ${currentIndex + 1} of ${REBUILD_MOVES.length}: ${move.category}`}
               >
                 <div className="mb-4">
-                  <span className="type-eyebrow inline-flex items-center gap-2.5 rounded-full border border-[#D96B4F]/15 bg-[#D96B4F]/5 px-3.5 py-1.5 text-[#D96B4F]">
+                  <span className="type-eyebrow inline-flex items-center gap-2.5 rounded-full border border-[#C97C2E]/15 bg-[#C97C2E]/5 px-3.5 py-1.5 text-[#C97C2E]">
                     <span className="tabular-nums">{move.number}</span>
                     {move.category}
                   </span>
@@ -172,9 +172,9 @@ export function RebuildBreakdown() {
                     </p>
                   </div>
 
-                  <div className="border-l-2 border-[#D96B4F] pl-5">
+                  <div className="border-l-2 border-[#C97C2E] pl-5">
                     <div className="mb-2.5 flex items-center gap-3">
-                      <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#D96B4F]/70">
+                      <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#C97C2E]/70">
                         After
                       </span>
                       <SignalMeter
@@ -274,7 +274,7 @@ function SignalMeter({
             i < level
               ? variant === "weak"
                 ? "h-[7px] w-[7px] rounded-full bg-[#161616]/22"
-                : "h-[7px] w-[7px] rounded-full bg-[#D96B4F]"
+                : "h-[7px] w-[7px] rounded-full bg-[#C97C2E]"
               : "h-[7px] w-[7px] rounded-full bg-[#161616]/6"
           }
         />
