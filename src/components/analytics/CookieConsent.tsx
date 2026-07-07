@@ -73,20 +73,21 @@ function useHeroPassed() {
   const [passed, setPassed] = useState(false);
 
   useEffect(() => {
-    const hero = document.getElementById("hero");
-    if (!hero) {
-      setPassed(true);
-      return;
-    }
     const check = () => {
-      if (hero.getBoundingClientRect().bottom <= 0) {
+      const hero = document.getElementById("hero");
+      if (!hero || hero.getBoundingClientRect().bottom <= 0) {
         setPassed(true);
         window.removeEventListener("scroll", check);
       }
     };
     window.addEventListener("scroll", check, { passive: true });
-    check();
-    return () => window.removeEventListener("scroll", check);
+    // Initial check runs in a frame callback rather than the effect body so
+    // no state is set synchronously during the effect (react-hooks lint).
+    const frame = requestAnimationFrame(check);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", check);
+    };
   }, []);
 
   return passed;
