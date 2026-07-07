@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { WavyDivider } from "./WavyDivider";
 
 const TRUST_STATEMENTS = [
   "Missed forms become missed jobs",
@@ -26,7 +27,9 @@ export function TrustTicker() {
   }, []);
 
   return (
-    <div className="relative bg-[#F5F2EA] border-y border-[#161616]/[0.05] px-6 py-10 md:py-14 overflow-hidden">
+    <div className="relative bg-[#F5F2EA] px-6 py-10 md:py-14 overflow-hidden">
+      <WavyDivider />
+      <WavyDivider edge="bottom" />
       <div className="mx-auto flex items-center justify-center text-center">
         <div className="relative w-full h-[2.8rem] md:h-[3rem] flex items-center justify-center overflow-hidden">
           <AnimatePresence mode="wait">

@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 type Variant = "dark" | "light";
 
@@ -207,14 +208,16 @@ export function LeadCaptureForm({
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === "submitting"}
-        className="mt-2 inline-flex min-h-[3.25rem] w-full items-center justify-center gap-2.5 rounded-full bg-[#D96B4F] px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_8px_20px_rgba(217,107,79,0.2)] transition-[transform,box-shadow,opacity] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(217,107,79,0.25)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-fit sm:px-9"
-      >
-        {status === "submitting" ? "Sending…" : "Get my free review"}
-        {status !== "submitting" && <ArrowRight size={14} strokeWidth={2.5} />}
-      </button>
+      <Magnetic className="mt-2 w-full sm:w-fit" strength={0.2}>
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="inline-flex min-h-[3.25rem] w-full items-center justify-center gap-2.5 rounded-full bg-[#D96B4F] px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_8px_20px_rgba(217,107,79,0.2)] transition-[transform,box-shadow,opacity] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(217,107,79,0.25)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-fit sm:px-9"
+        >
+          {status === "submitting" ? "Sending…" : "Get my free review"}
+          {status !== "submitting" && <ArrowRight size={14} strokeWidth={2.5} />}
+        </button>
+      </Magnetic>
 
       <p className={cn("text-[0.72rem] leading-relaxed", LABEL_STYLES[variant])}>
         No spam, no obligation. We&apos;ll reply on WhatsApp or by phone.

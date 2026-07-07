@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/ui/Magnetic";
 import { LeadRescueIntroFilm } from "@/components/homepage/LeadRescueIntroFilm";
 import {
   BEAT1,
@@ -160,12 +161,14 @@ function HeroFilmCtas({ show }: { show: boolean }) {
           className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center px-6 pb-24 pt-28 sm:pt-36 md:px-10 lg:pb-28 lg:pt-40"
         >
           <div className="pointer-events-auto flex w-full max-w-[42rem] translate-y-[14rem] flex-col items-stretch gap-3 sm:w-auto sm:max-w-none sm:translate-y-[13rem] sm:flex-row sm:items-center sm:justify-center sm:gap-4 md:translate-y-[12.25rem] lg:translate-y-[11.75rem]">
-            <Link
-              href="#lead-rescue-review"
-              className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[#161616] px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#F7F3EE] shadow-[0_12px_28px_rgba(22,22,22,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] hover:shadow-[0_16px_36px_rgba(22,22,22,0.22)] sm:w-auto"
-            >
-              {BEAT1.primaryCta}
-            </Link>
+            <Magnetic className="w-full sm:w-auto">
+              <Link
+                href="#lead-rescue-review"
+                className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[#161616] px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#F7F3EE] shadow-[0_12px_28px_rgba(22,22,22,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] hover:shadow-[0_16px_36px_rgba(22,22,22,0.22)] sm:w-auto"
+              >
+                {BEAT1.primaryCta}
+              </Link>
+            </Magnetic>
 
             <Link
               href="#how-it-works"
@@ -204,12 +207,14 @@ function StaticHero() {
       </p>
 
       <div className="mt-10 flex w-full max-w-[28rem] flex-col items-stretch gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-4">
-        <Link
-          href="#lead-rescue-review"
-          className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[#161616] px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#F7F3EE] shadow-[0_12px_28px_rgba(22,22,22,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] hover:shadow-[0_16px_36px_rgba(22,22,22,0.22)] sm:w-auto"
-        >
-          {BEAT1.primaryCta}
-        </Link>
+        <Magnetic className="w-full sm:w-auto">
+          <Link
+            href="#lead-rescue-review"
+            className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[#161616] px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#F7F3EE] shadow-[0_12px_28px_rgba(22,22,22,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] hover:shadow-[0_16px_36px_rgba(22,22,22,0.22)] sm:w-auto"
+          >
+            {BEAT1.primaryCta}
+          </Link>
+        </Magnetic>
 
         <Link
           href="#how-it-works"

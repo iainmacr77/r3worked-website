@@ -4,6 +4,8 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { Magnetic } from "@/components/ui/Magnetic";
+import { WavyDivider } from "@/components/homepage/WavyDivider";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                                */
@@ -70,6 +72,7 @@ export function PricingSection() {
       id="pricing"
       className="light-section-seam bg-[#F5F2EA] px-6 py-24 md:px-10 md:py-32 overflow-hidden"
     >
+      <WavyDivider />
       <div className="mx-auto max-w-[84rem]">
         {/* ───────── Header ───────── */}
         <div className="mb-16 md:mb-20 max-w-[48rem]">
@@ -154,13 +157,15 @@ export function PricingSection() {
                 ))}
               </div>
 
-              <Link
-                href="#lead-rescue-review"
-                className="mt-auto inline-flex w-fit items-center gap-2.5 rounded-full bg-[#D96B4F] px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_8px_20px_rgba(217,107,79,0.2)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(217,107,79,0.25)]"
-              >
-                Stop losing leads
-                <ArrowRight size={14} strokeWidth={2.5} />
-              </Link>
+              <Magnetic className="mt-auto w-fit">
+                <Link
+                  href="#lead-rescue-review"
+                  className="inline-flex items-center gap-2.5 rounded-full bg-[#D96B4F] px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_8px_20px_rgba(217,107,79,0.2)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(217,107,79,0.25)]"
+                >
+                  Stop losing leads
+                  <ArrowRight size={14} strokeWidth={2.5} />
+                </Link>
+              </Magnetic>
             </div>
           </motion.div>
 

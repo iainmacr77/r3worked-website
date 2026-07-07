@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 export function FinalCta() {
   const ref = useRef<HTMLDivElement>(null);
@@ -58,12 +59,14 @@ export function FinalCta() {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
             >
-              <Link
-                href="#lead-rescue-review"
-                className="w-full sm:w-auto inline-flex items-center justify-center bg-[#F5F2EA] text-[#161616] px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:bg-white hover:-translate-y-0.5 shadow-[0_12px_24px_rgba(245,242,234,0.1)]"
-              >
-                Start Lead Rescue review
-              </Link>
+              <Magnetic className="w-full sm:w-auto">
+                <Link
+                  href="#lead-rescue-review"
+                  className="w-full sm:w-auto inline-flex items-center justify-center bg-[#F5F2EA] text-[#161616] px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:bg-white hover:-translate-y-0.5 shadow-[0_12px_24px_rgba(245,242,234,0.1)]"
+                >
+                  Start Lead Rescue review
+                </Link>
+              </Magnetic>
 
               <Link
                 href="/book"

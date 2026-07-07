@@ -3,6 +3,7 @@
 import { Accordion } from "radix-ui";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { WavyDivider } from "@/components/homepage/WavyDivider";
 
 const FAQS = [
   {
@@ -45,6 +46,7 @@ export function FaqSection() {
       id="faq"
       className="light-section-seam bg-[#F5F2EA] px-6 py-24 md:px-10 md:py-32 scroll-mt-20"
     >
+      <WavyDivider />
       <div className="mx-auto max-w-[84rem]">
         <div className="mx-auto max-w-[48rem]">
           <motion.p

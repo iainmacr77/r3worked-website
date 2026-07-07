@@ -7,6 +7,7 @@ import { HomepagePreviewModal } from "./HomepagePreviewModal";
 import { CollinsAfterFullPreview } from "./CollinsAfterFullPreview";
 import { CollinsBeforeFullPreview } from "./CollinsBeforeFullPreview";
 import { BrowserPreviewFrame } from "./BrowserPreviewFrame";
+import { WavyDivider } from "./WavyDivider";
 
 export function BeforeAfterShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -16,6 +17,7 @@ export function BeforeAfterShowcase() {
 
   return (
     <section id="before-after-showcase" className="light-section-seam bg-[#F5F2EA] px-6 pt-24 pb-14 md:px-10 md:pt-32 md:pb-16">
+      <WavyDivider />
       <div className="mx-auto max-w-[84rem]" ref={containerRef}>
         
         {/* Header */}

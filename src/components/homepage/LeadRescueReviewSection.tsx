@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { LeadCaptureForm } from "@/components/forms/LeadCaptureForm";
+import { WavyDivider } from "@/components/homepage/WavyDivider";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -17,6 +18,7 @@ export function LeadRescueReviewSection() {
       id="lead-rescue-review"
       className="light-section-seam bg-[#F5F2EA] px-6 py-24 md:px-10 md:py-32 scroll-mt-20"
     >
+      <WavyDivider />
       <div className="mx-auto max-w-[84rem]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

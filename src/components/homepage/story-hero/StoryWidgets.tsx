@@ -12,6 +12,7 @@ import {
 } from "framer-motion";
 import {
   AudioLines,
+  CheckCheck,
   CheckCircle2,
   FileText,
   Mail,
@@ -488,7 +489,7 @@ export function FormToLeadSequence({
             <motion.span
               initial={reduceMotion ? false : { opacity: 0, x: 8 }}
               animate={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-700/90"
+              className="flex items-center gap-1.5 text-[10px] font-bold text-[#2E7D5B]/90"
             >
               <MessageSquare size={11} className="text-[#25D366]" aria-hidden="true" />
               {alertCaption} →
@@ -535,11 +536,11 @@ export function FormToLeadSequence({
               }}
             >
               <div className="flex items-center gap-3.5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 shadow-inner">
-                  <CheckCircle2 size={20} className="text-emerald-600" aria-hidden="true" />
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#2E7D5B]/20 bg-[#2E7D5B]/10 shadow-inner">
+                  <CheckCircle2 size={20} className="text-[#2E7D5B]" aria-hidden="true" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[9px] font-extrabold uppercase tracking-[0.14em] text-emerald-600">
+                  <p className="text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#2E7D5B]">
                     Lead Captured
                   </p>
                   <p className="mt-0.5 truncate text-[14px] font-bold text-[#161616]">
@@ -549,19 +550,19 @@ export function FormToLeadSequence({
                     {leadCard.meta}
                   </p>
                 </div>
-                <span className="shrink-0 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[9px] font-extrabold uppercase tracking-[0.12em] text-emerald-700 shadow-sm">
+                <span className="shrink-0 rounded-full border border-[#2E7D5B]/20 bg-[#2E7D5B]/10 px-3 py-1 text-[9px] font-extrabold uppercase tracking-[0.12em] text-[#2E7D5B] shadow-sm">
                   {leadCard.status}
                 </span>
               </div>
 
-              <div className="mt-3.5 flex items-center gap-2 border-t border-emerald-600/10 pt-3">
+              <div className="mt-3.5 flex items-center gap-2 border-t border-[#2E7D5B]/10 pt-3">
                 <span
                   className="flex h-6 w-6 items-center justify-center rounded-lg"
                   style={{ background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)" }}
                 >
                   <MessageSquare size={12} className="text-white" aria-hidden="true" />
                 </span>
-                <span className="text-[10px] font-bold text-emerald-700/85">
+                <span className="text-[10px] font-bold text-[#2E7D5B]/85">
                   {alertCaption} →
                 </span>
               </div>
@@ -608,7 +609,7 @@ export function WhatsAppNotification({
             <span className="text-[9px] font-medium text-white/35">now</span>
           </div>
           <p className="mt-1 text-[12px] font-bold leading-snug text-white">{title}</p>
-          <p className="mt-1.5 flex cursor-pointer items-center gap-1 text-[10px] font-bold text-emerald-400 hover:text-emerald-300">
+          <p className="mt-1.5 flex cursor-pointer items-center gap-1 text-[10px] font-bold text-[#25D366] hover:text-[#25D366]/80">
             {action} <span className="text-[11px]">➔</span>
           </p>
         </div>
@@ -701,11 +702,11 @@ export function AlertFlightScene({
         initial={reduceMotion ? false : { opacity: 0, y: 18 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ type: "spring", stiffness: 180, damping: 22 }}
-        className="relative w-[240px] rounded-2xl border border-emerald-600/25 bg-white/85 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_36px_rgba(46,125,91,0.1),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-md sm:absolute sm:left-0 sm:top-[14%] sm:w-[210px]"
+        className="relative w-[240px] rounded-2xl border border-[#2E7D5B]/25 bg-white/85 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_36px_rgba(46,125,91,0.1),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-md sm:absolute sm:left-0 sm:top-[14%] sm:w-[210px]"
       >
         <div className="flex items-center gap-2">
-          <CheckCircle2 size={13} className="text-emerald-600" aria-hidden="true" />
-          <p className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-emerald-700">
+          <CheckCircle2 size={13} className="text-[#2E7D5B]" aria-hidden="true" />
+          <p className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-[#2E7D5B]">
             {origin.label}
           </p>
         </div>
@@ -738,26 +739,6 @@ export function AlertFlightScene({
 
       {/* The owner's phone */}
       <div className="relative sm:absolute sm:bottom-0 sm:right-[4%]">
-        {/* Green ripple radiating on landing */}
-        {landed && !reduceMotion && (
-          <div className="pointer-events-none absolute left-1/2 top-14 z-0 -translate-x-1/2" aria-hidden="true">
-            {[0, 0.7].map((delay) => (
-              <motion.span
-                key={delay}
-                initial={{ scale: 0.5, opacity: 0.55 }}
-                animate={{ scale: 2.4, opacity: 0 }}
-                transition={{
-                  duration: 2.2,
-                  delay,
-                  repeat: Infinity,
-                  ease: "easeOut",
-                }}
-                className="absolute -left-16 -top-16 h-32 w-32 rounded-full border border-[#25D366]/50 bg-[#25D366]/10"
-              />
-            ))}
-          </div>
-        )}
-
         <PhoneMockup dark className="relative z-10">
           <div className="flex h-full flex-col px-3 pt-4">
             <div className="text-center">
@@ -921,7 +902,7 @@ export function MissedCallRescue({
                     <div className="flex h-10 w-10 items-center justify-center rounded-full border border-red-500/20 bg-red-600 shadow-lg">
                       <Phone size={15} className="rotate-[135deg]" />
                     </div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-green-400/20 bg-green-500 shadow-lg">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#2E7D5B]/20 bg-[#2E7D5B] shadow-lg">
                       <Phone size={15} />
                     </div>
                   </div>
@@ -1117,9 +1098,9 @@ export function DashboardTiles({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-3 py-1 shadow-inner">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-          <span className="text-[9px] font-extrabold uppercase tracking-[0.12em] text-emerald-400">
+        <div className="flex items-center gap-2 rounded-full border border-[#2E7D5B]/20 bg-[#2E7D5B]/5 px-3 py-1 shadow-inner">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#4ADE80]" />
+          <span className="text-[9px] font-extrabold uppercase tracking-[0.12em] text-[#4ADE80]">
             Live Listening Active
           </span>
         </div>
@@ -1143,7 +1124,7 @@ export function DashboardTiles({
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <h4 className="text-[13px] font-bold text-white">James Whitfield</h4>
-                  <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-emerald-400">
+                  <span className="rounded-full border border-[#2E7D5B]/20 bg-[#2E7D5B]/10 px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-[#4ADE80]">
                     New lead
                   </span>
                 </div>
@@ -1168,7 +1149,7 @@ export function DashboardTiles({
                         animate={inView ? { scaleX: 1 } : {}}
                         style={{ originX: 0 }}
                         transition={{ duration: 0.45, delay: 0.5 + i * 0.45, ease: EASE }}
-                        className="h-full bg-emerald-500/70"
+                        className="h-full bg-[#4ADE80]/80"
                       />
                     </div>
                   )}
@@ -1182,9 +1163,9 @@ export function DashboardTiles({
                         damping: 18,
                         delay: 0.35 + i * 0.45,
                       }}
-                      className="flex h-4.5 w-4.5 items-center justify-center rounded-full border border-emerald-500/40 bg-emerald-500/15"
+                      className="flex h-4.5 w-4.5 items-center justify-center rounded-full border border-[#4ADE80]/40 bg-[#4ADE80]/15"
                     >
-                      <span className="text-[8px] font-extrabold text-emerald-400">✓</span>
+                      <span className="text-[8px] font-extrabold text-[#4ADE80]">✓</span>
                     </motion.div>
                     <span className="whitespace-nowrap text-[8px] font-bold uppercase tracking-wide text-white/45">
                       {label}
@@ -1329,11 +1310,14 @@ export function ReviewConversation({
 
       {/* Thread header */}
       <div className="mb-5 flex items-center gap-2.5 border-b border-white/5 pb-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-          <MessageSquare size={14} className="text-white/60" />
+        <div
+          className="flex h-8 w-8 items-center justify-center rounded-xl shadow-sm"
+          style={{ background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)" }}
+        >
+          <MessageSquare size={14} className="text-white" />
         </div>
         <div>
-          <p className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-white/40">
+          <p className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#25D366]">
             After the job
           </p>
           <p className="text-[12px] font-bold text-white">Automatic follow-up</p>
@@ -1349,9 +1333,14 @@ export function ReviewConversation({
               initial={reduceMotion ? false : { opacity: 0, y: 14, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ type: "spring", stiffness: 240, damping: 22 }}
-              className="ml-auto w-fit max-w-[80%] rounded-2xl rounded-br-md bg-[#D96B4F] px-4 py-2.5 shadow-[0_8px_20px_rgba(217,107,79,0.25)]"
+              className="ml-auto w-fit max-w-[80%] rounded-2xl rounded-br-md px-4 py-2.5 shadow-[0_8px_20px_rgba(0,92,75,0.3)]"
+              style={{ background: "linear-gradient(135deg, #005C4B 0%, #003D32 100%)" }}
             >
               <p className="text-[13px] font-bold text-white">{prompt}</p>
+              <div className="mt-1 flex items-center justify-end gap-1">
+                <span className="text-[9px] font-medium text-white/50">09:14</span>
+                <CheckCheck size={13} className="text-[#53BDEB]" aria-hidden="true" />
+              </div>
             </motion.div>
           )}
 
