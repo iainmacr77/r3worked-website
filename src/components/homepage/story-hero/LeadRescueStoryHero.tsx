@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, useSyncExternalStore, type ReactNode } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LeadRescueIntroFilm } from "@/components/homepage/LeadRescueIntroFilm";
@@ -186,17 +186,85 @@ function HeroFilmCtas({ show }: { show: boolean }) {
   );
 }
 
+/**
+ * The non-canvas hero: real DOM flow, text wraps naturally at any width.
+ * Used on mobile/tablet (where the animated film's fixed 1920x1080 stage
+ * cover-scales in ways that overflow narrow, tall viewports) and for anyone
+ * with prefers-reduced-motion, regardless of screen size.
+ */
+function StaticHero() {
+  return (
+    <div className="flex w-full flex-col items-center px-6 py-28 text-center sm:pt-36 md:px-10">
+      <BeatEyebrow>{"CALLS · FORMS · FOLLOW-UPS"}</BeatEyebrow>
+      <h1 className="type-section-heading-serif mt-6 max-w-[16ch] text-[#161616]">
+        Never miss another lead.
+      </h1>
+      <p className="type-support mt-6 max-w-[36rem] text-[#2A2A2A]/70">
+        Every enquiry captured, every owner alerted, every next step tracked.
+      </p>
+
+      <div className="mt-10 flex w-full max-w-[28rem] flex-col items-stretch gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-4">
+        <Link
+          href="#lead-rescue-review"
+          className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[#161616] px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#F7F3EE] shadow-[0_12px_28px_rgba(22,22,22,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2A2A2A] hover:shadow-[0_16px_36px_rgba(22,22,22,0.22)] sm:w-auto"
+        >
+          {BEAT1.primaryCta}
+        </Link>
+
+        <Link
+          href="#how-it-works"
+          className="group inline-flex h-14 w-full items-center justify-center rounded-full border border-[#161616]/10 bg-white/40 px-8 text-[13px] font-bold uppercase tracking-[0.15em] text-[#161616] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/60 sm:w-auto"
+        >
+          {BEAT1.secondaryCta}
+          <ArrowRight
+            className="ml-3 transition-transform group-hover:translate-x-1.5"
+            size={15}
+            strokeWidth={2.4}
+            aria-hidden="true"
+          />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function subscribeToDesktopQuery(callback: () => void) {
+  const query = window.matchMedia("(min-width: 768px)");
+  query.addEventListener("change", callback);
+  return () => query.removeEventListener("change", callback);
+}
+
+function getIsDesktopSnapshot() {
+  return window.matchMedia("(min-width: 768px)").matches;
+}
+
+function getIsDesktopServerSnapshot() {
+  return false; // SSR always renders the static hero; desktop upgrades after mount.
+}
+
 /** The homepage hero — problem statement plus the live enquiry leak. */
 export function LeadRescueStoryHero() {
   const [introFilmComplete, setIntroFilmComplete] = useState(false);
+  const isDesktop = useSyncExternalStore(
+    subscribeToDesktopQuery,
+    getIsDesktopSnapshot,
+    getIsDesktopServerSnapshot
+  );
+  const reducedMotion = useReducedMotion();
+
+  const useAnimatedHero = isDesktop && reducedMotion !== true;
 
   return (
     <section id="hero" className="relative w-full overflow-hidden">
-      <div className="relative flex min-h-[calc(100vh+2rem)] items-center overflow-hidden bg-[#F5F2EA] px-6 pb-24 pt-28 sm:pt-36 md:px-10 lg:pb-28 lg:pt-40">
-        <h1 className="sr-only">Never miss another lead.</h1>
-        <LeadRescueIntroFilm onComplete={() => setIntroFilmComplete(true)} />
-        <HeroFilmCtas show={introFilmComplete} />
-      </div>
+      {useAnimatedHero ? (
+        <div className="relative flex min-h-[calc(100vh+2rem)] items-center overflow-hidden bg-[#F5F2EA] px-6 pb-24 pt-28 sm:pt-36 md:px-10 lg:pb-28 lg:pt-40">
+          <h1 className="sr-only">Never miss another lead.</h1>
+          <LeadRescueIntroFilm onComplete={() => setIntroFilmComplete(true)} />
+          <HeroFilmCtas show={introFilmComplete} />
+        </div>
+      ) : (
+        <StaticHero />
+      )}
     </section>
   );
 }
