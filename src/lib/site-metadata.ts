@@ -12,6 +12,10 @@ export function createSiteMetadata({
   return {
     title,
     description,
+    icons: {
+      icon: "/r3worked-favicon.svg",
+      shortcut: "/r3worked-favicon.svg",
+    },
     openGraph: {
       title,
       description,
