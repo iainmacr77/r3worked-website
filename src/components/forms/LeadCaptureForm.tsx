@@ -1,10 +1,15 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/ui/Magnetic";
+import {
+  DEFAULT_PHONE_COUNTRY,
+  PHONE_COUNTRIES,
+  type PhoneCountry,
+} from "./phoneCountries";
 
 type Variant = "dark" | "light";
 
@@ -42,6 +47,50 @@ export function LeadCaptureForm({
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [serverError, setServerError] = useState<string | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<PhoneCountry>(
+    DEFAULT_PHONE_COUNTRY
+  );
+  const [countryOpen, setCountryOpen] = useState(false);
+  const [countrySearch, setCountrySearch] = useState("");
+  const countryPickerRef = useRef<HTMLDivElement>(null);
+  const countrySearchRef = useRef<HTMLInputElement>(null);
+  const selectedCountryRef = useRef<HTMLButtonElement>(null);
+
+  const filteredCountries = useMemo(() => {
+    const query = countrySearch.trim().toLocaleLowerCase();
+    if (!query) return PHONE_COUNTRIES;
+
+    return PHONE_COUNTRIES.filter(
+      (country) =>
+        country.name.toLocaleLowerCase().includes(query) ||
+        country.dialCode.includes(query) ||
+        country.code.toLocaleLowerCase().includes(query)
+    );
+  }, [countrySearch]);
+
+  useEffect(() => {
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!countryPickerRef.current?.contains(event.target as Node)) {
+        setCountryOpen(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setCountryOpen(false);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!countryOpen) return;
+    countrySearchRef.current?.focus();
+    selectedCountryRef.current?.scrollIntoView({ block: "nearest" });
+  }, [countryOpen]);
 
   const setField = (field: keyof typeof values, value: string) => {
     setValues((prev) => ({ ...prev, [field]: value }));
@@ -72,10 +121,14 @@ export function LeadCaptureForm({
 
     setStatus("submitting");
     try {
+      const submittedPhone = formatInternationalPhone(
+        selectedCountry.dialCode,
+        values.phone
+      );
       const response = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, phone: submittedPhone }),
       });
       const data = await response.json();
 
@@ -135,10 +188,12 @@ export function LeadCaptureForm({
 
       <Field
         label="Your name"
+        id="lead-name"
         error={errors.name}
         variant={variant}
         input={
           <input
+            id="lead-name"
             type="text"
             name="name"
             autoComplete="name"
@@ -152,27 +207,134 @@ export function LeadCaptureForm({
 
       <Field
         label="Phone / WhatsApp"
+        id="lead-phone"
         error={errors.phone}
         variant={variant}
         input={
-          <input
-            type="tel"
-            name="phone"
-            autoComplete="tel"
-            placeholder="e.g. 07700 900123"
-            value={values.phone}
-            onChange={(e) => setField("phone", e.target.value)}
-            className={cn(inputBase, INPUT_STYLES[variant], errors.phone && "border-red-500/60")}
-          />
+          <div ref={countryPickerRef} className="relative">
+            <div
+              className={cn(
+                "flex min-h-[3rem] w-full overflow-visible rounded-xl border transition-colors duration-300",
+                INPUT_STYLES[variant],
+                errors.phone && "border-red-500/60"
+              )}
+            >
+              <button
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded={countryOpen}
+                aria-label={`Country code: ${selectedCountry.name}`}
+                onClick={() => setCountryOpen((open) => !open)}
+                className="flex shrink-0 items-center gap-2 rounded-l-xl border-r border-current/10 px-3.5 text-left text-[0.9rem] font-medium transition-colors hover:bg-current/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C97C2E]/50"
+              >
+                <span aria-hidden="true" className="text-[1.05rem] leading-none">
+                  {countryFlag(selectedCountry.code)}
+                </span>
+                <span>{selectedCountry.dialCode}</span>
+                <ChevronDown
+                  size={15}
+                  aria-hidden="true"
+                  className={cn(
+                    "ml-auto shrink-0 opacity-60 transition-transform",
+                    countryOpen && "rotate-180"
+                  )}
+                />
+              </button>
+              <input
+                id="lead-phone"
+                type="tel"
+                name="phone"
+                autoComplete="tel-national"
+                inputMode="tel"
+                placeholder="e.g. 062 637 7609"
+                value={values.phone}
+                onChange={(e) => setField("phone", e.target.value)}
+                className="min-w-0 flex-1 rounded-r-xl bg-transparent px-3.5 py-3 text-[0.95rem] outline-none placeholder:opacity-50"
+              />
+            </div>
+
+            {countryOpen && (
+              <div
+                className={cn(
+                  "absolute left-0 right-0 top-[calc(100%+0.5rem)] z-30 overflow-hidden rounded-xl border p-2 shadow-[0_18px_50px_rgba(22,22,22,0.2)]",
+                  variant === "dark"
+                    ? "border-[#F7F3EE]/12 bg-[#242321] text-[#F7F3EE]"
+                    : "border-[#161616]/10 bg-[#FFFDF8] text-[#161616]"
+                )}
+              >
+                <div className="relative">
+                  <Search
+                    size={15}
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 opacity-50"
+                  />
+                  <input
+                    ref={countrySearchRef}
+                    type="search"
+                    value={countrySearch}
+                    onChange={(event) => setCountrySearch(event.target.value)}
+                    placeholder="Search countries"
+                    aria-label="Search countries"
+                    className="h-10 w-full rounded-lg border border-current/10 bg-current/[0.04] pl-9 pr-3 text-sm outline-none placeholder:opacity-50 focus:border-[#C97C2E]/60"
+                  />
+                </div>
+                <div
+                  role="listbox"
+                  aria-label="Country codes"
+                  className="mt-2 max-h-60 overflow-y-auto overscroll-contain"
+                >
+                  {filteredCountries.length > 0 ? (
+                    filteredCountries.map((country) => (
+                      <button
+                        key={country.code}
+                        ref={
+                          country.code === selectedCountry.code
+                            ? selectedCountryRef
+                            : undefined
+                        }
+                        type="button"
+                        role="option"
+                        aria-selected={country.code === selectedCountry.code}
+                        onClick={() => {
+                          setSelectedCountry(country);
+                          setCountrySearch("");
+                          setCountryOpen(false);
+                        }}
+                        className={cn(
+                          "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors hover:bg-[#C97C2E]/10",
+                          country.code === selectedCountry.code &&
+                            "bg-[#C97C2E]/10 font-semibold"
+                        )}
+                      >
+                        <span aria-hidden="true" className="text-base leading-none">
+                          {countryFlag(country.code)}
+                        </span>
+                        <span className="min-w-0 flex-1 truncate">{country.name}</span>
+                        <span className="shrink-0 text-xs opacity-60">
+                          {country.dialCode}
+                        </span>
+                      </button>
+                    ))
+                  ) : (
+                    <p className="px-3 py-4 text-sm opacity-60">
+                      No country found.
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         }
       />
 
       <Field
         label="Your website (optional)"
+        id="lead-website"
         error={errors.website}
         variant={variant}
         input={
           <input
+            id="lead-website"
             type="text"
             name="website"
             autoComplete="url"
@@ -187,10 +349,12 @@ export function LeadCaptureForm({
 
       <Field
         label="Anything we should look at? (optional)"
+        id="lead-message"
         error={errors.message}
         variant={variant}
         input={
           <textarea
+            id="lead-message"
             name="message"
             rows={3}
             maxLength={1000}
@@ -233,24 +397,26 @@ export function LeadCaptureForm({
 
 function Field({
   label,
+  id,
   error,
   input,
   variant,
 }: {
   label: string;
+  id: string;
   error?: string;
   input: React.ReactNode;
   variant: Variant;
 }) {
   return (
-    <label className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1.5">
       <span
         className={cn(
           "text-[0.68rem] font-semibold uppercase tracking-[0.14em]",
           LABEL_STYLES[variant]
         )}
       >
-        {label}
+        <label htmlFor={id}>{label}</label>
       </span>
       {input}
       {error && (
@@ -258,8 +424,22 @@ function Field({
           {error}
         </span>
       )}
-    </label>
+    </div>
   );
+}
+
+function formatInternationalPhone(dialCode: string, phone: string) {
+  const trimmedPhone = phone.trim();
+  if (trimmedPhone.startsWith("+")) return trimmedPhone;
+  return `${dialCode} ${trimmedPhone.replace(/^0+/, "")}`.trim();
+}
+
+function countryFlag(countryCode: string) {
+  return countryCode
+    .toUpperCase()
+    .replace(/./g, (character) =>
+      String.fromCodePoint(127397 + character.charCodeAt(0))
+    );
 }
 
 /**

@@ -120,6 +120,11 @@
     font-family: var(--font-inter), sans-serif;
   }
 
+  button:not(:disabled),
+  a[href] {
+    cursor: pointer;
+  }
+
   body::before {
     content: "";
     @apply pointer-events-none fixed inset-0 z-50 w-full h-full opacity-[0.03];
